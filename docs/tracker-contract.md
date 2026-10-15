@@ -38,3 +38,7 @@ For a `summary_only` row the decoded evidence has `answer_summary`, **not** `ans
 ## Export and deletion
 
 User controls their private workbook. Permit private export, correction of provisional model assessments and deletion after confirmation and verified readback. Removing data from the current Sheet may not remove external backups, cached chats, or previously exported files; explain scope of deletion.
+
+## State revision and interruptions
+
+Config.state_revision is a monotonic best-effort counter for learner state changes. Re-read it before writing summaries or showing a previously prepared lesson. After a verified mutation, advance it and read it back. A mismatch invalidates cached lesson blueprints and triggers a private reload. In Google Sheets, this is **not** a compare-and-swap operation; concurrent writers may still race. Do not claim transactional consistency or invent previously unverified writes.
