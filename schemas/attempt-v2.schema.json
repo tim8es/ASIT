@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASIT attempt v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attempt_id",
+    "session_id",
+    "lesson_id",
+    "activity_id",
+    "competency_id",
+    "answer",
+    "attempt_number",
+    "hint_level"
+  ],
+  "properties": {
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lesson_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "activity_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "competency_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "answer": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+    "attempt_number": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "hint_level": {
+      "enum": [
+        "none",
+        "minimal",
+        "frame",
+        "model",
+        "unknown"
+      ]
+    }
+  }
+}

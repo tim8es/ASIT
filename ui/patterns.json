@@ -1,0 +1,66 @@
+{
+  "version": "0.2",
+  "selection_rule": "competency -> mental operation -> appropriate activity -> observable rubric",
+  "patterns": [
+    {
+      "type": "cloze",
+      "goal": "retrieve form from context",
+      "input": "text field",
+      "assessment": "accepted variants plus context; no answer before attempt"
+    },
+    {
+      "type": "sentence_builder",
+      "goal": "compose grammatical chunks",
+      "input": "ordering or controlled text",
+      "assessment": "accuracy plus independent retry in different context"
+    },
+    {
+      "type": "grammar_contrast",
+      "goal": "discriminate intended meaning",
+      "input": "options plus short justification",
+      "assessment": "choice and reason"
+    },
+    {
+      "type": "error_detective",
+      "goal": "notice and repair a specific error",
+      "input": "text correction",
+      "assessment": "corrected meaning and new independent example"
+    },
+    {
+      "type": "vocabulary_retrieval",
+      "goal": "retrieve useful chunks",
+      "input": "open text field",
+      "assessment": "meaning and context, not exact token matching alone"
+    },
+    {
+      "type": "free_production",
+      "goal": "demonstrate independent communication",
+      "input": "text box or accessible speech tool",
+      "assessment": "can-do rubric; modality labelled"
+    },
+    {
+      "type": "dialogue",
+      "goal": "sustain conversational interaction",
+      "input": "chat turns",
+      "assessment": "coherence, response appropriateness, clarification"
+    },
+    {
+      "type": "listening",
+      "goal": "understand actual audio",
+      "input": "source audio plus questions",
+      "assessment": "gist and detail; never simulate an unheard recording"
+    },
+    {
+      "type": "scenario",
+      "goal": "make decisions and justify",
+      "input": "options and free explanation",
+      "assessment": "plausible trade-offs and linguistic accuracy"
+    },
+    {
+      "type": "progress_explorer",
+      "goal": "explain evidenced learning state",
+      "input": "view plus optional filters",
+      "assessment": "not an assessment; read-only summary"
+    }
+  ]
+}

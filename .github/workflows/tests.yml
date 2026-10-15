@@ -1,0 +1,23 @@
+name: ASIT source safety and learning unit tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test learner state, planner and protocol
+        run: node --test tests/*.test.mjs
+      - name: Scan current source for private data
+        run: node scripts/scan-public.mjs

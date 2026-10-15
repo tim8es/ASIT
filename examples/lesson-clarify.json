@@ -1,0 +1,33 @@
+{
+  "example_only": true,
+  "fictional": true,
+  "note": "Illustration only. Agent generates real lesson after learner state is established.",
+  "lesson_id": "demo-clarify",
+  "session_id": "demo-session",
+  "goal_id": "demo-goal",
+  "target_competency_ids": [
+    "INTERACT-CLARIFY"
+  ],
+  "objective": "Request clarification in two everyday situations",
+  "activities": [
+    {
+      "activity_id": "demo-a",
+      "type": "free_production",
+      "prompt": "Politely ask a speaker to repeat an unclear word.",
+      "rubric": [
+        "request is clear",
+        "polite register",
+        "natural phrasing"
+      ]
+    },
+    {
+      "activity_id": "demo-b",
+      "type": "context_transfer",
+      "prompt": "Now politely ask for clarification about a change in opening hours.",
+      "rubric": [
+        "same communicative skill used in new context",
+        "independent reply"
+      ]
+    }
+  ]
+}

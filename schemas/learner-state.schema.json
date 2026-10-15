@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASIT Learner State v2",
+  "type": "object",
+  "required": [
+    "version",
+    "profile",
+    "competencies",
+    "attempts",
+    "review_queue",
+    "sessions",
+    "learning_plan",
+    "revision"
+  ],
+  "properties": {
+    "version": {
+      "const": 2
+    },
+    "profile": {
+      "type": "object",
+      "required": [
+        "learner_id",
+        "target_language",
+        "goals",
+        "working_level",
+        "level_evidence"
+      ],
+      "properties": {
+        "learner_id": {
+          "type": "string"
+        },
+        "target_language": {
+          "type": "string"
+        },
+        "native_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "available_minutes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "working_level": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "level_evidence": {
+          "enum": [
+            "unassessed",
+            "provisional",
+            "verified"
+          ]
+        },
+        "preferences": {
+          "type": "object"
+        }
+      }
+    },
+    "competencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/competency"
+      }
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attempt"
+      }
+    },
+    "review_queue": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "learning_plan": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "$defs": {
+    "competency": {
+      "type": "object",
+      "required": [
+        "id",
+        "can_do"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "can_do": {
+          "type": "string"
+        },
+        "cefr_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attempt": {
+      "type": "object",
+      "required": [
+        "attempt_id",
+        "session_id",
+        "lesson_id",
+        "activity_id",
+        "competency_id",
+        "answer",
+        "assessment",
+        "hint_level",
+        "attempt_number"
+      ],
+      "properties": {
+        "attempt_id": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "lesson_id": {
+          "type": "string"
+        },
+        "activity_id": {
+          "type": "string"
+        },
+        "competency_id": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "assessment": {
+          "enum": [
+            "correct",
+            "partial",
+            "needs_support",
+            "not_assessed"
+          ]
+        },
+        "hint_level": {
+          "enum": [
+            "none",
+            "minimal",
+            "frame",
+            "model",
+            "unknown"
+          ]
+        },
+        "attempt_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "context_id": {
+          "type": "string"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
