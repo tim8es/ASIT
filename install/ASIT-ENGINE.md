@@ -22,7 +22,7 @@ Default: **one complete seven-minute lesson per assistant response**, with topic
 
 Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. Normal chat is valid. Never fake dragging, image or audio evidence.
 
-For objective choices, forms and card orders, show provisional local `Correct`/`Try again` after input, track first answers/hints, and keep ONE final Submit; defer subjective writing. `image_label` requires a real picture above a typed word, with honest text fallback. Underlined terms may open explanatory popovers, never a guaranteed side chat. Load detailed UI policy on demand.
+For objective tasks, show local feedback and track first tries. Keep ONE final Submit; defer free writing. `image_label` needs a real picture and word input. Narration stays whole: move popovers after sentences if inline layout breaks. If required writing or another required task is blank, mark the lesson incomplete and the task not_assessed; never unlock the finale. Load detailed UI policy on demand.
 
 Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
