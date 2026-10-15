@@ -14,7 +14,7 @@ ASIT is an educational experience, **not** a spreadsheet administration interfac
 
 Prefer the smallest hierarchy that makes content clear; keep the learner's next action visually primary.
 
-**Lesson header:** clearly named topic, observable communicative target, relevant modality, and estimated duration **up to seven minutes** (not measured time). No artificial XP, decorative badges, simulated completion bars or unverified proficiency percentages.
+**Lesson header:** clearly named topic, observable communicative target, relevant modality, and estimated duration, **up to seven minutes by default** or the learner's explicitly configured value (not measured time). No artificial XP, decorative badges, simulated completion bars or unverified proficiency percentages.
 
 **Practice form:** all related exercises in one assistant response, grouped under one clear form and one Submit. Keep each task's prompt distinct and short, label each control, and show only context needed for its assessment. When choice options have ambiguous answers, rewrite them. Prefer 3–5 exercises when the seven-minute budget allows (configurable 1–5); reduce the count for speech or demanding comprehension.
 
