@@ -8,7 +8,7 @@
 4. If you want your progress saved across chats, connect Google Drive and approve the privacy mode before the first persistent write. You do not manually create the tracking Sheet.
 5. Open another chat in the same Project and ask ASIT to continue; it must actually fetch the current GitHub Engine and read the relevant private learner state. New Engine changes on `main` require no attachment re-upload.
 
-The default is **Project file + short router**, with no GitHub connector needed at runtime. The two versioned sources stay in GitHub for version control, while the learner's sensitive data stays in their own private storage.
+The default is **GitHub-connected source + short router**. Versioned instructions stay in GitHub; private learner state remains in the learner's own storage. Without the GitHub connector, an existing attached file is only a fallback snapshot, not a live update mechanism.
 
 ### Why a link alone is not enough
 
