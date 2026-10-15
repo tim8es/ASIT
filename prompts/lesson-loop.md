@@ -26,3 +26,7 @@ Use `prompts/assessment.md`. Tag whether correct answers were independent or hea
 ## Lesson completion
 
 Summarize evidence: observed attempts, observed strengths, one or two main corrections, items to retrieve later, next competency and why. Persist only after the learner consented and tools confirmed write success. Don't claim the entire learning plan or B2 proficiency has been objectively measured.
+
+## Persistence across chats
+
+Persist each competency's required modality and mental operation, along with the corresponding verified fields on trusted Activities and Attempts. A fresh chat must re-read these scopes and not reinterpret typed recognition as oral production. Separate lesson completion from a verified storage write and from evidence of durable skill transfer.

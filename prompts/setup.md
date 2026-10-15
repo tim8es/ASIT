@@ -8,7 +8,7 @@ If Google Drive is unavailable, run explicitly **temporary** lessons with no cro
 
 ## Phase 1: locate or create state (with consent)
 
-Search exactly for a learner-owned workbook named ASIT — Learner State; prefer a workbook already configured in project instructions. Zero matches: explain collected fields and ask approval to create. If approved, create a native Sheet with tabs and headers from `docs/tracker-contract.md`; seed **no** fictional achievements. One match: inspect version, ownership/scope and minimal data. Multiple matches: ask which to use. Do not load a different learner's workbook; do not publicly share private workbook.
+Search exactly for a learner-owned workbook named ASIT — Learner State; prefer a workbook already configured in project instructions. Zero matches: explain collected fields and ask approval to create. If approved, create and verify a new empty Sheet, then create nine v2 tabs, read provider-generated tab IDs, write current headers (including modality/operation columns) and verify readback. Seed **no** fictional achievements. One match: inspect version, ownership/scope and minimal data. Multiple matches: ask which to use. Do not load a different learner's workbook; do not publicly share private workbook.
 
 User may decline to store full raw answers or timestamps. Store only the consented categories in the private workbook, with clear distinctions between withheld and unknown.
 
@@ -30,7 +30,7 @@ Derive an initial individualized competency graph: few testable can-do outcomes 
 
 ## Phase 4: persist and confirm
 
-Write Profile, Goals, Competencies, Plan and Settings to learner-controlled storage. Read back important IDs and values; if write fails, mark setup incomplete. Only then conduct the first planned lesson. Clearly label the duration as a preference, not a measurement.
+Write consented Config, Goals, Competencies, Plans and trusted Activities to learner-controlled storage. Read back important IDs and values; if write fails, mark setup incomplete. Only then conduct the first planned lesson. Clearly label the duration as a preference, not a measurement.
 
 ## Phase 5: later changes
 

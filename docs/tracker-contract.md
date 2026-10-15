@@ -2,6 +2,8 @@
 
 New learners use one privately owned Google Sheet named **ASIT — Learner State**. The public repository contains its **empty tab specification**, not learner files.
 
+The MLP v2 schema also includes `Competencies.required_modality`, `Competencies.required_operation`, `Activities.observed_modality` and `Activities.observed_operation`. An old experimental v2 draft without these columns requires an authorized migration with a backup before new attempts are appended.
+
 The current v2 attempt schema includes **observed_modality** and **observed_operation** as final columns. These describe verified input type and communicative operation: a typed multiple-choice response cannot provide oral fluency or listening evidence. Older experimental v2 draft Sheets lacking those columns must be upgraded with confirmation and a backup; do not blindly append to mismatched column layouts.
 
 The exact workbook tabs/headers are defined in `templates/tracker-v2.json`. The `Config` tab key names and allowed consent options are defined in `templates/config-v2.json`. Both templates contain schemas only and no real learner data.

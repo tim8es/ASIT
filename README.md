@@ -1,10 +1,10 @@
 # ASIT — Adaptive System for Intelligent Tutoring
 
-**ChatGPT-native personal English tutor with an evidence-backed learning plan.**
+**ChatGPT-native personal English tutor with an evidence-backed learning plan — MLP candidate.**
 
 ASIT operates in a **normal ChatGPT conversation**, using native interactive controls when available. It does not host a separate website, call an external LLM API, or require a custom MCP server. A learner-owned storage connector (Google Drive / Sheets in v0.2) keeps progress between chats.
 
-> **Status: v0.2 experimental, not a turnkey released product.** The engineering reference implementation has passed 83 automated tests and a disposable synthetic Google Sheets integration check. A real private pilot submission was also verified previously. Clean-install onboarding through ChatGPT, cross-chat restoration, human UI acceptance and safe public distribution remain gates.
+> **Status: MLP candidate for a private user test.** Automated reference tests and a synthetic Google Sheets integration check are available. Native ChatGPT first-run, interactive lesson and fresh-chat continuity still require user acceptance. Public release remains blocked by detached historical Git data.
 
 ## Start using ASIT
 
@@ -40,6 +40,10 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 - [Schema and private storage adapter](docs/tracker-contract.md), [privacy](docs/security.md), [release gate](docs/publication.md)
 - [Human acceptance checks](docs/manual-acceptance.md), [evaluation fixtures](evals/README.md)
 - [Capability limits](docs/architecture.md)
+
+## MLP testing
+
+[One-paste setup](install/CHATGPT-PROJECT-INSTRUCTIONS.md) · [Step-by-step test](docs/MLP-ACCEPTANCE.md) · [Learning program](docs/LEARNING-PROGRAM.md) · [Native lesson UX](ui/MLP-EXPERIENCE.md) · [Release scope](docs/MLP-RELEASE.md)
 
 ## Verified engineering evidence
 
