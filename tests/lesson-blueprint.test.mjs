@@ -19,11 +19,13 @@ for (const n of [3,5,8,15,20,37,120]) {
   assert.ok(steps.every(x=>x.minutes>=1));
  });
 }
-test('prepared lesson uses goals with unmet prerequisites handled',()=>{
+test('prepared lesson uses learner duration and system exercise defaults',()=>{
  const s=fixture();const lesson=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
  assert.equal(lesson.goal,'CLARIFY');
- assert.equal(lesson.planned_minutes,7);
- assert.equal(lesson.exercise_count,4);
+ assert.equal(lesson.planned_minutes,8);
+ assert.equal(lesson.exercise_count,5);
+ assert.equal(lesson.lesson_setting_source.duration,'learner_state');
+ assert.equal(lesson.lesson_setting_source.exercises,'default');
  assert.deepEqual(lesson.required_visible_sections,['topic_and_objective','grammar_or_language_rule','practice_form','vocabulary_recap','single_submit']);
  assert.equal(checkBlueprintFresh(lesson,s),true);
 });
@@ -33,21 +35,52 @@ test('short learner preference reduces item count and respects duration',()=>{
  assert.equal(b.planned_minutes,4);
  assert.equal(b.exercise_count,2);
 });
-test('explicit request above seven minutes is capped',()=>{
+test('explicit one-off duration can exceed the seven-minute default',()=>{
  const b=makeLessonBlueprint({learnerState:fixture(),nowIso:'2026-06-01T00:00:00Z',minutes:18});
- assert.equal(b.planned_minutes,7);
+ assert.equal(b.planned_minutes,18);
+ assert.equal(b.lesson_setting_source.duration,'session_override');
 });
 test('learner-selected exercise count is honored up to five',()=>{
  const s=fixture();s.profile.preferences.exercises_per_lesson=5;
  const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
  assert.equal(b.exercise_count,5);
 });
+test('learner may select more than five exercises for a longer lesson',()=>{
+ const s=fixture();s.profile.available_minutes=15;s.profile.preferences.exercises_per_lesson=8;
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
+ assert.equal(b.planned_minutes,15);
+ assert.equal(b.exercise_count,8);
+});
 test('invalid exercise preference is rejected',()=>{
- const s=fixture();s.profile.preferences.exercises_per_lesson=6;
- assert.throws(()=>makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'}),/1 to 5/);
+ const s=fixture();s.profile.preferences.exercises_per_lesson=21;
+ assert.throws(()=>makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'}),/1 and 20|between 1 and 20/);
 });
 test('duration too short for a structured mini-lesson is rejected',()=>{
  assert.throws(()=>makeLessonBlueprint({learnerState:fixture(),nowIso:'2026-06-01T00:00:00Z',minutes:2}),/at least 3/);
+});
+test('unconfigured learner receives seven-minute, five-task defaults',()=>{
+ const s=fixture();s.profile.available_minutes=null;
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
+ assert.equal(b.planned_minutes,7);
+ assert.equal(b.exercise_count,5);
+ assert.deepEqual(b.lesson_setting_source,{duration:'default',exercises:'default'});
+});
+test('adaptive_profile settings persist across planning and remain private input',()=>{
+ const s=fixture();s.profile.available_minutes=null;
+ s.adaptive_profile.lesson_delivery_preference={duration_minutes:12,exercises_per_lesson:7};
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
+ assert.equal(b.planned_minutes,12);
+ assert.equal(b.exercise_count,7);
+ assert.equal(b.lesson_setting_source.duration,'learner_state');
+ assert.equal(b.lesson_setting_source.exercises,'learner_state');
+});
+test('per-session duration overrides do not mutate saved user preferences',()=>{
+ const s=fixture();
+ s.profile.available_minutes=15;s.profile.preferences.exercises_per_lesson=7;
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z',minutes:5});
+ assert.equal(b.planned_minutes,5);assert.equal(b.exercise_count,3);
+ assert.equal(s.profile.available_minutes,15);
+ assert.equal(s.profile.preferences.exercises_per_lesson,7);
 });
 test('changing learner state invalidates prepared lesson',()=>{
  const s=fixture();const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
