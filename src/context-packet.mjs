@@ -101,7 +101,8 @@ function assemble(state,selected,attemptLimit,reviewLimit,sessionLimit){
    coverage:{attempts_shown:attempts.length,
      attempts_omitted:Math.max(0,relevant.length-attempts.length),
      // Do not let a sample be treated as a complete history.
-     is_full_learning_history:false}
+     is_full_learning_history:false,
+     omitted_count_scope:'Only attempts present in the provided slice; complete workbook count not implied'}
  };
 }
 export function buildLessonContextPacket(state,{focusCompetencyIds=[],

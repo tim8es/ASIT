@@ -68,9 +68,19 @@ export function hydrateWorkbook(tables){
     priority:r.priority===''?undefined:Number(r.priority),
     cefr_reference:r.cefr_reference||null,
     required_modality:String(r.required_modality),
-    required_operation:String(r.required_operation)
+    required_operation:String(r.required_operation),
+    status:String(r.status||'unassessed'),
+    evidence_count:r.evidence_count===''?null:Number(r.evidence_count),
+    confidence_label:String(r.confidence_label||'insufficient'),
+    last_observed_at:r.last_observed_at_utc||null
   })),'id','competency');
   validateCompetencyMap(comps);
+  for(const c of comps){
+    if(!['unassessed','emerging','supported','independent','transferable'].includes(c.status))
+      throw new Error('Invalid stored competency status '+c.id);
+    if(c.evidence_count!==null&&(!Number.isSafeInteger(c.evidence_count)||c.evidence_count<0))
+      throw new Error('Invalid stored competency evidence count '+c.id);
+  }
   const acts=byId(rows.Activities.map(r=>({
     id:String(r.activity_id),lesson_id:String(r.lesson_id),session_id:String(r.session_id),
     competency_id:String(r.competency_id),type:String(r.activity_type),

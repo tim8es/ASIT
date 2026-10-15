@@ -93,3 +93,19 @@ test('personal adaptation is restored privately, not copied into Engine',()=>{
  assert.equal(s.adaptive_profile.recent_decisions[0].competency_id,'C1');
  assert.equal(s.adaptive_profile.recent_decisions[0].basis_revision,4);
 });
+
+test('qualified stored evidence is preserved for compact learner contexts',()=>{
+ const t=fixture(),head=t.Competencies[0],row=t.Competencies[1];
+ row[head.indexOf('status')]='supported';
+ row[head.indexOf('evidence_count')]=1;
+ row[head.indexOf('confidence_label')]='limited';
+ const s=hydrateWorkbook(t);
+ assert.equal(s.competencies[0].status,'supported');
+ assert.equal(s.competencies[0].evidence_count,1);
+ assert.equal(s.competencies[0].confidence_label,'limited');
+});
+test('corrupt stored mastery-like status cannot leak into the lesson',()=>{
+ const t=fixture(),head=t.Competencies[0],row=t.Competencies[1];
+ row[head.indexOf('status')]='guaranteed C2';
+ assert.throws(()=>hydrateWorkbook(t),/Invalid stored competency status/);
+});
