@@ -22,8 +22,32 @@ for (const n of [3,5,8,15,20,37,120]) {
 test('prepared lesson uses goals with unmet prerequisites handled',()=>{
  const s=fixture();const lesson=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
  assert.equal(lesson.goal,'CLARIFY');
- assert.equal(lesson.planned_minutes,8);
+ assert.equal(lesson.planned_minutes,7);
+ assert.equal(lesson.exercise_count,4);
+ assert.deepEqual(lesson.required_visible_sections,['topic_and_objective','grammar_or_language_rule','practice_form','vocabulary_recap','single_submit']);
  assert.equal(checkBlueprintFresh(lesson,s),true);
+});
+test('short learner preference reduces item count and respects duration',()=>{
+ const s=fixture();s.profile.available_minutes=4;s.profile.preferences.exercises_per_lesson=5;
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
+ assert.equal(b.planned_minutes,4);
+ assert.equal(b.exercise_count,2);
+});
+test('explicit request above seven minutes is capped',()=>{
+ const b=makeLessonBlueprint({learnerState:fixture(),nowIso:'2026-06-01T00:00:00Z',minutes:18});
+ assert.equal(b.planned_minutes,7);
+});
+test('learner-selected exercise count is honored up to five',()=>{
+ const s=fixture();s.profile.preferences.exercises_per_lesson=5;
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
+ assert.equal(b.exercise_count,5);
+});
+test('invalid exercise preference is rejected',()=>{
+ const s=fixture();s.profile.preferences.exercises_per_lesson=6;
+ assert.throws(()=>makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'}),/1 to 5/);
+});
+test('duration too short for a structured mini-lesson is rejected',()=>{
+ assert.throws(()=>makeLessonBlueprint({learnerState:fixture(),nowIso:'2026-06-01T00:00:00Z',minutes:2}),/at least 3/);
 });
 test('changing learner state invalidates prepared lesson',()=>{
  const s=fixture();const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
