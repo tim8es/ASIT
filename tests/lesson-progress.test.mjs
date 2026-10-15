@@ -39,3 +39,21 @@ test('completion evidence remains tied to session and matching activity',()=>{
  attempts:[{...completed,session_id:'other',activity_id:'full'}]});
  assert.equal(p.completed_full_lessons,0);
 });
+
+
+test('hydrated workbook row shapes are counted and yield recent full-lesson focuses',async()=>{
+ const {deriveRecentCompletedLessonFocuses}=await import('../src/lesson-progress.mjs');
+ const activities=[
+  {id:'f1',session_id:'s1',type:'five_part_lesson',status:'active',competency_id:'READING',rubric:{items:[{},{}]}},
+  {id:'m',session_id:'s2',type:'independent_retry',status:'active',competency_id:'QUESTIONS',rubric:{items:[{}]}},
+  {id:'f2',session_id:'s3',type:'five_part_integrated_lesson',status:'active',competency_id:'QUESTIONS',rubric:{items:[{},{}]}}
+ ];
+ const sessions=[{id:'s3',ended_at:'2026-01-03T00:00:00Z'},{id:'s2',ended_at:'2026-01-02T00:00:00Z'},{id:'s1',ended_at:'2026-01-01T00:00:00Z'}];
+ const attempts=[
+  {activity_id:'f1',session_id:'s1',assessment:'correct'},
+  {activity_id:'m',session_id:'s2',assessment:'correct'},
+  {activity_id:'f2',session_id:'s3',assessment:'partial'}
+ ];
+ assert.equal(summarizeLessonProgress({sessions,activities,attempts}).completed_full_lessons,2);
+ assert.deepEqual(deriveRecentCompletedLessonFocuses({sessions,activities,attempts}),['READING','QUESTIONS']);
+});
