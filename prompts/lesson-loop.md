@@ -2,6 +2,8 @@
 
 Every generated activity must point to (1) learner goal, (2) observable can-do competency, (3) specific cognitive/communicative operation, (4) evaluation rubric, and (5) state-update policy.
 
+**UI selection:** once the learner action and required modality are known, use the compact `ui/UI-ORCHESTRATOR.md` policy and `src/ui-orchestrator.mjs` reference index. Load only the needed `ui/patterns/*.md` recipe(s). Do not preload the full library or force UI on ordinary conversation. A functional input and trusted rubric are prerequisites for assessing an answer.
+
 ## Choose focus
 
 Input: profile goals, objective priorities, skill dependencies, observed evidence, recent sessions, due reviews, learner's present request and available time. The learner's explicit request overrides routine priority unless unsafe/unfeasible. Use `src/planner.mjs` as a reference deterministic scorer; this code is an optional evaluation oracle, not a runtime Node requirement.
