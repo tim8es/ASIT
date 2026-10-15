@@ -78,6 +78,12 @@
       "value_example": null,
       "required": false,
       "source": "learner choice"
+    },
+    {
+      "key": "adaptive_profile",
+      "value_example": {},
+      "required": false,
+      "source": "private learner decisions and observations; never source-level defaults"
     }
   ]
 }

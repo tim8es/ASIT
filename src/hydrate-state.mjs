@@ -131,7 +131,8 @@ export function hydrateWorkbook(tables){
     nativeLanguage:cfg.get('native_language')??null,
     goals:goals.filter(g=>!['archived','cancelled'].includes(g.status)).map(g=>g.description),
     availableMinutes:cfg.get('preferred_minutes')??null,
-    preferences:cfg.get('feedback_preferences')??{}
+    preferences:cfg.get('feedback_preferences')??{},
+    adaptiveProfile:cfg.get('adaptive_profile')??{}
   });
   profile.profile.working_level=cfg.get('working_cefr')??null;
   profile.profile.level_evidence=cfg.get('cefr_confidence_label')??'unassessed';

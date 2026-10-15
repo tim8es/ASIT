@@ -10,13 +10,14 @@ export const MODALITIES = Object.freeze(['typed_text','spoken_audio','audio_comp
 export const OPERATIONS = Object.freeze(['production','interaction','recognition','comprehension','unknown']);
 const nonempty = x => typeof x === 'string' && x.trim().length > 0;
 
-export function createLearnerState({learnerId,targetLanguage,nativeLanguage=null,goals=[],availableMinutes=null,preferences={}}) {
+export function createLearnerState({learnerId,targetLanguage,nativeLanguage=null,goals=[],availableMinutes=null,preferences={},adaptiveProfile={}}) {
   if (!nonempty(learnerId) || !nonempty(targetLanguage)) throw new Error('Learner ID and target language are required');
   if (!Array.isArray(goals) || goals.some(g=>!nonempty(g))) throw new Error('Invalid goals');
+  if (!adaptiveProfile || typeof adaptiveProfile!=='object' || Array.isArray(adaptiveProfile)) throw new Error('Invalid adaptive profile');
   if (availableMinutes!==null && (!Number.isInteger(availableMinutes)||availableMinutes<1)) throw new Error('Invalid duration');
   return {version:STATE_VERSION,profile:{learner_id:learnerId,target_language:targetLanguage,native_language:nativeLanguage,
     goals,available_minutes:availableMinutes,preferences,working_level:null,level_evidence:'unassessed'},
-    competencies:[],attempts:[],review_queue:[],sessions:[],learning_plan:[],revision:0};
+    competencies:[],attempts:[],review_queue:[],sessions:[],learning_plan:[],adaptive_profile:structuredClone(adaptiveProfile),revision:0};
 }
 
 export function validateCompetencyMap(competencies) {

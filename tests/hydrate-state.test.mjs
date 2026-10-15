@@ -9,7 +9,8 @@ function fixture(){
   for(const [key,json_value] of Object.entries({
     schema_version:'2',state_revision:'5',learner_id:'"synthetic-id"',
     target_language:'"English"',recording_consent:'"summary_only"',
-    preferred_minutes:'8',feedback_preferences:'{"amount":"selective"}'
+    preferred_minutes:'8',feedback_preferences:'{"amount":"selective"}',
+    adaptive_profile:'{"user_preferences":{"feedback":"brief"},"recent_decisions":[{"competency_id":"C1","action":"maintain","reason":"Needs delayed retrieval","evidence_attempt_ids":["T1"],"basis_revision":4}]}'
   }))push('Config',{key,json_value});
   push('Goals',{goal_id:'G1',description:'Understand everyday conversations',priority:4,status:'active'});
   push('Competencies',{competency_id:'C1',can_do:'Politely ask for repetition',dependency_ids_json:'[]',priority:4,status:'unassessed',required_modality:'typed_text',required_operation:'production'});
@@ -84,4 +85,11 @@ test('tampered modality is rejected against the trusted activity',()=>{
  const t=fixture(),cols=t.Attempts[0];
  t.Attempts[1][cols.indexOf('observed_modality')]='spoken_audio';
  assert.throws(()=>hydrateWorkbook(t),/trusted activity/);
+});
+
+test('personal adaptation is restored privately, not copied into Engine',()=>{
+ const s=hydrateWorkbook(fixture());
+ assert.equal(s.adaptive_profile.user_preferences.feedback,'brief');
+ assert.equal(s.adaptive_profile.recent_decisions[0].competency_id,'C1');
+ assert.equal(s.adaptive_profile.recent_decisions[0].basis_revision,4);
 });

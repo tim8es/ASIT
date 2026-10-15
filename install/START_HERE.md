@@ -1,8 +1,8 @@
 # ASIT — install in an ordinary ChatGPT Project
 
-**Use two parts, not the long teaching engine in Project Instructions.**
+**Use a short Project Router plus two source files (pedagogy and optional storage).**
 
-1. Download [ASIT-ENGINE.md](ASIT-ENGINE.md) from this repo and attach it to your **ChatGPT Project → Files / Knowledge**. The source contains the complete teaching, onboarding, interactive UI, assessment, and storage specification.
+1. Download [ASIT-ENGINE.md](ASIT-ENGINE.md) and [ASIT-STORAGE.md](ASIT-STORAGE.md) and attach both to **ChatGPT Project → Files / Knowledge**. The Engine contains universal pedagogy; the Storage adapter is loaded on demand for persistence.
 2. Copy the contents of the short [PROJECT-ROUTER.md](PROJECT-ROUTER.md) to **ChatGPT Project → Instructions**. This is about 1,800 characters.
 3. Open a new regular chat inside the Project and say: **"Start my English program."**
 4. If you want your progress saved across chats, connect Google Drive and approve the privacy mode before the first persistent write. You do not manually create the tracking Sheet.

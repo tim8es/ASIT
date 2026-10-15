@@ -101,6 +101,10 @@
     "revision": {
       "type": "integer",
       "minimum": 0
+    },
+    "adaptive_profile": {
+      "type": "object",
+      "description": "Learner-specific preferences, brief evidence-referenced adaptation decisions; private and not hard-coded into Engine"
     }
   },
   "$defs": {
