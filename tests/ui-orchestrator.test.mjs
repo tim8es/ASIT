@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createLearnerState} from '../src/learning-state.mjs';
-import {selectUiPattern,composeLessonUi,validateLessonPresentation} from '../src/ui-orchestrator.mjs';
+import {selectUiPattern,composeLessonUi,validateLessonPresentation,checkObjectiveInput} from '../src/ui-orchestrator.mjs';
 
 const learner=()=>createLearnerState({learnerId:'fictional',targetLanguage:'English'});
 test('normal conversation is not turned into a decorative form',()=>{
@@ -58,4 +58,25 @@ test('renderer quality gate rejects incomplete or over-time lesson',()=>{
  assert.equal(validateLessonPresentation(valid,{durationMinutes:7,exerciseCount:1}),true);
  assert.throws(()=>validateLessonPresentation({...valid,estimated_minutes:8},{durationMinutes:7,exerciseCount:1}),/Incomplete/);
  assert.throws(()=>validateLessonPresentation({...valid,vocabulary:[]},{durationMinutes:7,exerciseCount:1}),/Incomplete/);
+});
+
+test('real-image typed-word recall is gated by image capability',()=>{
+ const without=selectUiPattern({action:'remember',recentTypes:['cloze','vocabulary_retrieval']});
+ assert.notEqual(without.type,'image_label');
+ const withImage=selectUiPattern({action:'remember',recentTypes:['cloze','vocabulary_retrieval'],
+ capabilities:{hasRelevantImage:true}});
+ assert.equal(withImage.type,'image_label');
+ assert.equal(withImage.evidence_modality,'image_prompted_written_recall');
+ assert.match(withImage.input,/real_image_above_text_input/);
+});
+test('local feedback is objective only; aliases are allowed and open writing deferred',()=>{
+ assert.equal(checkObjectiveInput({type:'single_choice',answer:'b',expected:'b'}).status,'correct');
+ assert.equal(checkObjectiveInput({type:'single_choice',answer:'a',expected:'b'}).status,'try_again');
+ assert.equal(checkObjectiveInput({type:'single_choice',answer:'',expected:'b'}).status,'unanswered');
+ assert.equal(checkObjectiveInput({type:'word_order',answer:['one'],expected:['one','two']}).status,'unanswered');
+ assert.equal(checkObjectiveInput({type:'word_order',answer:['two','one'],expected:['one','two']}).status,'try_again');
+ assert.equal(checkObjectiveInput({type:'word_order',answer:['one','two'],expected:['one','two']}).status,'correct');
+ assert.equal(checkObjectiveInput({type:'image_label',answer:' BICYCLE! ',expected:'bike',accepted:['bicycle']}).status,'correct');
+ assert.equal(checkObjectiveInput({type:'image_label',answer:'cycle',expected:'bike',accepted:['bicycle']}).status,'deferred');
+ assert.equal(checkObjectiveInput({type:'free_production',answer:'My story',expected:'My story'}).status,'deferred');
 });
