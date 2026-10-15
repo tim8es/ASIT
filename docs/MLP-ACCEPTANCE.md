@@ -20,7 +20,7 @@ If Google Drive is connected, ASIT should explain storing private learning state
 
 ## C. Meaningful native lesson
 
-Request **"A 5-minute interactive lesson on my goal."** Look for a compact target, purposeful editable controls and a functioning Submit that sends the actual input into the conversation. If unsupported, ordinary text practice must work. Deliberately give a partial answer; verify specific feedback, then retry independently in a different situation. A choice task should not upgrade spontaneous speaking.
+Request **"A 5-minute interactive lesson on my goal."** Look for a compact target, purposeful editable controls and a functioning Submit that sends the actual input into the conversation. If unsupported, ordinary text practice must work. Deliberately give a partial answer; verify specific consolidated feedback, then try a subsequent **complete remediation lesson** with a different independent-use situation. A choice task should not upgrade spontaneous speaking.
 
 **Failure:** decorative UI, leaked answers, inability to submit, fabricated pronunciation rating or fake progress.
 
@@ -33,6 +33,14 @@ In **another chat in the same configured Project**, say: **"Continue my English 
 ## E. Robustness and agency
 
 Change the goal, dispute a grade, request review of a weak skill, refuse storage, replay an attempt ID, or interrupt a lesson. Check that previous evidence survives changes, retries don't create duplicates, incomplete sessions aren't "complete", a failed write is not reported as saved, and there is a usable text fallback. For listening, demand real accessible audio rather than text passed off as audio testing.
+
+## G. Full-lesson remediation regression
+
+Configure five exercises in seven minutes. Complete one regular lesson with a deliberately partial written answer. The next structured remediation must present **five related exercises together** in one interactive form, with varied operations and one working Submit, then a single consolidated assessment. It must not ask one question at a time or require finishing a correction before seeing other tasks. Run the same check for a due review. Confirm recognition-only correctness does not inflate independent-production evidence.
+
+Repeat after explicitly asking for **one quick question**: the short exception should work without mutating the stored exercise-count preference. A learner profile without any individual correction-format setting should still get the full remedial lesson; this is a universal requirement, not stored user preference.
+
+**Failure:** serial one-item remediation after a partial submission, unexplained reduced task count, multiple Submit turns for one planned lesson, or learner-state mutation of baseline UX behavior.
 
 ## Reporting
 
