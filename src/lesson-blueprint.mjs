@@ -3,6 +3,7 @@
  * GPT fills instructional text and UI later, using the learner's actual state.
  */
 import {selectNextLearningGoal} from './planner.mjs';
+import {resolveLessonSettings,exerciseCapacityForMinutes} from './lesson-settings.mjs';
 
 const stages = [
   ['retrieval',0.12],['diagnostic',0.10],['model_if_needed',0.10],
@@ -26,7 +27,10 @@ export function allocateSessionMinutes(totalMinutes) {
 }
 export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=null,minutes=null}) {
   if (!learnerState?.profile?.target_language) throw new Error('Learner not initialized');
-  const duration=minutes??learnerState.profile.available_minutes??10;
+  // Seven minutes/five exercises are defaults; learner-owned preferences may override both.
+  const settings=resolveLessonSettings({learnerState,minutes});
+  const duration=settings.duration_minutes;
+  const exerciseCount=Math.min(settings.exercises_per_lesson,exerciseCapacityForMinutes(duration));
   const ids=requestedCompetencyId?[requestedCompetencyId]:[];
   if (requestedCompetencyId && !learnerState.competencies.some(c=>c.id===requestedCompetencyId)) {
     throw new Error('Requested competency is not in learner curriculum');
@@ -40,6 +44,11 @@ export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=n
     goal:selection.competency_id, goal_description:selection.can_do,
     rationale:selection.reasons, target_language:learnerState.profile.target_language,
     planned_minutes:duration,stages:allocateSessionMinutes(duration),
+    exercise_count:exerciseCount,
+    requested_exercises:settings.exercises_per_lesson,
+    lesson_setting_source:settings.setting_source,
+    required_visible_sections:['topic_and_objective','grammar_or_language_rule','practice_form','vocabulary_recap','single_submit'],
+    practice_policy:'purposeful mixed patterns; one combined submission; independent communicative response where feasible',
     evidence_requirements:['observable production','hint level','rubric rationale','retry if appropriate'],
     status:'prepared'
   };

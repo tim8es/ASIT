@@ -63,6 +63,27 @@ test('short sessions and conversational sessions are different, never random',()
  assert.deepEqual(suggestedPattern({minutes:5}),['retrieval','independent_task','feedback_retry']);
  assert.deepEqual(suggestedPattern({requestedMode:'conversation'}),['dialogue_turn','dialogue_turn','feedback_retry']);
 });
+test('default lesson pattern stays within a compact five-step path',()=>{
+ assert.deepEqual(suggestedPattern(),['retrieval','meaning_check','guided_build','independent_task','feedback_retry']);
+});
+test('spoken-response UI requires actual spoken-audio evidence',()=>{
+ const a=activity('A1');a.ui_pattern='spoken_response';
+ assert.throws(()=>openLesson({session_id:'S',lesson_id:'L',competency_id:'SYN-C',state_revision:2,
+ steps:[a,activity('A2')]}),/requires observed audio/);
+ a.modality='spoken_audio';
+ assert.doesNotThrow(()=>openLesson({session_id:'S',lesson_id:'L',competency_id:'SYN-C',state_revision:2,
+ steps:[a,activity('A2')]}));
+});
+test('image task cannot masquerade as audio comprehension',()=>{
+ const a=activity('A1');a.ui_pattern='image_identification';a.modality='audio_comprehension';
+ assert.throws(()=>openLesson({session_id:'S',lesson_id:'L',competency_id:'SYN-C',state_revision:2,
+ steps:[a,activity('A2')]}),/not audio comprehension/);
+});
+test('accessible card-ordering can be a guided non-speech task',()=>{
+ const a=activity('A1','guided_build');a.ui_pattern='card_ordering';
+ assert.doesNotThrow(()=>openLesson({session_id:'S',lesson_id:'L',competency_id:'SYN-C',state_revision:2,
+ steps:[a,activity('A2')]}));
+});
 test('duplicate activity ID rejected',()=>{
  assert.throws(()=>openLesson({session_id:'S',lesson_id:'L',competency_id:'SYN-C',state_revision:2,
  steps:[activity('A1'),activity('A1')]}),/Duplicate/);

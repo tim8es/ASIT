@@ -34,6 +34,16 @@ In **another chat in the same configured Project**, say: **"Continue my English 
 
 Change the goal, dispute a grade, request review of a weak skill, refuse storage, replay an attempt ID, or interrupt a lesson. Check that previous evidence survives changes, retries don't create duplicates, incomplete sessions aren't "complete", a failed write is not reported as saved, and there is a usable text fallback. For listening, demand real accessible audio rather than text passed off as audio testing.
 
+## G. Seven-minute lesson and varied format acceptance
+
+In a fresh lesson, request a 7-minute mini-lesson and check that **one assistant message** contains, in order: (1) named topic and can-do goal, (2) short grammar/language-rule explanation with a non-answer model, (3) **up to five** related exercises with varied purposeful formats, (4) vocabulary recap at the end, and (5) **one functional Submit** for all form inputs. Default settings are a seven-minute lesson with up to five exercises. Verify that a learner-saved preference (e.g., 12 minutes and seven exercises) changes the next lesson while leaving other learner data intact; a one-time override must not persist. Fewer demanding tasks remain valid. Complete the lesson with a real timer: if default lessons commonly exceed seven minutes, mark the default time budget as failed and reduce content. For configured durations, compare against the saved target.
+
+Fictional example: a learner practicing clarifications receives a cloze, an ordering control with text fallback, a meaning choice and a real conversational message. Next lesson should not blindly repeat the same dominant widget type. Keyboard-only and mobile-like fallback should work. A missing native drag UI must never masquerade as a functioning drag exercise; an absent image or audio source must not create fictitious image/speech evidence.
+
+During initial placement, present a **bounded mixed diagnostic**, not consecutive rounds until a grammar sentence becomes correct. Require at most one remedial retry per structure before moving to another modality/operation. Confirm completed submission receives consolidated feedback and a private state write is only marked saved after readback.
+
+**Failure:** one question per assistant response masquerading as a full lesson; absent topic/rule/vocabulary; six or more exercises; nonfunctional drag; audio proficiency from typing; an unresolved diagnostic loop.
+
 ## Reporting
 
 For A–E record pass/fail, ChatGPT client type, whether native controls appeared, whether Drive works, and brief redacted observations. Only after critical cases pass should the project be described as a *human-accepted MLP*. Unit tests and connector smoke tests alone are not that evidence.

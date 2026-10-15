@@ -14,15 +14,29 @@ ASIT is an educational experience, **not** a spreadsheet administration interfac
 
 Prefer the smallest hierarchy that makes content clear; keep the learner's next action visually primary.
 
-**Lesson header:** communicative target, task index, short contextual hint, optional expected effort (as a plan, not measured time). No artificial XP, decorative badges, simulated completion bars or unverified proficiency percentages.
+**Lesson header:** clearly named topic, observable communicative target, relevant modality, and estimated duration, **up to seven minutes by default** or the learner's explicitly configured value (not measured time). No artificial XP, decorative badges, simulated completion bars or unverified proficiency percentages.
 
-**Task surface:** one primary prompt. Optional passage/context appears only when it is necessary. Give input controls with accessible labels. When choice options have ambiguous correct answers, rewrite the question.
+**Practice form:** all related exercises in one assistant response, grouped under one clear form and one Submit. Keep each task's prompt distinct and short, label each control, and show only context needed for its assessment. When choice options have ambiguous answers, rewrite them. Prefer 3–5 exercises when the default seven-minute budget allows; use the saved learner count and duration otherwise, reducing items for demanding speaking or comprehension.
 
 **Support:** a hint is not a hidden answer; record its use. Hints progress from minimal cue → sentence frame → model, but model use makes that attempt guided rather than independent.
 
 **Feedback:** show what communicated successfully, one high-leverage correction with a natural phrase, and one active next attempt. Avoid exhaustive red-pen marking.
 
 **Session recap:** observed can-do evidence, one recurrent weakness, review cue and rationale for the next lesson. Surface `Saved`, `Not saved` or `Write verification pending` accurately.
+
+## Required seven-minute lesson layout
+
+A structured lesson must display these blocks in order, with **seven minutes as the default maximum**; a different duration is allowed when stored in private Learner State or explicitly requested for this session:
+
+1. **Topic / can-do objective:** what this lesson is about, and where this English is useful.
+2. **Grammar / language rule:** the specific target pattern with one simple, natural worked example distinct from the exercise answers. For vocabulary, reading or pronunciation goals, use the corresponding meaning/use/phonetic rule without inventing a grammar requirement.
+3. **Varied exercises:** choose count from private learner settings. Default up to five; longer configured lessons may use more, within the time budget. Mix meaningful controls (e.g. gap completion, short choice, sentence building/order, realistic free production). Make at least one item a contextually meaningful response when suitable. Vary dominant task type from lesson to lesson based on the skill and recent task history, not at random.
+4. **Vocabulary recap:** **at the end of the lesson**, typically 4–8 high-utility items/chunks with simple meanings or examples. This recap must not function as a visible answer key.
+5. **One Submit:** capture the answers in one combined form; after submission the assistant reviews the whole lesson and records only the consented observations.
+
+Avoid a one-question-per-message loop, especially during diagnosis. Diagnosis uses a short broad sampling of accessible modalities and moves on after at most one clarification per difficult construction.
+
+**Format availability:** a sortable card/drag surface requires a working accessible keyboard/touch/selectable ordering alternative. A picture-identification task requires a real relevant picture; do not show a decorative image and pretend it tested comprehension. Audio and speaking only count when actual relevant audio/voice is available. A text-response fallback must be labelled text evidence, never speaking/pronunciation/listening evidence.
 
 ## Meaningful activity types
 

@@ -1,6 +1,6 @@
 {
-  "version": "0.2",
-  "selection_rule": "competency -> mental operation -> appropriate activity -> observable rubric",
+  "version": "0.3",
+  "selection_rule": "topic -> target can-do + language rule -> 1-5 time-budgeted exercises (recommended 3-5) -> operation-appropriate mixed UI with fallback -> item rubric -> end vocabulary recap",
   "patterns": [
     {
       "type": "cloze",
@@ -61,6 +61,24 @@
       "goal": "explain evidenced learning state",
       "input": "view plus optional filters",
       "assessment": "not an assessment; read-only summary"
+    },
+    {
+      "type": "card_ordering",
+      "goal": "order meaningful language chunks into a natural utterance",
+      "input": "accessible drag/sort where supported; numbered selection or typed sequence otherwise",
+      "assessment": "ordering/grammar recognition or guided construction; no spontaneous speech claim"
+    },
+    {
+      "type": "image_identification",
+      "goal": "recognize or describe a meaningful real-world scene using target language",
+      "input": "grounded relevant image plus multiple-choice or short typed response",
+      "assessment": "image-based meaning or language production by observed response type, not picture guessing"
+    },
+    {
+      "type": "spoken_response",
+      "goal": "produce an actual spoken turn in a relevant situation",
+      "input": "genuinely supported voice/audio capture and learner authorization; if absent offer typed alternative labelled writing",
+      "assessment": "score only actual observable speech; do not infer pronunciation, fluency or listening from a transcript or typed text"
     }
   ]
 }

@@ -52,11 +52,15 @@ The reference packet construction operates on synthetic in-memory objects. In li
 
 1. Start with a learner-facing next step, not a long infrastructure report.
 2. Ask only one essential onboarding question at a time; keep practice moving even if Google Drive is offline, marking it unsaved.
-3. Render the **next meaningful task** instead of a whole future lesson or large answer key. Keep hints optional and short.
+3. For structured lessons render **the complete current lesson** (seven minutes and up to five tasks by default, or learner-configured duration/count; one Submit), not a whole future syllabus or large answer key. In free chat render no unnecessary form. Keep hints optional and short.
 4. Within one chat, keep the retrieved Engine, small state slice and current trusted activity. Avoid re-fetching unchanged source/plan after each answer.
 5. Batch logically related read or write operations when the connector supports it and preserving readback guarantees permits it. Verify important writes before claiming success; don't sacrifice safety for speed.
 6. Prefer a **session checkpoint** for noncritical summary updates rather than editing Goals, Plans, Reviews and Sessions for every conversational turn. Significant consented attempts still require their own exact-ID replay check and readback.
 7. Start a new Project chat between substantial lesson segments when the conversation is becoming unwieldy; recover from the private tracker, not by copying the entire old transcript. No arbitrary "model can remember 100k tokens" guarantee.
+
+## On-demand UI pattern loading
+
+The UI Orchestrator uses compact generic action/modality/capability rules; it must not preload every rich lesson pattern. Load only `ui/UI-ORCHESTRATOR.md` when UI composition is needed and the selected pattern recipes from `ui/patterns/*.md`. Ordinary answers and free conversation require no UI recipe at all. A structured seven-minute mini-lesson is an **exception** to the legacy one-task-per-message guidance: show its coherent 1–5 tasks together with one Submit. This is an instruction-loading policy, not a measured token/latency reduction.
 
 ## What is and is not measured
 
