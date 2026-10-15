@@ -18,3 +18,7 @@ A deployable instruction system must demonstrate these outcomes with a **synthet
 | Repo becomes public | Git HEAD and history scanned; no exposed personal data |
 
 See `docs/manual-acceptance.md` for full human testing. This checklist does not claim those UI scenarios have already passed.
+
+## Split-source and speed acceptance (v0.4)
+
+Attach both `ASIT-ENGINE.md` and `ASIT-STORAGE.md` to Project Files; paste only `PROJECT-ROUTER.md` into instructions. A fresh substantial study task must load the Engine, whereas the technical storage source is read only when required. A tiny self-contained vocabulary question may bypass private learner-data reads. Verify a normal returning lesson doesn't load all nine tabs or every historical attempt. The real client behavior and response times must be measured manually; offline Node.js budget tests are not actual ChatGPT timings.

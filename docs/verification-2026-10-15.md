@@ -4,7 +4,7 @@
 
 ## Automated results
 
-- [GitHub Actions run](https://github.com/tim8es/ASIT/actions/runs/38760945877): **106 tests passed, 0 failed**.
+- [GitHub Actions run](https://github.com/tim8es/ASIT/actions/runs/38774499513): **128 tests passed, 0 failed**.
 - Checked strict fresh-chat hydration, native chat lesson lifecycle, simulated complete MLP learning journey, pure learner-state invariants, dependency graph validation, scoped evidence, review scheduling, full-attempt replay guards, summary-only restoration, storage failure, setup templates, synthetic end-to-end transitions and source-safety heuristics.
 - HEAD tracked-source scan: passed.
 - Reachable Git history scan: passed. This is **not a purge** of detached GitHub commits, caches, PR refs, or third-party clones.
@@ -42,3 +42,11 @@ Do not label these scenarios as complete until directly observed. See [manual ac
 ## MLP candidate check
 
 The canonical entrypoint is [one-paste Project instructions](../install/CHATGPT-PROJECT-INSTRUCTIONS.md). An explicit user acceptance sequence is in [MLP acceptance](MLP-ACCEPTANCE.md). Code-level E2E checks simulate a new-chat reload but cannot prove the client actually invokes connected tools across conversations.
+
+## Context audit and modular architecture (2026-10-15 addendum)
+
+The live sources were separated into a small Project Router (1,757 characters), a universal Teaching Engine (6,762 characters), and an on-demand technical Storage Adapter (5,741 characters). Relative to the previous always-read Router+Engine set of 11,159 characters, the new always-read set has 8,519 characters, or **23.7% fewer**. Source size was measured from GitHub Actions, not inferred from model tokens.
+
+The CI context audit benchmarks fictional attempt histories of 0, 50, 500 and 5,000 items: the selected serialized context packets were 839, 2,544, 2,552 and 2,566 characters, respectively. This confirms the **reference packet does not grow linearly with historic attempts**. It does not independently verify that the ChatGPT Google Drive agent will actually perform the intended bounded reads; that remains a human acceptance test. No model token-level counts, connector latencies or mobile UX response times were measured.
+
+The private learner state supports an optional adaptive_profile and evidence-linked decision rationale in Config. This does not require changing the published Sheet tabs. Actual per-user adaptations remain out of GitHub and Project source files.
