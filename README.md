@@ -11,7 +11,7 @@ ASIT operates in a **normal ChatGPT conversation**, using native interactive con
 1. Copy the **[self-contained ChatGPT Project instructions](install/CHATGPT-PROJECT-INSTRUCTIONS.md)** into ChatGPT Project settings. **No GitHub connector required** for basic teaching.
 2. Optionally connect **Google Drive** to preserve progress. Without it, sessions remain explicitly unsaved.
 3. Start a **normal chat inside the Project** and say **"Start my English program."** The agent asks for storage consent and your learning goals, then prepares an individual plan.
-4. In the next chat inside the same Project, ASIT restores available evidence from your private workbook. Outside the Project, paste the instruction again.
+4. In the next chat inside the same Project, ASIT is designed to retrieve available evidence from your private workbook (fresh-chat acceptance is still pending). Outside the Project, paste the instruction again.
 
 No Node.js or server setup is needed to study. Node.js 22 is needed **only** for contributors running offline tests.
 
@@ -41,11 +41,16 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 - [Human acceptance checks](docs/manual-acceptance.md), [evaluation fixtures](evals/README.md)
 - [Capability limits](docs/architecture.md)
 
+## Verified engineering evidence
+
+[Verification report](docs/verification-2026-10-15.md) · [Acceptance gates](docs/acceptance.md) · [Public release safety](docs/publication.md)
+
 ## Test
 
 ```bash
 node --test tests/*.test.mjs
 node scripts/scan-public.mjs
+node scripts/scan-history.mjs
 ```
 
 CI runs both on pushes and pull requests. Passing tests does not prove real language acquisition.
