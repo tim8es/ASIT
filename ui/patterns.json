@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "selection_rule": "learner action -> observed operation/modality -> accessible capability -> justified variety; load only selected pattern spec",
   "patterns": [
     {
@@ -11,8 +11,8 @@
     },
     {
       "type": "sentence_builder",
-      "goal": "compose grammatical chunks",
-      "input": "ordering or controlled text",
+      "goal": "compose meaningful language chunks into a grammatical utterance, distinct from word-by-word card ordering",
+      "input": "meaning-chunk builder with reorder/reset or a structured text fallback",
       "assessment": "accuracy plus independent retry in different context",
       "spec_ref": "ui/patterns/construction.md"
     },
@@ -28,6 +28,13 @@
       "goal": "discriminate intended meaning",
       "input": "options plus short justification",
       "assessment": "choice and reason",
+      "spec_ref": "ui/patterns/recognition.md"
+    },
+    {
+      "type": "reading_comprehension",
+      "goal": "understand a real short passage and distinguish gist from evidence details",
+      "input": "continuous readable passage with two short gist/detail prompts",
+      "assessment": "ground to passage; text reading only, no listening claims",
       "spec_ref": "ui/patterns/recognition.md"
     },
     {
@@ -54,14 +61,14 @@
     {
       "type": "dialogue",
       "goal": "sustain conversational interaction",
-      "input": "chat turns",
+      "input": "two or more responsive real ChatGPT turns, not one static text field",
       "assessment": "coherence, response appropriateness, clarification",
       "spec_ref": "ui/patterns/media-interaction.md"
     },
     {
       "type": "listening",
       "goal": "understand actual audio",
-      "input": "source audio plus questions",
+      "input": "actually accessible audio track, replay/speed if supported, gist and detail questions",
       "assessment": "gist and detail; never simulate an unheard recording",
       "spec_ref": "ui/patterns/media-interaction.md"
     },
@@ -88,9 +95,16 @@
     },
     {
       "type": "card_ordering",
-      "goal": "construct a sequence or sentence order",
+      "goal": "order individual cards into a sentence, with click-to-order and Undo",
       "input": "native reorder or numbered/text fallback",
       "assessment": "guided construction",
+      "spec_ref": "ui/patterns/construction.md"
+    },
+    {
+      "type": "timeline_ordering",
+      "goal": "reconstruct causal/temporal event sequence from a story",
+      "input": "tap to order events with Undo and keyboard fallback",
+      "assessment": "trusted unique sequence, or defer ambiguous/tied event order",
       "spec_ref": "ui/patterns/construction.md"
     },
     {
@@ -101,9 +115,16 @@
       "spec_ref": "ui/patterns/recognition.md"
     },
     {
+      "type": "image_hotspot",
+      "goal": "identify a specified region/object within an actual image",
+      "input": "real relevant image with genuinely actionable, keyboard-accessible region controls",
+      "assessment": "trusted semantic region IDs; never grade fabricated clicks or inaccessible image",
+      "spec_ref": "ui/patterns/recognition.md"
+    },
+    {
       "type": "spoken_response",
       "goal": "genuine spoken production",
-      "input": "accessible learner audio only",
+      "input": "genuine accessible microphone/audio recording and playback; typed rehearsal is not speaking evidence",
       "assessment": "observed audio only",
       "spec_ref": "ui/patterns/media-interaction.md"
     }
@@ -115,7 +136,9 @@
       "single-choice",
       "fixed grammar choice",
       "finite image label",
-      "completed card ordering"
+      "completed card ordering",
+      "unambiguous timeline ordering",
+      "trusted clickable image region IDs"
     ],
     "deferred": [
       "open writing",
@@ -137,5 +160,34 @@
   "underlined_explanation": {
     "ui": "inline popover",
     "parallel_chat_available_to_author": false
+  },
+  "capability_gates": {
+    "image_hotspot": [
+      "hasRelevantImage",
+      "hasInteractiveImageRegions"
+    ],
+    "image_label": [
+      "hasRelevantImage"
+    ],
+    "image_choice": [
+      "hasRelevantImage"
+    ],
+    "listening": [
+      "audioPlayback with real audio source actually available"
+    ],
+    "spoken_response": [
+      "audioCapture",
+      "audioAccessible"
+    ],
+    "fallback_principle": "If unavailable, explicitly change modality/type and show unassessed for the requested one; never fabricate audio, image clicks, or spoken evidence."
+  },
+  "interaction_quality": {
+    "lesson_completion": "count required unanswered items; incomplete does not unlock finale; one Submit or explicit incomplete early exit",
+    "candidate_first_try": "capture initial answer, revisions and hint level; untrusted local metadata is never mastery",
+    "dialogue": "require two or more real exchanges for sustained interaction assessment; a single typed reply is preparation only",
+    "popovers": "keep story sentence continuous; move term-help control outside line if native popover breaks text",
+    "sentence_builder": "meaningful semantic chunks",
+    "card_ordering": "individual word card ordering",
+    "progress_explorer": "read-only verified learner evidence, never a fabricated proficiency percentage"
   }
 }
