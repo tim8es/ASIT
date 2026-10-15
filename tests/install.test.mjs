@@ -22,6 +22,14 @@ test('fast-path universal engine omits detailed storage schema',()=>{
  assert.match(engine,/bounded relevant slice/);
  assert.doesNotMatch(engine,/Config: key \| json_value/);
 });
+test('complete remediation UX is a universal Engine contract, not individual state',()=>{
+ assert.match(engine,/Universal correction UX/);
+ assert.match(engine,/Engine-wide default/);
+ assert.match(engine,/one-question chat turns/);
+ assert.match(engine,/one Submit/);
+ assert.match(engine,/not private Learner State/);
+ assert.match(engine,/explicit request for one question/);
+});
 test('on-demand storage contract owns exact private schema',()=>{
  for(const tab of schema.tabs){
   const line=tab.name+': '+tab.columns.join(' | ');

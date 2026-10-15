@@ -4,9 +4,9 @@ ASIT is an educational experience, **not** a spreadsheet administration interfac
 
 ## Configurable complete lesson UX (seven-minute default)
 
-One planned lesson = **one** learner-facing packet: Topic/outcome → Grammar/language strategy → learner-configured connected tasks (four by default, up to five recommended for default sessions), combined form → **Vocabulary at the end** → one real Submit → consolidated feedback next turn. [UI Orchestrator](UI-ORCHESTRATOR.md) chooses patterns based on operation, actually available modality, accessibility and recent repetition, reading detailed pattern specs only if needed. A normal chat is correct when a widget adds no value.
+One planned lesson, including **remediation and spaced review**, = **one** learner-facing packet: Topic/outcome → Grammar/language strategy → learner-configured connected tasks (four by default, up to five recommended for default sessions), combined form → **Vocabulary at the end** → one real Submit → consolidated feedback next turn. [UI Orchestrator](UI-ORCHESTRATOR.md) chooses patterns based on operation, actually available modality, accessibility and recent repetition, reading detailed pattern specs only if needed. A normal chat is correct when a widget adds no value.
 
-Use purposeful variety; never invent drag, pictures or audio. Provide keyboard/select/text alternatives. Do not extend initial diagnostics with unlimited error-repair loops. See [the complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
+Use purposeful variety; never invent drag, pictures or audio. Provide keyboard/select/text alternatives. After partial answers, show concise feedback and, when continuing structured practice, a **new complete configured lesson** with varied exercises, all visible together and one Submit. Never drip-feed a series of isolated correction questions unless the learner explicitly requests micro-practice or is freely conversing. Do not extend initial diagnostics with unlimited error-repair loops. See [the complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
 ## First five minutes
 
@@ -26,7 +26,7 @@ Prefer the smallest hierarchy that makes content clear; keep the learner's next 
 
 **Support:** a hint is not a hidden answer; record its use. Hints progress from minimal cue → sentence frame → model, but model use makes that attempt guided rather than independent.
 
-**Feedback:** show what communicated successfully, one high-leverage correction with a natural phrase, and one active next attempt. Avoid exhaustive red-pen marking.
+**Feedback:** show what communicated successfully and one high-leverage correction with a natural phrase. If further structured practice is needed, offer a next **complete** lesson, not an automatic isolated retry. Avoid exhaustive red-pen marking.
 
 **Session recap:** observed can-do evidence, one recurrent weakness, review cue and rationale for the next lesson. Surface `Saved`, `Not saved` or `Write verification pending` accurately.
 
@@ -58,6 +58,6 @@ Vary activity type *to test a distinct skill*, not to make screens arbitrarily d
 
 - A beginner choosing casual communication gets small comprehensible steps, not a preloaded professional B2 syllabus.
 - A proficient learner requesting interviews gets challenging follow-ups, not a mandatory five-question placement quiz.
-- A user whose last response was partial sees a corrected model and a **different** independent situation for retry.
+- A user whose last response was partial sees consolidated feedback, then a **full configurable remedial lesson** progressing through varied exercises to independent use in a different situation.
 - A user changing goals sees a revised plan that preserves their prior evidence without claiming "mastery".
 - Reopening a new chat from the same configured project should load the precise private state or explicitly say it cannot.

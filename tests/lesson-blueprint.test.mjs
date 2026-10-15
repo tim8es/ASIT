@@ -86,3 +86,32 @@ test('previously saved exercises_per_lesson preference remains active without mi
  s.adaptive_profile.lesson_delivery_preference={duration_minutes:7,exercises_per_lesson:5};
  assert.deepEqual(resolveLessonSettings({learnerState:s}),{duration_minutes:7,exercise_count:5});
 });
+
+test('remediation and review keep the full configured lesson UX',()=>{
+ const s=fixture();
+ s.adaptive_profile.lesson_delivery_preference={duration_minutes:7,exercises_per_lesson:5};
+ const original=JSON.stringify(s);
+ for(const lessonKind of ['new','diagnostic','review','remediation']){
+  const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z',lessonKind});
+  assert.equal(b.lesson_kind,lessonKind);
+  assert.equal(b.exercise_count,5);
+  assert.equal(b.planned_minutes,7);
+  assert.deepEqual(b.presentation_contract,{all_exercises_visible:true,submit_count:1,feedback:'consolidated'});
+  assert.equal(b.submission_mode,'single_form');
+ }
+ assert.equal(JSON.stringify(s),original,'Universal UI may not mutate learner state');
+});
+test('a partial result is not an implicit request for a one-question remediation',()=>{
+ const s=fixture();
+ s.attempts=[{attempt_id:'T',competency_id:'CLARIFY',assessment:'partial',occurred_at:'2026-05-31T00:00:00Z'}];
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z',lessonKind:'remediation'});
+ assert.equal(b.exercise_count,4);
+ assert.equal(b.presentation_contract.all_exercises_visible,true);
+ assert.equal(b.presentation_contract.submit_count,1);
+});
+test('explicit lesson-level exercise count override is respected in remediation',()=>{
+ const s=fixture();
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z',lessonKind:'remediation',exerciseCount:1});
+ assert.equal(b.exercise_count,1);
+ assert.throws(()=>makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z',lessonKind:'unknown'}),/Unsupported lesson kind/);
+});

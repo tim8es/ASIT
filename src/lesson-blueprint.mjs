@@ -44,8 +44,10 @@ export function resolveLessonSettings({learnerState,minutes=null,exerciseCount=n
     throw new Error('Exercise count must be between 1 and 12');
   return {duration_minutes:duration,exercise_count:count};
 }
-export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=null,minutes=null,exerciseCount=null}) {
+export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=null,minutes=null,exerciseCount=null,lessonKind='new'}) {
   if (!learnerState?.profile?.target_language) throw new Error('Learner not initialized');
+  if (!['new','diagnostic','review','remediation'].includes(lessonKind))
+    throw new Error('Unsupported lesson kind');
   const settings=resolveLessonSettings({learnerState,minutes,exerciseCount});
   const duration=settings.duration_minutes;
   const ids=requestedCompetencyId?[requestedCompetencyId]:[];
@@ -61,6 +63,9 @@ export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=n
     goal:selection.competency_id, goal_description:selection.can_do,
     rationale:selection.reasons, target_language:learnerState.profile.target_language,
     planned_minutes:duration,exercise_count:settings.exercise_count,
+    lesson_kind:lessonKind,
+    // Universal planned-lesson UX; remediation/reviews cannot silently become serial micro-quizzes.
+    presentation_contract:{all_exercises_visible:true,submit_count:1,feedback:'consolidated'},
     lesson_sections:['topic_and_outcome','grammar_or_language_strategy','combined_practice','end_vocabulary'],
     submission_mode:'single_form',stages:allocateSessionMinutes(duration),
     evidence_requirements:['observable production','hint level','rubric rationale','retry if appropriate'],
