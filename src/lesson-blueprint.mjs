@@ -26,7 +26,17 @@ export function allocateSessionMinutes(totalMinutes) {
 }
 export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=null,minutes=null}) {
   if (!learnerState?.profile?.target_language) throw new Error('Learner not initialized');
-  const duration=minutes??learnerState.profile.available_minutes??10;
+  // A structured micro-lesson must fit within seven minutes, including reading and Submit.
+  const requestedMinutes=minutes??learnerState.profile.available_minutes??7;
+  if(!Number.isInteger(requestedMinutes)||requestedMinutes<3)
+    throw new Error('Mini-lesson duration must be at least 3 minutes');
+  const duration=Math.min(7,requestedMinutes);
+  const preferred=learnerState.profile.preferences?.exercises_per_lesson??4;
+  if(!Number.isInteger(preferred)||preferred<1||preferred>5)
+    throw new Error('Exercise preference must be from 1 to 5');
+  // Reduced exercise counts protect short lessons; the teacher can reduce further for
+  // demanding listening/speaking tasks without claiming a fixed user preference.
+  const exerciseCount=Math.min(preferred,duration<=4?2:duration===5?3:5);
   const ids=requestedCompetencyId?[requestedCompetencyId]:[];
   if (requestedCompetencyId && !learnerState.competencies.some(c=>c.id===requestedCompetencyId)) {
     throw new Error('Requested competency is not in learner curriculum');
@@ -40,6 +50,9 @@ export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=n
     goal:selection.competency_id, goal_description:selection.can_do,
     rationale:selection.reasons, target_language:learnerState.profile.target_language,
     planned_minutes:duration,stages:allocateSessionMinutes(duration),
+    exercise_count:exerciseCount,
+    required_visible_sections:['topic_and_objective','grammar_or_language_rule','practice_form','vocabulary_recap','single_submit'],
+    practice_policy:'purposeful mixed patterns; one combined submission; independent communicative response where feasible',
     evidence_requirements:['observable production','hint level','rubric rationale','retry if appropriate'],
     status:'prepared'
   };
