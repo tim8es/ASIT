@@ -28,6 +28,8 @@ Begin with 2–4 short real tasks matched to learner comprehension, covering ind
 
 Derive an initial individualized competency graph: few testable can-do outcomes prioritized by actual goal and dependencies, with IDs assigned in learner state, explicit reasons and an unassessed status where evidence is absent. Seed no progress counts.
 
+**Diagnostic stopping rule:** within a compact initial seven-minute diagnostic block, use varied short tasks and prioritize breadth. After at most one clarification/retry for a structure, record uncertainty and continue to a different competency. Do not demand correct completion of one grammar form before establishing a provisional learning plan. Offer structured lessons afterwards in the topic → grammar/language rule → up to five exercises → final vocabulary → one Submit format.
+
 ## Phase 4: persist and confirm
 
 Write consented Config, Goals, Competencies, Plans and trusted Activities to learner-controlled storage. Read back important IDs and values; if write fails, mark setup incomplete. Only then conduct the first planned lesson. Clearly label the duration as a preference, not a measurement.
