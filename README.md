@@ -28,7 +28,7 @@ ASIT operates in a **normal ChatGPT conversation**, using native interactive con
 
 ASIT does not assume your native language, English level, profession, country, session length, learning objectives, or preferred exercises. The onboarding agent discovers these on first run (or marks them unknown). It builds and revises an individual competency graph from CEFR-oriented communicative goals and observed performance.
 
-Lesson loop: restore state → select skill → short retrieval/diagnosis → scaffolded input → natural production → selective feedback → retry → evidence write → readback → update plan. Free conversation remains free conversation.
+Planned lessons **default to seven minutes and four varied exercises (up to five recommended)**: topic → grammar/language rule → one combined form → end vocabulary → one Submit → consolidated feedback. **Both lesson duration and exercise count are learner-configurable settings stored in private Learner State**, not hard system limits. The [UI Orchestrator](ui/UI-ORCHESTRATOR.md) selects controls by operation, evidence modality, accessibility and appropriate variety, lazily loading only relevant pattern specs. Initial diagnosis samples breadth instead of drilling a single error. Free conversation remains free conversation.
 
 Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn through its normal Submit action. The assistant validates the activity IDs, checks for existing evidence, evaluates and writes through the connected storage tool. It reports storage success only after reading the record back. No button pretends to write directly to Sheets.
 
@@ -37,7 +37,7 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 - [Project router](install/PROJECT-ROUTER.md), [teaching source](install/ASIT-ENGINE.md), and [onboarding workflow](prompts/setup.md)
 - [Teacher router](prompts/router.md), [lesson selection](prompts/lesson-loop.md), [assessment](prompts/assessment.md) and [submission handler](prompts/submission.md)
 - [Learning state](src/learning-state.mjs), [planner](src/planner.mjs), [message protocol](src/protocol.mjs)
-- [Native UI patterns](ui/patterns.json), [activity contract](ui/activity-contract.md)
+- [UI Orchestrator](ui/UI-ORCHESTRATOR.md), [seven-minute lessons](docs/SEVEN-MINUTE-LESSONS.md), [native patterns](ui/patterns.json), [activity contract](ui/activity-contract.md)
 - [Schema and private storage adapter](docs/tracker-contract.md), [privacy](docs/security.md), [release gate](docs/publication.md)
 - [Human acceptance checks](docs/manual-acceptance.md), [evaluation fixtures](evals/README.md)
 - [Capability limits](docs/architecture.md)

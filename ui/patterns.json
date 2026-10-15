@@ -1,66 +1,104 @@
 {
-  "version": "0.2",
-  "selection_rule": "competency -> mental operation -> appropriate activity -> observable rubric",
+  "version": "0.3",
+  "selection_rule": "learner action -> observed operation/modality -> accessible capability -> justified variety; load only selected pattern spec",
   "patterns": [
     {
       "type": "cloze",
       "goal": "retrieve form from context",
       "input": "text field",
-      "assessment": "accepted variants plus context; no answer before attempt"
+      "assessment": "accepted variants plus context; no answer before attempt",
+      "spec_ref": "ui/patterns/recognition.md"
     },
     {
       "type": "sentence_builder",
       "goal": "compose grammatical chunks",
       "input": "ordering or controlled text",
-      "assessment": "accuracy plus independent retry in different context"
+      "assessment": "accuracy plus independent retry in different context",
+      "spec_ref": "ui/patterns/construction.md"
     },
     {
       "type": "grammar_contrast",
       "goal": "discriminate intended meaning",
       "input": "options plus short justification",
-      "assessment": "choice and reason"
+      "assessment": "choice and reason",
+      "spec_ref": "ui/patterns/recognition.md"
     },
     {
       "type": "error_detective",
       "goal": "notice and repair a specific error",
       "input": "text correction",
-      "assessment": "corrected meaning and new independent example"
+      "assessment": "corrected meaning and new independent example",
+      "spec_ref": "ui/patterns/construction.md"
     },
     {
       "type": "vocabulary_retrieval",
       "goal": "retrieve useful chunks",
       "input": "open text field",
-      "assessment": "meaning and context, not exact token matching alone"
+      "assessment": "meaning and context, not exact token matching alone",
+      "spec_ref": "ui/patterns/recognition.md"
     },
     {
       "type": "free_production",
       "goal": "demonstrate independent communication",
       "input": "text box or accessible speech tool",
-      "assessment": "can-do rubric; modality labelled"
+      "assessment": "can-do rubric; modality labelled",
+      "spec_ref": "ui/patterns/construction.md"
     },
     {
       "type": "dialogue",
       "goal": "sustain conversational interaction",
       "input": "chat turns",
-      "assessment": "coherence, response appropriateness, clarification"
+      "assessment": "coherence, response appropriateness, clarification",
+      "spec_ref": "ui/patterns/media-interaction.md"
     },
     {
       "type": "listening",
       "goal": "understand actual audio",
       "input": "source audio plus questions",
-      "assessment": "gist and detail; never simulate an unheard recording"
+      "assessment": "gist and detail; never simulate an unheard recording",
+      "spec_ref": "ui/patterns/media-interaction.md"
     },
     {
       "type": "scenario",
       "goal": "make decisions and justify",
       "input": "options and free explanation",
-      "assessment": "plausible trade-offs and linguistic accuracy"
+      "assessment": "plausible trade-offs and linguistic accuracy",
+      "spec_ref": "ui/patterns/recognition.md"
     },
     {
       "type": "progress_explorer",
       "goal": "explain evidenced learning state",
       "input": "view plus optional filters",
-      "assessment": "not an assessment; read-only summary"
+      "assessment": "not an assessment; read-only summary",
+      "spec_ref": "ui/patterns/media-interaction.md"
+    },
+    {
+      "type": "matching",
+      "goal": "associate words, meanings or situations",
+      "input": "select/text pairs",
+      "assessment": "recognition only",
+      "spec_ref": "ui/patterns/recognition.md"
+    },
+    {
+      "type": "card_ordering",
+      "goal": "construct a sequence or sentence order",
+      "input": "native reorder or numbered/text fallback",
+      "assessment": "guided construction",
+      "spec_ref": "ui/patterns/construction.md"
+    },
+    {
+      "type": "image_choice",
+      "goal": "identify an item in a real image",
+      "input": "relevant image plus accessible labeled choices",
+      "assessment": "visual recognition not listening",
+      "spec_ref": "ui/patterns/recognition.md"
+    },
+    {
+      "type": "spoken_response",
+      "goal": "genuine spoken production",
+      "input": "accessible learner audio only",
+      "assessment": "observed audio only",
+      "spec_ref": "ui/patterns/media-interaction.md"
     }
   ]
 }

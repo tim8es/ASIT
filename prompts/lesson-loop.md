@@ -15,9 +15,14 @@ Do not teach unassessed prerequisites as mastered. Combine a brief review with o
 - Pronunciation: only assess when the system has suitable access to real audio; text transcription is insufficient.
 - Workplace English: only when relevant to the learner.
 
-## Compact 10–20 minute session (adapt, don't impose)
+## Complete planned lessons (seven-minute default; configurable)
 
-Recall → tiny diagnostic → brief model → controlled task → guided task → independent communicative task → selective feedback → repeat in another context → summarize and save. If the user requests free conversation, maintain conversational flow and provide feedback after a short exchange rather than interrupting every turn.
+Use the [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md): topic, real-world can-do outcome → one or two grammar/language rules with natural examples → **one form containing the learner-configured number of related exercises** (four by default, up to five recommended in default sessions) → vocabulary at the end → **one Submit** and next-turn consolidated feedback. Select a coherent mixed task set, not multiple isolated chat turns.
+
+Use the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md), resolving operation, modality and actual capability before varying patterns. Load only the chosen detailed pattern family. Purposefully mix cloze, choices, construction, ordering, real images, contextual output, and **actual** speech/listening when supported, with accessible text/select alternatives.
+
+During initial diagnosis, seek **breadth**, not repeated corrections. At most one clarification/retry for an ambiguous construct before moving to another skill. In free conversation, maintain the conversation rather than imposing a form.
+
 
 ## Assessment and review
 

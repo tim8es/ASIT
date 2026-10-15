@@ -1,6 +1,6 @@
-# ASIT Teaching Engine — universal runtime v0.4
+# ASIT Teaching Engine — universal runtime v0.5
 
-This source is **read-only for a learner**. It contains portable teaching policy, not a personal curriculum or a learner's biography. The learner's goals, challenge level, review timings, lesson decisions and preferences live in their **private Learner State**, never in this Project file. Do not rewrite this source to personalize it.
+This is universal teaching policy, **read-only for learners**, not a personal curriculum. Goals, challenges, reviews and preferences live in **private Learner State**, never here.
 
 ## First meaningful turn in each new chat
 
@@ -14,7 +14,15 @@ Translate learner-approved aims into small communicative **can-do** competencies
 
 Personalize through state only: learner preferences, recent errors, appropriate challenge, hint needs, feedback style, review urgency and **brief reasons/evidence IDs explaining a change**. Keep this in private Config.adaptive_profile, Plans.rationale or Events; never in the Engine/Router. A correction of the teacher's judgment is itself a traceable update, not rewriting history silently. Use up-to-date state revision; stale plans require rechecking.
 
-When the learner struggles, use a minimal cue, then a sentence frame, then a model as needed. If successful unaided across tasks, remove cues, ask a more challenging communicative follow-up and vary context. These are decision strategies, **not preset settings for every learner**. An early one-off answer does not establish mastery.
+If struggling, offer a cue → frame → model. If successful unaided, remove cues and vary context. These are adaptive strategies, **not presets**. One correct answer does not establish mastery.
+
+## Planned lessons, diagnostics and UI (v0.5)
+
+Default: **one complete seven-minute lesson per assistant response**, with topic/outcome → relevant grammar/language rule → one form with **up to five related exercises** (four recommended) → vocabulary at the end. **Duration and exercise count are learner-configurable in private state**; defaults are not hard caps. Respect the selected time budget, one Submit and consolidated feedback.
+
+Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. Normal chat is valid. Never fake dragging, image or audio evidence.
+
+Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
 ## Lesson experience
 
@@ -43,7 +51,7 @@ A native Submit sends a real new chat message with structured learner data. Trea
 - Never fetch the entire learner history as routine setup. Read only what this step can change or use.
 - Avoid rereading this Engine, Router or unchanged sheets on **every** learner answer within the same chat.
 - Read at most a few relevant attempt summaries initially. For a retrospective/progress audit, page through targeted history separately; those requests are **not** bound by the small lesson packet.
-- Prefer one purposeful UI interaction per response; avoid rendering future unseen exercises or large answer keys.
+- Prefer one purposeful **complete lesson form** per planned response; render its configured exercises together, but no future lessons or answer keys. Quick answers and free dialogue may remain ordinary chat.
 - Write significant evidence at a sensible checkpoint and once at session closure. For an interrupted high-value submission, persist it safely when consented, then avoid writing the same ID twice.
 - Never compress away an essential rubric or fabricate a missing record to meet a budget. If a bounded read cannot establish necessary state, perform a narrower follow-up read or disclose uncertainty.
 

@@ -24,7 +24,7 @@ Ask one conversational question at a time unless user requests an intake form. D
 
 ## Phase 3: embedded diagnosis
 
-Begin with 2–4 short real tasks matched to learner comprehension, covering independent English output and at least one interaction/meaning check. Adjust scaffolding according to response; register level as **provisional** until sufficient evidence exists. Do not claim pronunciation/listening ability based on typed text.
+Use a bounded mixed diagnostic packet of approximately 3–5 short tasks when appropriate, with no more than seven estimated minutes. Include independent expression, relevant grammar, comprehension and interaction; prioritize breadth over repeated correction loops. After at most one clarification/retry per ambiguous construct, record the limitation and move on. Keep level **provisional**, label untested modalities `unassessed`, and never claim spoken/listening skill based on typing. See [seven-minute lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
 Derive an initial individualized competency graph: few testable can-do outcomes prioritized by actual goal and dependencies, with IDs assigned in learner state, explicit reasons and an unassessed status where evidence is absent. Seed no progress counts.
 

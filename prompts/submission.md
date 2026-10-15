@@ -24,6 +24,10 @@ Do not write any answer without storage consent. When offline, assess in chat an
 
 Google Sheets read-then-append is a **best-effort replay check**, not an atomic uniqueness guarantee under concurrent sessions. Do not promise exactly-once writes. If product requirements change, consider a transactional adapter, without changing the ChatGPT UI.
 
+## Composite one-form lessons
+
+Without changing the V2 envelope or workbook schema, represent multiple exercises as one trusted parent Activity with itemized rubric and `answer` as a bounded JSON **string** mapping subtask IDs to values. Validate each item against the trusted rubric, reject unexpected keys/metadata, assess individual operations and modalities, then store an accurate consented aggregate (one parent attempt ID). An uncompleted optional subtask is `not_assessed`, not an incorrect answer. Do not infer oral production from text or independent production from recognition. Provide **one consolidated feedback turn** after the combined submission rather than a correction chain.
+
 ## Legacy payloads
 
 Existing private `ELS_ATTEMPT_V1` rows can be interpreted by adapter: `skill_id -> competency_id` and `learner_answer -> answer`. Never republish old raw attempts. Do not require migration or overwrite before a normal lesson if data can be read safely.
