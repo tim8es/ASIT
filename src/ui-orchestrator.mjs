@@ -36,6 +36,14 @@ export function selectUiPattern({action,requestedType=null,mode='lesson',capabil
   if(mode==='conversation'||mode==='direct_answer')
     return {kind:'ordinary_chat',operation:'interaction',evidence_modality:'typed_text'};
   if(!['lesson','diagnostic'].includes(mode))throw new Error('Invalid UI mode');
+  // Progress is a read-only verified evidence view, never an assessable exercise.
+  if(requestedType==='progress_explorer')
+    return capabilities.hasVerifiedLearnerProgress?
+      {kind:'read_only',type:'progress_explorer',submit_count:0,
+       input:'verified_private_progress_with_filters',
+       evidence_modality:'not_assessed'}:
+      {kind:'unavailable',type:'progress_explorer',submit_count:0,
+       reason:'No verified private learner progress',evidence_modality:'not_assessed'};
   if(requestedType!==null&&!UI_CANDIDATES.some(p=>p.type===requestedType))
     throw new Error('Unknown exercise type');
   const resolvedAction=action??UI_CANDIDATES.find(p=>p.type===requestedType)?.action;
