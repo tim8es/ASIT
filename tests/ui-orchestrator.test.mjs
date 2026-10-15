@@ -54,7 +54,7 @@ test('bad or unsupported operations do not fabricate evidence',()=>{
  assert.throws(()=>chooseUI({action:'paint',operation:'recognition'}),/Unknown learning action/);
  assert.throws(()=>chooseUI({action:'apply',operation:'magic'}),/Invalid operation/);
 });
-test('lesson plan is one-submit, ordered, within seven minutes',()=>{
+test('default-sized lesson plan is one-submit and ordered',()=>{
  const tasks=[
   {action:'recognize',operation:'recognition',modality:'typed_text'},
   {action:'recall',operation:'production',modality:'typed_text'},
@@ -72,8 +72,27 @@ test('tiny budget reduces activity count instead of claiming more time',()=>{
  const tasks=Array.from({length:5},()=>({action:'recall',operation:'production',modality:'typed_text'}));
  const p=planLessonUI({tasks,minutes:4,maxItems:5});
  assert.ok(p.items.length<=2);
- assert.throws(()=>planLessonUI({tasks,minutes:8}),/3–7/);
- assert.throws(()=>planLessonUI({tasks,minutes:5,maxItems:6}),/1–5/);
+ const longer=planLessonUI({tasks,minutes:8,maxItems:6});
+ assert.equal(longer.planned_minutes,8);
+ assert.throws(()=>planLessonUI({tasks,minutes:121}),/between 3 and 120/);
+ assert.throws(()=>planLessonUI({tasks,minutes:5,maxItems:21}),/between 1 and 20/);
+});
+test('UI Orchestrator uses the saved learner duration and exercise preferences',()=>{
+ const learnerState={profile:{preferences:{lesson_duration_minutes:15,exercises_per_lesson:8}}};
+ const tasks=Array.from({length:10},()=>({action:'recognize',operation:'recognition',modality:'typed_text'}));
+ const result=planLessonUI({tasks,learnerState});
+ assert.equal(result.planned_minutes,15);
+ assert.equal(result.requested_exercises,8);
+ assert.equal(result.items.length,8);
+ assert.equal(result.one_submit,true);
+});
+test('a one-time duration override supersedes a saved duration without modifying it',()=>{
+ const learnerState={profile:{preferences:{lesson_duration_minutes:14,exercises_per_lesson:4}}};
+ const tasks=Array.from({length:6},()=>({action:'recall',operation:'production',modality:'typed_text'}));
+ const result=planLessonUI({tasks,learnerState,minutes:5});
+ assert.equal(result.planned_minutes,5);
+ assert.ok(result.items.length<=3);
+ assert.equal(learnerState.profile.preferences.lesson_duration_minutes,14);
 });
 test('lesson with unsupported long task stops rather than overpromising',()=>{
  assert.throws(()=>planLessonUI({tasks:[{action:'apply',operation:'interaction',modality:'typed_text'}],minutes:3}),/No task fits/);
