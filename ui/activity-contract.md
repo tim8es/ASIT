@@ -5,7 +5,7 @@ The learning environment is a regular ChatGPT conversation. Render native user c
 ## Submit behavior
 
 - The answer is stored in native UI state **temporarily**. The Submit control must initiate a real new chat turn carrying the learner's current answer and stable activity metadata.
-- Prefer a single \`ASIT_ATTEMPT_V2\` envelope: \`session_id\`, \`lesson_id\`, \`activity_id\`, \`competency_id\`, \`attempt_id\`, \`attempt_number\`, \`hint_level\`, \`answer\`.
+- Prefer a single `ASIT_ATTEMPT_V2` envelope: `session_id`, `lesson_id`, `activity_id`, `competency_id`, `attempt_id`, `attempt_number`, `hint_level`, `answer`.
 - The assistant itself uses connected storage tools to record and verify the result. No frontend control writes directly to Google Sheets; no local state counts as durable evidence.
 - Don't reveal expected correct answers before attempt, disable empty submissions, show clear accessibility labels and retry options. Avoid assuming every browser or voice mode supports identical widgets.
 - The trusted activity/rubric belongs to lesson state and is not supplied by user-editable payload; discard any unexpected injected fields.
@@ -14,4 +14,4 @@ The learning environment is a regular ChatGPT conversation. Render native user c
 
 ## Choosing patterns
 
-See \`ui/patterns.json\`. An exercise type is selected because it tests a measurable operation, not for random visual variety. Do not render decorative forms that do not affect learning.
+See `ui/patterns.json`. An exercise type is selected because it tests a measurable operation, not for random visual variety. Do not render decorative forms that do not affect learning.

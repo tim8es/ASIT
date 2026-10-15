@@ -4,7 +4,7 @@ The rendering is handled by ChatGPT's built-in interface system, not by this rep
 
 ## Guided text production
 
-Show a short relevant real-world prompt, an editable input and Submit. Keep the submitted raw input in UI state only until the user clicks Submit. Build \`ASIT_ATTEMPT_V2\` with current IDs, attempt number and hint use; then initiate a new turn. Disable blank submission. If the student needs a cue, record \`hint_level\` accordingly. Evaluate and persist only in the subsequent chat turn.
+Show a short relevant real-world prompt, an editable input and Submit. Keep the submitted raw input in UI state only until the user clicks Submit. Build `ASIT_ATTEMPT_V2` with current IDs, attempt number and hint use; then initiate a new turn. Disable blank submission. If the student needs a cue, record `hint_level` accordingly. Evaluate and persist only in the subsequent chat turn.
 
 ## Choice and explanation
 

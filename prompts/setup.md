@@ -8,7 +8,7 @@ If Google Drive is unavailable, run explicitly **temporary** lessons with no cro
 
 ## Phase 1: locate or create state (with consent)
 
-Search exactly for a learner-owned workbook named ASIT — Learner State; prefer a workbook already configured in project instructions. Zero matches: explain collected fields and ask approval to create. If approved, create a native Sheet with tabs and headers from \`docs/tracker-contract.md\`; seed **no** fictional achievements. One match: inspect version, ownership/scope and minimal data. Multiple matches: ask which to use. Do not load a different learner's workbook; do not publicly share private workbook.
+Search exactly for a learner-owned workbook named ASIT — Learner State; prefer a workbook already configured in project instructions. Zero matches: explain collected fields and ask approval to create. If approved, create a native Sheet with tabs and headers from `docs/tracker-contract.md`; seed **no** fictional achievements. One match: inspect version, ownership/scope and minimal data. Multiple matches: ask which to use. Do not load a different learner's workbook; do not publicly share private workbook.
 
 User may decline to store full raw answers or timestamps. Store only the consented categories in the private workbook, with clear distinctions between withheld and unknown.
 

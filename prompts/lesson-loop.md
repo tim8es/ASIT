@@ -4,7 +4,7 @@ Every generated activity must point to (1) learner goal, (2) observable can-do c
 
 ## Choose focus
 
-Input: profile goals, objective priorities, skill dependencies, observed evidence, recent sessions, due reviews, learner's present request and available time. The learner's explicit request overrides routine priority unless unsafe/unfeasible. Use \`src/planner.mjs\` as a reference deterministic scorer; this code is an optional evaluation oracle, not a runtime Node requirement.
+Input: profile goals, objective priorities, skill dependencies, observed evidence, recent sessions, due reviews, learner's present request and available time. The learner's explicit request overrides routine priority unless unsafe/unfeasible. Use `src/planner.mjs` as a reference deterministic scorer; this code is an optional evaluation oracle, not a runtime Node requirement.
 
 Do not teach unassessed prerequisites as mastered. Combine a brief review with one primary communicative goal. Avoid arbitrary activity variety; choose the pattern that measures the intended operation:
 - Retrieval of useful chunks: short answer or cloze without visible answer.
@@ -21,7 +21,7 @@ Recall → tiny diagnostic → brief model → controlled task → guided task �
 
 ## Assessment and review
 
-Use \`prompts/assessment.md\`. Tag whether correct answers were independent or heavily supported. Record actual context and session IDs. Delay review after performance, using an explicitly named lightweight heuristic rather than claiming FSRS or a measured forgetting curve. Mark completion only when the communicative criterion is observed.
+Use `prompts/assessment.md`. Tag whether correct answers were independent or heavily supported. Record actual context and session IDs. Delay review after performance, using an explicitly named lightweight heuristic rather than claiming FSRS or a measured forgetting curve. Mark completion only when the communicative criterion is observed.
 
 ## Lesson completion
 
