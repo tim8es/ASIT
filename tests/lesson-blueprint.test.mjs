@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createLearnerState} from '../src/learning-state.mjs';
-import {allocateSessionMinutes,makeLessonBlueprint,checkBlueprintFresh} from '../src/lesson-blueprint.mjs';
+import {allocateSessionMinutes,makeLessonBlueprint,checkBlueprintFresh,resolveLessonSettings} from '../src/lesson-blueprint.mjs';
 import {describeChange,dueReviews,summarizeLearningProgress} from '../src/analytics.mjs';
 
 function fixture(){
@@ -49,4 +49,34 @@ test('improvement is described as possibility, not fact of mastery',()=>{
 test('due reviews use actual current time',()=>{
  const reviews=[{id:'d',due_at:'2026-01-01T00:00:00Z'},{id:'f',due_at:'2027-01-01T00:00:00Z'}];
  assert.deepEqual(dueReviews(reviews,'2026-07-01T00:00:00Z').map(x=>x.id),['d']);
+});
+
+test('seven minutes and four tasks are defaults, not immutable caps',()=>{
+ const s=createLearnerState({learnerId:'fictional',targetLanguage:'English'});
+ s.competencies=[{id:'C',can_do:'Clarify plans',dependencies:[],priority:3}];
+ const b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
+ assert.equal(b.planned_minutes,7);
+ assert.equal(b.exercise_count,4);
+ assert.equal(b.submission_mode,'single_form');
+ assert.deepEqual(b.lesson_sections,['topic_and_outcome','grammar_or_language_strategy','combined_practice','end_vocabulary']);
+});
+test('private settings override defaults and a single-lesson choice does not mutate state',()=>{
+ const s=fixture();
+ s.adaptive_profile.lesson_delivery_preference={duration_minutes:15,exercise_count:8};
+ let b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'});
+ assert.equal(b.planned_minutes,15);assert.equal(b.exercise_count,8);
+ b=makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z',minutes:5,exerciseCount:2});
+ assert.equal(b.planned_minutes,5);assert.equal(b.exercise_count,2);
+ assert.equal(s.adaptive_profile.lesson_delivery_preference.duration_minutes,15);
+});
+test('existing private duration_limit_minutes remains supported',()=>{
+ const s=fixture();s.adaptive_profile.lesson_delivery_preference={duration_limit_minutes:7,exercise_count:5};
+ assert.equal(resolveLessonSettings({learnerState:s}).duration_minutes,7);
+ assert.equal(resolveLessonSettings({learnerState:s}).exercise_count,5);
+});
+test('invalid stored settings are rejected instead of silently replaced',()=>{
+ const s=fixture();
+ assert.throws(()=>resolveLessonSettings({learnerState:s,minutes:0}),/duration/i);
+ assert.throws(()=>resolveLessonSettings({learnerState:s,exerciseCount:0}),/Exercise count/);
+ assert.throws(()=>resolveLessonSettings({learnerState:s,exerciseCount:13}),/Exercise count/);
 });

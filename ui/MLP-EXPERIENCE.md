@@ -2,9 +2,9 @@
 
 ASIT is an educational experience, **not** a spreadsheet administration interface. The learning interaction stays in a normal ChatGPT chat. This document describes *intent* and observable behavior, not a custom frontend.
 
-## Seven-minute complete lesson UX
+## Configurable complete lesson UX (seven-minute default)
 
-One planned lesson = **one** learner-facing packet: Topic/outcome → Grammar/language strategy → learner-configured 1–5 connected tasks (four recommended), combined form → **Vocabulary at the end** → one real Submit → consolidated feedback next turn. [UI Orchestrator](UI-ORCHESTRATOR.md) chooses patterns based on operation, actually available modality, accessibility and recent repetition, reading detailed pattern specs only if needed. A normal chat is correct when a widget adds no value.
+One planned lesson = **one** learner-facing packet: Topic/outcome → Grammar/language strategy → learner-configured connected tasks (four by default, up to five recommended for default sessions), combined form → **Vocabulary at the end** → one real Submit → consolidated feedback next turn. [UI Orchestrator](UI-ORCHESTRATOR.md) chooses patterns based on operation, actually available modality, accessibility and recent repetition, reading detailed pattern specs only if needed. A normal chat is correct when a widget adds no value.
 
 Use purposeful variety; never invent drag, pictures or audio. Provide keyboard/select/text alternatives. Do not extend initial diagnostics with unlimited error-repair loops. See [the complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 

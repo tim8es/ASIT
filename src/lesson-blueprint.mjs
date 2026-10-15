@@ -24,9 +24,29 @@ export function allocateSessionMinutes(totalMinutes) {
   while(rest-->0)sorted[i++%sorted.length].minutes++;
   return raw.filter(x=>x.minutes>0).map(({name,minutes})=>({stage:name,minutes}));
 }
-export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=null,minutes=null}) {
+/**
+ * Learner-owned duration and exercise count. Current-turn overrides are temporary.
+ * Support older private adaptive_profile.duration_limit_minutes without migration.
+ */
+export const DEFAULT_LESSON_DURATION=7;
+export const DEFAULT_EXERCISE_COUNT=4;
+export function resolveLessonSettings({learnerState,minutes=null,exerciseCount=null}={}) {
+  if (!learnerState?.profile) throw new Error('Learner not initialized');
+  const p=learnerState.profile.preferences?.lesson??{};
+  const a=learnerState.adaptive_profile?.lesson_delivery_preference??{};
+  const duration=minutes??p.duration_minutes??a.duration_minutes??
+    a.duration_limit_minutes??learnerState.profile.available_minutes??DEFAULT_LESSON_DURATION;
+  const count=exerciseCount??p.exercise_count??a.exercise_count??DEFAULT_EXERCISE_COUNT;
+  if(!Number.isInteger(duration)||duration<3||duration>120)
+    throw new Error('Lesson duration must be between 3 and 120 minutes');
+  if(!Number.isInteger(count)||count<1||count>12)
+    throw new Error('Exercise count must be between 1 and 12');
+  return {duration_minutes:duration,exercise_count:count};
+}
+export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=null,minutes=null,exerciseCount=null}) {
   if (!learnerState?.profile?.target_language) throw new Error('Learner not initialized');
-  const duration=minutes??learnerState.profile.available_minutes??10;
+  const settings=resolveLessonSettings({learnerState,minutes,exerciseCount});
+  const duration=settings.duration_minutes;
   const ids=requestedCompetencyId?[requestedCompetencyId]:[];
   if (requestedCompetencyId && !learnerState.competencies.some(c=>c.id===requestedCompetencyId)) {
     throw new Error('Requested competency is not in learner curriculum');
@@ -39,7 +59,9 @@ export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=n
     schema_version:2, learner_state_revision:learnerState.revision,
     goal:selection.competency_id, goal_description:selection.can_do,
     rationale:selection.reasons, target_language:learnerState.profile.target_language,
-    planned_minutes:duration,stages:allocateSessionMinutes(duration),
+    planned_minutes:duration,exercise_count:settings.exercise_count,
+    lesson_sections:['topic_and_outcome','grammar_or_language_strategy','combined_practice','end_vocabulary'],
+    submission_mode:'single_form',stages:allocateSessionMinutes(duration),
     evidence_requirements:['observable production','hint level','rubric rationale','retry if appropriate'],
     status:'prepared'
   };

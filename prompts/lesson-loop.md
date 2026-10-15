@@ -15,9 +15,9 @@ Do not teach unassessed prerequisites as mastered. Combine a brief review with o
 - Pronunciation: only assess when the system has suitable access to real audio; text transcription is insufficient.
 - Workplace English: only when relevant to the learner.
 
-## Complete planned lessons (seven minutes maximum)
+## Complete planned lessons (seven-minute default; configurable)
 
-Use the [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md): topic, real-world can-do outcome → one or two grammar/language rules with natural examples → **one form containing 1–5 related exercises** (four recommended; learner-adjustable) → vocabulary at the end → **one Submit** and next-turn consolidated feedback. Select a coherent mixed task set, not multiple isolated chat turns.
+Use the [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md): topic, real-world can-do outcome → one or two grammar/language rules with natural examples → **one form containing the learner-configured number of related exercises** (four by default, up to five recommended in default sessions) → vocabulary at the end → **one Submit** and next-turn consolidated feedback. Select a coherent mixed task set, not multiple isolated chat turns.
 
 Use the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md), resolving operation, modality and actual capability before varying patterns. Load only the chosen detailed pattern family. Purposefully mix cloze, choices, construction, ordering, real images, contextual output, and **actual** speech/listening when supported, with accessible text/select alternatives.
 

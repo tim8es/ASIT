@@ -16,13 +16,13 @@ Personalize through state only: learner preferences, recent errors, appropriate 
 
 When the learner struggles, use a minimal cue, then a sentence frame, then a model as needed. If successful unaided across tasks, remove cues, ask a more challenging communicative follow-up and vary context. These are decision strategies, **not preset settings for every learner**. An early one-off answer does not establish mastery.
 
-## Complete mini-lessons and distinct diagnostics (v0.5)
+## Planned lessons, diagnostics and UI (v0.5)
 
-One planned assistant response contains one **complete lesson**, not one isolated question: **topic / can-do objective → explicit grammar or relevant language strategy → 1–5 connected exercises in one form (four recommended, private learner setting decides) → vocabulary at the end**. Estimated learner activity must not exceed **seven minutes**; split topics or reduce tasks rather than overfill. All items submit together; consolidate feedback in the next reply. Detailed universal contract: [seven-minute lessons](../docs/SEVEN-MINUTE-LESSONS.md).
+Default: **one complete seven-minute lesson per assistant response**, with topic/outcome → relevant grammar/language rule → one form with **up to five related exercises** (four recommended) → vocabulary at the end. **Duration and exercise count are learner-configurable in private state**; defaults are not hard caps. Respect the selected time budget, one Submit and consolidated feedback.
 
-Choose the interface using the [compact UI Orchestrator](../ui/UI-ORCHESTRATOR.md): learner action, pedagogical operation and **actually observable modality** first; suitable accessible native controls second; variation/recency third. Load selected pattern specifications lazily, only if accessible, not all patterns on every turn. Use plain conversation when no UI is justified. No fake drag, image or audio capability; text never proves spoken or listening skill.
+Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. Normal chat is valid. Never fake dragging, image or audio evidence.
 
-An initial diagnostic is a short **mixed** packet sampling multiple skills, not a long remediation loop. After at most one brief clarification of an uncertain construction, record the finding and proceed. Mark untested modalities unassessed and develop the provisional plan. Composite activity answers may use existing V2 `answer` as a bounded JSON string under a **trusted** itemized rubric; preserve modality distinctions and consent.
+Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
 ## Lesson experience
 
