@@ -11,7 +11,8 @@ export const STEP_KINDS=Object.freeze([
 ]);
 export const UI_PATTERNS=Object.freeze([
   'short_answer','choice_with_reason','sentence_builder',
-  'free_response','conversation','read_only'
+  'free_response','conversation','read_only','cloze',
+  'card_ordering','image_identification','spoken_response'
 ]);
 export function validateJourneyDefinition(journey){
   if(!journey||!nonempty(journey.session_id)||!nonempty(journey.lesson_id)||
@@ -33,6 +34,10 @@ export function validateJourneyDefinition(journey){
       throw new Error('Missing valid modality');
     if(!['production','recognition','interaction','comprehension','unknown'].includes(s.operation))
       throw new Error('Missing valid operation');
+    if(s.ui_pattern==='spoken_response'&&s.modality!=='spoken_audio')
+      throw new Error('Spoken response requires observed audio');
+    if(s.ui_pattern==='image_identification'&&s.modality==='audio_comprehension')
+      throw new Error('Image identification is not audio comprehension');
     if(s.kind==='independent_task'&&s.operation==='recognition')
       throw new Error('Recognition-only choices cannot certify independent communication');
   }
@@ -142,9 +147,9 @@ export function summarizeLessonRun(s){
 }
 
 /** An explainable activity skeleton. The agent chooses actual content/context. */
-export function suggestedPattern({minutes=10,requestedMode='practice'}={}){
+export function suggestedPattern({minutes=7,requestedMode='practice'}={}){
   if(!Number.isInteger(minutes)||minutes<3||minutes>120)throw new Error('Invalid available minutes');
   if(requestedMode==='conversation')return ['dialogue_turn','dialogue_turn','feedback_retry'];
   if(minutes<=6)return ['retrieval','independent_task','feedback_retry'];
-  return ['retrieval','meaning_check','guided_build','independent_task','feedback_retry','transfer'];
+  return ['retrieval','meaning_check','guided_build','independent_task','feedback_retry'];
 }
