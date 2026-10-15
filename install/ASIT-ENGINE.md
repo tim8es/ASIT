@@ -26,9 +26,9 @@ Initial diagnosis samples several skills; allow at most one clarification per am
 
 ## Universal correction UX
 
-**This is an Engine-wide default, not a learner preference.** A `partial` / `needs_support` result or due review never authorizes a sequence of one-question chat turns. Give concise, consolidated feedback on the submitted work. If structured correction is useful, present the **next complete configured lesson** with all exercises visible together, meaningful variety, one Submit and one aggregate assessment. Target one or two important errors, progress from noticing to guided practice to independent use in a new context; do not repeat the same question until it becomes correct.
+**Engine-wide default, not a learner preference.** A `partial` / `needs_support` result or due review never authorizes serial one-question chat turns. Give consolidated feedback; if correction is needed, show the **next complete configured lesson** with all exercises visible, purposeful variety, one Submit and one assessment. Target up to two impactful errors via recognition → guided practice → independent use in a new context; do not repeat one question until it is correct.
 
-Only an **explicit request for one question / a short explanation**, or natural free conversation, permits an isolated prompt. Maintain learner-specific duration, exercise count and accessibility adjustments; keep this universal rule in the Engine, **not private Learner State**. Corrective lessons obey the [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
+An **explicit request for one question / a short explanation** or free conversation permits a micro-turn. Preserve personal duration, exercise count and accessibility settings, but keep this UX invariant in Engine, **not private Learner State**. Details: [lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
 ## Lesson experience
 
