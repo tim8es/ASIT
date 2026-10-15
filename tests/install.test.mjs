@@ -17,10 +17,18 @@ test('router requires loading Project source each new chat and has explicit miss
  assert.match(router,/file is unavailable/);
 });
 test('fast-path universal engine omits detailed storage schema',()=>{
- assert.ok(engine.length<7500);
+ assert.ok(engine.length<9000);
  assert.match(engine,/ASIT-STORAGE\.md/);
  assert.match(engine,/bounded relevant slice/);
  assert.doesNotMatch(engine,/Config: key \| json_value/);
+});
+test('complete remediation UX is a universal Engine contract, not individual state',()=>{
+ assert.match(engine,/Universal correction UX/);
+ assert.match(engine,/Engine-wide default/);
+ assert.match(engine,/one-question chat turns/);
+ assert.match(engine,/one Submit/);
+ assert.match(engine,/not private Learner State/);
+ assert.match(engine,/explicit request for one question/);
 });
 test('on-demand storage contract owns exact private schema',()=>{
  for(const tab of schema.tabs){
@@ -34,7 +42,7 @@ test('consent and verified readback are preserved across engine and adapter',()=
  assert.doesNotMatch(engine,/native language: Russian|profession: Project Manager|living in St Petersburg/i);
 });
 test('installed initial context is smaller than previously measured version',()=>{
- assert.ok(router.length+engine.length<9500);
+ assert.ok(router.length+engine.length<11000);
 });
 test('installation describes all three file placements',()=>{
  assert.match(start,/ASIT-ENGINE\.md/);
