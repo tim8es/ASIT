@@ -8,3 +8,5 @@
 - **drag/card mechanics:** optional actual interaction with accessible keyboard fallback; otherwise use selects/numbered ordering. Every visible control must work.
 
 Any absent capability must lead to honest fallback or an unassessed modality.
+
+- **inline term help:** useful underlined word or phrase can be tapped to open a small native popover with a contextual meaning and example. It does not change learner answers. A new parallel ChatGPT conversation cannot be forced by available native controls; use the platform's optional side-chat controls manually if present.
