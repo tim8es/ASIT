@@ -159,19 +159,26 @@ export function summarizeLessonCompletion({exercises,answers}={}){
    throw new Error('Invalid trusted lesson exercises');
  if(!answers||typeof answers!=='object'||Array.isArray(answers))
    throw new Error('Invalid answers');
- const isAnswered=value=>{
+ const isAnswered=(value,item={})=>{
+   if(value===null||value===undefined)return false;
    if(typeof value==='string')return value.trim().length>0;
    if(typeof value==='number')return Number.isFinite(value);
-   if(Array.isArray(value))return value.length>0;
+   if(typeof value==='boolean')return true; // false is a legitimate yes/no answer.
+   if(Array.isArray(value))return value.length>0&&
+     (!Number.isInteger(item.expected_count)||value.length===item.expected_count)&&
+     value.every(v=>isAnswered(v));
    if(value&&typeof value==='object'){
-     // Card builders submit selected_ids; do not count a blank selected_ids array.
-     if(Object.hasOwn(value,'selected_ids'))return Array.isArray(value.selected_ids)&&value.selected_ids.length>0;
-     if(Object.hasOwn(value,'answer'))return isAnswered(value.answer);
+     if(Array.isArray(item.required_fields)&&item.required_fields.length){
+       return item.required_fields.every(k=>Object.hasOwn(value,k)&&isAnswered(value[k]));
+     }
+     if(Object.hasOwn(value,'selected_ids'))
+       return isAnswered(value.selected_ids,item);
+     if(Object.hasOwn(value,'answer'))return isAnswered(value.answer,item);
    }
    return false;
  };
- const unanswered_item_ids=exercises.filter(x=>!isAnswered(answers[x.item_id])).map(x=>x.item_id);
- const missingRequired=exercises.filter(x=>x.required!==false&&!isAnswered(answers[x.item_id])).map(x=>x.item_id);
+ const unanswered_item_ids=exercises.filter(x=>!isAnswered(answers[x.item_id],x)).map(x=>x.item_id);
+ const missingRequired=exercises.filter(x=>x.required!==false&&!isAnswered(answers[x.item_id],x)).map(x=>x.item_id);
  return {
    total_count:exercises.length,answered_count:exercises.length-unanswered_item_ids.length,
    unanswered_item_ids,required_unanswered_ids:missingRequired,
