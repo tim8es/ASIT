@@ -44,8 +44,8 @@ export function validateCompetencyMap(competencies) {
 }
 
 export function validateAttempt(a,competencies=[]) {
-  const required=['attempt_id','session_id','lesson_id','activity_id','competency_id','answer','assessment'];
-  if(!a||typeof a!=='object'||required.some(k=>!nonempty(a[k]))) throw new Error('Incomplete attempt');
+  const required=['attempt_id','session_id','lesson_id','activity_id','competency_id','assessment'];
+  if(!a||typeof a!=='object'||required.some(k=>!nonempty(a[k]))||(!nonempty(a.answer)&&!nonempty(a.answer_summary))) throw new Error('Incomplete attempt');
   if(!ASSESSMENTS.includes(a.assessment))throw new Error('Unsupported assessment');
   if(!Number.isInteger(a.attempt_number)||a.attempt_number<1)throw new Error('Invalid attempt number');
   if(!HINT_LEVELS.includes(a.hint_level))throw new Error('Invalid hint level');
@@ -61,6 +61,13 @@ export function applyAttempt(state,attempt) {
   validateAttempt(attempt,state.competencies);
   const prior=state.attempts.find(a=>a.attempt_id===attempt.attempt_id);
   if(prior){
+    // A summary-only persisted row cannot prove which raw text was originally typed.
+    // Fail closed on replay: never append another row, never pretend the answer matches.
+    if(!nonempty(prior.answer)&&nonempty(prior.answer_summary)&&nonempty(attempt.answer)){
+      const invariants=['session_id','lesson_id','activity_id','competency_id','assessment','attempt_number'];
+      if(invariants.some(k=>prior[k]!==attempt[k]))throw new Error('Attempt ID collision with conflicting metadata');
+      return {state,status:'duplicate_unverified'};
+    }
     // Check all supplied stored evidence, not a subset that could hide grade changes.
     if(JSON.stringify(sortObject(prior))!==JSON.stringify(sortObject(attempt)))throw new Error('Attempt ID collision with conflicting data');
     return {state,status:'duplicate'};

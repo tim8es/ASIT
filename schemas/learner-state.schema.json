@@ -139,6 +139,24 @@
           "items": {
             "type": "string"
           }
+        },
+        "required_modality": {
+          "enum": [
+            "typed_text",
+            "spoken_audio",
+            "audio_comprehension",
+            "reading_text",
+            "unknown"
+          ]
+        },
+        "required_operation": {
+          "enum": [
+            "production",
+            "interaction",
+            "recognition",
+            "comprehension",
+            "unknown"
+          ]
         }
       }
     },
@@ -150,7 +168,6 @@
         "lesson_id",
         "activity_id",
         "competency_id",
-        "answer",
         "assessment",
         "hint_level",
         "attempt_number"
@@ -201,8 +218,48 @@
         "occurred_at": {
           "type": "string",
           "format": "date-time"
+        },
+        "answer_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "privacy_mode": {
+          "enum": [
+            "raw",
+            "summary_only"
+          ]
+        },
+        "observed_modality": {
+          "enum": [
+            "typed_text",
+            "spoken_audio",
+            "audio_comprehension",
+            "reading_text",
+            "unknown"
+          ]
+        },
+        "observed_operation": {
+          "enum": [
+            "production",
+            "interaction",
+            "recognition",
+            "comprehension",
+            "unknown"
+          ]
         }
-      }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "answer"
+          ]
+        },
+        {
+          "required": [
+            "answer_summary"
+          ]
+        }
+      ]
     }
   }
 }

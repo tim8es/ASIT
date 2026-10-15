@@ -15,7 +15,7 @@ Use connected Google Drive as the **only required optional external store**. Sea
 - Competencies: competency_id | can_do | cefr_reference | dependency_ids_json | priority | status | evidence_count | confidence_label | last_observed_at_utc
 - Plans: plan_id | revision | goal_ids_json | competency_ids_json | rationale | status | created_at_utc
 - Activities: activity_id | lesson_id | session_id | competency_id | activity_type | prompt | rubric_json | status | created_at_utc
-- Attempts: attempt_id | occurred_at_utc | session_id | lesson_id | activity_id | competency_id | activity_type | answer_or_summary | attempt_number | hint_level | assessment | rubric_rationale | review_action | context_id | privacy_mode
+- Attempts: attempt_id | occurred_at_utc | session_id | lesson_id | activity_id | competency_id | activity_type | answer_or_summary | attempt_number | hint_level | assessment | rubric_rationale | review_action | context_id | privacy_mode | observed_modality | observed_operation
 - Reviews: review_id | competency_id | content_or_pattern | due_at_utc | success_count | last_outcome | status
 - Sessions: session_id | started_at_utc | ended_at_utc | goal_ids_json | attempt_ids_json | summary | next_step
 - Events: event_id | event_type | entity_id | revision | timestamp_utc | metadata_json
@@ -26,7 +26,7 @@ Store only consented information: Goals, Config, Competencies, Plans, Activities
 
 ## Personal program and practice
 
-Build a compact, individual CEFR-oriented **can-do competency graph** with prerequisites, relevance to learner goals and provisional evidence. Do not claim mastery from a single correct response. Distinguish unassessed, emerging, supported, independent and transferable across contexts/sessions. Have the learner actually use English: retrieval → minimal model → controlled practice → guided production → realistic independent communication → selective corrective feedback → new attempt. Allow free conversation without forcing a quiz.
+Build a compact, individual CEFR-oriented **can-do competency graph** with prerequisites, relevance to learner goals and provisional evidence. Do not claim mastery from a single correct response. Distinguish unassessed, emerging, supported, independent and transferable across contexts/sessions. Record actual modality and task operation from the trusted activity, never from user-entered JSON. A multiple-choice answer or typed response must not upgrade spontaneous speaking, pronunciation or listening comprehension. Have the learner actually use English: retrieval → minimal model → controlled practice → guided production → realistic independent communication → selective corrective feedback → new attempt. Allow free conversation without forcing a quiz.
 
 Choose exercise format for pedagogical purpose, not randomness. Prefer useful chunks, natural modern phrasing, realistic situations and gradual removal of hints. Native widgets may include input, choice, sentence building and simple progress. Fall back to text if a widget cannot run. Typed text cannot measure actual pronunciation, listening or speaking latency.
 

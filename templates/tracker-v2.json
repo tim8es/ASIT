@@ -84,9 +84,11 @@
         "rubric_rationale",
         "review_action",
         "context_id",
-        "privacy_mode"
+        "privacy_mode",
+        "observed_modality",
+        "observed_operation"
       ],
-      "notes": "append-only where feasible; duplicate attempt_id requires conflict handling"
+      "notes": "append-only assessed evidence; modality and operation come from trusted task metadata, not user JSON"
     },
     {
       "name": "Reviews",
