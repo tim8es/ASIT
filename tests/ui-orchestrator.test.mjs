@@ -199,3 +199,23 @@ test('composite task coverage requires all specified fields, not a half complete
  });
  assert.equal(y.answered_count,2);assert.equal(y.status,'completed');
 });
+
+test('progress explorer is read-only and requires verified private evidence',()=>{
+ const missing=selectUiPattern({requestedType:'progress_explorer'});
+ assert.equal(missing.kind,'unavailable');
+ assert.equal(missing.submit_count,0);
+ const known=selectUiPattern({requestedType:'progress_explorer',
+   capabilities:{hasVerifiedLearnerProgress:true}});
+ assert.equal(known.kind,'read_only');
+ assert.equal(known.submit_count,0);
+ assert.equal(known.evidence_modality,'not_assessed');
+});
+test('every registered catalog type is either renderable or truthfully capability-gated',async()=>{
+ const {default:manifest}=await import('../ui/patterns.json',{with:{type:'json'}});
+ const gated=new Set(['image_label','image_choice','image_hotspot','listening','spoken_response','progress_explorer']);
+ for(const p of manifest.patterns){
+   const ui=selectUiPattern({requestedType:p.type});
+   if(gated.has(p.type))assert.equal(ui.kind,'unavailable',p.type);
+   else assert.equal(ui.type,p.type,p.type);
+ }
+});
