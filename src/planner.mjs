@@ -13,7 +13,7 @@ export function rankLearningPriorities({competencies,attempts=[],reviewQueue=[],
       &&Number.isFinite(Date.parse(r.due_at))&&Date.parse(r.due_at)<=Date.parse(nowIso));
     const evidence=summarizeCompetency(attempts,c.id,c);
     const reasons=[];let score=(c.priority??2)*10;
-    if(objectiveIds.includes(c.id)){score+=30;reasons.push('Learner-selected objective');}
+    if(objectiveIds.includes(c.id)){score+=500;reasons.push('Learner-selected objective');}
     if(due){score+=25;reasons.push('Due for retrieval');}
     if(evidence.status==='unassessed'){score+=12;reasons.push('Unassessed');}
     if(['emerging','supported'].includes(evidence.status)){score+=10;reasons.push('Needs more independent practice');}
