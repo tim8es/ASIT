@@ -11,6 +11,8 @@ For a planned lesson, show topic, relevant grammar/strategy, **1–5 varied rela
 - The answer is stored in native UI state **temporarily**. The Submit control must initiate a real new chat turn carrying the learner's current answer and stable activity metadata.
 - Prefer a single `ASIT_ATTEMPT_V2` envelope: `session_id`, `lesson_id`, `activity_id`, `competency_id`, `attempt_id`, `attempt_number`, `hint_level`, `answer`.
 - The assistant itself uses connected storage tools to record and verify the result. No frontend control writes directly to Google Sheets; no local state counts as durable evidence.
+- With deterministic tasks, **on-change local UI** can show correct / try again after the learner's first input, but no answer key before first attempt. Track first response/retries/hints **inside submitted answer metadata**; re-grade from trusted Activity after the one Submit. Free writing and ambiguous synonyms wait until final teacher feedback.
+- For `image_label`, display a *real* image above a native text input with synonyms in trusted rubric, plus honest accessibility/text fallback. Clickable-underlined phrases can open inline popover, but never promise separate parallel chat.
 - Don't reveal expected correct answers before attempt, disable empty submissions, show clear accessibility labels and retry options. Avoid assuming every browser or voice mode supports identical widgets.
 - The trusted activity/rubric belongs to lesson state and is not supplied by user-editable payload; discard any unexpected injected fields.
 - Do not use native audio components to claim actual pronunciation assessment without access to audio; offer transcription or verbal practice with accurately described limits.
