@@ -56,7 +56,7 @@ test('invalid exercise preference is rejected',()=>{
  assert.throws(()=>makeLessonBlueprint({learnerState:s,nowIso:'2026-06-01T00:00:00Z'}),/1 and 20|between 1 and 20/);
 });
 test('duration too short for a structured mini-lesson is rejected',()=>{
- assert.throws(()=>makeLessonBlueprint({learnerState:fixture(),nowIso:'2026-06-01T00:00:00Z',minutes:2}),/at least 3/);
+ assert.throws(()=>makeLessonBlueprint({learnerState:fixture(),nowIso:'2026-06-01T00:00:00Z',minutes:2}),/between 3 and 120/);
 });
 test('unconfigured learner receives seven-minute, five-task defaults',()=>{
  const s=fixture();s.profile.available_minutes=null;
