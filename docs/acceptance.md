@@ -4,16 +4,18 @@ These are **implementation gates**, not a learner's private test log.
 
 | Gate | Status | How to verify |
 | --- | --- | --- |
-| Open-source skills, schema and starter documentation | Implemented | Inspect tracked repository tree |
-| Native-first UI protocol | Specified / manual test needed | Submit controlled exercise in ChatGPT |
-| Deterministic state model and planning | Implemented | Node tests in CI |
-| Local public-data scanning | Implemented | \`node scripts/scan-public.mjs\` |
-| Private Drive Sheets read-write adapter | Experimental | Test with consenting learner-owned workbook, exact row readback |
-| Safe first-run bootstrap with no preset biography | Guided workflow | Test fresh user with empty private storage |
-| Fresh-chat personalized continuity | Not yet verified | Start in separate chat; independently read private state |
-| Multi-activity adaptive lesson | Not yet verified | Run complete lesson, retries and delayed review |
-| Voice-based ability evidence | Not verified | Only test where genuine audio is accessible |
-| Exactly-once writes during parallel sessions | Not supported by Sheets | Requires transactional storage if necessary |
-| Public Git history and accessibility | Blocked pending history scrub + access checks | See publication checklist |
+| Generalized teaching prompts, schemas, setup docs | Implemented | Review current repository tree |
+| Deterministic state, planning, review, lesson blueprint and trend utilities | Tested | Node.js tests and GitHub Actions |
+| Source HEAD privacy scanner | Tested | \`node scripts/scan-public.mjs\` succeeds |
+| New Git root with no parent commits | Verified | Main branch commit metadata |
+| Residual old Git objects no longer retrievable | **FAIL — old SHA addressable** | GitHub direct commit lookup |
+| Native interactive submission protocol | Specified / partial private pilot | Human UX test needed in clean v2 |
+| Cloud storage v2 bootstrap from empty user profile | Not yet end-to-end verified | Synthetic ChatGPT + Drive test |
+| Privacy-conscious consent and summary-only code | Implemented/tested in pure codec | Real consent workflow still requires manual test |
+| New-chat continuity with private state | Not yet verified | Fresh configured conversation test |
+| Full multi-activity adaptive lesson | Not yet verified | Complete manual lesson test |
+| Voice/pronunciation evidence | Not verified | Requires access to actual audio |
+| Atomic exactly-once writes | Unsupported by Google Sheets | Transactional backend needed if required |
+| Public release | **BLOCKED** | Fix residual history exposure and remaining release checks |
 
-**Important:** a successful automated test checks code invariants, not educational learning outcomes. Don't copy answers, names, actual workbook IDs or timestamps from personal pilot tests into this document.
+Never report current unit tests as proof of language-learning outcomes or full product readiness. Do not publish real learner data in QA documentation.
