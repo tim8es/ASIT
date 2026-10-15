@@ -54,7 +54,7 @@ export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=n
   }
   const selection=selectNextLearningGoal({competencies:learnerState.competencies,
     attempts:learnerState.attempts,reviewQueue:learnerState.review_queue,
-    objectiveIds:ids,nowIso});
+    objectiveIds:ids,nowIso,\n    recentLessonCompetencyIds:learnerState.recent_lesson_competency_ids??[]});
   if (!selection) throw new Error('No unblocked competencies; revise the graph');
   return {
     schema_version:2, learner_state_revision:learnerState.revision,
