@@ -14,6 +14,20 @@ Track `first_response`, `revisions`, `local_checks` and `hint_level` **within ea
 
 Use only beneficial unfamiliar words/phrases, underlined and clickable, with native popover containing a short explanation, one example and optional translation. Avoid leaking answers to a scored exercise; if hint content overlaps the answer, track hint use. Popover must not clear the form. Native UI does not expose a guaranteed action to open another ChatGPT thread floating over the current lesson. Do not pretend that an inline popover is a separate chat. A client may support optional manual side chat/branching.
 
+## Sentence flow and non-disruptive explanations
+
+Narration is **one continuous paragraph**, including spaces and punctuation: `The guard left a security log before disappearing from the station.` Do **not** place block-level popover/trigger controls or newlines between `a` and `before` if this splits the sentence into three lines.
+
+First attempt: a native popover trigger with `block={false}` and inline phrasing where reliably supported. Check actual rendering on mobile and desktop. If the renderer still disrupts line flow, use a **single plain sentence** and put the underlined `security log — explanation` control immediately **after** the sentence or alongside it in a separate lightweight helper line. Never sacrifice readable text to an unverified inline-control trick. The hint must not clear the learner's answers. No fake side chat.
+
+## Required exercise completion and story finale
+
+The story's **clue count** and its **lesson-completion count** are distinct. A four-clue animation cannot automatically mark a five-exercise lesson complete. Report `4/5 submitted` with `q5: not_assessed` if the final free-writing item is blank. `not_assessed` is an absence of evidence, **not** a wrong English answer. Show `Mission incomplete` and keep the final narrative ending locked; it must not play as though the learner wrote a report.
+
+Before the one final Submit, for required blank items prefer a disabled Submit with `Complete the final report`. For a learner who explicitly wants to stop, support an accessible `Finish early (incomplete)` checkbox or equivalent that enables the **same single Submit** and records the skipped item as not assessed. Never silently fill a report, advance the ending, mark independent writing supported, or penalize absence as grammatical weakness. Preserve the user-entered draft. If they return, offer resume of the missing item rather than repeating all objective tasks.
+
+After Submit, the tutor must compute item coverage from the **trusted** composite Activity: total tasks, answered tasks and required tasks unanswered. Local progress UI and first-try metadata are informative but not authoritative. Lesson status = completed only if all required items were submitted (this does **not** imply correct mastery); optional unanswered items remain visibly unassessed. A teacher's explanation of completed clues cannot replace an explicit unfinished-task notice.
+
 ## Picture with a typed English label underneath
 
 1. Fetch/render a **real relevant image**, not an emoji, static blank or word description masquerading as a picture. Place image above a native text input asking `What is this in English?` or an appropriate short phrase. Caption must not disclose the answer.
@@ -29,5 +43,8 @@ Use only beneficial unfamiliar words/phrases, underlined and clickable, with nat
 - [ ] First try, retries and hints are not mistaken for independent mastery.
 - [ ] Free-text writing is `Review after Submit`; unanswered writing is `not_assessed`.
 - [ ] Real image is placed directly above text entry; aliases and text-only fallback work.
+- [ ] Narration is one continuous sentence; a popover never splits it into three block fragments.
+- [ ] 4/5 with blank required writing is shown as incomplete; q5 is not assessed and ending stays locked.
+- [ ] Early exit, if offered, is explicit and retains one Submit and an incomplete status.
 - [ ] Tapping a term opens inline explanation without resetting answers.
 - [ ] No fake side chat, fake picture, fake saved receipt or fake audio assessment.

@@ -10,9 +10,10 @@
 4. Select controls first by learning operation and assessment validity; then accessibility/platform capabilities; only then novelty. Rotate among equally sound patterns within and across lessons, using recent type history. If 3+ tasks and suitable alternatives exist, use 2+ complementary patterns.
 5. Check **real capability**: audio playback for listening, access to learner audio for spoken assessment, actual relevant images for image tasks, actual drag mechanics and keyboard fallback for drag. Otherwise fall back to accessible text/select/numbered ordering with accurate modality labels. Never represent a static mockup as working interactivity.
 6. After learner interaction, **show provisional instant checks** for deterministic single-choice, fixed-answer grammar choices, finite accepted image labels, and completed word-card ordering. Use native controlled state for `Correct` / `Try again` / `Not answered`; do not give away an untried answer. Capture first try, revisions and hints inside the eventual answer; after ONE final Submit, re-evaluate with trusted Activity metadata. Open writing and unrecognized plausible synonyms are deferred.
-7. Clickable underlined words may open an **inline popover** with short explanation. They cannot force a parallel ChatGPT chat; do not fake this UI.
-8. Choose concise task instructions, appropriate hint, trusted rubric, one response control per subtask and genuine Submit. Assess after Submit and offer delayed review. Limit single-construct diagnostic retries.
-7. Do not conflate recognition, writing, dialogue typing, speaking, pronunciation or listening in evidence.
+7. Keep narrative sentences typographically **continuous**. Use an underlined popover trigger only when it stays inline; if the ChatGPT client renders a popover as its own block, show the complete sentence uninterrupted and place the underlined explanatory control after it. Never split a sentence into three stacked pieces. Popovers cannot force parallel chats.
+8. Distinguish clue progress from lesson completion. **Every required blank task** (especially final independent writing) prevents `completed` or finale unlock; status is `incomplete`, missing task `not_assessed` (not incorrect). Do not silently accept missing text just because objective clues are correct. Offer continue writing or explicit incomplete early finish with the same single Submit; preserve all entered answers.
+9. Choose concise task instructions, appropriate hint, trusted rubric, one response control per subtask and genuine Submit. Assess after Submit and offer delayed review. Limit single-construct diagnostic retries.
+10. Do not conflate recognition, writing, dialogue typing, speaking, pronunciation or listening in evidence.
 
 ## Operations → patterns
 
