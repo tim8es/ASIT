@@ -23,3 +23,13 @@ For a planned lesson, show topic, relevant grammar/strategy, **1–5 varied rela
 ## Choosing patterns
 
 See `ui/patterns.json`. An exercise type is selected because it tests a measurable operation, not for random visual variety. Do not render decorative forms that do not affect learning.
+
+## Extended catalog: runtime truth and provenance
+
+As of `ui/patterns.json` v0.5, the catalog has **18 distinct types** (17 practice + one read-only `progress_explorer`). The three additions are `reading_comprehension`, `timeline_ordering` and `image_hotspot`. A fully loaded showcase may demonstrate them in a long QA session, but must not pretend all fit the ordinary seven-minute budget.
+
+A normal task response includes stable trusted `item_id`, instruction, operation, modality, required flag, input type, rubric and hint rules. For a composite task such as choose+justify, the trusted rubric must describe `required_fields`; for multi-token order/matching it may describe `expected_count`. One half-selected match or only a scenario choice without required reason is NOT complete. Client-provided `first_response`, `revision_count` and `hint_level` are untrusted and revalidated after final Submit; do not manufacture independent mastery.
+
+The reading passage is *actually present* before checking textual gist/details. Timeline event cards must have a grounded unambiguous chronology with keyboard-accessible tap-to-order and Undo. Region spotting requires actual accessible clickable image regions and stable region IDs; otherwise downgrade to `image_choice` with visible explanation and no hotspot evidence. Audio and multi-turn interaction must use genuine accessible sources and chat turns respectively. An unsupported media widget must not emit a fake score or inert play/record control.
+
+No interface alone can save to Sheets; the single Submit hands off a real activity attempt to the teacher for a trusted rubric check and, if consented, connector write/readback.
