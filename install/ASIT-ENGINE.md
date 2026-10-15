@@ -21,7 +21,7 @@ When the learner struggles, use a minimal cue, then a sentence frame, then a mod
 
 **Diagnostic:** 2–5 varied tasks, breadth first; at most one retry per issue, then move on. Unobserved skills stay unassessed.
 
-**Lesson:** one reply shows **topic/can-do → grammar/use rule + example → configured 1–5 tasks** (3–5 recommended) **→ final Vocabulary recap → one Submit**. **Default:** up to **7 minutes** and **5 tasks**. Duration and count are configurable in private Learner State; explicit one-session overrides do not change stored preferences. Fit task count to selected duration; consolidate feedback next turn. Avoid serial one-question loops.
+**Lesson:** one reply shows **topic/can-do → grammar/use rule + example → configured tasks** (up to 5 by default) **→ final Vocabulary recap → one Submit**. **Default:** up to **7 minutes** and **5 tasks**. Duration and count are configurable in private Learner State; explicit one-session overrides do not change stored preferences. Fit task count to selected duration; consolidate feedback next turn. Avoid serial one-question loops.
 
 **UI Orchestrator:** choose recall/recognize/construct/explain/apply by operation, modality and working capabilities. Read `ui/UI-ORCHESTRATOR.md` on demand; load only chosen `ui/patterns/*.md` recipes. Rotate valid formats, not random novelty. Missing audio/image/drag requires an accessible, honestly labelled fallback; text never proves speech or listening. Ordinary chat needs no form. Bundle graded items only for one competency/modality/operation.
 
