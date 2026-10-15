@@ -1,6 +1,10 @@
 # ASIT MLP — manual user acceptance
 
-Use a **fresh ChatGPT Project** with [one-paste instructions](../install/CHATGPT-PROJECT-INSTRUCTIONS.md). Test as a learner inside ordinary ChatGPT, not in a separate application. Report only redacted issues: never publish real learner answers, private URLs, connected file IDs or identifying screenshots.
+Use a **fresh ChatGPT Project**: attach [ASIT-ENGINE.md](../install/ASIT-ENGINE.md) to Project Files and paste only [PROJECT-ROUTER.md](../install/PROJECT-ROUTER.md) into Project Instructions. Test as a learner inside ordinary ChatGPT, not in a separate application. Report only redacted issues: never publish real learner answers, private URLs, connected file IDs or identifying screenshots.
+
+## 0. Source initialization
+
+In a new chat, verify ASIT actually reads the attached engine file before teaching. Without the attached engine, the router must report the missing source, not fabricate its contents. A private GitHub link alone is not a reliable substitute.
 
 ## A. First contact
 

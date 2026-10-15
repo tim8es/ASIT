@@ -8,12 +8,13 @@ ASIT operates in a **normal ChatGPT conversation**, using native interactive con
 
 ## Start using ASIT
 
-1. Copy the **[self-contained ChatGPT Project instructions](install/CHATGPT-PROJECT-INSTRUCTIONS.md)** into ChatGPT Project settings. **No GitHub connector required** for basic teaching.
-2. Optionally connect **Google Drive** to preserve progress. Without it, sessions remain explicitly unsaved.
-3. Start a **normal chat inside the Project** and say **"Start my English program."** The agent asks for storage consent and your learning goals, then prepares an individual plan.
-4. In the next chat inside the same Project, ASIT is designed to retrieve available evidence from your private workbook (fresh-chat acceptance is still pending). Outside the Project, paste the instruction again.
+1. Download [ASIT-ENGINE.md](install/ASIT-ENGINE.md) and attach it to your **ChatGPT Project Files / Knowledge**.
+2. Paste only [PROJECT-ROUTER.md](install/PROJECT-ROUTER.md) into **ChatGPT Project Instructions** (approximately 1,800 characters).
+3. Start a regular chat inside that Project and say **"Start my English program."** ASIT loads the engine, discovers the learner's goals and starts useful English practice.
+4. Connect Google Drive *optionally* for private learning progress after explicit consent. Without it, the lesson remains unsaved.
+5. Start another chat in the same Project to test source loading and state recovery.
 
-No Node.js or server setup is needed to study. Node.js 22 is needed **only** for contributors running offline tests.
+**No GitHub connector, command line, separate website or paid API key is required for the learner.** GitHub is the source of truth for updates; attached Project files are not automatically synced.
 
 ## What is (and isn't) stored
 
@@ -33,7 +34,7 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 
 ## Contents
 
-- [One-paste setup](install/CHATGPT-PROJECT-INSTRUCTIONS.md) and [onboarding workflow](prompts/setup.md)
+- [Project router](install/PROJECT-ROUTER.md), [teaching source](install/ASIT-ENGINE.md), and [onboarding workflow](prompts/setup.md)
 - [Teacher router](prompts/router.md), [lesson selection](prompts/lesson-loop.md), [assessment](prompts/assessment.md) and [submission handler](prompts/submission.md)
 - [Learning state](src/learning-state.mjs), [planner](src/planner.mjs), [message protocol](src/protocol.mjs)
 - [Native UI patterns](ui/patterns.json), [activity contract](ui/activity-contract.md)
@@ -43,7 +44,7 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 
 ## MLP testing
 
-[One-paste setup](install/CHATGPT-PROJECT-INSTRUCTIONS.md) · [Step-by-step test](docs/MLP-ACCEPTANCE.md) · [Learning program](docs/LEARNING-PROGRAM.md) · [Native lesson UX](ui/MLP-EXPERIENCE.md) · [Release scope](docs/MLP-RELEASE.md)
+[Two-part setup](install/START_HERE.md) · [Step-by-step test](docs/MLP-ACCEPTANCE.md) · [Learning program](docs/LEARNING-PROGRAM.md) · [Native lesson UX](ui/MLP-EXPERIENCE.md) · [Release scope](docs/MLP-RELEASE.md)
 
 ## Verified engineering evidence
 
