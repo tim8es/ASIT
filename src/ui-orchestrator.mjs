@@ -123,3 +123,34 @@ export function checkObjectiveInput({type,answer,expected,accepted=[]}={}){
  return {status:options.some(x=>normalizeLabel(x)===normalizeLabel(answer))
    ?'correct':'deferred',scope};
 }
+
+
+/** Summarize answer coverage, not correctness. A skipped required task cannot unlock a finale. */
+export function summarizeLessonCompletion({exercises,answers}={}){
+ if(!Array.isArray(exercises)||!exercises.length||
+   exercises.some(x=>!x||typeof x.item_id!=='string'||!x.item_id.trim())||
+   new Set(exercises.map(x=>x.item_id)).size!==exercises.length)
+   throw new Error('Invalid trusted lesson exercises');
+ if(!answers||typeof answers!=='object'||Array.isArray(answers))
+   throw new Error('Invalid answers');
+ const isAnswered=value=>{
+   if(typeof value==='string')return value.trim().length>0;
+   if(typeof value==='number')return Number.isFinite(value);
+   if(Array.isArray(value))return value.length>0;
+   if(value&&typeof value==='object'){
+     // Card builders submit selected_ids; do not count a blank selected_ids array.
+     if(Object.hasOwn(value,'selected_ids'))return Array.isArray(value.selected_ids)&&value.selected_ids.length>0;
+     if(Object.hasOwn(value,'answer'))return isAnswered(value.answer);
+   }
+   return false;
+ };
+ const unanswered_item_ids=exercises.filter(x=>!isAnswered(answers[x.item_id])).map(x=>x.item_id);
+ const missingRequired=exercises.filter(x=>x.required!==false&&!isAnswered(answers[x.item_id])).map(x=>x.item_id);
+ return {
+   total_count:exercises.length,answered_count:exercises.length-unanswered_item_ids.length,
+   unanswered_item_ids,required_unanswered_ids:missingRequired,
+   status:missingRequired.length?'incomplete':'completed',
+   final_scene_unlocked:missingRequired.length===0,
+   // No correctness or independent-writing claim is made by this coverage-only oracle.
+ };
+}
