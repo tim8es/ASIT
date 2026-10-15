@@ -21,6 +21,8 @@ Group multiple field answers as a serialized value in the existing `ASIT_ATTEMPT
 
 Choose formats by evidence need: multiple-choice meaning, cloze, sentence ordering, written response, real conversational turn, **accessible** card rearrangement, source-backed image-choice, or actual audio/speaking tools. A drag control must have a typed/selectable equivalent and should not be simulated by an inert visual. Image questions require a real relevant image rather than an imagined picture. If audio is missing, present a reading/writing alternative clearly marked as such. Rotate formats across lessons but do not replace communicative practice with decorative variety.
 
+The **UI Orchestrator** owns the selection decision. Load `ui/UI-ORCHESTRATOR.md` for compact universal rules and only the selected `ui/patterns/*.md` recipes; do not inject the whole registry into every ChatGPT turn. `src/ui-orchestrator.mjs` provides a testable reference selector, not an always-running UI engine. A selection recommendation never guarantees a widget can be rendered in every ChatGPT client.
+
 ## Choosing patterns
 
 See `ui/patterns.json`. An exercise type is selected because it tests a measurable operation, not for random visual variety. Do not render decorative forms that do not affect learning.
