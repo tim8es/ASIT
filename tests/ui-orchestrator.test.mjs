@@ -94,6 +94,8 @@ test('a one-time duration override supersedes a saved duration without modifying
  assert.ok(result.items.length<=3);
  assert.equal(learnerState.profile.preferences.lesson_duration_minutes,14);
 });
-test('lesson with unsupported long task stops rather than overpromising',()=>{
- assert.throws(()=>planLessonUI({tasks:[{action:'apply',operation:'interaction',modality:'typed_text'}],minutes:3}),/No task fits/);
+test('a short lesson can contain one meaningful dialogue task',()=>{
+ const result=planLessonUI({tasks:[{action:'apply',operation:'interaction',modality:'typed_text'}],minutes:3});
+ assert.equal(result.items.length,1);
+ assert.equal(result.items[0].pattern,'dialogue');
 });
