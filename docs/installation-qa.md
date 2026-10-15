@@ -17,4 +17,4 @@ A deployable instruction system must demonstrate these outcomes with a **synthet
 | Listening task without audio | No fabricated listening assessment |
 | Repo becomes public | Git HEAD and history scanned; no exposed personal data |
 
-See \`docs/manual-acceptance.md\` for full human testing. This checklist does not claim those UI scenarios have already passed.
+See `docs/manual-acceptance.md` for full human testing. This checklist does not claim those UI scenarios have already passed.

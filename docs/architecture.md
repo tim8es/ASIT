@@ -1,6 +1,6 @@
 # Architecture v0.2 — native ChatGPT, private learner store
 
-\`\`\`text
+```text
 Ordinary ChatGPT conversation (teacher + native Intelligent UI)
            |                    ^
        controlled submit    feedback / retry
@@ -11,7 +11,7 @@ Ordinary ChatGPT conversation (teacher + native Intelligent UI)
                                       |
                        Config, Goals, Competencies, Plans
                        Activities, Attempts, Reviews, Sessions
-\`\`\`
+```
 
 The source repository contains reusable skill prompts, specs, evals and optional deterministic reference helpers. These Node.js files are **not automatically executed by ChatGPT**: the model uses the portable contracts and connector actions. Native UI is rendered inside ChatGPT; it isn't this repository's React app.
 
@@ -29,9 +29,9 @@ The source repository contains reusable skill prompts, specs, evals and optional
 - Cross-chat continuity requires project instructions and accessible user-owned private state. Unconfigured chats do not magically preload GitHub content.
 - Google Sheets is nontransactional for read-before-append; duplicate prevention is best effort, never exactly-once under parallel writers.
 - No short independent diagnostic establishes an exact CEFR level; record uncertainty and modality distinctions.
-- No background preparation guarantee without a Scheduled Task actually having permission to access storage; see \`docs/scheduling.md\`.
-- Current Git root is clean, but old detached commits remain addressable by SHA; **publication blocked** until purged or cleanly migrated. See \`docs/publication.md\`.
+- No background preparation guarantee without a Scheduled Task actually having permission to access storage; see `docs/scheduling.md`.
+- Current Git root is clean, but old detached commits remain addressable by SHA; **publication blocked** until purged or cleanly migrated. See `docs/publication.md`.
 
 ## Legacy state
 
-Historical private v0.1 workbooks can be read with \`src/storage-contract.mjs\` and migrated only after private backup and verification. Source tree and learner data are permanently separate.
+Historical private v0.1 workbooks can be read with `src/storage-contract.mjs` and migrated only after private backup and verification. Source tree and learner data are permanently separate.

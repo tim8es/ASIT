@@ -14,7 +14,7 @@ Literature-backed recommendations may vary by population and task. The first ASI
 
 ## Curriculum layers
 
-\`\`\`text
+```text
 Learner goal
   → communicating can-do competency (+ dependencies)
     → prioritized unit in learning path
@@ -22,13 +22,13 @@ Learner goal
         → activity with rubric
           → observed attempt
             → revised evidence and review schedule
-\`\`\`
+```
 
 The model chooses content and UI based on observed level, personal needs and requested conversation, not random widget variety.
 
 ## Skill-state labels
 
-\`unassessed\`, \`emerging\`, \`supported\`, \`independent\`, \`transferable\` are working qualitative labels. The code demonstrates a conservative evidence requirement for transfer (two independent contexts across sessions). This is **not official certification or a calibrated mastery score**.
+`unassessed`, `emerging`, `supported`, `independent`, `transferable` are working qualitative labels. The code demonstrates a conservative evidence requirement for transfer (two independent contexts across sessions). This is **not official certification or a calibrated mastery score**.
 
 ## Adaptive practice
 

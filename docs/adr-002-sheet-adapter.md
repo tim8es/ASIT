@@ -6,7 +6,7 @@ Reasons: existing connector tools, familiar account model, transparent correctio
 
 Boundaries:
 - The repository publishes schema and adapter instructions, not connection credentials.
-- Google Sheets cannot enforce atomic \`attempt_id\` uniqueness or multi-table transactions.
+- Google Sheets cannot enforce atomic `attempt_id` uniqueness or multi-table transactions.
 - Unexpected schema changes, cross-learner access and connector failures are fail-closed, not silently ignored.
 - If such correctness requirements become mandatory for multiple writers, evaluate a transactional store with proper scoped credentials and a migration plan before adding it.
 

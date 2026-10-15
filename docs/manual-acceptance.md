@@ -6,7 +6,7 @@ Use a fresh ChatGPT Project, a connected Drive account and **fictional test-only
 2. **Declined storage:** withhold permission. Complete a 3-turn text lesson; confirm "not saved" status and no cloud mutations.
 3. **Native UI:** start interactive exercise. Change input twice; click Submit. Verify only final answer arrives in a new ChatGPT turn with an activity ID and skill ID.
 4. **Evidence:** make a deliberately incomplete fictional response. Check feedback is helpful and confidence doesn't rise to mastered. Confirm one exact attempt in the private workbook.
-5. **Replay:** resubmit same \`attempt_id\`. The writer must detect it and not duplicate. Change content under same ID: conflict must be rejected.
+5. **Replay:** resubmit same `attempt_id`. The writer must detect it and not duplicate. Change content under same ID: conflict must be rejected.
 6. **Fresh chat:** start new normal chat in same configured ChatGPT Project. Confirm agent reads latest plan and exact attempt ID without a new onboarding.
 7. **Adaptive lesson:** perform one guided and one independent task, then a new context. Check priority/rationale and review schedule. No invented reaction-time metrics.
 8. **Interrupted store:** disconnect Drive mid-lesson. The assistant must state saving failed; no success claim or lost data silently ignored.

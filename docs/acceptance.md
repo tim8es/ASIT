@@ -6,7 +6,7 @@ These are **implementation gates**, not a learner's private test log.
 | --- | --- | --- |
 | Generalized teaching prompts, schemas, setup docs | Implemented | Review current repository tree |
 | Deterministic state, planning, review, lesson blueprint and trend utilities | Tested | Node.js tests and GitHub Actions |
-| Source HEAD privacy scanner | Tested | \`node scripts/scan-public.mjs\` succeeds |
+| Source HEAD privacy scanner | Tested | `node scripts/scan-public.mjs` succeeds |
 | New Git root with no parent commits | Verified | Main branch commit metadata |
 | Residual old Git objects no longer retrievable | **FAIL — old SHA addressable** | GitHub direct commit lookup |
 | Native interactive submission protocol | Specified / partial private pilot | Human UX test needed in clean v2 |
