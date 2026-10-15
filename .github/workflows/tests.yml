@@ -24,3 +24,5 @@ jobs:
         run: node scripts/scan-public.mjs
       - name: Scan reachable Git history
         run: node scripts/scan-history.mjs
+      - name: Audit synthetic lesson context budgets
+        run: node scripts/context-audit.mjs
