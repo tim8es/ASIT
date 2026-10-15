@@ -4,11 +4,11 @@
 
 ## Included in this candidate
 
-- Self-contained ChatGPT Project instruction, with no fixed biography or level.
+- Stable short Project Router, universal teaching Engine and on-demand Storage adapter, without fixed biography or level.
 - Adaptive goal discovery and CEFR-oriented can-do progression; provisional diagnostic, rolling plan, concise reviews.
 - Purposeful native interface patterns and conversational fallback.
 - Structured interactive submission, observable rubrics, modality-aware assessment and selective correction.
-- Private Google Sheets v2 schema, consent-aware startup, testable persistence/readback, and strict cross-chat state hydration.
+- Private Google Sheets v2 schema, consent-aware startup, testable persistence/readback, private adaptive_profile decisions and bounded cross-chat state reads.
 - Synthetic end-to-end reference tests, security scans and a learner acceptance script.
 
 ## Limitations, disclosed

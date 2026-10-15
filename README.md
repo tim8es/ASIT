@@ -8,7 +8,7 @@ ASIT operates in a **normal ChatGPT conversation**, using native interactive con
 
 ## Start using ASIT
 
-1. Download [ASIT-ENGINE.md](install/ASIT-ENGINE.md) and attach it to your **ChatGPT Project Files / Knowledge**.
+1. Download [ASIT-ENGINE.md](install/ASIT-ENGINE.md) **and** [ASIT-STORAGE.md](install/ASIT-STORAGE.md), then attach both to **ChatGPT Project Files / Knowledge**.
 2. Paste only [PROJECT-ROUTER.md](install/PROJECT-ROUTER.md) into **ChatGPT Project Instructions** (approximately 1,800 characters).
 3. Start a regular chat inside that Project and say **"Start my English program."** ASIT loads the engine, discovers the learner's goals and starts useful English practice.
 4. Connect Google Drive *optionally* for private learning progress after explicit consent. Without it, the lesson remains unsaved.
@@ -41,6 +41,10 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 - [Schema and private storage adapter](docs/tracker-contract.md), [privacy](docs/security.md), [release gate](docs/publication.md)
 - [Human acceptance checks](docs/manual-acceptance.md), [evaluation fixtures](evals/README.md)
 - [Capability limits](docs/architecture.md)
+
+## Efficient, individualized runtime
+
+The Router and Engine remain generic and unmodified throughout a learner's course. A private `Config.adaptive_profile` holds evidence-linked individual difficulty and support decisions. The Storage adapter is a separate reference file, loaded on demand. Ordinary lessons use a [bounded learner context policy](docs/CONTEXT-PERFORMANCE.md), not a full history dump; heavy retrospective analyses opt in to scoped pagination.
 
 ## MLP testing
 

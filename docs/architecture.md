@@ -1,4 +1,4 @@
-# Architecture v0.2 — native ChatGPT, private learner store
+# Architecture v0.4 — native ChatGPT, private learner store
 
 ```text
 Ordinary ChatGPT conversation (teacher + native Intelligent UI)
@@ -35,3 +35,9 @@ The source repository contains reusable skill prompts, specs, evals and optional
 ## Legacy state
 
 Historical private v0.1 workbooks can be read with `src/storage-contract.mjs` and migrated only after private backup and verification. Source tree and learner data are permanently separate.
+
+## Source, private adaptation and bounded context
+
+The Project Router is stable and short. The attached `ASIT-ENGINE.md` holds universal teaching policy. `ASIT-STORAGE.md` carries Google Sheets technical fields and is retrieved only during required storage operations. No learner-specific plans, assistance levels, goals, adaptations or error patterns belong in either source file. `Config.adaptive_profile` stores personally derived adjustments with evidence IDs and rationale; Goals, Plans and Reviews are likewise mutable private learner state. The current Session activity is transient until written.
+
+For fast startup read only a few authoritative records; **never run a whole-workbook hydration as the default live connector flow**. See [context audit](CONTEXT-PERFORMANCE.md). The full `hydrateWorkbook` reference helper validates fully supplied v2 data for offline tests, migrations and explicit deep audits; it is not proof that fetching all nine tabs is a suitable everyday user experience.

@@ -1,6 +1,6 @@
 # ASIT MLP — manual user acceptance
 
-Use a **fresh ChatGPT Project**: attach [ASIT-ENGINE.md](../install/ASIT-ENGINE.md) to Project Files and paste only [PROJECT-ROUTER.md](../install/PROJECT-ROUTER.md) into Project Instructions. Test as a learner inside ordinary ChatGPT, not in a separate application. Report only redacted issues: never publish real learner answers, private URLs, connected file IDs or identifying screenshots.
+Use a **fresh ChatGPT Project**: attach [ASIT-ENGINE.md](../install/ASIT-ENGINE.md) and [ASIT-STORAGE.md](../install/ASIT-STORAGE.md) to Project Files and paste only [PROJECT-ROUTER.md](../install/PROJECT-ROUTER.md) into Project Instructions. Test as a learner inside ordinary ChatGPT, not in a separate application. Report only redacted issues: never publish real learner answers, private URLs, connected file IDs or identifying screenshots.
 
 ## 0. Source initialization
 
@@ -37,3 +37,7 @@ Change the goal, dispute a grade, request review of a weak skill, refuse storage
 ## Reporting
 
 For A–E record pass/fail, ChatGPT client type, whether native controls appeared, whether Drive works, and brief redacted observations. Only after critical cases pass should the project be described as a *human-accepted MLP*. Unit tests and connector smoke tests alone are not that evidence.
+
+## F. Speed, context and UX acceptance
+
+In a new chat confirm that the Engine is retrieved once, not on every attempt. On normal returning sessions verify that the learner's entire historical Attempts/Activities tabs are **not** loaded. Ask a short word meaning and confirm it needs no unnecessary Drive traversal. Complete a 5-minute lesson and note the elapsed wall-clock time for cold-start-to-first-task and answer-to-feedback; these are human observations, not values measured by CI. Confirm that learner-specific challenge and hints adapt across sessions without ever editing Project Instructions or Engine source. If the client cannot reveal connector/tool activity, mark the read-count check **unverified**, not passed.

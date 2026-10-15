@@ -8,7 +8,7 @@
 4. If you want your progress saved across chats, connect Google Drive and approve the privacy mode before the first persistent write. You do not manually create the tracking Sheet.
 5. Open another chat in the same Project and ask ASIT to continue; it must actually read the Project source and private learner state.
 
-The default is **Project file + short router**, with no GitHub connector needed at runtime. The source stays in GitHub for version control, while the learner's sensitive data stays in their own private storage.
+The default is **Project file + short router**, with no GitHub connector needed at runtime. The two versioned sources stay in GitHub for version control, while the learner's sensitive data stays in their own private storage.
 
 ### Why not just give ChatGPT a GitHub link?
 
