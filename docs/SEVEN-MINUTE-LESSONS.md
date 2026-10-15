@@ -33,3 +33,13 @@ A diagnostic is **one bounded mixed packet**, preferably 3–5 short tasks withi
 ## Render quality gate
 
 Do not call it a completed mini-lesson unless it has topic, outcome, relevant language rule, configured task count, justified formats, accessible functioning inputs, real use, end vocabulary, a working single Submit, estimate within the learner-selected duration and trustworthy assessment/storage plan.
+
+## Choosing from the expanded catalog (v0.5)
+
+For learner-requested out-of-program practice, ASIT may select **one** named type from the 18-type registry (17 exercise formats, one evidence viewer) with the same target/rubric/privacy constraints. Choosing a type never proves a client supports its controls. Read the selected spec and check capability. Default planned 7-minute lessons still contain ~4 suitable varied tasks, not all catalog entries.
+
+`reading_comprehension` uses a real short coherent passage and distinct gist/detail prompts. `timeline_ordering` orders sourced before/after events and invites an independent explanation. `image_hotspot` requires genuine accessible image region controls and truthful fallback; without them choose an actual image choice or text prompt and change the evidence label.
+
+A sentence builder composes semantic chunks; separate word-card ordering sorts individual tokens. Open dialogue must proceed across real responses and teacher follow-ups, at least two to call it sustained interaction; a static text-entry role-play alone does not. Listening requires actual playable audio, speaking requires accessible learner audio, and typed simulations are not evidence of these modalities. Review first try, retries, hint exposure and required composite fields against trusted rubrics. A completed visual mission does not imply independent writing or mastery.
+
+See [dogfood report and manual gates](UX-DOGFOOD-2026-10-16.md).
