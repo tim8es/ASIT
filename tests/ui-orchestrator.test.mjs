@@ -183,3 +183,19 @@ test('first-attempt UI reports never become automatic mastery claims',()=>{
  assert.equal(summarizePracticeProvenance().provisional_support_status,'unknown');
  assert.throws(()=>summarizePracticeProvenance({revisionCount:-1}),/Invalid provisional/);
 });
+
+test('composite task coverage requires all specified fields, not a half completed decision',()=>{
+ const x=summarizeLessonCompletion({
+ exercises:[{item_id:'decision',required_fields:['choice','reason']},
+ {item_id:'match',expected_count:3},{item_id:'order',expected_count:4}],
+ answers:{decision:{choice:'safe',reason:' '},match:['one','','three'],order:{selected_ids:['a','b']}}
+ });
+ assert.equal(x.answered_count,0);
+ assert.equal(x.status,'incomplete');
+ assert.deepEqual(x.required_unanswered_ids,['decision','match','order']);
+ const y=summarizeLessonCompletion({
+ exercises:[{item_id:'decision',required_fields:['choice','reason']},{item_id:'vote'}],
+ answers:{decision:{choice:'safe',reason:'Explain why'},vote:false}
+ });
+ assert.equal(y.answered_count,2);assert.equal(y.status,'completed');
+});
