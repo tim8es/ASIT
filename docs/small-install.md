@@ -1,25 +1,17 @@
-# Installation profiles
+# ASIT runtime installation architecture
 
-ASIT is not a SaaS with a separate login. It is a reusable agent instruction set operating in ChatGPT.
+Separate three concerns:
 
-## Simplest: one ChatGPT Project + Google Drive
+| Destination | File / service | Purpose |
+| --- | --- | --- |
+| ChatGPT Project Instructions | [PROJECT-ROUTER.md](../install/PROJECT-ROUTER.md) | Small always-on role, source-loading and consent guard |
+| ChatGPT Project Files / Knowledge | [ASIT-ENGINE.md](../install/ASIT-ENGINE.md) | Full teaching engine, storage schema, lesson and grading rules |
+| Private learner-owned Google Drive (optional) | ASIT — Learner State | Personal goals, competencies, attempts, reviews and plans |
 
-1. Copy `install/CHATGPT-PROJECT-INSTRUCTIONS.md` into your ChatGPT Project instructions.
-2. Connect Google Drive to ChatGPT if cloud persistence is desired.
-3. In a **normal chat in that Project**, say "Start my English program."
-4. The agent must request consent before creating a private workbook. It asks for meaningful learning goals and begins diagnosis. There is no manual curriculum configuration.
-5. The next chat in the same Project uses the user-owned workbook rather than a new one, if connected tools remain available.
+The project source is versioned in GitHub; it is **not** automatically executable JavaScript and does not automatically sync into Project Files.
 
-Other files in this repo provide more detail and should be read by agents/developers where available. The copy-paste instructions are deliberately **self-contained for basic behavior**, but require the template blueprint `templates/tracker-v2.json` for creating the exact storage schema. Users can supply that file if the assistant cannot access GitHub.
+**Install:** download the engine file, upload it to Project Files, paste the router only into Project Instructions, open a new chat inside the Project, then start the course. The router should read the engine before teaching and inspect only relevant private learner records. If it cannot actually open the engine, it must report that and request the file.
 
-## Ephemeral setup with zero external services
+**Privacy:** personal data is never committed to GitHub. Before writing new data to Google Sheets, obtain informed consent; verify any write by readback. Without Google Drive, use unsaved mode. Without working native UI controls, use ordinary chat responses.
 
-Copy the instructions into a normal ChatGPT conversation. Teach via text/native widgets in this chat, but clearly warn that cloud progress persistence and cross-chat continuity are disabled. Export progress manually if wanted.
-
-## Optional advanced setup
-
-Connected GitHub for automatic specification retrieval, scheduled tasks for reminders, or an alternative transactional database may be useful to advanced users, but none is a default dependency for an English-learning session.
-
-## Important
-
-Native Intelligent UI, connector calls and Scheduled Tasks are platform features, not executable JavaScript bundled with this repository. An ordinary user's copy of source code alone cannot install capabilities missing from their ChatGPT account.
+**Release:** the original GitHub repository remains private until its detached old objects have been dealt with. Users may test locally without making it public.

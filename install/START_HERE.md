@@ -1,25 +1,21 @@
-# Start ASIT in a normal ChatGPT chat
+# ASIT — install in an ordinary ChatGPT Project
 
-**The entrypoint for trying ASIT MLP is [CHATGPT-PROJECT-INSTRUCTIONS.md](CHATGPT-PROJECT-INSTRUCTIONS.md).**
+**Use two parts, not the long teaching engine in Project Instructions.**
 
-## Installation for a new learner
+1. Download [ASIT-ENGINE.md](ASIT-ENGINE.md) from this repo and attach it to your **ChatGPT Project → Files / Knowledge**. The source contains the complete teaching, onboarding, interactive UI, assessment, and storage specification.
+2. Copy the contents of the short [PROJECT-ROUTER.md](PROJECT-ROUTER.md) to **ChatGPT Project → Instructions**. This is about 1,800 characters.
+3. Open a new regular chat inside the Project and say: **"Start my English program."**
+4. If you want your progress saved across chats, connect Google Drive and approve the privacy mode before the first persistent write. You do not manually create the tracking Sheet.
+5. Open another chat in the same Project and ask ASIT to continue; it must actually read the Project source and private learner state.
 
-1. Create a ChatGPT Project for learning English. Paste the entire MLP instruction file into its Project instructions (this is the only manual source-copying step).
-2. If you want progress to persist, connect Google Drive in ChatGPT. Do not manually create or edit a workbook.
-3. Start a **new normal chat inside that Project** and say **"Start my English program"** or **"Let's do a 5-minute speaking lesson."**
-4. Answer one goal question if prompted; practice. If storage is available, approve the privacy mode before the agent saves any record.
-5. Continue in a second Project chat to test whether the same state, priorities and previous attempt are retrieved.
+The default is **Project file + short router**, with no GitHub connector needed at runtime. The source stays in GitHub for version control, while the learner's sensitive data stays in their own private storage.
 
-**Do not attach your personal workbook to a public issue or copy personal answers into this repository.**
+### Why not just give ChatGPT a GitHub link?
 
-## What to expect
+This repository is private and a regular ChatGPT chat cannot assume it has permission to fetch its contents. A Project Files attachment is a simpler, controlled source. The router must report a missing file instead of pretending to have loaded it. Updating the GitHub source **does not automatically update** an attachment; reattach a newer release deliberately.
 
-ASIT should ask only relevant questions, use English quickly, generate purposeful interactive exercises and use short targeted corrective feedback. It should offer a real plan, not just a list of generic grammar topics. Skill progress must rely on actual attempts; unobserved skills remain unassessed.
+### Without Google Drive
 
-## When to report an issue
+Practice still works as a temporary, clearly **not saved** session. Native interactive controls also depend on the ChatGPT client; equivalent text-based exercises are acceptable.
 
-Use the fictional test matrix in [MLP acceptance](../docs/MLP-ACCEPTANCE.md). If ChatGPT cannot create a Google Sheet or show native controls, include **only** the feature limitation, client type and redacted reproduction steps—no real response text, Drive URL or token. You can continue learning in temporary mode.
-
-## For developers
-
-This repo's Node.js modules are deterministic *reference logic and tests*. They are not loaded into the ordinary ChatGPT runtime merely because the repo exists. The **install instructions** carry the deployable behavior; the connected Google Drive tools carry persistence.
+For the complete testing checklist, see [MLP acceptance](../docs/MLP-ACCEPTANCE.md).
