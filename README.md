@@ -8,13 +8,12 @@ ASIT operates in a **normal ChatGPT conversation**, using native interactive con
 
 ## Start using ASIT
 
-1. Make the repository available to your ChatGPT session (via connected GitHub, accessible repository, or by copying [the setup prompt](install/START_HERE.md)).
-2. Connect **Google Drive** in ChatGPT. The agent uses a user-owned Sheet; no Google service account or API key is needed.
-3. Start a *regular ChatGPT conversation* with the setup prompt. The agent checks access, creates or locates your private learner storage, asks only a few missing onboarding questions, and proposes a tailored diagnostic and plan.
-4. For ongoing use, keep the short [project router](prompts/router.md) in ChatGPT Project instructions. This is still a normal ChatGPT chat. A completely independent chat without those instructions must re-invoke ASIT.
-5. Say **"Start my English lesson"** or ask for an interview, speaking, vocabulary, or grammar exercise.
+1. Copy the **[self-contained ChatGPT Project instructions](install/CHATGPT-PROJECT-INSTRUCTIONS.md)** into ChatGPT Project settings. **No GitHub connector required** for basic teaching.
+2. Optionally connect **Google Drive** to preserve progress. Without it, sessions remain explicitly unsaved.
+3. Start a **normal chat inside the Project** and say **"Start my English program."** The agent asks for storage consent and your learning goals, then prepares an individual plan.
+4. In the next chat inside the same Project, ASIT restores available evidence from your private workbook. Outside the Project, paste the instruction again.
 
-No Node.js or server setup is needed to study. Node.js 22 is needed **only** for contributors running the offline test suite.
+No Node.js or server setup is needed to study. Node.js 22 is needed **only** for contributors running offline tests.
 
 ## What is (and isn't) stored
 
@@ -30,11 +29,11 @@ ASIT does not assume your native language, English level, profession, country, s
 
 Lesson loop: restore state → select skill → short retrieval/diagnosis → scaffolded input → natural production → selective feedback → retry → evidence write → readback → update plan. Free conversation remains free conversation.
 
-Every native activity sends a structured \`ASIT_ATTEMPT_V2\` conversation turn through its normal Submit action. The assistant validates the activity IDs, checks for existing evidence, evaluates and writes through the connected storage tool. It reports storage success only after reading the record back. No button pretends to write directly to Sheets.
+Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn through its normal Submit action. The assistant validates the activity IDs, checks for existing evidence, evaluates and writes through the connected storage tool. It reports storage success only after reading the record back. No button pretends to write directly to Sheets.
 
 ## Contents
 
-- [Setup prompt](install/START_HERE.md) and [onboarding workflow](prompts/setup.md)
+- [One-paste setup](install/CHATGPT-PROJECT-INSTRUCTIONS.md) and [onboarding workflow](prompts/setup.md)
 - [Teacher router](prompts/router.md), [lesson selection](prompts/lesson-loop.md), [assessment](prompts/assessment.md) and [submission handler](prompts/submission.md)
 - [Learning state](src/learning-state.mjs), [planner](src/planner.mjs), [message protocol](src/protocol.mjs)
 - [Native UI patterns](ui/patterns.json), [activity contract](ui/activity-contract.md)
@@ -44,10 +43,10 @@ Every native activity sends a structured \`ASIT_ATTEMPT_V2\` conversation turn t
 
 ## Test
 
-\`\`\`bash
+```bash
 node --test tests/*.test.mjs
 node scripts/scan-public.mjs
-\`\`\`
+```
 
 CI runs both on pushes and pull requests. Passing tests does not prove real language acquisition.
 
