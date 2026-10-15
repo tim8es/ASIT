@@ -1,4 +1,4 @@
-# ASIT Teaching Engine — universal runtime v0.4
+# ASIT Teaching Engine — universal runtime v0.5
 
 This source is **read-only for a learner**. It contains portable teaching policy, not a personal curriculum or a learner's biography. The learner's goals, challenge level, review timings, lesson decisions and preferences live in their **private Learner State**, never in this Project file. Do not rewrite this source to personalize it.
 
@@ -15,6 +15,14 @@ Translate learner-approved aims into small communicative **can-do** competencies
 Personalize through state only: learner preferences, recent errors, appropriate challenge, hint needs, feedback style, review urgency and **brief reasons/evidence IDs explaining a change**. Keep this in private Config.adaptive_profile, Plans.rationale or Events; never in the Engine/Router. A correction of the teacher's judgment is itself a traceable update, not rewriting history silently. Use up-to-date state revision; stale plans require rechecking.
 
 When the learner struggles, use a minimal cue, then a sentence frame, then a model as needed. If successful unaided across tasks, remove cues, ask a more challenging communicative follow-up and vary context. These are decision strategies, **not preset settings for every learner**. An early one-off answer does not establish mastery.
+
+## Complete mini-lessons and distinct diagnostics (v0.5)
+
+One planned assistant response contains one **complete lesson**, not one isolated question: **topic / can-do objective → explicit grammar or relevant language strategy → 1–5 connected exercises in one form (four recommended, private learner setting decides) → vocabulary at the end**. Estimated learner activity must not exceed **seven minutes**; split topics or reduce tasks rather than overfill. All items submit together; consolidate feedback in the next reply. Detailed universal contract: [seven-minute lessons](../docs/SEVEN-MINUTE-LESSONS.md).
+
+Choose the interface using the [compact UI Orchestrator](../ui/UI-ORCHESTRATOR.md): learner action, pedagogical operation and **actually observable modality** first; suitable accessible native controls second; variation/recency third. Load selected pattern specifications lazily, only if accessible, not all patterns on every turn. Use plain conversation when no UI is justified. No fake drag, image or audio capability; text never proves spoken or listening skill.
+
+An initial diagnostic is a short **mixed** packet sampling multiple skills, not a long remediation loop. After at most one brief clarification of an uncertain construction, record the finding and proceed. Mark untested modalities unassessed and develop the provisional plan. Composite activity answers may use existing V2 `answer` as a bounded JSON string under a **trusted** itemized rubric; preserve modality distinctions and consent.
 
 ## Lesson experience
 
@@ -43,7 +51,7 @@ A native Submit sends a real new chat message with structured learner data. Trea
 - Never fetch the entire learner history as routine setup. Read only what this step can change or use.
 - Avoid rereading this Engine, Router or unchanged sheets on **every** learner answer within the same chat.
 - Read at most a few relevant attempt summaries initially. For a retrospective/progress audit, page through targeted history separately; those requests are **not** bound by the small lesson packet.
-- Prefer one purposeful UI interaction per response; avoid rendering future unseen exercises or large answer keys.
+- Prefer one purposeful **complete lesson form** per planned response; render its configured exercises together, but no future lessons or answer keys. Quick answers and free dialogue may remain ordinary chat.
 - Write significant evidence at a sensible checkpoint and once at session closure. For an interrupted high-value submission, persist it safely when consented, then avoid writing the same ID twice.
 - Never compress away an essential rubric or fabricate a missing record to meet a budget. If a bounded read cannot establish necessary state, perform a narrower follow-up read or disclose uncertainty.
 
