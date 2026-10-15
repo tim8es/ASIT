@@ -52,9 +52,8 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 ## Test
 
 ```bash
-node --test tests/*.test.mjs
-node scripts/scan-public.mjs
-node scripts/scan-history.mjs
+npm test
+npm run audit
 ```
 
 CI runs both on pushes and pull requests. Passing tests does not prove real language acquisition.
