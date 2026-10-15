@@ -63,3 +63,18 @@ test('invalid state and maliciously large limits fail closed',()=>{
  assert.throws(()=>buildLessonContextPacket({...state(),revision:-2}),/revision/);
  assert.throws(()=>buildLessonContextPacket(state(),{maxAttempts:100}),/slice limit/);
 });
+
+test('zero evidence budget must never accidentally expand to entire history',()=>{
+ const x=buildLessonContextPacket(state(5000),{maxAttempts:0,maxSessions:0,maxReviews:0});
+ assert.equal(x.metrics.shown_attempts,0);
+ assert.equal(x.metrics.omitted_attempts,5000);
+ assert.equal(x.packet.latest_sessions.length,0);
+});
+test('last adaptation reasoning remains available within a bounded learner packet',()=>{
+ const s=state(50);s.adaptive_profile={recent_decisions:[{
+  competency_id:'C',action:'increase_support',reason:'Repeated meaningful misses',
+  basis_revision:12,evidence_attempt_ids:['fake-48','fake-49']}]};
+ const x=buildLessonContextPacket(s);
+ assert.equal(x.packet.adaptive_profile.recent_decisions[0].action,'increase_support');
+ assert.deepEqual(x.packet.adaptive_profile.recent_decisions[0].evidence_attempt_ids,['fake-48','fake-49']);
+});

@@ -49,7 +49,7 @@ const normalizePrefs=p=>{
 function assemble(state,selected,attemptLimit,reviewLimit,sessionLimit){
  const focus=new Set(selected.map(x=>x.id));
  const relevant=list(state.attempts).filter(a=>focus.has(a.competency_id));
- const attempts=relevant.slice(-attemptLimit).map(a=>({
+ const attempts=(attemptLimit===0?[]:relevant.slice(-attemptLimit)).map(a=>({
    attempt_id:compact(a.attempt_id,90),competency_id:compact(a.competency_id,90),
    assessment:compact(a.assessment,25),hint_level:compact(a.hint_level,20),
    observed_modality:compact(a.observed_modality??'unknown',35),
@@ -66,7 +66,7 @@ function assemble(state,selected,attemptLimit,reviewLimit,sessionLimit){
      competency_id:compact(r.competency_id,75),due_at:compact(r.due_at??r.due_at_utc,35),
      content_or_pattern:compact(r.content_or_pattern,120),last_outcome:compact(r.last_outcome,32)
    }));
- const sessions=list(state.sessions).slice(-sessionLimit).map(s=>({
+ const sessions=(sessionLimit===0?[]:list(state.sessions).slice(-sessionLimit)).map(s=>({
    session_id:compact(s.id??s.session_id,75),summary:compact(s.summary,220),
    next_step:compact(s.next_step,160)
  }));
@@ -77,7 +77,15 @@ function assemble(state,selected,attemptLimit,reviewLimit,sessionLimit){
    state_revision:state.revision,language:compact(profile.target_language,35),
    goals:list(profile.goals).slice(0,3).map(x=>compact(x,160)),
    learner_preferences:normalizePrefs(profile.preferences),
-   adaptive_profile:normalizePrefs(state.adaptive_profile),
+   adaptive_profile:{
+     ...normalizePrefs(state.adaptive_profile),
+     recent_decisions:list(state.adaptive_profile?.recent_decisions).slice(-2).map(d=>({
+       competency_id:compact(d.competency_id,70),action:compact(d.action,40),
+       reason:compact(d.reason,170),
+       basis_revision:Number.isSafeInteger(d.basis_revision)?d.basis_revision:null,
+       evidence_attempt_ids:list(d.evidence_attempt_ids).slice(-3).map(x=>compact(x,70))
+     }))
+   },
    plan:active?{revision:active.revision,reason:compact(active.rationale,180),
       competency_ids:list(active.competency_ids).slice(0,5).map(x=>compact(x,80))}:null,
    competencies:selected.map(c=>({
