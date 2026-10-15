@@ -17,8 +17,8 @@ test('unknown populated workbook is never overwritten by installer',()=>{
  assert.throws(()=>planEmptyWorkbookStructure(template,{sheets:[...fresh.sheets,...fresh.sheets]}),/do not mutate/);
 });
 test('non-default sheet name demands inspection',()=>{
- assert.throws(()=>planEmptyWorkbookStructure(template,{sheets:[{properties:{
- sheetId:42,title:'Learner data',gridProperties:{columnCount:26}}]}]}),/Unexpected default/);
+ const occupied={sheets:[{properties:{sheetId:42,title:'Learner data',gridProperties:{columnCount:26}}}]};
+ assert.throws(()=>planEmptyWorkbookStructure(template,occupied),/Unexpected default/);
 });
 test('headers use actual metadata IDs and exact template columns',()=>{
  const requests=planHeaderWrites(template,deployed);
