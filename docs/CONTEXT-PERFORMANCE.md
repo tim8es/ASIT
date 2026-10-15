@@ -52,7 +52,7 @@ The reference packet construction operates on synthetic in-memory objects. In li
 
 1. Start with a learner-facing next step, not a long infrastructure report.
 2. Ask only one essential onboarding question at a time; keep practice moving even if Google Drive is offline, marking it unsaved.
-3. For structured lessons render **the complete seven-minute current lesson** (1–5 related tasks and one Submit), not a whole future syllabus or large answer key. In free chat render no unnecessary form. Keep hints optional and short.
+3. For structured lessons render **the complete current lesson** (seven minutes and up to five tasks by default, or learner-configured duration/count; one Submit), not a whole future syllabus or large answer key. In free chat render no unnecessary form. Keep hints optional and short.
 4. Within one chat, keep the retrieved Engine, small state slice and current trusted activity. Avoid re-fetching unchanged source/plan after each answer.
 5. Batch logically related read or write operations when the connector supports it and preserving readback guarantees permits it. Verify important writes before claiming success; don't sacrifice safety for speed.
 6. Prefer a **session checkpoint** for noncritical summary updates rather than editing Goals, Plans, Reviews and Sessions for every conversational turn. Significant consented attempts still require their own exact-ID replay check and readback.
