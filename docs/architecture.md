@@ -36,7 +36,7 @@ The source repository contains reusable skill prompts, specs, evals and optional
 
 A compact, reusable decision layer `src/ui-orchestrator.mjs` chooses among meaningful ChatGPT-native activity patterns based on **learning action**, assessment operation, real modality, available input capabilities and recent pattern repetition. Read `ui/UI-ORCHESTRATOR.md` for the small runtime contract. Its recipe index points to lightweight `ui/patterns/*.md` specifications retrieved **only when that pattern is needed**. This is source-controlled generic behavior; learner preferences and task history remain private in Learner State. The reference selector does not itself render UI or call an external app.
 
-A lesson first chooses topic and target grammar/language pattern, then uses the UI Orchestrator to design 1–5 exercises within seven minutes. Missing functional audio/image/sorting capabilities trigger labelled fallbacks; they **never** justify fabricated evidence. Free conversation uses ordinary chat. One coherent form submits all compatible tasks, with feedback on the following turn.
+A lesson first chooses topic and target grammar/language pattern, then uses the UI Orchestrator to design up to five exercises within seven minutes **by default**; duration and task count come from private learner settings when changed. Missing functional audio/image/sorting capabilities trigger labelled fallbacks; they **never** justify fabricated evidence. Free conversation uses ordinary chat. One coherent form submits all compatible tasks, with feedback on the following turn.
 
 ## Legacy state
 
