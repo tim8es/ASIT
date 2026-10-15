@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "description": "Optional keys for the private learner-owned Config tab; not actual learner values",
+  "keys": [
+    {
+      "key": "schema_version",
+      "value_example": 2,
+      "required": true,
+      "source": "system"
+    },
+    {
+      "key": "state_revision",
+      "value_example": 0,
+      "required": true,
+      "source": "system"
+    },
+    {
+      "key": "learner_id",
+      "value_example": null,
+      "required": true,
+      "source": "generated per user's private store"
+    },
+    {
+      "key": "target_language",
+      "value_example": null,
+      "required": true,
+      "source": "user chose English"
+    },
+    {
+      "key": "native_language",
+      "value_example": null,
+      "required": false,
+      "source": "optional self report"
+    },
+    {
+      "key": "working_cefr",
+      "value_example": null,
+      "required": false,
+      "source": "observed provisional diagnostic only"
+    },
+    {
+      "key": "cefr_confidence_label",
+      "value_example": "unassessed",
+      "required": true,
+      "source": "diagnostic"
+    },
+    {
+      "key": "preferred_minutes",
+      "value_example": null,
+      "required": false,
+      "source": "learner choice"
+    },
+    {
+      "key": "feedback_preferences",
+      "value_example": {},
+      "required": false,
+      "source": "learner choice and observed adjustments"
+    },
+    {
+      "key": "recording_consent",
+      "value_example": "off",
+      "required": true,
+      "options": [
+        "off",
+        "summary_only",
+        "raw"
+      ],
+      "source": "explicit learner choice"
+    },
+    {
+      "key": "audio_consent",
+      "value_example": false,
+      "required": true,
+      "source": "separate explicit learner choice"
+    },
+    {
+      "key": "retention_policy",
+      "value_example": null,
+      "required": false,
+      "source": "learner choice"
+    }
+  ]
+}
