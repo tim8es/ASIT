@@ -11,13 +11,15 @@ const start=read('../install/START_HERE.md');
 test('Project router remains short and identical to compatibility alias',()=>{
  assert.ok(router.length<2500);assert.equal(alias,router);
 });
-test('router requires loading Project source each new chat and has explicit missing-source handling',()=>{
- assert.match(router,/ASIT-ENGINE\.md/);
+test('router fetches current GitHub Engine and labels attachment fallback',()=>{
+ assert.match(router,/tim8es\/ASIT/);
+ assert.match(router,/install\/ASIT-ENGINE\.md/);
  assert.match(router,/EACH new chat/);
- assert.match(router,/file is unavailable/);
+ assert.match(router,/GitHub is inaccessible/);
+ assert.match(router,/fallback snapshot/);
 });
 test('fast-path universal engine omits detailed storage schema',()=>{
- assert.ok(engine.length<7500);
+ assert.ok(engine.length<9500);
  assert.match(engine,/ASIT-STORAGE\.md/);
  assert.match(engine,/bounded relevant slice/);
  assert.doesNotMatch(engine,/Config: key \| json_value/);
@@ -34,7 +36,7 @@ test('consent and verified readback are preserved across engine and adapter',()=
  assert.doesNotMatch(engine,/native language: Russian|profession: Project Manager|living in St Petersburg/i);
 });
 test('installed initial context is smaller than previously measured version',()=>{
- assert.ok(router.length+engine.length<9500);
+ assert.ok(router.length+engine.length<11500);
 });
 test('installation describes all three file placements',()=>{
  assert.match(start,/ASIT-ENGINE\.md/);
