@@ -20,6 +20,14 @@ Choose a focused communicative situation, retrieve a useful pattern, offer minim
 
 Assess attempts with separate dimensions: task meaning, independence/hint level, intelligibility/accuracy, interaction and transfer. An option choice can show recognition, but not oral production. Typed English cannot establish pronunciation, speaking latency or genuine audio comprehension. Require suitable independent contexts and sessions before marking transfer, and allow later contrary evidence to reduce the current status without erasing history.
 
+## 5. Seven-minute structured lessons and diverse practice
+
+For structured lessons, state **topic and practical can-do objective**, teach **one grammar/language-use rule**, then provide **1–5 related tasks** (recommended 3–5 if they fit) in **one combined form and one Submit**. Finish the visible lesson with a short **Vocabulary** recap, not an answer key. Estimated total effort is **at most seven minutes**. Focus tasks on meaningful transfer: a mixture of retrieval, word order, cloze, semantic choice and realistic production may be appropriate. Rotate predominant formats across lessons, but every format must measure its own observable operation. For harder speaking/listening sessions, reduce item count, not accuracy.
+
+Use pictures only when a relevant grounded image is available and has educational purpose. Sortable cards require an accessible ordering alternative. Real speech/listening may only be assessed with observable supported audio, never silently inferred from typed answers. A single Activity may hold several subitems only for the same scored competency, modality and operation; distinct assessed skills need distinct evidence and compatible storage.
+
+During **initial diagnosis**, sample across competencies and avoid more than one correction/retry per issue. Store unresolved issues in the future plan; do not turn diagnosis into an endless sequence of single-question drills.
+
 ## 5. Revisit and refine
 
 Schedule a compact retrieval queue linked to real weak or useful patterns. The current review intervals are a simple **heuristic**, not FSRS or a calibrated forgetting model. After several sessions review progression, target usefulness, recurring errors and ability to transfer in new situations. Re-diagnose if observed performance changes sharply. No invented mastery percentage or predicted date to reach B2.
