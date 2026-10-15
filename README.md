@@ -28,9 +28,13 @@ ASIT operates in a **normal ChatGPT conversation**, using native interactive con
 
 ASIT does not assume your native language, English level, profession, country, session length, learning objectives, or preferred exercises. The onboarding agent discovers these on first run (or marks them unknown). It builds and revises an individual competency graph from CEFR-oriented communicative goals and observed performance.
 
-Planned lessons **default to seven minutes and four varied exercises (up to five recommended)**: topic → grammar/language rule → one combined form → end vocabulary → one Submit → consolidated feedback. **Both lesson duration and exercise count are learner-configurable settings stored in private Learner State**, not hard system limits. The [UI Orchestrator](ui/UI-ORCHESTRATOR.md) selects controls by operation, evidence modality, accessibility and appropriate variety, lazily loading only relevant pattern specs. Initial diagnosis samples breadth instead of drilling a single error. Free conversation remains free conversation.
+Planned lessons **default to seven minutes and four varied exercises (up to five recommended)**: topic → grammar/language rule → one combined form → end vocabulary → one Submit → consolidated feedback. **Both lesson duration and exercise count are learner-configurable settings stored in private Learner State**, not hard system limits. The [UI Orchestrator](ui/UI-ORCHESTRATOR.md) selects controls by operation, evidence modality, accessibility and appropriate variety, lazily loading only relevant pattern specs. Supplied-word ordering uses tap-to-order cards with Undo/Reset when native controls work; independent questions remain freely written. Initial diagnosis samples breadth instead of drilling a single error. Free conversation remains free conversation.
 
 Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn through its normal Submit action. The assistant validates the activity IDs, checks for existing evidence, evaluates and writes through the connected storage tool. It reports storage success only after reading the record back. No button pretends to write directly to Sheets.
+
+## Transparent lesson progress and planning
+
+Learner-visible **Lesson N** counts confirmed completed full lessons, not technical IDs, diagnostics or short retries. ASIT selects the next goal from explicit learner requests, prerequisites, real evidence and due reviews and explains why. After two full lessons focused narrowly on one error, it normally rotates to another eligible skill and schedules later review. See [counting contract](docs/LESSON-COUNTING.md). These changes take effect in existing ChatGPT Projects only after the updated Engine in Project Files is reattached; GitHub files are not automatically synced.
 
 ## Contents
 

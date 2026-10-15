@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "selection_rule": "learner action -> observed operation/modality -> accessible capability -> justified variety; load only selected pattern spec",
   "patterns": [
     {
@@ -82,8 +82,8 @@
     {
       "type": "card_ordering",
       "goal": "construct a sequence or sentence order",
-      "input": "native reorder or numbered/text fallback",
-      "assessment": "guided construction",
+      "input": "native tap-to-order word cards with undo/reset; accessible numbered/select fallback",
+      "assessment": "guided construction, not evidence of unaided production",
       "spec_ref": "ui/patterns/construction.md"
     },
     {

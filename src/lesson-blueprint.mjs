@@ -3,6 +3,7 @@
  * GPT fills instructional text and UI later, using the learner's actual state.
  */
 import {selectNextLearningGoal} from './planner.mjs';
+import {deriveRecentCompletedLessonFocuses} from './lesson-progress.mjs';
 
 const stages = [
   ['retrieval',0.12],['diagnostic',0.10],['model_if_needed',0.10],
@@ -54,7 +55,10 @@ export function makeLessonBlueprint({learnerState,nowIso,requestedCompetencyId=n
   }
   const selection=selectNextLearningGoal({competencies:learnerState.competencies,
     attempts:learnerState.attempts,reviewQueue:learnerState.review_queue,
-    objectiveIds:ids,nowIso});
+    objectiveIds:ids,nowIso,
+    recentLessonCompetencyIds:learnerState.recent_lesson_competency_ids??
+      deriveRecentCompletedLessonFocuses({sessions:learnerState.sessions,
+        activities:learnerState.activities??[],attempts:learnerState.attempts})});
   if (!selection) throw new Error('No unblocked competencies; revise the graph');
   return {
     schema_version:2, learner_state_revision:learnerState.revision,

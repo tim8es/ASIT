@@ -2,8 +2,8 @@
 
 Use only for building, correcting or applying language.
 
-- **sentence builder:** arrange meaningful chunks or write a complete utterance; native ordering/select or typed fallback. Chunk prompts count as scaffolding.
-- **card ordering:** if real keyboard-accessible drag UI is supported, use it; otherwise numbered/selected order with the same rubric. Do not claim drag happened when there was only a picture.
+- **sentence builder:** arrange supplied words/chunks using functional ordering controls; leave text boxes for independent production. Chunk prompts count as scaffolding.
+- **card ordering:** render one clickable card per token, with stable IDs for duplicates and punctuation. Tapping appends to a visible answer. Support Undo, Reset and accessible labels; serialize the finished phrase in the same lesson Submit. If taps do not work, use numbered/select ordering, not simulated drag. Guided assembly is not independent writing evidence.
 - **error repair:** one contextual error, rewrite for natural meaning; optionally produce a fresh example. Do not reveal correction before submission.
 - **explanation:** one or two short sentences explaining a choice or situation; grade communicative clarity rather than exact preferred wording.
 - **independent application:** a real communicative prompt with an unprompted response. Typed responses support writing/typed interaction, not speech.

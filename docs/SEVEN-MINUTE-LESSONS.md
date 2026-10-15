@@ -14,6 +14,10 @@ Every planned lesson contains, **in this order**:
 
 **Seven minutes and up to five exercises are defaults, not hard system limits.** Read the learner's private `Config.adaptive_profile.lesson_delivery_preference.duration_minutes` (legacy: `duration_limit_minutes`) and `exercise_count` (or the legacy names `exercises_per_lesson`, `exercise_count_default`), or equivalent approved profile settings. An explicit current-turn preference overrides stored settings for that lesson without overwriting them. Absent preferences use **seven minutes** and **four exercises** (five is the recommended short-session maximum). Learners may choose longer/shorter lessons and different task counts. Validate a realistic lesson workload against the **selected** duration; reduce tasks or split the topic rather than exceed that budget. Example seven-minute allocation: topic 0.5 min, rule 1 min, four tasks 4.5 min, vocabulary 1 min.
 
+## Word ordering and free writing
+
+For supplied unordered words, use native **tap-to-order cards**: stable IDs for each token (including duplicates), a visible evolving answer, Undo and Reset. Submit the ordered response alongside other tasks in the lesson's **single Submit** without leaking solutions. If native tapping is unavailable, use a working accessible numbered/select ordering fallback, not simulated drag. This is guided construction, not proof of independent question formation; free real-world questions still require an independently written English answer.
+
 ## Adaptive variety and real evidence
 
 Before selecting controls, route the learner's action (remember, recognize, build, explain, apply, interact) through the [compact UI Orchestrator](../ui/UI-ORCHESTRATOR.md). Choose pedagogical fit and observed modality **before** avoiding repeats. For 3+ tasks, use at least two complementary formats when appropriate: cloze, recognition choices, matching, sentence builder, error repair, word/card ordering, reading comprehension, grounded image selection, realistic dialogue, independent written response, or genuine spoken/listening work.
@@ -21,6 +25,10 @@ Before selecting controls, route the learner's action (remember, recognize, buil
 Do not pretend native drag, images or audio are available. Drag tasks require real interaction and a keyboard/numbered/select alternative. Image choices require a real relevant image and accessible description. If no audio is actually accessible, mark speaking, pronunciation and listening **unassessed**; text role-play can only assess written interaction. Normal chat is preferable to an unnecessary form for free conversation or a brief question.
 
 A multi-item form may be represented by **one trusted composite Activity** with subtask rubrics. Keep the established `ASIT_ATTEMPT_V2` outer fields, with a bounded JSON **string** in `answer` containing subtask values. Score subparts by operation and modality before writing an accurate privacy-safe aggregate Attempts row. Do not turn recognition into independent production, or typed responses into spoken evidence. Store nothing without consent; claim Saved only after exact readback.
+
+## Visible lesson number and next focus
+
+Count **Lesson N** from trusted completed full lessons, not activity IDs; exclude diagnostics, short retries, pending and superseded tasks (see [counting contract](LESSON-COUNTING.md)). Explain the selected can-do goal and one concrete reason tied to recent evidence, a learner request or a due review. After two consecutive full lessons focused on the same narrow error, normally rotate to another eligible skill and schedule later review unless the learner asks to continue.
 
 ## Diagnostic mode is separate
 

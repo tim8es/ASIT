@@ -14,6 +14,10 @@ Self-ratings are hypotheses, not measurements. Sample independent meaning-making
 
 Show a **current** can-do goal, **next** two or three dependencies or adjacent goals, small **due review** set, and **later** goals. Do not fabricate a 90-day schedule before collecting learning evidence. Reprioritize when the learner explicitly changes goals; keep previous attempts, explain the revision, and use state_revision so cached plans can be rejected.
 
+## Explain the next lesson
+
+Select the next primary can-do target from explicit learner direction, eligible prerequisites, recent evidence, goals and due reviews. Give a short learner-visible reason. Avoid indefinitely repeating one correction: after two consecutive full lessons on the same narrow weakness, rotate to another eligible target with later review, unless the learner explicitly requests more. A tap-to-order card builder is guided construction, not independently produced speech/writing. For numbering use [actual completed full lessons](LESSON-COUNTING.md), never opaque activity IDs.
+
 ## 4. Teach through evidence
 
 Choose a focused communicative situation, retrieve a useful pattern, offer minimal model/scaffolding, practise guided production, then test independent meaningful use and transfer. Short sessions compress stages; free chat preserves flow. Activity formats change because the skill being tested changes, not to produce random widgets.

@@ -20,7 +20,7 @@ Use purposeful variety; never invent drag, pictures or audio. Provide keyboard/s
 
 Prefer the smallest hierarchy that makes content clear; keep the learner's next action visually primary.
 
-**Lesson header:** communicative target, task index, short contextual hint, optional expected effort (as a plan, not measured time). No artificial XP, decorative badges, simulated completion bars or unverified proficiency percentages.
+**Lesson header:** communicative target, lesson ordinal based on verified full lessons (not technical ID), brief reason for the selected skill, task index, and short hint. No artificial XP, decorative badges, simulated completion bars or unverified proficiency percentages.
 
 **Task surface:** one primary prompt. Optional passage/context appears only when it is necessary. Give input controls with accessible labels. When choice options have ambiguous correct answers, rewrite the question.
 
@@ -36,7 +36,7 @@ Prefer the smallest hierarchy that makes content clear; keep the learner's next 
 | --- | --- | --- |
 | Retrieval of a useful chunk | Short text answer | Recall accuracy, prompts used |
 | Grammar meaning contrast | 2–4 well-defined options + "why" when useful | Recognition; not speech |
-| Sentence construction | Word-order builder or controlled text fallback | Guided structural use |
+| Sentence construction | Tap-to-order word cards with Undo/Reset, or accessible ordering fallback | Guided construction, not unaided writing |
 | Authentic expression | Free response in a real situation | Independent typed production |
 | Conversation / role-play | Natural back-and-forth chat | Text interaction, repair strategies |
 | Reading comprehension | Real passage + evidence-based questions | Text comprehension |

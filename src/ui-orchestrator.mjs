@@ -25,9 +25,9 @@ export const UI_CANDIDATES=Object.freeze([
 ]);
 const validAction=new Set(['remember','recognize','build','explain','apply','interact','speak','listen']);
 const nonemptyString=x=>typeof x==='string'&&x.trim().length>0;
-const defaults=Object.freeze({audioCapture:false,audioAccessible:false,audioPlayback:false,hasRelevantImage:false,drag:false});
+const defaults=Object.freeze({audioCapture:false,audioAccessible:false,audioPlayback:false,hasRelevantImage:false,drag:false,tapCards:true});
 
-export function selectUiPattern({action,mode='lesson',capabilities={},recentTypes=[]}={}){
+export function selectUiPattern({action,mode='lesson',capabilities={},recentTypes=[],intent=null}={}){
   if(mode==='conversation'||mode==='direct_answer')
     return {kind:'ordinary_chat',operation:'interaction',evidence_modality:'typed_text'};
   if(!['lesson','diagnostic'].includes(mode))throw new Error('Invalid UI mode');
@@ -48,9 +48,12 @@ export function selectUiPattern({action,mode='lesson',capabilities={},recentType
     const aPenalty=ai<0?0:100+ai, bPenalty=bi<0?0:100+bi;
     return aPenalty-bPenalty || choices.indexOf(a)-choices.indexOf(b);
   });
-  const chosen=ranked[0];
+  // Word-order tasks are guided construction, not free written production.
+  const chosen=(action==='build'&&intent==='word_order')
+    ? choices.find(p=>p.type==='card_ordering') : ranked[0];
   let input='native_control_or_text_fallback';
-  if(chosen.type==='card_ordering')input=cap.drag?'accessible_drag_with_keyboard_fallback':'numbered_or_select_ordering';
+  if(chosen.type==='card_ordering')input=intent==='word_order'&&cap.tapCards
+    ? 'tap_to_order_cards' : cap.drag?'accessible_drag_with_keyboard_fallback':'numbered_or_select_ordering';
   if(chosen.type==='image_choice')input='real_image_with_accessible_choices';
   if(chosen.type==='spoken_response')input='real_audio_capture';
   if(chosen.type==='listening')input='real_audio_playback_and_questions';
@@ -60,7 +63,7 @@ export function selectUiPattern({action,mode='lesson',capabilities={},recentType
     spec_ref:chosen.spec_ref};
 }
 export function composeLessonUi({learnerState,minutes=null,exerciseCount=null,
-  mode='lesson',actions=null,capabilities={},recentTypes=[]}={}){
+  mode='lesson',actions=null,capabilities={},recentTypes=[],taskIntents=[]}={}){
   if(mode==='conversation'||mode==='direct_answer')
     return {render:'ordinary_chat',tasks:[],submit_count:0};
   const settings=resolveLessonSettings({learnerState,minutes,exerciseCount});
@@ -68,12 +71,15 @@ export function composeLessonUi({learnerState,minutes=null,exerciseCount=null,
   if(!Array.isArray(candidateActions)||candidateActions.length===0||
     candidateActions.some(x=>!validAction.has(x)))
     throw new Error('Invalid planned actions');
+  if(!Array.isArray(taskIntents)||taskIntents.some(x=>x!==null&&x!=='word_order'))
+    throw new Error('Invalid task intents');
   const chosen=Array.from({length:settings.exercise_count},(_,i)=>
     candidateActions[i%candidateActions.length]);
   if(mode==='lesson'&&chosen.length>=2&&!chosen.some(a=>['apply','explain','interact','speak'].includes(a)))
     chosen[chosen.length-1]='apply';
   const history=[...recentTypes],tasks=chosen.map((action,i)=>{
-    const ui=selectUiPattern({action,mode,capabilities,recentTypes:history});
+    const ui=selectUiPattern({action,mode,capabilities,recentTypes:history,
+      intent:taskIntents[i]??null});
     if(ui.kind==='ui')history.push(ui.type);
     return {item_id:'task_'+(i+1),...ui};
   });
