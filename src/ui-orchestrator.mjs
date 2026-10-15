@@ -180,3 +180,35 @@ export function summarizeLessonCompletion({exercises,answers}={}){
    // No correctness or independent-writing claim is made by this coverage-only oracle.
  };
 }
+
+
+/** Local interaction provenance is informative, never authoritative mastery evidence. */
+export function summarizePracticeProvenance({firstResponse=null,finalResponse=null,
+  revisionCount=0,hintLevel=0,source='native_ui'}={}){
+ if(!Number.isInteger(revisionCount)||revisionCount<0||
+   !Number.isInteger(hintLevel)||hintLevel<0)
+   throw new Error('Invalid provisional interaction metadata');
+ const firstKnown=firstResponse!==null&&firstResponse!==undefined;
+ const finalKnown=finalResponse!==null&&finalResponse!==undefined;
+ return {
+   source,first_response_recorded:firstKnown,final_response_recorded:finalKnown,
+   revision_count:revisionCount,hint_level:hintLevel,
+   provisional_support_status:!firstKnown?'unknown':
+     (revisionCount>0||hintLevel>0)?'assisted_or_revised':'first_try_reported',
+   mastery_claim:false,trusted_rubric_verification_required:true
+ };
+}
+
+/** A dialogue with one written reply is not multi-turn communication. */
+export function summarizeDialogueTurns({turns=[]}={}){
+ if(!Array.isArray(turns))throw new Error('Invalid dialogue history');
+ const valid=turns.filter(t=>t&&typeof t.teacher_prompt==='string'&&t.teacher_prompt.trim()&&
+   typeof t.learner_response==='string'&&t.learner_response.trim());
+ return {
+   observed_exchange_count:valid.length,
+   status:valid.length>=2?'ready_for_teacher_review':'insufficient_interaction',
+   evidence_modality:'typed_interaction',
+   fluency_or_pronunciation_assessed:false,
+   teacher_assessment_required:true
+ };
+}
