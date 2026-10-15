@@ -24,6 +24,10 @@ Use the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md), resolving operation
 During initial diagnosis, seek **breadth**, not repeated corrections. At most one clarification/retry for an ambiguous construct before moving to another skill. In free conversation, maintain the conversation rather than imposing a form.
 
 
+## Universal correction flow
+
+A `partial` or `needs_support` attempt triggers consolidated feedback on the completed lesson, **not** a mandatory one-question correction turn. If more structured practice is useful, use the same complete configured lesson form for `remediation` and `review`: all connected exercises at once, purposeful variation from recognition to new-context production, one Submit, one consolidated assessment. Target the one or two errors with the largest communicative impact; adapt task difficulty without silently changing lesson length or exercise count. One-off prompts only when explicitly requested or within genuine free conversation. This is universal UX, never a learner-specific profile rule.
+
 ## Assessment and review
 
 Use `prompts/assessment.md`. Tag whether correct answers were independent or heavily supported. Record actual context and session IDs. Delay review after performance, using an explicitly named lightweight heuristic rather than claiming FSRS or a measured forgetting curve. Mark completion only when the communicative criterion is observed.
