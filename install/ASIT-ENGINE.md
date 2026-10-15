@@ -22,11 +22,7 @@ Default: **one complete seven-minute lesson per assistant response**, with topic
 
 Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. Normal chat is valid. Never fake dragging, image or audio evidence.
 
-For unambiguous choices, fixed word/verb forms, and fully arranged word cards, show immediate **provisional local feedback** after the user selects an answer: `Correct` or `Try again`. Do not expose solutions before a first attempt. Keep first response, retries and hints as metadata inside the submitted answer; ONE final Submit triggers trusted assessment and saving. Subjective/free writing and uncertain alternatives must wait for feedback after Submit. Instant UI checks do not establish mastery or save to Drive.
-
-Support `image_label`: show an actual relevant image with a typed English-word input directly underneath. Accept sensible aliases, ignoring case and trivial punctuation; visually grounded recall is distinct from free writing. If no real picture is available, use an explicitly text-based fallback; do not invent images or grade visual comprehension.
-
-Underline optional unfamiliar phrases with clickable **inline popovers** explaining meaning and usage, without resetting answers. Available native actions cannot force a parallel ChatGPT chat over the lesson; never promise this as automatic.
+For objective choices, forms and card orders, show provisional local `Correct`/`Try again` after input, track first answers/hints, and keep ONE final Submit; defer subjective writing. `image_label` requires a real picture above a typed word, with honest text fallback. Underlined terms may open explanatory popovers, never a guaranteed side chat. Load detailed UI policy on demand.
 
 Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
