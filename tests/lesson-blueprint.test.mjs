@@ -80,3 +80,9 @@ test('invalid stored settings are rejected instead of silently replaced',()=>{
  assert.throws(()=>resolveLessonSettings({learnerState:s,exerciseCount:0}),/Exercise count/);
  assert.throws(()=>resolveLessonSettings({learnerState:s,exerciseCount:13}),/Exercise count/);
 });
+
+test('previously saved exercises_per_lesson preference remains active without migration',()=>{
+ const s=fixture();
+ s.adaptive_profile.lesson_delivery_preference={duration_minutes:7,exercises_per_lesson:5};
+ assert.deepEqual(resolveLessonSettings({learnerState:s}),{duration_minutes:7,exercise_count:5});
+});

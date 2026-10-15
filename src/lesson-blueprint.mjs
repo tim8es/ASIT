@@ -36,7 +36,8 @@ export function resolveLessonSettings({learnerState,minutes=null,exerciseCount=n
   const a=learnerState.adaptive_profile?.lesson_delivery_preference??{};
   const duration=minutes??p.duration_minutes??a.duration_minutes??
     a.duration_limit_minutes??learnerState.profile.available_minutes??DEFAULT_LESSON_DURATION;
-  const count=exerciseCount??p.exercise_count??a.exercise_count??DEFAULT_EXERCISE_COUNT;
+  const count=exerciseCount??p.exercise_count??p.exercises_per_lesson??
+    a.exercise_count??a.exercises_per_lesson??a.exercise_count_default??DEFAULT_EXERCISE_COUNT;
   if(!Number.isInteger(duration)||duration<3||duration>120)
     throw new Error('Lesson duration must be between 3 and 120 minutes');
   if(!Number.isInteger(count)||count<1||count>12)
