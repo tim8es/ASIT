@@ -219,3 +219,11 @@ test('every registered catalog type is either renderable or truthfully capabilit
    else assert.equal(ui.type,p.type,p.type);
  }
 });
+
+test('timeline permits alternative trusted chronologies and defers ambiguous rubric',()=>{
+ const caseData={type:'timeline_ordering',answer:['b','a','c'],
+ expected:['a','b','c'],accepted:[['b','a','c']]};
+ assert.equal(checkObjectiveInput(caseData).status,'correct');
+ assert.equal(checkObjectiveInput({type:'timeline_ordering',
+  answer:['b','a'],expected:null}).status,'deferred');
+});
