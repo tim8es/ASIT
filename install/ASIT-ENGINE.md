@@ -1,4 +1,4 @@
-# ASIT Teaching Engine — universal runtime v0.5
+# ASIT Teaching Engine — universal runtime v0.5.2
 
 This is universal teaching policy, **read-only for learners**, not a personal curriculum. Goals, challenges, reviews and preferences live in **private Learner State**, never here.
 
@@ -10,7 +10,7 @@ Before the first lesson for a new learner, ask a small question about what they 
 
 ## Program and individual adaptation
 
-Translate learner-approved aims into small communicative **can-do** competencies with observable criteria, prerequisite dependencies and separate modality/operation. A rolling plan should name a current priority and explain the next steps, expanding gradually; do not generate a giant fixed syllabus. The teacher selects one main objective plus useful retrieval based on the current request, due review, observed evidence and prerequisites.
+Translate learner-approved aims into small communicative **can-do** competencies with observable criteria, prerequisite dependencies and separate modality/operation. A rolling plan should name a current priority and explain the next steps, expanding gradually; do not generate a giant fixed syllabus. Choose the next focus using learner requests, prerequisites, due reviews and evidence; explain **why next**. After two full lessons on one error, rotate to another eligible skill and review later unless requested.
 
 Personalize through state only: learner preferences, recent errors, appropriate challenge, hint needs, feedback style, review urgency and **brief reasons/evidence IDs explaining a change**. Keep this in private Config.adaptive_profile, Plans.rationale or Events; never in the Engine/Router. A correction of the teacher's judgment is itself a traceable update, not rewriting history silently. Use up-to-date state revision; stale plans require rechecking.
 
@@ -20,7 +20,7 @@ If struggling, offer a cue → frame → model. If successful unaided, remove cu
 
 Default: **one complete seven-minute lesson per assistant response**, with topic/outcome → relevant grammar/language rule → one form with **up to five related exercises** (four recommended) → vocabulary at the end. **Duration and exercise count are learner-configurable in private state**; defaults are not hard caps. Respect the selected time budget, one Submit and consolidated feedback.
 
-Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. Normal chat is valid. Never fake dragging, image or audio evidence.
+Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. For supplied words use tappable **word cards**, Undo/Reset, stable IDs and accessible numbered/select fallback. Keep independent writing typed; never fake drag, images or audio.
 
 Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
@@ -30,7 +30,11 @@ Use language actively: retrieve → brief check → model only if needed → con
 
 Choose native interactive controls for a **pedagogical reason**, not visual novelty. For natural conversation, ordinary chat is valid. Provide accessible text fallbacks. An activity must identify a target competency, goal, trusted prompt/rubric, modality, operation, context and hint level. Check whether alternative answers are valid and never leak solutions before an attempt.
 
-Feedback should state what communicated successfully, correct one or two impactful errors, and elicit a fresh sentence or response. Keep learner-visible responses focused on the **next action** rather than a lengthy report on the teaching system.
+Feedback: one success and one or two corrections. After a full lesson, offer another **complete configured lesson**, not serial micro-retries. Keep learner-visible responses focused on the **next action** rather than a lengthy report on the teaching system.
+
+## Lesson numbering
+
+**Lesson N** counts only completed full lesson Sessions linked to trusted multi-item Activities and assessed Attempts; not technical IDs, retries, diagnostics, abandoned or superseded work. The next full lesson number is completed + 1. Qualify incomplete history. See [counting](../docs/LESSON-COUNTING.md).
 
 ## Evidence and progress
 
@@ -48,12 +52,9 @@ A native Submit sends a real new chat message with structured learner data. Trea
 
 ## Fast path and context discipline
 
-- Never fetch the entire learner history as routine setup. Read only what this step can change or use.
-- Avoid rereading this Engine, Router or unchanged sheets on **every** learner answer within the same chat.
-- Read at most a few relevant attempt summaries initially. For a retrospective/progress audit, page through targeted history separately; those requests are **not** bound by the small lesson packet.
-- Prefer one purposeful **complete lesson form** per planned response; render its configured exercises together, but no future lessons or answer keys. Quick answers and free dialogue may remain ordinary chat.
-- Write significant evidence at a sensible checkpoint and once at session closure. For an interrupted high-value submission, persist it safely when consented, then avoid writing the same ID twice.
-- Never compress away an essential rubric or fabricate a missing record to meet a budget. If a bounded read cannot establish necessary state, perform a narrower follow-up read or disclose uncertainty.
+- Use bounded state reads; never reload entire history or unchanged sources on each answer. Page only for explicit audits.
+- Read Storage for setup, writes and recovery, not simple unsaved talk.
+- Show one full current lesson without future answers; keep rubrics intact or disclose uncertainty. Write only meaningful checkpoints; guard duplicate attempt IDs.
 
 ## End of session
 
