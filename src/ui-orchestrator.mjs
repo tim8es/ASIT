@@ -2,6 +2,7 @@
  * Small, profile-neutral UI selector. This is a reference decision oracle, not
  * a ChatGPT UI renderer. Rich rendering recipes live in ui/patterns/*.md.
  */
+import {resolveLessonSettings,exerciseCapacityForMinutes} from './lesson-settings.mjs';
 export const LEARNING_ACTIONS=Object.freeze([
   'recall','recognize','construct','explain','apply'
 ]);
@@ -57,25 +58,26 @@ export function chooseUI({action,operation,modality='typed_text',mode='lesson',
       retry:'fresh contextual application; no unbounded diagnostic loops'}};
 }
 /** Chooses only the presentation types for a coherent lesson; teacher supplies content and trusted rubrics. */
-export function planLessonUI({tasks,minutes=7,maxItems=4,capabilities={},recentPatterns=[]}={}){
-  if(!Number.isInteger(minutes)||minutes<3||minutes>7)fail('Lesson must fit 3–7 minutes');
-  if(!Number.isInteger(maxItems)||maxItems<1||maxItems>5)fail('Lesson must contain 1–5 items');
-  if(!Array.isArray(tasks)||tasks.length===0)fail('Tasks required');
-  const capacity=Math.min(maxItems,minutes<=4?2:minutes===5?3:5);
-  let history=[...recentPatterns],left=minutes-2; // reserve ~2 min for topic/rule, vocabulary and Submit
-  const items=[];
-  for(const task of tasks.slice(0,capacity)){
-    const selected=chooseUI({...task,capabilities,recentPatterns:history});
-    const cost=INDEX.find(x=>x.id===selected.pattern)?.cost??2;
-    if(items.length&&left<cost)break;
-    // A heavier single speaking task is still useful if it fits the full budget.
-    if(!items.length&&left<cost)break;
-    items.push({...selected,action:task.action,operation:task.operation});
-    history.push(selected.pattern);
-    left-=cost;
-  }
-  if(!items.length)fail('No task fits the time budget; reduce complexity');
-  return {planned_minutes:minutes,items,one_submit:true,
-    section_order:['topic_and_objective','grammar_or_language_rule','practice_form','vocabulary_recap','single_submit'],
-    recipe_paths:uniq(items.map(x=>x.recipe))};
+export function planLessonUI({tasks,learnerState=null,minutes=null,maxItems=null,
+ capabilities={},recentPatterns=[]}={}){
+ const settings=resolveLessonSettings({learnerState,minutes,exerciseCount:maxItems});
+ if(!Array.isArray(tasks)||tasks.length===0)fail('Tasks required');
+ const duration=settings.duration_minutes;
+ const capacity=Math.min(settings.exercises_per_lesson,exerciseCapacityForMinutes(duration));
+ // Half-minute estimates; not a calibrated wall-clock prediction.
+ let history=[...recentPatterns],leftUnits=Math.floor(Math.max(0,duration-1.5)*2);
+ const items=[];
+ for(const task of tasks.slice(0,capacity)){
+   const selected=chooseUI({...task,capabilities,recentPatterns:history});
+   const units=INDEX.find(x=>x.id===selected.pattern)?.cost??2;
+   if(leftUnits<units)break;
+   items.push({...selected,action:task.action,operation:task.operation});
+   history.push(selected.pattern);
+   leftUnits-=units;
+ }
+ if(!items.length)fail('No task fits the time budget; reduce complexity');
+ return {planned_minutes:duration,items,one_submit:true,
+   requested_exercises:settings.exercises_per_lesson,lesson_setting_source:settings.setting_source,
+   section_order:['topic_and_objective','grammar_or_language_rule','practice_form','vocabulary_recap','single_submit'],
+   recipe_paths:uniq(items.map(x=>x.recipe))};
 }
