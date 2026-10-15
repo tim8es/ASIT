@@ -16,3 +16,19 @@ Use a fresh ChatGPT Project, a connected Drive account and **fictional test-only
 12. **Device check:** repeat widgets on web and mobile where available, documenting fallbacks rather than assuming equal feature support.
 
 Record test cases, dates, client and redacted result in private QA notes. Do not publish personal answers. Mark whole-product completion only after **all mandatory acceptance gates** pass.
+
+## Catalog v0.5 — 18 pattern regression walkthrough
+
+13. Verify all 18 catalog types have distinct meaningful intended learner operations (17 practice, one `progress_explorer`). In the normal 7-minute lesson only a pedagogically selected subset is displayed.
+14. Test `reading_comprehension` with a continuous actual passage, one gist item and one evidence-detail item. Confirm no listening score.
+15. Test `timeline_ordering` on desktop, mobile and keyboard-only. Shuffle events, Undo, Reset and check correct/try-again only when source chronology is unambiguous.
+16. Test `image_hotspot` with *real pointer and keyboard selectable regions*. If unsupported, verify the agent clearly replaces it with image choice or text recognition, NOT a fake hotspot or click score.
+17. Compare `sentence_builder` semantic chunks against `card_ordering` individual word cards. Verify their independent-transfer follow-up and sensible hints.
+18. Test a genuine dialogue with at least two learner messages and a context-aware assistant follow-up. A single input must not be marked multi-turn.
+19. Test a scenario with required choice **and** reason; a partial answer must remain incomplete. Test partially matched triples and partially ordered cards.
+20. Give a wrong first response, revise and use a hint. Verify first response/revision/support metadata is not misreported as unaided accuracy or mastery.
+21. Without playable source audio or accessible learner recording, verify listening and speaking remain unassessed. On an enabled client, obtain consent as needed and test *actual* audio source, playback/capture and feedback.
+22. Test long storyline paragraph with popover help on mobile; if the inline trigger breaks sentence flow, verify the tappable explanation appears *after* the uninterrupted sentence.
+23. Test final required writing blank. Ensure 4/5 is labeled incomplete, positive finale stays locked and explicit incomplete early exit does not fabricate writing evidence.
+
+Complete and date these actual-device cases before reporting the whole interactive product as validated. GitHub CI alone verifies contracts and pure reference helpers, not the native UI.
