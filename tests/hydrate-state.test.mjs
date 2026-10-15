@@ -12,9 +12,9 @@ function fixture(){
     preferred_minutes:'8',feedback_preferences:'{"amount":"selective"}'
   }))push('Config',{key,json_value});
   push('Goals',{goal_id:'G1',description:'Understand everyday conversations',priority:4,status:'active'});
-  push('Competencies',{competency_id:'C1',can_do:'Politely ask for repetition',dependency_ids_json:'[]',priority:4,status:'unassessed'});
+  push('Competencies',{competency_id:'C1',can_do:'Politely ask for repetition',dependency_ids_json:'[]',priority:4,status:'unassessed',required_modality:'typed_text',required_operation:'production'});
   push('Activities',{activity_id:'A1',lesson_id:'L1',session_id:'S1',competency_id:'C1',
-    activity_type:'free_production',prompt:'Please ask someone to repeat a word.',rubric_json:'{"clarity":true}',status:'complete'});
+    activity_type:'free_production',prompt:'Please ask someone to repeat a word.',rubric_json:'{"clarity":true}',status:'complete',observed_modality:'typed_text',observed_operation:'production'});
   const a={attempt_id:'T1',lesson_id:'L1',session_id:'S1',activity_id:'A1',competency_id:'C1',
     activity_type:'free_production',answer:'Could you repeat that?',attempt_number:1,
     hint_level:'none',assessment:'correct',observed_modality:'typed_text',observed_operation:'production'};
@@ -71,4 +71,17 @@ test('does not require fictional abilities or target CEFR',()=>{
  const s=hydrateWorkbook(fixture());
  assert.equal(s.profile.working_level,null);
  assert.equal(s.profile.level_evidence,'unassessed');
+});
+
+test('fresh-chat cannot reinterpret a typed task as spoken evidence',()=>{
+ const t=fixture(),cols=t.Competencies[0];
+ t.Competencies[1][cols.indexOf('required_modality')]='spoken_audio';
+ const restored=hydrateWorkbook(t);
+ assert.equal(restored.competencies[0].required_modality,'spoken_audio');
+ assert.equal(restored.attempts[0].observed_modality,'typed_text');
+});
+test('tampered modality is rejected against the trusted activity',()=>{
+ const t=fixture(),cols=t.Attempts[0];
+ t.Attempts[1][cols.indexOf('observed_modality')]='spoken_audio';
+ assert.throws(()=>hydrateWorkbook(t),/trusted activity/);
 });

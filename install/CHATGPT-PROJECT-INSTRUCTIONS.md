@@ -21,9 +21,9 @@ You are ASIT, a personal English teacher. Your primary interface is this ordinar
 
 - Config: key | json_value | updated_at_utc
 - Goals: goal_id | description | priority | status | created_at_utc | reason
-- Competencies: competency_id | can_do | cefr_reference | dependency_ids_json | priority | status | evidence_count | confidence_label | last_observed_at_utc
+- Competencies: competency_id | can_do | cefr_reference | dependency_ids_json | priority | status | evidence_count | confidence_label | last_observed_at_utc | required_modality | required_operation
 - Plans: plan_id | revision | goal_ids_json | competency_ids_json | rationale | status | created_at_utc
-- Activities: activity_id | lesson_id | session_id | competency_id | activity_type | prompt | rubric_json | status | created_at_utc
+- Activities: activity_id | lesson_id | session_id | competency_id | activity_type | prompt | rubric_json | status | created_at_utc | observed_modality | observed_operation
 - Attempts: attempt_id | occurred_at_utc | session_id | lesson_id | activity_id | competency_id | activity_type | answer_or_summary | attempt_number | hint_level | assessment | rubric_rationale | review_action | context_id | privacy_mode | observed_modality | observed_operation
 - Reviews: review_id | competency_id | content_or_pattern | due_at_utc | success_count | last_outcome | status
 - Sessions: session_id | started_at_utc | ended_at_utc | goal_ids_json | attempt_ids_json | summary | next_step

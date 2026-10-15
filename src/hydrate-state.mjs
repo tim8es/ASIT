@@ -66,17 +66,23 @@ export function hydrateWorkbook(tables){
     id:String(r.competency_id),can_do:String(r.can_do),
     dependencies:toArray(r.dependency_ids_json,'Competencies.dependencies.'+r.competency_id),
     priority:r.priority===''?undefined:Number(r.priority),
-    cefr_reference:r.cefr_reference||null
+    cefr_reference:r.cefr_reference||null,
+    required_modality:String(r.required_modality),
+    required_operation:String(r.required_operation)
   })),'id','competency');
   validateCompetencyMap(comps);
   const acts=byId(rows.Activities.map(r=>({
     id:String(r.activity_id),lesson_id:String(r.lesson_id),session_id:String(r.session_id),
     competency_id:String(r.competency_id),type:String(r.activity_type),
     prompt:String(r.prompt),rubric:parseJson(r.rubric_json,'Activities.rubric.'+r.activity_id),
-    status:String(r.status)
+    status:String(r.status),
+    modality:String(r.observed_modality),
+    operation:String(r.observed_operation)
   })),'id','activity');
   for(const a of acts){
-    if(!comps.some(c=>c.id===a.competency_id)||!nonempty(a.prompt)||!nonempty(a.lesson_id))
+    if(!comps.some(c=>c.id===a.competency_id)||!nonempty(a.prompt)||!nonempty(a.lesson_id)||
+      !['typed_text','spoken_audio','audio_comprehension','reading_text','unknown'].includes(a.modality)||
+      !['production','interaction','recognition','comprehension','unknown'].includes(a.operation))
       throw new Error('Invalid activity reference '+a.id);
     if(!a.rubric||typeof a.rubric!=='object'||Array.isArray(a.rubric))
       throw new Error('Invalid activity rubric '+a.id);
@@ -89,7 +95,9 @@ export function hydrateWorkbook(tables){
   for(const a of attempts){
     validateAttempt(a,comps);
     const act=byActivity.get(a.activity_id);
-    if(!act||a.lesson_id!==act.lesson_id||a.session_id!==act.session_id||a.competency_id!==act.competency_id)
+    if(!act||a.lesson_id!==act.lesson_id||a.session_id!==act.session_id||
+      a.competency_id!==act.competency_id||
+      a.observed_modality!==act.modality||a.observed_operation!==act.operation)
       throw new Error('Attempt refers to missing/different trusted activity '+a.attempt_id);
     // JSON fields from the learner are never a trusted rubric or a permission to write.
   }

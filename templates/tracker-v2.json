@@ -35,9 +35,11 @@
         "status",
         "evidence_count",
         "confidence_label",
-        "last_observed_at_utc"
+        "last_observed_at_utc",
+        "required_modality",
+        "required_operation"
       ],
-      "notes": "CEFR references optional, status starts unassessed"
+      "notes": "Competencies persist their assessment scope to prevent modality drift across chats"
     },
     {
       "name": "Plans",
@@ -63,9 +65,11 @@
         "prompt",
         "rubric_json",
         "status",
-        "created_at_utc"
+        "created_at_utc",
+        "observed_modality",
+        "observed_operation"
       ],
-      "notes": "trusted activity registry for verifying user-submitted IDs"
+      "notes": "Trusted modality and operation determine the scope of any submitted evidence"
     },
     {
       "name": "Attempts",
