@@ -15,4 +15,4 @@
 
 ## Automated checks
 
-`node scripts/scan-public.mjs` scans currently tracked text files for credential-like strings, emails, specific legacy-personal markers and private Google document links. It **does not inspect Git history** or guarantee all types of personal data are caught. Public release requires independent manual and historical audits.
+`node scripts/scan-public.mjs` inspects currently tracked files; `node scripts/scan-history.mjs` inspects Git blobs reachable from locally fetched refs. Both use heuristic checks for credential-like strings, emails, key blocks and private document links. They suppress secret excerpts from logs. They **cannot** guarantee detection of all PII or purge GitHub's unreachable/cached commit objects. Public release requires manual and historical audits.

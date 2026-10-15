@@ -7,6 +7,8 @@
 - **Critical residual risk:** GitHub still serves at least one previously rewritten/force-disconnected historical commit through a direct commit SHA URL. A force push does **not** guarantee historical objects, caches, hidden refs or pull request artifacts are immediately purged.
 - The repository remains **PRIVATE**. **Do not change visibility to public** until the old personal-source commits have been made inaccessible (e.g., repository owner coordinating an appropriate GitHub Support purge of cached/unreachable sensitive objects, or an authorized clean repository migration) and verified.
 
+GitHub's official removal guidance explains that rewritten commits may remain available through cached SHA pages and recommends coordination with GitHub Support where appropriate: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository . Support eligibility is not guaranteed for every kind of removed material. A fresh clean destination is often preferable when the pre-release repository has not been widely shared.
+
 ## Remaining owner actions before public release
 
 1. Contact GitHub Support about removing inaccessible-but-still-addressable former commits and other cached objects containing personal learning material; never include the material itself in a public issue.

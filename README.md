@@ -4,7 +4,7 @@
 
 ASIT operates in a **normal ChatGPT conversation**, using native interactive controls when available. It does not host a separate website, call an external LLM API, or require a custom MCP server. A learner-owned storage connector (Google Drive / Sheets in v0.2) keeps progress between chats.
 
-> **Status: v0.2 experimental, not a turnkey released product.** A real submission and Google Sheets readback have been demonstrated in a private pilot. Cross-chat restoration, full-course adaptation, voice integration, and clean public distribution remain acceptance gates.
+> **Status: v0.2 experimental, not a turnkey released product.** The engineering reference implementation has passed 83 automated tests and a disposable synthetic Google Sheets integration check. A real private pilot submission was also verified previously. Clean-install onboarding through ChatGPT, cross-chat restoration, human UI acceptance and safe public distribution remain gates.
 
 ## Start using ASIT
 
