@@ -1,18 +1,22 @@
 # ASIT — install in an ordinary ChatGPT Project
 
-**Use a short Project Router plus two source files (pedagogy and optional storage).**
+**Use a short GitHub-first Project Router; older attached Engine/Storage files become optional offline fallback snapshots.**
 
-1. Download [ASIT-ENGINE.md](ASIT-ENGINE.md) and [ASIT-STORAGE.md](ASIT-STORAGE.md) and attach both to **ChatGPT Project → Files / Knowledge**. The Engine contains universal pedagogy; the Storage adapter is loaded on demand for persistence.
-2. Copy the contents of the short [PROJECT-ROUTER.md](PROJECT-ROUTER.md) to **ChatGPT Project → Instructions**. This is about 1,800 characters.
+1. Connect GitHub to the private `tim8es/ASIT` repository. The router must fetch the actual current `install/ASIT-ENGINE.md` on `main` each new substantive chat, with related instructions retrieved only when needed.
+2. Copy the new short [PROJECT-ROUTER.md](PROJECT-ROUTER.md) **once** to **ChatGPT Project → Instructions**. This one-time manual step replaces the older file-first router. A GitHub commit cannot update already-installed Project Instructions automatically. Optionally keep [ASIT-ENGINE.md](ASIT-ENGINE.md) and [ASIT-STORAGE.md](ASIT-STORAGE.md) in Project Files only as explicit fallback snapshots.
 3. Open a new regular chat inside the Project and say: **"Start my English program."**
 4. If you want your progress saved across chats, connect Google Drive and approve the privacy mode before the first persistent write. You do not manually create the tracking Sheet.
-5. Open another chat in the same Project and ask ASIT to continue; it must actually read the Project source and private learner state.
+5. Open another chat in the same Project and ask ASIT to continue; it must actually fetch the current GitHub Engine and read the relevant private learner state. New Engine changes on `main` require no attachment re-upload.
 
-The default is **Project file + short router**, with no GitHub connector needed at runtime. The two versioned sources stay in GitHub for version control, while the learner's sensitive data stays in their own private storage.
+The default is **GitHub-connected source + short router**. Versioned instructions stay in GitHub; private learner state remains in the learner's own storage. Without the GitHub connector, an existing attached file is only a fallback snapshot, not a live update mechanism.
 
-### Why not just give ChatGPT a GitHub link?
+### Why a link alone is not enough
 
-This repository is private and a regular ChatGPT chat cannot assume it has permission to fetch its contents. A Project Files attachment is a simpler, controlled source. The router must report a missing file instead of pretending to have loaded it. Updating the GitHub source **does not automatically update** an attachment; reattach a newer release deliberately.
+Private GitHub needs an authorized connected GitHub action, not just a URL. The router must confirm that the source was actually fetched. If GitHub becomes unavailable, clearly identify a Project file as an older fallback snapshot.
+
+### Rollback
+
+Revert the merged GitHub commit (or restore a known good source commit) and start a new chat to reload the older Engine. For a full installation rollback, paste the previous Project Router back into Project Instructions.
 
 ### Without Google Drive
 

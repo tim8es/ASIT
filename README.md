@@ -8,13 +8,13 @@ ASIT operates in a **normal ChatGPT conversation**, using native interactive con
 
 ## Start using ASIT
 
-1. Download [ASIT-ENGINE.md](install/ASIT-ENGINE.md) **and** [ASIT-STORAGE.md](install/ASIT-STORAGE.md), then attach both to **ChatGPT Project Files / Knowledge**.
-2. Paste only [PROJECT-ROUTER.md](install/PROJECT-ROUTER.md) into **ChatGPT Project Instructions** (approximately 1,800 characters).
+1. Connect GitHub to the private repository `tim8es/ASIT` with read permission. The GitHub-first router retrieves the actual current Engine in each new substantive-learning chat.
+2. Paste the updated [PROJECT-ROUTER.md](install/PROJECT-ROUTER.md) **once** into **ChatGPT Project Instructions**. Existing Engine/Storage Project attachments may remain as clearly stale offline fallback snapshots.
 3. Start a regular chat inside that Project and say **"Start my English program."** ASIT loads the engine, discovers the learner's goals and starts useful English practice.
 4. Connect Google Drive *optionally* for private learning progress after explicit consent. Without it, the lesson remains unsaved.
 5. Start another chat in the same Project to test source loading and state recovery.
 
-**No GitHub connector, command line, separate website or paid API key is required for the learner.** GitHub is the source of truth for updates; attached Project files are not automatically synced.
+**The connected GitHub tool is required for automatic source updates.** No hosted external frontend or paid API key is required. Changing a GitHub source does not itself update existing Project Instructions: the new router must be pasted once. Thereafter fresh chats fetch current Engine instructions from `main` without updating attachments.
 
 ## What is (and isn't) stored
 
@@ -37,14 +37,14 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 - [Project router](install/PROJECT-ROUTER.md), [teaching source](install/ASIT-ENGINE.md), and [onboarding workflow](prompts/setup.md)
 - [Teacher router](prompts/router.md), [lesson selection](prompts/lesson-loop.md), [assessment](prompts/assessment.md) and [submission handler](prompts/submission.md)
 - [Learning state](src/learning-state.mjs), [planner](src/planner.mjs), [message protocol](src/protocol.mjs)
-- [UI Orchestrator](ui/UI-ORCHESTRATOR.md), [seven-minute lessons](docs/SEVEN-MINUTE-LESSONS.md), [native patterns](ui/patterns.json), [activity contract](ui/activity-contract.md)
+- [UI Orchestrator](ui/UI-ORCHESTRATOR.md), [seven-minute lessons](docs/SEVEN-MINUTE-LESSONS.md), [live-feedback and picture-label interaction](docs/INTERACTIVE-FEEDBACK.md), [native patterns](ui/patterns.json), [activity contract](ui/activity-contract.md)
 - [Schema and private storage adapter](docs/tracker-contract.md), [privacy](docs/security.md), [release gate](docs/publication.md)
 - [Human acceptance checks](docs/manual-acceptance.md), [evaluation fixtures](evals/README.md)
 - [Capability limits](docs/architecture.md)
 
 ## Efficient, individualized runtime
 
-The Router and Engine remain generic and unmodified throughout a learner's course. A private `Config.adaptive_profile` holds evidence-linked individual difficulty and support decisions. The Storage adapter is a separate reference file, loaded on demand. Ordinary lessons use a [bounded learner context policy](docs/CONTEXT-PERFORMANCE.md), not a full history dump; heavy retrospective analyses opt in to scoped pagination.
+The Router and Engine remain generic and unmodified throughout a learner's course. New sessions using the new router load current instructions from GitHub. A private `Config.adaptive_profile` holds evidence-linked individual difficulty and support decisions. The Storage adapter is a separate reference file, loaded on demand. Ordinary lessons use a [bounded learner context policy](docs/CONTEXT-PERFORMANCE.md), not a full history dump; heavy retrospective analyses opt in to scoped pagination.
 
 ## MLP testing
 

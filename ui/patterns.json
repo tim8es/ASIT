@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "selection_rule": "learner action -> observed operation/modality -> accessible capability -> justified variety; load only selected pattern spec",
   "patterns": [
     {
@@ -15,6 +15,13 @@
       "input": "ordering or controlled text",
       "assessment": "accuracy plus independent retry in different context",
       "spec_ref": "ui/patterns/construction.md"
+    },
+    {
+      "type": "image_label",
+      "goal": "retrieve English word or phrase after seeing a real picture",
+      "input": "real image with native text input directly beneath and accessible text fallback",
+      "assessment": "case-insensitive expected word plus accepted aliases can be locally checked; written image-prompted recall only",
+      "spec_ref": "ui/patterns/recognition.md"
     },
     {
       "type": "grammar_contrast",
@@ -100,5 +107,35 @@
       "assessment": "observed audio only",
       "spec_ref": "ui/patterns/media-interaction.md"
     }
-  ]
+  ],
+  "feedback": {
+    "scope": "provisional UI only",
+    "timing": "on input change after first response",
+    "eligible": [
+      "single-choice",
+      "fixed grammar choice",
+      "finite image label",
+      "completed card ordering"
+    ],
+    "deferred": [
+      "open writing",
+      "ambiguous alternatives"
+    ],
+    "statuses": [
+      "unanswered",
+      "correct",
+      "try_again",
+      "deferred"
+    ],
+    "submit_count": 1,
+    "client_metadata": [
+      "first_response",
+      "revision_count",
+      "hint_level"
+    ]
+  },
+  "underlined_explanation": {
+    "ui": "inline popover",
+    "parallel_chat_available_to_author": false
+  }
 }

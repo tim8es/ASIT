@@ -25,3 +25,9 @@ Progress Explorer visualizes reported evidence and confidence labels, not fake p
 ## Failure handling
 
 If interface cannot display, offer equivalent text exercise in the next ChatGPT turn. If native UI submit fails, preserve the learner's draft and provide text reply instructions; never state cloud persistence succeeded before verified connector write/readback.
+
+## Instant objective feedback and image-word retrieval
+
+For clear right/wrong tasks (choice, fixed past form, completed ordered word cards, finite image labels), use controlled native input state to display `Correct` or `Try again` immediately after interaction. Remember the *first* answer, later changes and whether a cue was exposed. Still use one Submit and re-evaluate against the persisted trusted rubric. Do not auto-grade unrestricted writing, plausible synonyms or open dialogue by string comparison. Never save from the widget.
+
+For image vocabulary, render a **real image directly above an input field**; typing the word assesses visually prompted written recall, not spontaneous speaking or writing. Render a textual fallback if the actual image is unavailable and distinguish that evidence. Underlined words can open **inline popovers** with explanations; they cannot independently open a parallel ChatGPT chat.

@@ -9,6 +9,7 @@ const media='ui/patterns/media-interaction.md';
 export const UI_CANDIDATES=Object.freeze([
   pattern('cloze','remember','retrieval',recognition),
   pattern('vocabulary_retrieval','remember','retrieval',recognition),
+  pattern('image_label','remember','image_prompted_written_recall',recognition,{needsImage:true}),
   pattern('grammar_contrast','recognize','recognition',recognition),
   pattern('matching','recognize','recognition',recognition),
   pattern('image_choice','recognize','recognition',recognition,{needsImage:true}),
@@ -52,11 +53,13 @@ export function selectUiPattern({action,mode='lesson',capabilities={},recentType
   let input='native_control_or_text_fallback';
   if(chosen.type==='card_ordering')input=cap.drag?'accessible_drag_with_keyboard_fallback':'numbered_or_select_ordering';
   if(chosen.type==='image_choice')input='real_image_with_accessible_choices';
+  if(chosen.type==='image_label')input='real_image_above_text_input_with_text_fallback';
   if(chosen.type==='spoken_response')input='real_audio_capture';
   if(chosen.type==='listening')input='real_audio_playback_and_questions';
   return {kind:'ui',type:chosen.type,action,operation:chosen.operation,input,
     evidence_modality:action==='speak'?'spoken_audio':action==='listen'?'audio_comprehension':
-      chosen.type==='image_choice'?'visual_recognition':'typed_text',
+      chosen.type==='image_choice'?'visual_recognition':
+      chosen.type==='image_label'?'image_prompted_written_recall':'typed_text',
     spec_ref:chosen.spec_ref};
 }
 export function composeLessonUi({learnerState,minutes=null,exerciseCount=null,
@@ -94,4 +97,29 @@ export function validateLessonPresentation(lesson,{durationMinutes=7,exerciseCou
   if(lesson.exercises.some(x=>!nonemptyString(x.prompt)||!nonemptyString(x.item_id)))
     throw new Error('Missing trusted exercise metadata');
   return true;
+}
+
+/** Local provisional checking of UNAMBIGUOUS forms; no storage or mastery claims. */
+const normalizeLabel=s=>String(s).trim().toLocaleLowerCase('en')
+  .replace(/\s+/g,' ').replace(/[.!?]+$/g,'').trim();
+export function checkObjectiveInput({type,answer,expected,accepted=[]}={}){
+ const scope='local_only';
+ if(!['single_choice','word_order','image_label'].includes(type))
+   return {status:'deferred',scope};
+ if(type==='word_order'){
+   if(!Array.isArray(expected)||!Array.isArray(answer))return {status:'deferred',scope};
+   if(answer.length<expected.length)return {status:'unanswered',scope};
+   return {status:answer.length===expected.length&&answer.every((x,i)=>x===expected[i])
+     ?'correct':'try_again',scope};
+ }
+ if(typeof answer!=='string'||!answer.trim())return {status:'unanswered',scope};
+ if(type==='single_choice'){
+   if(typeof expected!=='string')return {status:'deferred',scope};
+   return {status:answer===expected?'correct':'try_again',scope};
+ }
+ const options=[expected,...(Array.isArray(accepted)?accepted:[])]
+   .filter(x=>typeof x==='string'&&x.trim());
+ if(!options.length)return {status:'deferred',scope};
+ return {status:options.some(x=>normalizeLabel(x)===normalizeLabel(answer))
+   ?'correct':'deferred',scope};
 }

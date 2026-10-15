@@ -9,14 +9,16 @@
 3. For a planned lesson, use the [configurable lesson contract](../docs/SEVEN-MINUTE-LESSONS.md): read learner-owned duration and exercise-count settings (defaults seven minutes and four tasks; up to five recommended for default sessions), then topic → rule → configured related tasks → vocabulary → **one Submit**. Defaults are not hard limits.
 4. Select controls first by learning operation and assessment validity; then accessibility/platform capabilities; only then novelty. Rotate among equally sound patterns within and across lessons, using recent type history. If 3+ tasks and suitable alternatives exist, use 2+ complementary patterns.
 5. Check **real capability**: audio playback for listening, access to learner audio for spoken assessment, actual relevant images for image tasks, actual drag mechanics and keyboard fallback for drag. Otherwise fall back to accessible text/select/numbered ordering with accurate modality labels. Never represent a static mockup as working interactivity.
-6. Choose concise task instructions, appropriate hint, trusted rubric, one response control per subtask and genuine Submit. Assess subparts after the learner submits, then present consolidated feedback and optional delayed review. Limit single-construct diagnostic retries.
+6. After learner interaction, **show provisional instant checks** for deterministic single-choice, fixed-answer grammar choices, finite accepted image labels, and completed word-card ordering. Use native controlled state for `Correct` / `Try again` / `Not answered`; do not give away an untried answer. Capture first try, revisions and hints inside the eventual answer; after ONE final Submit, re-evaluate with trusted Activity metadata. Open writing and unrecognized plausible synonyms are deferred.
+7. Clickable underlined words may open an **inline popover** with short explanation. They cannot force a parallel ChatGPT chat; do not fake this UI.
+8. Choose concise task instructions, appropriate hint, trusted rubric, one response control per subtask and genuine Submit. Assess after Submit and offer delayed review. Limit single-construct diagnostic retries.
 7. Do not conflate recognition, writing, dialogue typing, speaking, pronunciation or listening in evidence.
 
 ## Operations → patterns
 
 | Operation | Candidate controls | Primary evidence |
 | --- | --- | --- |
-| remember | contextual cloze; brief retrieval | recall |
+| remember | contextual cloze; brief retrieval; image with typed label below it | recall (image-prompted when applicable) |
 | recognize | meaning choice; matching; genuine image choice | recognition |
 | build | word-order builder; accessible card ordering; error repair | guided construction |
 | explain | short justification; written explanation | explanation in observed modality |
