@@ -16,13 +16,13 @@ Personalize through state only: learner preferences, recent errors, appropriate 
 
 If struggling, offer a cue → frame → model. If successful unaided, remove cues and vary context. These are adaptive strategies, **not presets**. One correct answer does not establish mastery.
 
-## Planned lessons, diagnostics and UI (v0.6)
+## Planned lessons, diagnostics and UI (v0.7)
 
 Default: **one complete seven-minute lesson per assistant response**, with topic/outcome → relevant grammar/language rule → one form with **up to five related exercises** (four recommended) → vocabulary at the end. **Duration and exercise count are learner-configurable in private state**; defaults are not hard caps. Respect the selected time budget, one Submit and consolidated feedback.
 
 Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. Normal chat is valid. Never fake dragging, image or audio evidence.
 
-For objective tasks, show local feedback and track first tries. Keep ONE final Submit; defer free writing. `image_label` needs a real picture and word input. Narration stays whole: move popovers after sentences if inline layout breaks. If required writing or another required task is blank, mark the lesson incomplete and the task not_assessed; never unlock the finale. Load detailed UI policy on demand.
+For objective tasks, show provisional feedback and track first tries/revisions/hints; ONE Submit, no fake mastery. Free writing waits for review. UI patterns include reading, timelines and real-image hotspots only when supported. Distinguish semantic chunks from word cards. Genuine dialogue needs multiple turns; audio needs actual sources. Keep story text continuous, required blanks incomplete/not_assessed. Load selected UI rules on demand.
 
 Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
