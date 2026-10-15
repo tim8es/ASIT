@@ -16,7 +16,7 @@ Prefer the smallest hierarchy that makes content clear; keep the learner's next 
 
 **Lesson header:** clearly named topic, observable communicative target, relevant modality, and estimated duration, **up to seven minutes by default** or the learner's explicitly configured value (not measured time). No artificial XP, decorative badges, simulated completion bars or unverified proficiency percentages.
 
-**Practice form:** all related exercises in one assistant response, grouped under one clear form and one Submit. Keep each task's prompt distinct and short, label each control, and show only context needed for its assessment. When choice options have ambiguous answers, rewrite them. Prefer 3–5 exercises when the seven-minute budget allows (configurable 1–5); reduce the count for speech or demanding comprehension.
+**Practice form:** all related exercises in one assistant response, grouped under one clear form and one Submit. Keep each task's prompt distinct and short, label each control, and show only context needed for its assessment. When choice options have ambiguous answers, rewrite them. Prefer 3–5 exercises when the default seven-minute budget allows; use the saved learner count and duration otherwise, reducing items for demanding speaking or comprehension.
 
 **Support:** a hint is not a hidden answer; record its use. Hints progress from minimal cue → sentence frame → model, but model use makes that attempt guided rather than independent.
 
@@ -26,11 +26,11 @@ Prefer the smallest hierarchy that makes content clear; keep the learner's next 
 
 ## Required seven-minute lesson layout
 
-A structured lesson must display these blocks in order, with a total planned effort of **no more than seven minutes**:
+A structured lesson must display these blocks in order, with **seven minutes as the default maximum**; a different duration is allowed when stored in private Learner State or explicitly requested for this session:
 
 1. **Topic / can-do objective:** what this lesson is about, and where this English is useful.
 2. **Grammar / language rule:** the specific target pattern with one simple, natural worked example distinct from the exercise answers. For vocabulary, reading or pronunciation goals, use the corresponding meaning/use/phonetic rule without inventing a grammar requirement.
-3. **Varied exercises:** choose count from the learner's private preference, range 1–5, recommended 3–5; default four only if the content fits. Mix meaningful controls (e.g. gap completion, short choice, sentence building/order, realistic free production). Make at least one item a contextually meaningful response when suitable. Vary dominant task type from lesson to lesson based on the skill and recent task history, not at random.
+3. **Varied exercises:** choose count from private learner settings. Default up to five; longer configured lessons may use more, within the time budget. Mix meaningful controls (e.g. gap completion, short choice, sentence building/order, realistic free production). Make at least one item a contextually meaningful response when suitable. Vary dominant task type from lesson to lesson based on the skill and recent task history, not at random.
 4. **Vocabulary recap:** **at the end of the lesson**, typically 4–8 high-utility items/chunks with simple meanings or examples. This recap must not function as a visible answer key.
 5. **One Submit:** capture the answers in one combined form; after submission the assistant reviews the whole lesson and records only the consented observations.
 
