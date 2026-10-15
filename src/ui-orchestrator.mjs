@@ -142,8 +142,12 @@ export function checkObjectiveInput({type,answer,expected,accepted=[]}={}){
  if(type==='word_order'||type==='timeline_ordering'){
    if(!Array.isArray(expected)||!Array.isArray(answer))return {status:'deferred',scope};
    if(answer.length<expected.length)return {status:'unanswered',scope};
-   return {status:answer.length===expected.length&&answer.every((x,i)=>x===expected[i])
-     ?'correct':'try_again',scope};
+   // A trusted rubric may list equivalent timelines for simultaneous/uncertain events.
+   const valid=[expected,...(type==='timeline_ordering'&&Array.isArray(accepted)?
+     accepted.filter(Array.isArray):[])];
+   const matches=valid.some(sequence=>answer.length===sequence.length&&
+     answer.every((x,i)=>x===sequence[i]));
+   return {status:matches?'correct':'try_again',scope};
  }
  if(typeof answer!=='string'||!answer.trim())return {status:'unanswered',scope};
  if(type==='single_choice'||type==='image_hotspot'){
