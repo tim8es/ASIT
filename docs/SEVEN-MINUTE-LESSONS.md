@@ -1,4 +1,4 @@
-# Complete configurable mini-lessons — ASIT contract v0.5
+# Complete configurable mini-lessons — ASIT contract v0.5.1
 
 This universal contract defines the planned **mini-lesson**. Personal goals, vocabulary needs and exercise preferences remain in private Learner State, not in GitHub.
 
@@ -22,10 +22,18 @@ Do not pretend native drag, images or audio are available. Drag tasks require re
 
 A multi-item form may be represented by **one trusted composite Activity** with subtask rubrics. Keep the established `ASIT_ATTEMPT_V2` outer fields, with a bounded JSON **string** in `answer` containing subtask values. Score subparts by operation and modality before writing an accurate privacy-safe aggregate Attempts row. Do not turn recognition into independent production, or typed responses into spoken evidence. Store nothing without consent; claim Saved only after exact readback.
 
+## Remediation and review: the same complete-lesson UX
+
+**Universal default:** after a completed lesson, give concise consolidated feedback first. When a learner needs correction, reinforcement or spaced review, the next structured practice is **another complete lesson** with the learner-configured duration and exercise count. Do not split it into serial single-question retries simply because an answer was partial or incorrect.
+
+Choose one or two high-impact observed weaknesses and design a coherent, varied progression across the **whole form**: recognition or noticing → supported construction → contextual choice → guided use → meaningful independent communication. Make all exercises visible together, use one combined Submit, and evaluate all parts together after submission. Use a fresh real-world context to assess transfer. Do not treat a correct choice as evidence of independent production.
+
+**Exceptions:** a learner can explicitly request one quick question or a micro-retry, or ask for a simple explanation. Natural free conversation may remain turn-by-turn. Teacher-observed errors alone do not enable this exception. Keep this baseline in Engine/docs/UX code rather than a learner-owned profile; only personal overrides such as duration, exercise count or accessibility belong in Learner State.
+
 ## Diagnostic mode is separate
 
 A diagnostic is **one bounded mixed packet**, preferably 3–5 short tasks within the configured duration (seven minutes by default), covering diverse available abilities: independent production, comprehension, grammar and interaction. Its goal is **breadth of evidence**, not correcting every mistake. Allow **at most one brief clarification/retry per ambiguous construction**, otherwise record the weakness and proceed. After useful initial coverage, mark untested skills unassessed, present a provisional profile and start the learning plan. Do not repeat one structure until it becomes correct merely to determine CEFR.
 
 ## Render quality gate
 
-Do not call it a completed mini-lesson unless it has topic, outcome, relevant language rule, configured task count, justified formats, accessible functioning inputs, real use, end vocabulary, a working single Submit, estimate within the learner-selected duration and trustworthy assessment/storage plan.
+Do not call it a completed mini-lesson (including remediation or review) unless it has topic, outcome, relevant language rule, configured task count, justified formats, accessible functioning inputs, real use, end vocabulary, a working single Submit, estimate within the learner-selected duration and trustworthy assessment/storage plan.
