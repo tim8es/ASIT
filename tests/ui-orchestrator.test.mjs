@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createLearnerState} from '../src/learning-state.mjs';
-import {selectUiPattern,composeLessonUi,validateLessonPresentation,checkObjectiveInput} from '../src/ui-orchestrator.mjs';
+import {selectUiPattern,composeLessonUi,validateLessonPresentation,checkObjectiveInput,summarizeLessonCompletion} from '../src/ui-orchestrator.mjs';
 
 const learner=()=>createLearnerState({learnerId:'fictional',targetLanguage:'English'});
 test('normal conversation is not turned into a decorative form',()=>{
@@ -79,4 +79,33 @@ test('local feedback is objective only; aliases are allowed and open writing def
  assert.equal(checkObjectiveInput({type:'image_label',answer:' BICYCLE! ',expected:'bike',accepted:['bicycle']}).status,'correct');
  assert.equal(checkObjectiveInput({type:'image_label',answer:'cycle',expected:'bike',accepted:['bicycle']}).status,'deferred');
  assert.equal(checkObjectiveInput({type:'free_production',answer:'My story',expected:'My story'}).status,'deferred');
+});
+
+test('empty mandatory final report makes 4-of-5 lesson incomplete, not four-of-four completed',()=>{
+ const exercises=Array.from({length:5},(_,i)=>({item_id:'q'+(i+1)}));
+ const answers={q1:'under',q2:'2350',q3:{selected_ids:['maya','opened','locker','midnight']},q4:'key',q5:''};
+ const s=summarizeLessonCompletion({exercises,answers});
+ assert.equal(s.answered_count,4);
+ assert.equal(s.total_count,5);
+ assert.deepEqual(s.required_unanswered_ids,['q5']);
+ assert.equal(s.status,'incomplete');
+ assert.equal(s.final_scene_unlocked,false);
+ assert.deepEqual(s.unanswered_item_ids,['q5']);
+ const full=summarizeLessonCompletion({exercises,answers:{...answers,q5:'I found a suitcase.'}});
+ assert.equal(full.status,'completed');
+ assert.equal(full.final_scene_unlocked,true);
+});
+test('optional questions can remain blank without blocking required completion',()=>{
+ const s=summarizeLessonCompletion({exercises:[{item_id:'a'},{item_id:'b',required:false}],
+ answers:{a:'complete',b:'  '}});
+ assert.equal(s.status,'completed');
+ assert.deepEqual(s.unanswered_item_ids,['b']);
+});
+test('blank card order does not count as an answered question',()=>{
+ const s=summarizeLessonCompletion({exercises:[{item_id:'a'}],answers:{a:{selected_ids:[]}}});
+ assert.equal(s.answered_count,0);
+ assert.equal(s.status,'incomplete');
+});
+test('coverage summary rejects fabricated duplicate task IDs',()=>{
+ assert.throws(()=>summarizeLessonCompletion({exercises:[{item_id:'a'},{item_id:'a'}],answers:{a:'x'}}),/Invalid trusted/);
 });
