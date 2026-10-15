@@ -4,21 +4,22 @@ import template from '../templates/tracker-v2.json' with {type:'json'};
 import {assertTemplate,planEmptyWorkbookStructure,planHeaderWrites,planConfigSeed}
   from '../src/sheets-bootstrap.mjs';
 const fresh={sheets:[{properties:{sheetId:42,title:'Sheet1',gridProperties:{columnCount:26}}}]};
+const verified={creationVerified:true,emptyVerified:true};
 const deployed={sheets:template.tabs.map((tab,i)=>({properties:{sheetId:i+42,title:tab.name,
   gridProperties:{columnCount:26}}}))};
 test('v2 template is structurally valid',()=>assert.equal(assertTemplate(template),true));
 test('bootstrap requests create 9 required tabs without synthetic learner data',()=>{
- const req=planEmptyWorkbookStructure(template,fresh);
+ const req=planEmptyWorkbookStructure(template,fresh,verified);
  assert.equal(req.length,9);
  assert.equal(req[0].updateSheetProperties.properties.title,'Config');
  assert.equal(req.filter(x=>x.addSheet).length,8);
 });
 test('unknown populated workbook is never overwritten by installer',()=>{
- assert.throws(()=>planEmptyWorkbookStructure(template,{sheets:[...fresh.sheets,...fresh.sheets]}),/do not mutate/);
+ assert.throws(()=>planEmptyWorkbookStructure(template,{sheets:[...fresh.sheets,...fresh.sheets]},verified),/do not mutate/);
 });
-test('non-default sheet name demands inspection',()=>{
+test('localized newly created tab can be renamed after verification',()=>{
  const occupied={sheets:[{properties:{sheetId:42,title:'Learner data',gridProperties:{columnCount:26}}}]};
- assert.throws(()=>planEmptyWorkbookStructure(template,occupied),/Unexpected default/);
+ assert.equal(planEmptyWorkbookStructure(template,occupied,verified)[0].updateSheetProperties.properties.title,'Config');
 });
 test('headers use actual metadata IDs and exact template columns',()=>{
  const requests=planHeaderWrites(template,deployed);
@@ -40,4 +41,9 @@ test('private configuration only seeds schema, revision and granted recording mo
  const rows=requests[0].updateCells.rows.map(r=>r.values.map(x=>x.userEnteredValue.stringValue));
  assert.deepEqual(rows.map(x=>x[0]),['schema_version','state_revision','recording_consent']);
  assert.equal(rows[2][1],'"summary_only"');
+});
+
+test('bootstrap refuses unknown existing workbook even with one default tab',()=>{
+ assert.throws(()=>planEmptyWorkbookStructure(template,fresh),/must be verified/);
+ assert.throws(()=>planEmptyWorkbookStructure(template,fresh,{creationVerified:true}),/must be verified/);
 });
