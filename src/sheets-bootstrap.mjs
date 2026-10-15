@@ -16,13 +16,14 @@ export function assertTemplate(template){
  }
  return true;
 }
-export function planEmptyWorkbookStructure(template,metadata){
+export function planEmptyWorkbookStructure(template,metadata,{creationVerified=false,emptyVerified=false}={}){
+ if(!creationVerified||!emptyVerified)throw new Error('New workbook and empty grid must be verified before setup');
  assertTemplate(template);
  const sheets=metadata?.sheets?.map(x=>x.properties??x);
  if(!Array.isArray(sheets)||sheets.length!==1)throw new Error('Expected a new one-tab workbook; do not mutate existing user files');
  const sheet=sheets[0];
- if(!Number.isInteger(sheet.sheetId)||!validTitle(sheet.title)||sheet.title!== 'Sheet1')
-   throw new Error('Unexpected default tab; inspect and resolve manually');
+ if(!Number.isInteger(sheet.sheetId)||!validTitle(sheet.title))
+   throw new Error('Unexpected first tab; inspect and resolve manually');
  const first=template.tabs[0];
  const requests=[{updateSheetProperties:{properties:{sheetId:sheet.sheetId,title:first.name,
    gridProperties:{frozenRowCount:1}},fields:'title,gridProperties.frozenRowCount'}}];
