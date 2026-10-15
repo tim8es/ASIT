@@ -2,6 +2,8 @@
 
 New learners use one privately owned Google Sheet named **ASIT — Learner State**. The public repository contains its **empty tab specification**, not learner files.
 
+The current v2 attempt schema includes **observed_modality** and **observed_operation** as final columns. These describe verified input type and communicative operation: a typed multiple-choice response cannot provide oral fluency or listening evidence. Older experimental v2 draft Sheets lacking those columns must be upgraded with confirmation and a backup; do not blindly append to mismatched column layouts.
+
 The exact workbook tabs/headers are defined in `templates/tracker-v2.json`. The `Config` tab key names and allowed consent options are defined in `templates/config-v2.json`. Both templates contain schemas only and no real learner data.
 
 ## New setup
@@ -29,7 +31,7 @@ Stable IDs must be unique within a learner's private workbook. Check exact attem
 
 An early private pilot workbook used `Profile, Skills, Review Queue, Sessions, Attempts` and a separate Skill ID column. Do not modify, delete, export or publish legacy personal data. Before migrating: read schema, ask user, create backup, create versioned v2 store, map only real evidence, verify sample counts and records, then switch.
 
-The pure mapping helper in `src/storage-contract.mjs` adapts old attempts without inventing timestamps or increasing mastery. A legacy workbook can continue to serve as private evidence until a user explicitly authorizes migration.
+For a `summary_only` row the decoded evidence has `answer_summary`, **not** `answer`: do not display the summary as a direct learner quotation. A replay with a raw answer cannot be proven identical to a summary-only saved row; use `duplicate_unverified` and do not append. For raw rows, exact replay checks apply. The pure mapping helper in `src/storage-contract.mjs` adapts old attempts without inventing timestamps or increasing mastery. A legacy workbook can continue to serve as private evidence until a user explicitly authorizes migration.
 
 ## Export and deletion
 
