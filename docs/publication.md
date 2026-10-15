@@ -2,8 +2,8 @@
 
 ## Current verified state
 
-- **Current source tree** was audited with \`node scripts/scan-public.mjs\`; CI passed.
-- \`main\` now points to a **clean root commit** with zero parents. The current branch history does not include the initial experimental personalized commits.
+- **Current source tree** was audited with `node scripts/scan-public.mjs`; CI passed.
+- `main` now points to a **clean root commit** with zero parents. The current branch history does not include the initial experimental personalized commits.
 - **Critical residual risk:** GitHub still serves at least one previously rewritten/force-disconnected historical commit through a direct commit SHA URL. A force push does **not** guarantee historical objects, caches, hidden refs or pull request artifacts are immediately purged.
 - The repository remains **PRIVATE**. **Do not change visibility to public** until the old personal-source commits have been made inaccessible (e.g., repository owner coordinating an appropriate GitHub Support purge of cached/unreachable sensitive objects, or an authorized clean repository migration) and verified.
 

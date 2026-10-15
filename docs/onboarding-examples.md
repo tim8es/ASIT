@@ -16,7 +16,7 @@ The agent reads the current goals and due items, uses a compact exercise, assess
 
 ### Learner wants no answer logs
 
-Keep teaching inside ChatGPT. Do not send raw answers to third-party systems. If they consent to \`summary_only\`, store a non-verbatim evidence summary; if they choose \`off\`, store nothing. Disclose when the next chat cannot reliably restore transient work.
+Keep teaching inside ChatGPT. Do not send raw answers to third-party systems. If they consent to `summary_only`, store a non-verbatim evidence summary; if they choose `off`, store nothing. Disclose when the next chat cannot reliably restore transient work.
 
 ### Learner asks about pronunciation
 
