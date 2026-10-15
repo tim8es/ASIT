@@ -37,7 +37,7 @@ Every native activity sends a structured `ASIT_ATTEMPT_V2` conversation turn thr
 - [Project router](install/PROJECT-ROUTER.md), [teaching source](install/ASIT-ENGINE.md), and [onboarding workflow](prompts/setup.md)
 - [Teacher router](prompts/router.md), [lesson selection](prompts/lesson-loop.md), [assessment](prompts/assessment.md) and [submission handler](prompts/submission.md)
 - [Learning state](src/learning-state.mjs), [planner](src/planner.mjs), [message protocol](src/protocol.mjs)
-- [UI Orchestrator](ui/UI-ORCHESTRATOR.md), [seven-minute lessons](docs/SEVEN-MINUTE-LESSONS.md), [live-feedback and picture-label interaction](docs/INTERACTIVE-FEEDBACK.md), [native patterns](ui/patterns.json), [activity contract](ui/activity-contract.md)
+- [UI Orchestrator](ui/UI-ORCHESTRATOR.md), [seven-minute lessons](docs/SEVEN-MINUTE-LESSONS.md), [18-pattern UI index](ui/patterns.json) (17 practice formats + 1 verified progress explorer), [UX dogfooding report](docs/UX-DOGFOOD-2026-10-16.md), [live feedback](docs/INTERACTIVE-FEEDBACK.md), [activity contract](ui/activity-contract.md)
 - [Schema and private storage adapter](docs/tracker-contract.md), [privacy](docs/security.md), [release gate](docs/publication.md)
 - [Human acceptance checks](docs/manual-acceptance.md), [evaluation fixtures](evals/README.md)
 - [Capability limits](docs/architecture.md)
@@ -70,3 +70,7 @@ A ChatGPT account with the necessary native UI and external connector capabiliti
 ## License
 
 [MIT](LICENSE). No personal learner data or user-owned files are included in the project.
+
+### Expanded practice catalog (v0.5)
+
+The registry includes 18 pattern contracts, including new `reading_comprehension`, `timeline_ordering` and capability-gated `image_hotspot`. Semantic-chunk sentence building and single-word card ordering now have clearly distinct rules. A real `dialogue` needs responsive chat turns. Playing and recording genuine audio depend on actual client tools and media access, not merely the presence of catalog entries. Reference Node.js helpers select patterns and verify evidence/progress contracts; **they do not install native ChatGPT UI components**. Test actual UX per [dogfooding / acceptance checklist](docs/UX-DOGFOOD-2026-10-16.md).
