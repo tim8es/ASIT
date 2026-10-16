@@ -67,7 +67,7 @@ def check():
     for marker in ('Google Drive', 'Settings > Plugins', 'summary_only', 'raw', 'off', 'READBACK'):
         assert marker in setup, f'Storage setup missing {marker}'
     assert 'storage-setup.md' in teacher and 'storage-setup.md' in (ROOT / 'skills/asit-progress/SKILL.md').read_text(encoding='utf-8')
-    assert 'within the actual listening lesson' in media.lower()
+    assert 'within the actual listening lesson' in (ROOT / 'skills/asit-media/SKILL.md').read_text(encoding='utf-8').lower()
     assert 'Never fetch GitHub' in teacher
     media = (ROOT / 'skills/asit-media/SKILL.md').read_text(encoding='utf-8')
     assert 'ELLLO' in media and 'Sound Grammar' in media
