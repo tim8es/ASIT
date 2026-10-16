@@ -55,3 +55,8 @@ These are **candidate lesson URLs** verified for visible scripts and original-si
 - User-approved audiovisual media is kept distinct from standalone audio and text-only reading.
 
 **Status (2026-10-16): source selected, metadata-only seed index and reference tests added. Not yet an authorized bulk-crawler, not a permission grant, not verified mobile-video playback and not a finished ready-to-teach media cache.**
+
+
+## Automatic discovery and activity builder (v1)
+
+The metadata-only seed has **six** entries as of this version: the original five One Minute English pages and A2 Sound Grammar **Present Continuous** (four scoped conversations). This is not six audio-ready clips. The new [ELLLO automatic workflow](ELLLO-AUTO-LESSONS.md) specifies the complete real-time chat sequence and `src/elllo-activity-pipeline.mjs` now has automatic query planning, topic/source filtering, scoping and native question preparation. The teacher actually invokes web search/read in each relevant session; the Node module itself is offline. Live search can discover beyond six seed URLs, but a search match is not a playback or transcript QA pass. Respect duration, author rights, learner consent and original-site source links.
