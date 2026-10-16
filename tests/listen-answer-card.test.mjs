@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {planListenAnswerCard,assessListenAnswerCard,resolveListeningEvidence} from '../src/listen-answer-card.mjs';
+import {planListenAnswerCard,assessListenAnswerCard,resolveListeningEvidence,auditListeningAudioAsset} from '../src/listen-answer-card.mjs';
 
 const questions=[
  {id:'gist',type:'single_choice',prompt:'Where is the train going?',expected:'Brighton'},
@@ -93,4 +93,29 @@ test('audio questions and transcript review stay evidence-grounded with free res
  const r=assessListenAnswerCard({questions:qs,answers:{main:'The train is delayed.'},playback});
  assert.equal(r.results[0].status,'deferred');
  assert.equal(r.independent_mastery_claim,false);
+});
+
+test('a playable listening card keeps all learning controls inside native Intelligent UI',()=>{
+ const p=planListenAnswerCard({questions,clientAudioSupported:true,
+  audioAsset:{uri:'verified-natural-recording',verified:true,mime_type:'audio/mpeg'}});
+ assert.equal(p.render,'audio_card');
+ assert.equal(p.presentation.surface,'in_chat_intelligent_ui');
+ assert.equal(p.presentation.standalone_html,false);
+ assert.equal(p.presentation.media_adapter,'minimal_inline_audio_only');
+ assert.equal(p.presentation.response_controls,'native_radio_input_textarea');
+ assert.equal(p.presentation.completion_control,'one_native_submit');
+});
+test('old low-fidelity file is not recommended as production ready even when MP3 decodes',()=>{
+ const q=auditListeningAudioAsset({sampleRateHz:22050,bitRateKbps:32,
+  sourceKind:'synthetic_tts',naturalnessReviewed:false});
+ assert.deepEqual(q.technical_warnings,['sample_rate_below_32k','bit_rate_below_64kbps']);
+ assert.equal(q.production_ready,false);
+ assert.equal(q.no_automatic_naturalness_claim,true);
+});
+test('higher bitrate alone does not establish that speech sounds natural',()=>{
+ const q=auditListeningAudioAsset({sampleRateHz:48000,bitRateKbps:128,
+  sourceKind:'human_recording'});
+ assert.equal(q.technical_warnings.length,0);
+ assert.equal(q.production_ready,false);
+ assert.equal(q.editorial_status,'needs_human_listening_review');
 });

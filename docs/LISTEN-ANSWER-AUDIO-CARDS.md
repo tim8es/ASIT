@@ -1,3 +1,19 @@
+# Inline Intelligent UI — canonical implementation (v0.2)
+
+**Default is native ChatGPT UI, not a separate HTML lesson.** Learner explicitly rejected the standalone HTML demo and the low-fidelity 22.05 kHz / ~32 kbps synthetic speech as not representative. Do **not** recreate that experience in routine lessons. The audio file itself may require a **minimal inline media adapter** if a genuine playable media surface is supported; only Play/Pause/Replay/speed belong there. All questions, selections, writing, validation, hint exposure, progress and final Submit belong to native Intelligent UI controls (e.g., `radio-group`, `input`, `textarea`, `checkbox`, `button`). Never surround the entire lesson in an AppBlock iframe or use a separate web page as the default.
+
+**Capability truth:** current native DIL has no advertised dedicated `AudioPlayer` component or callback for actual audio playback, so do not pretend a normal DIL button can start an MP3. A small inline audio media adapter can use a valid external audio source in an embedded surface when allowed, with **real client playback QA**. iOS/mobile embedded audio is not guaranteed. If unsupported, offer a verified audio link/attachment while keeping the *questions and Submit native in-chat*; explicitly label whether listening was verified. Do not call a standalone HTML prototype a fully integrated lesson.
+
+**Quality gate:** prefer a real, clearly articulated human recording with attributable permission or high-quality licensed TTS with a natural prosody check. Inspect metadata; flag sample rates below 32 kHz or bitrates below 64 kbps as technical warnings, and require **human listening review** even for high-bitrate assets. Never auto-upsample bad synthesis and claim it sounds natural. Check transcript against actual heard excerpt. Avoid fake "natural voice" claims.
+
+**One visible surface:** title, 20–50 second audio excerpt, actual source/attribution, Play/Replay/speed in media slot; native gist/detail questions, explicit learner confirmation of audible playback, one Submit after required answers, native feedback and transcript only after answer (or mark support if early). If the source fails, record `not_assessed`; do not grade guesses as listening. Distinguish audio-comprehension evidence from mere form completion.
+
+**Responsive/mobile:** one primary question at a time or a short bounded combined form; no deeply nested scrolling, no interstitial browser. Keep 44+ px taps, accessible labels, keyboard fallback and honest streaming/errors. Native DIL interactions must work and retain answers when user retries audio. Host iframe media may fail on iOS; verify on actual client.
+
+See the remaining v0.1 reference contract below for rubric fields, assessment, fallback and consent boundaries.
+
+---
+
 # Listen → Answer audio cards — ASIT v0.1
 
 **Purpose:** a learner taps a **real** playable audio clip in a normal ChatGPT lesson, then answers short gist/detail questions. This is **different from Voice-first dialogue** and doesn't require speaking to the tutor. The UI card can use native controls plus a genuinely supported player. Its model/Node contract does not install an HTML audio bridge.
