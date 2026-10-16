@@ -15,6 +15,10 @@ Require storage consent. Find a uniquely identified existing learner workbook or
 
 Write `schema_version = 2` into Config with JSON value `2`, state_revision=0 and the user's explicitly chosen recording consent. Save learner preferences and goals only after the learner provides or approves them. All dates are actual ISO UTC values when known; otherwise empty. An empty competency row means **unassessed**, not "can't do"; do not initialize fake results or a B2 assumption.
 
+### Existing workbook compatibility
+
+Existing version-2 workbooks can legitimately use an earlier title and omit recent optional safe-default Config keys. Search and verify the owned workbook rather than re-create it. `audio_transcript_consent` is an older key; it does NOT imply consent for new audio storage. Default absent `audio_consent` to false and `cefr_confidence_label` to unassessed; ask before append-only repair. Audit referential IDs and per-Attempt privacy mode before treating the full corpus as restorable; do not silently correct orphan records or infer consent.
+
 ### Initialization and evidence correctness
 
 The original three-key Config seed could create a workbook that could not be restored: `learner_id` and `target_language` were missing. The corrected setup seeds all seven required Config keys and readbacks exact values before declaring readiness. A one-Submit mixed-task lesson requires per-subtask trusted Activities and separately stored Attempts by competency/modality. Optional Events metadata may carry non-verbatim first-try outcomes and revision counts, never private answer text in summary_only mode. A verified Attempt write is not equal to a verified updated review/session/competency projection.
