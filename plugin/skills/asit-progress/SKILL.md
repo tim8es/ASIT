@@ -7,11 +7,19 @@ description: "Use when an ASIT learner requests a CEFR level or profile, assessm
 
 This Skills-only plugin **does not ship a database, executing Node.js engine, or Google Drive connection**. Use user-authorized Drive/Sheets tools only if available, consented and scoped to the learner-owned workbook. Without it, teach and assess in the chat, explicitly unsaved; do not invent a past CEFR level or synced history. No learner data goes to GitHub or public search.
 
+## In-chat Google Sheets storage controls
+
+Google Sheets works through the Google Drive ChatGPT app when the user and workspace permit it. App installation/connection, ASIT privacy mode, and workbook readiness are three independent states. On explicit install/connect/enable/disable/pause requests, read [storage setup](references/storage-setup.md) and offer a concise in-chat choice that starts a real workflow. ASIT cannot silently install, enable or remove another ChatGPT plugin. Turning ASIT saving off does not disable Google Drive. Recommend the app once when durable progress is relevant, not every lesson.
+
 ## Consent and discovery
 
 - Before *creating or modifying* persistent learner state, obtain explicit informed consent for one privacy mode: `off`, `summary_only`, or `raw` (verbatim written answers). Audio and transcripts need separate consent. Declining does not prevent an unsaved lesson.
 - Search Google Drive/Sheets for a uniquely identified, learner-owned workbook such as **ASIT — Learner State**. Verify ownership, IDs and schema. No matches: ask permission before creating one. Multiple matches: disambiguate. Missing connector access is not evidence of a blank workbook.
 - For first setup, migration, schema checks or writes read [exact v2 storage contract](references/storage-v2.md). Never overwrite unknown state or assume fake IDs.
+
+## Setup completion gate
+
+A Google Drive plugin being installed does NOT mean ASIT storage is initialized. Before calling storage ready, verify ownership, exact nine headers, ALL seven Config values (`schema_version`, `state_revision`, `learner_id`, `target_language`, `recording_consent`, `audio_consent`, `cefr_confidence_label`), and real provider readback. A partially initialized workbook needs user-approved repair, not overwriting. Older five-key v2 Config with legacy `audio_transcript_consent` can be read conservatively but is NOT fully migrated. Use append-only repair with consent and a read-only referential check of activity/session/competency IDs and per-row privacy mode; do not claim complete CEFR history when orphan records are present. One composite Submit may require multiple trusted Activities and Attempts to preserve separate CEFR modalities. See storage-v2.
 
 ## Everyday bounded reads
 
@@ -27,4 +35,17 @@ Review scheduling remains a heuristic due queue, not FSRS. Prioritize due retrie
 
 ## Saving and reliable reporting
 
-A native Submit sends a new chat turn and does NOT write to Sheets. Assess against trusted Activity via `asit-assessment`, check duplicate IDs, write only user-consented data and **read back the exact row**. Say `Saved` only on verified readback, otherwise `Not verified`/`Not saved`. Check state revision for updates; Google Sheets is not transactional. Any correction, deletion, export or sharing requires proper scope, user authorization where necessary, and verification.
+A native Submit sends a new chat turn and does NOT write to Sheets. Assess against trusted Activity via `asit-assessment`, check duplicate IDs, write only user-consented data and **read back the exact row**. Say `Attempt saved` on verified attempt readback, `Fully synced` only when session, review, competency and Config projection writes have also been read back, otherwise `Partial sync`/`Not verified`/`Not saved`. Check state revision for updates; Google Sheets is not transactional. Any correction, deletion, export or sharing requires proper scope, user authorization where necessary, and verification.
+
+## Mandatory verified save-gate workflow (v0.2.5)
+
+For each graded ASIT answer, if the learner has already enabled storage and authorized Drive tools are available, execute the assessment-to-storage handoff **in the same turn**. Do not defer to end of lesson, ask for new permission on every attempt, or infer that a native Submit saved anything. Follow the full [v2 storage gate](references/storage-v2.md) only while needed.
+
+1. Check current consent, verified workbook/schema and trusted per-subtask Activity; for a composite form, save independent graded subtasks under separate Activity and Attempt IDs.
+2. Look up stable Attempt ID to detect replays; only append after verified absence. For `summary_only` persist non-verbatim assessments, never raw learner sentences or recordings.
+3. After append, read back the exact Attempt and validate linked IDs, assessment, modality/operation and privacy mode. If write response is unknown, **check existence before retry**. Treat collisions or ambiguous summary-only replays as `duplicate_unverified`; avoid blind writes.
+4. On successful Attempt readback, update necessary Session, Competency, Review and `Config.state_revision` projections, each with real provider readback. Preserve conflicting history; do not invent mastery, reviews or revision bumps. A no-op (no review due) does not require a fabricated row.
+5. Return exactly the supportable state: `Fully synced` after **all** required projections verify; `Attempt saved / Partial sync` if Attempt verifies but some projections do not; `Not verified` for ambiguous provider outcome; `Not saved` for consent off, missing provider or no successful write. Always deliver learning feedback even if unsaved.
+6. On a new chat, read bounded relevant history and reconcile pending failed projections by original stable IDs before stating that progress is fully current. Do not invent missing historical attempts or count synthetic QA records as learner evidence.
+
+This is a model-operated best-effort protocol: no independent server, guaranteed tool invocation, atomic writes, or exactly-once semantics. Minimize context and only load detailed storage references at execution time.
