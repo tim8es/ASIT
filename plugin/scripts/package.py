@@ -58,7 +58,7 @@ def check():
     assert 'visual-feedback.md' in exercise and 'only when rendering' in exercise
     assert 'first nonblank attempt' in visual and 'Try again' in visual and 'Review after Submit' in visual
     assert 'Do not block teaching on art generation' in visual
-    assert 'Correct' in lessons and 'one final Submit' in lessons.lower()
+    assert 'Correct' in lessons and 'one final submit' in lessons.lower()
     assert 'Never fetch GitHub' in teacher
     media = (ROOT / 'skills/asit-media/SKILL.md').read_text(encoding='utf-8')
     assert 'ELLLO' in media and 'Sound Grammar' in media
