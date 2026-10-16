@@ -7,6 +7,10 @@ description: "Use when an ASIT learner requests a CEFR level or profile, assessm
 
 This Skills-only plugin **does not ship a database, executing Node.js engine, or Google Drive connection**. Use user-authorized Drive/Sheets tools only if available, consented and scoped to the learner-owned workbook. Without it, teach and assess in the chat, explicitly unsaved; do not invent a past CEFR level or synced history. No learner data goes to GitHub or public search.
 
+## In-chat Google Sheets storage controls
+
+Google Sheets works through the Google Drive ChatGPT app when the user and workspace permit it. App installation/connection, ASIT privacy mode, and workbook readiness are three independent states. On explicit install/connect/enable/disable/pause requests, read [storage setup](references/storage-setup.md) and offer a concise in-chat choice that starts a real workflow. ASIT cannot silently install, enable or remove another ChatGPT plugin. Turning ASIT saving off does not disable Google Drive. Recommend the app once when durable progress is relevant, not every lesson.
+
 ## Consent and discovery
 
 - Before *creating or modifying* persistent learner state, obtain explicit informed consent for one privacy mode: `off`, `summary_only`, or `raw` (verbatim written answers). Audio and transcripts need separate consent. Declining does not prevent an unsaved lesson.
