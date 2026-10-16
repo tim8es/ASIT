@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {planListenAnswerCard,assessListenAnswerCard,resolveListeningEvidence,auditListeningAudioAsset} from '../src/listen-answer-card.mjs';
+import {planListenAnswerCard,assessListenAnswerCard,resolveListeningEvidence,auditListeningAudioAsset,auditListeningDuration,STANDARD_LISTENING_MAX_SECONDS} from '../src/listen-answer-card.mjs';
 
 const questions=[
  {id:'gist',type:'single_choice',prompt:'Where is the train going?',expected:'Brighton'},
@@ -17,13 +17,13 @@ test('cannot render a player with no verified actual audio asset',()=>{
 });
 test('a verified asset alone does not prove the mobile client can play it',()=>{
  const r=planListenAnswerCard({questions,audioAsset:{
-  uri:'data:audio/mpeg;base64,FAKE',mime_type:'audio/mpeg',verified:true
+  uri:'data:audio/mpeg;base64,FAKE',mime_type:'audio/mpeg',verified:true,duration_seconds:26,duration_verified:true
  }});
  assert.equal(r.render,'unavailable');assert.equal(r.reason,'client_audio_playback_not_confirmed');
 });
 test('real verified source plus playback capability produces one-Submit audio card',()=>{
  const r=planListenAnswerCard({questions,clientAudioSupported:true,audioAsset:{
-  uri:'attached-verified-audio-asset',mime_type:'audio/mpeg',verified:true
+  uri:'attached-verified-audio-asset',mime_type:'audio/mpeg',verified:true,duration_seconds:26,duration_verified:true
  }});
  assert.equal(r.render,'audio_card');
  assert.equal(r.questions_count,3);
@@ -97,7 +97,7 @@ test('audio questions and transcript review stay evidence-grounded with free res
 
 test('a playable listening card keeps all learning controls inside native Intelligent UI',()=>{
  const p=planListenAnswerCard({questions,clientAudioSupported:true,
-  audioAsset:{uri:'verified-natural-recording',verified:true,mime_type:'audio/mpeg'}});
+  audioAsset:{uri:'verified-natural-recording',verified:true,duration_seconds:26,duration_verified:true,mime_type:'audio/mpeg'}});
  assert.equal(p.render,'audio_card');
  assert.equal(p.presentation.surface,'in_chat_intelligent_ui');
  assert.equal(p.presentation.standalone_html,false);
@@ -122,7 +122,7 @@ test('higher bitrate alone does not establish that speech sounds natural',()=>{
 
 test('mobile OGG without verified decoder must not claim embedded playback',()=>{
  const r=planListenAnswerCard({questions,clientAudioSupported:true,audioAsset:{
-  uri:'https://example.org/legitimate-voice.ogg',verified:true,mime_type:'audio/ogg'
+  uri:'https://example.org/legitimate-voice.ogg',verified:true,duration_seconds:26,duration_verified:true,mime_type:'audio/ogg'
  }});
  assert.equal(r.render,'unavailable');
  assert.equal(r.reason,'audio_codec_not_confirmed');
@@ -130,7 +130,7 @@ test('mobile OGG without verified decoder must not claim embedded playback',()=>
 test('external fallback still uses native questions and demands audible confirmation',()=>{
  const r=planListenAnswerCard({questions,clientAudioSupported:false,
   externalAudioLinkAvailable:true,
-  audioAsset:{uri:'https://example.org/legitimate-voice.mp3',verified:true,mime_type:'audio/mpeg'}});
+  audioAsset:{uri:'https://example.org/legitimate-voice.mp3',verified:true,duration_seconds:26,duration_verified:true,mime_type:'audio/mpeg'}});
  assert.equal(r.render,'native_questions_with_external_audio');
  assert.equal(r.question_ui,'native_intelligent_ui');
  assert.equal(r.embedded_audio_claim,false);
@@ -140,7 +140,7 @@ test('external fallback still uses native questions and demands audible confirma
 test('unverified OGG is not offered as a mobile fallback simply because URL exists',()=>{
  const r=planListenAnswerCard({questions,clientAudioSupported:false,
   externalAudioLinkAvailable:true,
-  audioAsset:{uri:'https://example.org/legitimate-voice.ogg',verified:true,mime_type:'audio/ogg'}});
+  audioAsset:{uri:'https://example.org/legitimate-voice.ogg',verified:true,duration_seconds:26,duration_verified:true,mime_type:'audio/ogg'}});
  assert.equal(r.render,'unavailable');
  assert.equal(r.reason,'audio_codec_not_confirmed');
 });
@@ -158,4 +158,41 @@ test('an opened external file with no listened confirmation receives no listenin
   learnerReportsCompletedClip:false,learnerConfirmedHeard:false}});
  assert.equal(r.listening_evidence.label,'not_assessed');
  assert.equal(r.correct_count,null);
+});
+
+test('normal lesson refuses full 10-minute chapter even when asked to play first 30 seconds',()=>{
+ const duration=auditListeningDuration({durationSeconds:640,durationVerified:true});
+ assert.equal(duration.eligible,false);
+ assert.equal(duration.reason,'clip_too_long');
+ assert.equal(duration.maximum_seconds,35);
+ const planned=planListenAnswerCard({questions,externalAudioLinkAvailable:true,
+  audioAsset:{uri:'https://example.org/full-chapter.mp3',mime_type:'audio/mpeg',
+    verified:true,duration_seconds:640,duration_verified:true}});
+ assert.equal(planned.render,'unavailable');
+ assert.equal(planned.reason,'clip_too_long');
+ assert.equal(planned.evidence_modality,'unassessed');
+});
+test('a real 26-second clip is eligible as the normal default',()=>{
+ const duration=auditListeningDuration({durationSeconds:26,durationVerified:true});
+ assert.equal(duration.eligible,true);
+ assert.equal(STANDARD_LISTENING_MAX_SECONDS,35);
+ const planned=planListenAnswerCard({questions,externalAudioLinkAvailable:true,
+  audioAsset:{uri:'https://example.org/short.mp3',mime_type:'audio/mpeg',
+    verified:true,duration_seconds:26,duration_verified:true}});
+ assert.equal(planned.render,'native_questions_with_external_audio');
+ assert.equal(planned.questions_count,3);
+});
+test('missing duration or a suggested segment is not evidence of actual short clip length',()=>{
+ for(const invalid of [undefined,null,0,NaN,4,36,100]){
+  const duration=auditListeningDuration({
+   durationSeconds:invalid,durationVerified:true});
+  assert.equal(duration.eligible,false);
+ }
+ const duration=auditListeningDuration({durationSeconds:26,durationVerified:false});
+ assert.equal(duration.reason,'clip_duration_not_verified');
+});
+test('extended listening requires a separate explicit selection and remains bounded',()=>{
+ assert.equal(auditListeningDuration({durationSeconds:70,durationVerified:true}).eligible,false);
+ assert.equal(auditListeningDuration({durationSeconds:70,durationVerified:true,extendedListening:true}).eligible,true);
+ assert.equal(auditListeningDuration({durationSeconds:150,durationVerified:true,extendedListening:true}).eligible,false);
 });
