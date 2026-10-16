@@ -56,6 +56,13 @@ export function hydrateWorkbook(tables){
   // Verify all tab headers BEFORE interpreting any untrusted cell content.
   const rows=Object.fromEntries(template.tabs.map(t=>[t.name,tableRows(tables,t.name)]));
   const cfg=parseConfig(rows.Config);
+  // Older valid v2 workbooks may use audio_transcript_consent and omit two
+  // newer Config values. Preserve historic evidence and surface a safe repair
+  // need without enabling audio or silently mutating the existing workbook.
+  const missingConfigKeys=['audio_consent','cefr_confidence_label'].filter(key=>!cfg.has(key));
+  if(cfg.has('audio_consent')&&typeof cfg.get('audio_consent')!=='boolean')
+    throw new Error('Invalid Config.audio_consent');
+  const effectiveAudioConsent=cfg.get('audio_consent')===true;
   const goals=byId(rows.Goals.map(r=>({
     id:String(r.goal_id),description:String(r.description),
     priority:r.priority===''?null:Number(r.priority),status:String(r.status)
@@ -165,7 +172,10 @@ export function hydrateWorkbook(tables){
   return {
     ...profile,competencies:comps,attempts,review_queue:reviews,
     sessions,learning_plan:plans,events,revision:cfg.get('state_revision'),
-    source:{schema_version:2,recording_consent:cfg.get('recording_consent'),restored:true},
+    source:{schema_version:2,recording_consent:cfg.get('recording_consent'),restored:true,
+      effective_audio_consent:effectiveAudioConsent,
+      missing_config_keys:missingConfigKeys,
+      needs_config_repair:missingConfigKeys.length>0},
     // The active prompt/rubric registry is separate from the learner state.
     activities:acts
   };
