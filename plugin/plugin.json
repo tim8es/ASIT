@@ -19,7 +19,7 @@
         "developerName": "ASIT Project",
         "displayName": "ASIT — English Tutor",
         "longDescription": "Adaptive English lessons and CEFR-aligned qualitative progress in ChatGPT: interactive lessons, reading/listening/writing/speaking evidence, authentic media, formative feedback and optional user-owned Google Sheets. Skills-only; no MCP, server, or external AI API.",
-        "shortDescription": "Adaptive English practice and CEFR progress"
+        "shortDescription": "English tutor & CEFR progress"
       }
     }
   },
@@ -33,5 +33,5 @@
     "progress"
   ],
   "name": "asit-english-tutor",
-  "version": "0.2.1"
+  "version": "0.2.2"
 }
