@@ -20,7 +20,7 @@ After consent only: create new blank native Sheet, verify it is new and empty, a
 - Sessions: session_id | started_at_utc | ended_at_utc | goal_ids_json | attempt_ids_json | summary | next_step
 - Events: event_id | event_type | entity_id | revision | timestamp_utc | metadata_json
 
-Initialize Config `schema_version=2`, `state_revision=0`, `recording_consent` to explicitly chosen mode, private `learner_id`, `target_language="English"` as JSON values. Other Config values stay unknown until observed/approved. Individual `adaptive_profile` is optional JSON and contains **current challenge preference, scaffolding observations, feedback preferences, focus and brief decision evidence references**; no default CEFR/profession/native language. Keep editable goal priorities and user choices distinct from teacher observations.
+Initialize **all seven mandatory Config JSON values**: `schema_version=2`, `state_revision=0`, private opaque `learner_id`, `target_language="English"`, explicitly consented `recording_consent`, `audio_consent=false` (unless separately approved), and `cefr_confidence_label="unassessed"`. Verify exact readback before marking setup ready. Missing keys mean incomplete setup, not a successful connection. Other Config values stay unknown until observed/approved. Individual `adaptive_profile` is optional JSON and contains **current challenge preference, scaffolding observations, feedback preferences, focus and brief decision evidence references**; no default CEFR/profession/native language. Keep editable goal priorities and user choices distinct from teacher observations.
 
 ## Bounded everyday read
 
