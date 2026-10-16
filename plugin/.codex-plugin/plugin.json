@@ -16,7 +16,7 @@
     "shortDescription": "English tutor & CEFR progress"
   },
   "name": "asit-english-tutor",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "ASIT adaptive English tutor with story-based lessons, verified ELLLO listening and consented Google Sheets progress via Google Drive.",
   "author": {
     "name": "ASIT Project"
@@ -30,5 +30,6 @@
     "CEFR",
     "progress"
   ],
-  "skills": "./skills"
+  "skills": "./skills",
+  "onboardingSkill": "./skills/asit-onboarding/SKILL.md"
 }
