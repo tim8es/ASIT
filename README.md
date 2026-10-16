@@ -74,3 +74,7 @@ A ChatGPT account with the necessary native UI and external connector capabiliti
 ### Expanded practice catalog (v0.5)
 
 The registry includes 18 pattern contracts, including new `reading_comprehension`, `timeline_ordering` and capability-gated `image_hotspot`. Semantic-chunk sentence building and single-word card ordering now have clearly distinct rules. A real `dialogue` needs responsive chat turns. Playing and recording genuine audio depend on actual client tools and media access, not merely the presence of catalog entries. Reference Node.js helpers select patterns and verify evidence/progress contracts; **they do not install native ChatGPT UI components**. Test actual UX per [dogfooding / acceptance checklist](docs/UX-DOGFOOD-2026-10-16.md).
+
+### Audio lessons directly inside ChatGPT
+
+ASIT has a [Voice-first handoff](docs/VOICE-FIRST-LESSONS.md): a learner can tap the platform's Voice icon in the **same chat** and hold an interactive listening/speaking practice with a spoken tutor (when Voice is available). This is a *documented delivery route and reference planner*, not an installed audio playback/capture widget. A text transcript is not sufficient proof of pronunciation. `src/voice-session.mjs` and `tests/voice-session.test.mjs` explicitly distinguish unavailable Voice, actual audible prompts, learner audio review and supported listening. Bespoke `Play/Replay/Record` cards remain unimplemented until a real supported client audio path exists.

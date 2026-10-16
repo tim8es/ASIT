@@ -45,3 +45,7 @@ There are **18 registered patterns: 17 learner practice formats and 1 read-only 
 - Specific out-of-plan exercise request: `selectUiPattern({requestedType: 'timeline_ordering'})` picks the matching type or returns `unavailable` for an unrenderable capability, never silently substitutes a different requested type.
 
 See [UX dogfooding report](../docs/UX-DOGFOOD-2026-10-16.md). Run client-specific acceptance before claiming new native interaction functionality.
+
+## Voice-first delivery route
+
+For `listening`, `spoken_response`, or audio-rich `dialogue`, when user wants a real sound-based lesson *inside ChatGPT*, select the [native same-chat Voice handoff](../docs/VOICE-FIRST-LESSONS.md) rather than a nonfunctional audio tile. The learner taps Voice manually; the UI cannot activate the device microphone from a regular DIL control. Use the `src/voice-session.mjs` **offline** helper only as a planner/test oracle. No sound is claimed until audible teacher speech actually occurs; a text transcript is not raw spoken evidence. Voice is a live multi-turn activity and may end with a normal text recap/checkpoint. Preserve the 18-pattern catalog (same `listening` and `spoken_response` types; delivery differs, not another fabricated type).
