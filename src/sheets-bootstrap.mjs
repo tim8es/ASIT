@@ -64,7 +64,7 @@ export function planConfigSeed(metadata,mode,{consentGranted=false,learnerId,tar
  if(!['raw','summary_only'].includes(mode))throw new Error('No authorized storage mode');
  if(typeof learnerId!=='string'||!learnerId.trim())throw new Error('A private learner ID is required');
  if(targetLanguage!=='English')throw new Error('ASIT currently teaches English only');
- if(nowIso!==null&&(typeof nowIso!=='string'||!/^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d+)?Z$/.test(nowIso)||!Number.isFinite(Date.parse(nowIso))))
+ if(nowIso!==null&&(typeof nowIso!=='string'||!nowIso.endsWith('Z')||!Number.isFinite(Date.parse(nowIso))))
   throw new Error('Valid UTC initialization timestamp required');
  const sheet=metadata?.sheets?.map(x=>x.properties??x).find(x=>x.title==='Config');
  if(!sheet||!Number.isInteger(sheet.sheetId))throw new Error('Config tab unavailable');
