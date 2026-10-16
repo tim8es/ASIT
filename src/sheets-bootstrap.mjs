@@ -55,15 +55,30 @@ export function planHeaderWrites(template,metadata){
  }
  return requests;
 }
-/** Call only after the learner explicitly accepted durable state and a verified privacy mode. */
-export function planConfigSeed(metadata,mode,{consentGranted=false}={}){
+/** New-workbook Config is unusable without an opaque learner identifier and language.
+ * This pure request builder never creates identities or obtains consent itself.
+ * Never reuse a display name, email address or workbook title as learnerId.
+ */
+export function planConfigSeed(metadata,mode,{consentGranted=false,learnerId,targetLanguage='English',nowIso=null}={}){
  if(!consentGranted)throw new Error('Consent is required');
  if(!['raw','summary_only'].includes(mode))throw new Error('No authorized storage mode');
+ if(typeof learnerId!=='string'||!learnerId.trim())throw new Error('A private learner ID is required');
+ if(targetLanguage!=='English')throw new Error('ASIT currently teaches English only');
+ if(nowIso!==null&&(typeof nowIso!=='string'||!/^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d+)?Z$/.test(nowIso)||!Number.isFinite(Date.parse(nowIso))))
+  throw new Error('Valid UTC initialization timestamp required');
  const sheet=metadata?.sheets?.map(x=>x.properties??x).find(x=>x.title==='Config');
  if(!sheet||!Number.isInteger(sheet.sheetId))throw new Error('Config tab unavailable');
- const pairs=[['schema_version','2'],['state_revision','0'],['recording_consent',JSON.stringify(mode)]];
- const val=x=>({userEnteredValue:{stringValue:x}});
- return [{updateCells:{range:{sheetId:sheet.sheetId,startRowIndex:1,endRowIndex:4,
-   startColumnIndex:0,endColumnIndex:2},rows:pairs.map(x=>({values:x.map(val)})),
-   fields:'userEnteredValue'}}];
+ const pairs=[
+   ['schema_version',2],['state_revision',0],
+   ['learner_id',learnerId],['target_language',targetLanguage],
+   ['recording_consent',mode],['audio_consent',false],
+   ['cefr_confidence_label','unassessed']
+ ];
+ const val=x=>({userEnteredValue:{stringValue:String(x)}});
+ return [{updateCells:{
+   range:{sheetId:sheet.sheetId,startRowIndex:1,endRowIndex:pairs.length+1,
+     startColumnIndex:0,endColumnIndex:3},
+   rows:pairs.map(([key,value])=>({values:[val(key),val(JSON.stringify(value)),val(nowIso??'')]})),
+   fields:'userEnteredValue'
+ }}];
 }
