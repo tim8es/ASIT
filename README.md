@@ -91,3 +91,8 @@ Besides Voice-first speaking lessons, ASIT now has an explicit [Listen → Answe
 ### Short audio only: normal Listen → Answer cards
 
 After real learner testing, **full audiobook chapters are forbidden in normal audio cards** even when instructions suggest listening to only the first minute. Cards require a genuine, *complete* 15–35 second stand-alone audio source with verified duration and 2–3 questions matched to the recorded excerpt. An explicit advanced/extended mode may use up to 90 seconds. Unverified length or long-source playback is rejected by `auditListeningDuration`; native Q&A and sound availability safeguards remain unchanged. See [the short-audio rule](docs/LISTEN-ANSWER-AUDIO-CARDS.md).
+
+
+### First audio + video lesson source: ELLLO
+
+ASIT uses **ELLLO** as its first preferred source of real English video/listening lessons. Initial use is **metadata-only discovery with original ELLLO page links** (no copied audio/video/transcripts), five checked source-page candidates with topic/level filters in `src/elllo-source.mjs` and tests in `tests/elllo-source.test.mjs`. The pilot focuses on `One Minute English` from people of different countries; longer grammar/conversation formats remain optional later. A One Minute title does **not** certify a <=35s source, verified mobile playback or permission to rehost video. See `docs/ELLLO-SOURCE.md`. No actual ELLLO media is embedded or saved to the repo.
