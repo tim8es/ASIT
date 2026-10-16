@@ -1,28 +1,30 @@
 ---
 name: asit-progress
-description: "Use when an ASIT learner asks to save lessons, connect Google Drive or Sheets, continue across chats using stored history, check progress, see reviews/due skills, inspect a learning plan, update goals, export/correct/delete learner records, or set private storage preferences."
+description: "Use when an ASIT learner requests a CEFR level or profile, assessment analytics, individual skill progress, due review, saved learning history, next study objective, Google Drive/Sheets persistence, or data corrections/export/deletion."
 ---
 
-# ASIT private learner state, review and progress
+# ASIT private learner state, CEFR evidence analytics, review and progress
 
-This Skills-only plugin **does not ship a database or Google Drive connection**. Use a user-connected, authorized Drive/Sheets tool **only if actually available**, consented and scoped to the learner-owned workbook. Without it, teach unsaved and do not fabricate progress, CEFR ratings or a synced history. No learner records are sent to GitHub or public ELLLO queries.
+This Skills-only plugin **does not ship a database, executing Node.js engine, or Google Drive connection**. Use user-authorized Drive/Sheets tools only if available, consented and scoped to the learner-owned workbook. Without it, teach and assess in the chat, explicitly unsaved; do not invent a past CEFR level or synced history. No learner data goes to GitHub or public search.
 
 ## Consent and discovery
 
-- Before *creating or modifying* persistent learner state, obtain explicit informed consent for one privacy mode: `off`, `summary_only`, or `raw` (verbatim written answers). Ask separately for audio or transcripts; `raw` does not implicitly authorize them. If learner declines or connector unavailable, continue temporary practice and mark `Not saved`.
-- Search user-owned Google Drive/Sheets for configured workbook such as **ASIT — Learner State**, verify ownership, existing IDs and schema. No matches: ask permission to create an empty workbook. Multiple matches: disambiguate; never pick arbitrarily. Missing connector or permission is not a blank workbook.
-- **First setup, migration, schema checks and writes:** read [exact v2 workbook contract](references/storage-v2.md), perform provider-backed operations, read real assigned Sheet/tab IDs and verify headers. Never overwrite existing unknown file, migrate without authorization/backup, or present generated IDs as provider receipts.
+- Before *creating or modifying* persistent learner state, obtain explicit informed consent for one privacy mode: `off`, `summary_only`, or `raw` (verbatim written answers). Audio and transcripts need separate consent. Declining does not prevent an unsaved lesson.
+- Search Google Drive/Sheets for a uniquely identified, learner-owned workbook such as **ASIT — Learner State**. Verify ownership, IDs and schema. No matches: ask permission before creating one. Multiple matches: disambiguate. Missing connector access is not evidence of a blank workbook.
+- For first setup, migration, schema checks or writes read [exact v2 storage contract](references/storage-v2.md). Never overwrite unknown state or assume fake IDs.
 
-## Everyday bounded state
+## Everyday bounded reads
 
-For a returning learner, read only: Config (schema version, consent, state revision, current adaptation), active Goals/Plan, latest Session summary, due Reviews, target Competencies and **3–6 relevant recent Attempts**. For a tiny unrelated vocabulary question, no deep read is needed. Read a trusted Activity only for replay/submission. Treat a cached `active_focus` view as a hint, confirm meaningful claims against authoritative rows and revision. For requested historical analytics, paginate relevant history and disclose truncation.
+Use only narrow Config (schema, consent, revision and adaptation), active Goals/Plan, latest Session summary, due Reviews, relevant Competencies and 3–6 recent relevant Attempts for normal learning. Read trusted Activity when checking an answer. For **CEFR reporting**, load [CEFR analytics and reporting contract](references/cefr-analytics.md) and page enough relevant Activities and Attempts for the requested scope; report incompleteness explicitly. Do not present a small everyday packet as comprehensive longitudinal analysis.
 
-## Progress reporting
+## CEFR profile and evidence
 
-Show what the learner actually did, with **evidence and modality** for each can-do competency. Useful statuses: `unassessed`, `emerging`, `supported`, `independent`, `transferable`; transfer requires repeated unaided use across situations/sessions. Don't manufacture official CEFR certification, learning percentages, completion times or pronunciation/listening metrics from text-only attempts.
+The two independent axes are **descriptor task demand A1–C2** and **observed can-do status** (`unassessed`, `emerging`, `supported`, `independent`, `transferable`). The plugin can issue *provisional evidence-based indications* per modality, NOT an official CEFR award. Recognition cannot establish independent speaking; reading cannot establish listening; typing cannot prove pronunciation. Use exact trusted rubrics/descriptors, no fabricated percentages, and do not invent status for unobserved modalities.
 
-Review scheduling is a **heuristic** due queue keyed to meaningful language patterns, not an FSRS memory model. Prioritize due retrieval, repeat errors in a new context, and periodically adjust the rolling plan with rationale/evidence IDs. Preserve setbacks and learner-initiated edits rather than rewriting history.
+On a learner CEFR/profile query show separate reading, listening, writing, spoken production and spoken interaction; separately mention written interaction when observed. Declare an overall provisional indication only when coverage suffices in all core domains. Show evidence counts, gaps, what was last assessed and a suitable next diagnostic task. For explicit full-history reporting, paginate and check coverage; with no stored results report no verified learner baseline.
+
+Review scheduling remains a heuristic due queue, not FSRS. Prioritize due retrieval, repeat errors in a different context, and adapt the rolling plan with traceable evidence IDs and rationale. Preserve setbacks and contested grades as correction events.
 
 ## Saving and reliable reporting
 
-A native `Submit` sends a new chat turn; it does not write to Drive. Evaluate against the trusted rubric via `asit-assessment`, apply duplicate detection, write only consented fields, and **read back the exact record**. Report `Saved` only on verified provider data. Read-check-update `state_revision`; Google Sheets is nontransactional, so never promise atomicity or exactly-once replay under parallel writes. If state unknown or partial, report `Not verified`. Learner requests for corrections, deletion, export or sharing require correct scoping and explicit confirmation where needed, followed by verified result; do not assume permissions or destinations.
+A native Submit sends a new chat turn and does NOT write to Sheets. Assess against trusted Activity via `asit-assessment`, check duplicate IDs, write only user-consented data and **read back the exact row**. Say `Saved` only on verified readback, otherwise `Not verified`/`Not saved`. Check state revision for updates; Google Sheets is not transactional. Any correction, deletion, export or sharing requires proper scope, user authorization where necessary, and verification.
