@@ -127,3 +127,20 @@ test('unknown attempt provenance reference fails closed during complete restore'
   timestampUtc:'2026-10-16T15:00:00.000Z',privacyMode:'summary_only'}));
  assert.throws(()=>hydrateWorkbook(t),/unavailable attempt/);
 });
+
+test('existing v2 workbook with audio_transcript_consent alias remains recoverable without claiming audio permission',()=>{
+ const t=fixture();
+ t.Config.push(['audio_transcript_consent','false','']);
+ const restored=hydrateWorkbook(t);
+ assert.equal(restored.source.restored,true);
+ assert.equal(restored.source.effective_audio_consent,false);
+ assert.equal(restored.source.needs_config_repair,true);
+ assert.deepEqual(restored.source.missing_config_keys,['audio_consent','cefr_confidence_label']);
+});
+test('fully initialized current v2 Config needs no compatibility repair',()=>{
+ const t=fixture();
+ t.Config.push(['audio_consent','false',''],['cefr_confidence_label','"unassessed"','']);
+ const restored=hydrateWorkbook(t);
+ assert.equal(restored.source.needs_config_repair,false);
+ assert.deepEqual(restored.source.missing_config_keys,[]);
+});
