@@ -45,7 +45,9 @@ export function planEllloSearch({topic='',grammar='',level=null,format='video',
   'site:elllo.org '+levelFragment+terms+' '+
    (format==='sound_grammar'?'grammar conversation':'short video English listening')
  ];
- const indexed=searchEllloSource({topic:terms,level,limit:5})
+ // The current seeded index is One Minute video ONLY, not Sound Grammar.
+ const indexed=(format==='sound_grammar'?[]:
+  searchEllloSource({topic:terms,level,limit:5}))
   .filter(x=>!recentLessonUrls.includes(x.lesson_url));
  return {provider:'elllo',stage:'search',format,level,focus:clean,
   known_candidates:indexed.map(x=>({id:x.id,url:x.lesson_url,title:x.title,
@@ -74,13 +76,15 @@ export function rankEllloResults(results,{topic='',grammar='',level=null,
     new URL(x.url).pathname.startsWith('/video/'))
   .map(x=>{
    const hay=tokens((x.title||'')+' '+(x.snippet||''));
-   const match=focus.reduce((v,w)=>v+(hay.includes(w)?2:0),0);
+   const topicMatch=focus.reduce((v,w)=>v+(hay.includes(w)?2:0),0);
    const levelMatch=level&&new URL(x.url).pathname.toUpperCase().includes(level);
-   return {url:x.url,title:compact(x.title),score:match+(levelMatch?3:0),
+   return {url:x.url,title:compact(x.title),score:topicMatch+(levelMatch?3:0),
+     topicMatch,
      status:'search_candidate_unverified',transcript_verified:false,
      media_duration_verified:false};
   })
-  .filter(x=>focus.length===0||x.score>0)
+  // Level is merely a bonus. The actual topic/grammar MUST match.
+  .filter(x=>focus.length===0||x.topicMatch>0)
   .sort((a,b)=>b.score-a.score||a.url.localeCompare(b.url));
  return [...new Map(ranked.map(x=>[x.url,x])).values()].slice(0,limit);
 }
