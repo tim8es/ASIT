@@ -56,3 +56,11 @@ Complete and date these actual-device cases before reporting the whole interacti
 36. The only non-native surface permitted is a **minimal functioning audio media slot**. Confirm Play/Pause/Replay/speed audibly work (not merely animate), and questions stay in the chat. If media playback fails, mark `not_assessed` and offer a real fallback link.
 37. Inspect MP3 sample rate/bitrate and **listen as a human** for naturalness, stress, pacing and background noise. Flag 22.05kHz/32kbps demonstration voice as unsuitable even if technically playable; do not equate high bitrate with natural prosody.
 38. Check no transcript leaks before the first answer unless the user explicitly requests text help; after help downgrade evidence to assisted audio+text.
+
+
+## Field regression: mobile controls rendered, sound failed
+
+39. Verify mobile in-chat `audio/ogg` controls appearing alone never marks `audioPlayback=true`. Source URL existence and a play icon do not prove decode or audibility. Test MP3/AAC separately, and never claim guaranteed playback based on MIME alone.
+40. Simulate inline failure after card render. Expected: listening `not_assessed`, no graded guessed answers, one accessible real MP3 external playback option when a verified compatible source exists, and native DIL questions remaining in the chat. No automatic standalone HTML page.
+41. After opening external MP3, mark `not_assessed` until the learner confirms actual completed audible listening. If learner confirms hearing, use `self_reported_external_audio_comprehension` with no host playback telemetry claim.
+42. If the native ChatGPT client itself restricts embedded playback, stop retrying broken in-app embeds. Record device/OS/app-version **only if volunteered** in a private user test; never write real learner device details to public GitHub.
