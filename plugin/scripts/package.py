@@ -63,7 +63,7 @@ def check():
     assert 'Brilliant' in visual_standard and 'Duolingo' in visual_standard and 'Skyeng' in visual_standard
     assert 'two graded visual interactions' in visual_standard
     assert 'Save Gate' in visual_standard
-    assert 'Correct' in lessons and 'one final submit' in lessons.lower()
+    assert 'Correct' in lessons and ('one final submit' in lessons.lower() or 'one real final submit' in lessons.lower())
     assert 'ASIT_ATTEMPT_V2' in teacher and 'Save Gate' in teacher
     media = (ROOT / 'skills/asit-media/SKILL.md').read_text(encoding='utf-8')
     assert 'ELLLO' in media and 'Sound Grammar' in media
