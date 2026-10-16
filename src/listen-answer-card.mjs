@@ -76,15 +76,35 @@ export function assessListenAnswerCard({questions,answers={},playback={},earlyEx
 }
 
 /** Author a native audio card only for a confirmed, genuine playable source. */
-export function planListenAnswerCard({audioAsset=null,questions=[],clientAudioSupported=false}={}){
+export function planListenAnswerCard({audioAsset=null,questions=[],clientAudioSupported=false,
+  audioFormatConfirmed=false,externalAudioLinkAvailable=false}={}){
  if(!validQuestions(questions))throw new Error('Invalid trusted audio question rubric');
  const sourceVerified=audioAsset?.verified===true&&
   ['audio/mpeg','audio/wav','audio/ogg','audio/mp4'].includes(audioAsset?.mime_type)&&
   typeof audioAsset?.uri==='string'&&audioAsset.uri.trim().length>0;
- if(!sourceVerified||!clientAudioSupported)
-  return {render:'unavailable',type:'listening',evidence_modality:'unassessed',
-   reason:!sourceVerified?'no_verified_audio_asset':'client_audio_playback_not_confirmed',
-   fallback:'explicit_reading_or_user_playable_audio_link_no_listening_score'};
+ // Mobile webviews may display controls but fail to play audio. OGG Vorbis
+ // especially needs an explicitly tested codec; support cannot be inferred.
+ const codecVerified=audioAsset?.mime_type!=='audio/ogg'||audioFormatConfirmed;
+ const inlineVerified=sourceVerified&&clientAudioSupported&&codecVerified;
+ if(!inlineVerified){
+   if(sourceVerified&&externalAudioLinkAvailable){
+     return {
+       render:'native_questions_with_external_audio',type:'listening',
+       evidence_modality:'pending_self_reported_external_listening',
+       audio_asset_uri:audioAsset.uri,embedded_audio_claim:false,
+       question_ui:'native_intelligent_ui',submit_count:1,
+       listen_confirmation_required:true,
+       // Opening the link does not establish listening; rubric checks remain guarded.
+       completion_without_hearing:'not_assessed',questions_count:questions.length,
+       reason:'inline_audio_not_confirmed',
+       supported_fallback:true,stored:false
+     };
+   }
+   return {render:'unavailable',type:'listening',evidence_modality:'unassessed',
+     reason:!sourceVerified?'no_verified_audio_asset':
+       !codecVerified?'audio_codec_not_confirmed':'client_audio_playback_not_confirmed',
+     fallback:'verified_external_audio_link_or_explicit_reading_no_listening_score'};
+ }
  return {render:'audio_card',type:'listening',ui:[
    'audio_play_and_replay','speed_if_available','gist_and_detail_questions',
    'submit_after_real_playback','teacher_feedback','post_attempt_transcript'],
