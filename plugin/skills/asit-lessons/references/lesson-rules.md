@@ -1,13 +1,11 @@
-# Detailed lesson and planning rules
+# Detailed lesson and planning rules — v0.2.6
 
-Adapted from `docs/SEVEN-MINUTE-LESSONS.md` v0.5 and `docs/LEARNING-PROGRAM.md`.
-
-- Optional user-owned lesson preferences: `Config.adaptive_profile.lesson_delivery_preference.duration_minutes` and `exercise_count` (legacy `duration_limit_minutes`, `exercises_per_lesson`, `exercise_count_default`). Current-turn stated preference takes precedence; it doesn't silently overwrite stored values.
-- Example default seven-minute budget: topic .5m, rule 1m, exercises 4.5m, closing vocabulary 1m. Vary activities when objectives justify it; 3–5 tasks is a default workload, not a universal hard limit.
-- Typed expression tests typed production only, not pronunciation. Image label tests written retrieval based on actual image. A reading passage tests text comprehension. Word-chunk construction is guided production, not independent mastery.
-- Underlined popovers may explain a term inline, but may not break sentence layout. If client renders popover as block, render continuous sentence normally with an adjacent standalone help control, not dismembered text.
-- A composite form can have one trusted parent Activity with itemized sub-rubrics. Its single outer `ASIT_ATTEMPT_V2` envelope carries an `answer` JSON **string** of task-ID → response values; untrusted user metadata never changes the rubric. One final Submit creates a real next turn for teacher grading; local widget state is not persistent.
-- Required missing items keep completion `incomplete`, even if all clue widgets are animated. Don't display a final celebration before a required independent writing field is answered; an explicit incomplete early exit is allowed.
-- Multi-turn dialogue must have at least two learner responses with context-sensitive teacher follow-up, so it can exceed a single static UI form.
-- For learner-requested out-of-program drills select one named pattern without forcing a full default mini-lesson.
-- Status labels are based on observable evidence with reasons; `transferable` needs successful independent use across contexts and sessions.
+- The current learner request has precedence over verified Config preferences. Otherwise use Config `adaptive_profile.lesson_delivery_preference.duration_minutes` and `exercise_count_default` or `exercises_per_lesson`; if absent default to 7 minutes/4 tasks. A stored five-exercise preference must not be overwritten by the plugin default.
+- A 7-minute example: objective ~0.5m, rule/strategy ~1m, tasks ~4.5m, closing vocabulary ~1m. Typical exercise count 3–5, subject to preference; avoid mechanical cap.
+- Evidence follows observed modality and operation: typed independent output only writing; choice only recognition; image label needs a displayed image; a provided word-chunk builder is guided production; reading ≠ listening.
+- **Composite Submit contract (authoritative)**: Each *separately graded* subtask has a trusted **distinct Activity** with specific competency, operation, modality, rubric and verified pre-registration when saving is enabled. One UI form may submit a parent `ASIT_ATTEMPT_V2` envelope with `answer` as a bounded JSON-string map of task IDs to answers. This parent is NOT a graded mixed-modality Activity and does not replace per-subtask rows. Never collapse reading, writing and listening into one CEFR record.
+- Subtask IDs are minted before rendering and remain stable. Derive per-subtask Attempt IDs from trusted parent Attempt ID plus task ID; replay must not create new IDs. A runtime-generated UI `useId()` is not an appropriate durable storage ID. Check collisions before write. Do not fabricate pre-registration if absent.
+- Required missing fields keep completion `incomplete`/`not_assessed`. A button/animation cannot trigger saving without a new chat turn and real provider calls. Explicit early exit may remain incomplete.
+- Maintain natural sentence layout; if an explanatory popover renders as block, use adjacent accessible help. Avoid broken phrases.
+- Dialogue requires real multi-turn response; don't score a static form as conversational interaction. Out-of-plan drill need not invoke a full mini-lesson.
+- Status labels arise from observation; transferable requires independent application in diverse contexts/sessions. Reviews are heuristics, not calibrated probabilities.

@@ -1,6 +1,6 @@
 # ASIT — Adaptive System for Intelligent Tutoring
 
-> **Current ChatGPT plugin release (2026-10-16): ASIT 0.2.5.** Its packaged source lives in [`plugin/`](plugin/), and the installed runtime is a skills-only ChatGPT plugin (no dedicated MCP or server). `install/PROJECT-ROUTER.md` below documents the older GitHub-first Project workflow; it is not required for the installed plugin. GitHub commits do not automatically install a new release: publish and verify through Plugin Creator. Learner results remain in the consented private Google Sheets workbook, not in this repo.
+> **Current ChatGPT plugin release (2026-10-16): ASIT 0.2.7.** Its packaged source lives in [`plugin/`](plugin/), and the installed runtime is a skills-only ChatGPT plugin (no dedicated MCP or server). `install/PROJECT-ROUTER.md` below documents the older GitHub-first Project workflow; it is not required for the installed plugin. GitHub commits do not automatically install a new release: publish and verify through Plugin Creator. Learner results remain in the consented private Google Sheets workbook, not in this repo.
 
 **ChatGPT-native personal English tutor with an evidence-backed learning plan — MLP candidate.**
 
@@ -107,3 +107,7 @@ When a planned lesson calls for spoken comprehension or spoken grammar, ASIT can
 ## Standalone ChatGPT Skills plugin
 
 The private [ASIT Skills-only plugin source](plugin/DEVELOPMENT.md) is tracked under `plugin/` (8 skills: teacher, onboarding, lessons, exercises, ELLLO media, Voice, assessment and progress). It is separate from the GitHub-first ChatGPT Project installation and contains no MCP configuration. Validate and build using `python3 plugin/scripts/package.py --check` and `python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.1.0.zip`. Updating GitHub does **not** automatically publish a new plugin release.
+
+## Visual-first lesson contract (v0.2.7)
+
+The installed skills-only ASIT plugin defaults to relevant 16:9 covers, grounded image-to-word and image-choice tasks, meaningful picture-based sentence construction, and a short active-discovery sequence for suitable full lessons. Its three pedagogical references are Duolingo (short retries), Skyeng (natural contextual explanations), and Brilliant (notice, predict, manipulate, explain, transfer). This borrows teaching principles, not branded UI or content. The plugin still has no automatic JavaScript runtime, MCP server or guaranteed media player. For implementation see [the release-specific contract](plugin/skills/asit-lessons/references/visual-lesson-standard.md).
