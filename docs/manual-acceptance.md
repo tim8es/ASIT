@@ -80,3 +80,13 @@ Complete and date these actual-device cases before reporting the whole interacti
 48. Verify that the initial five records are labelled `source_lesson_verified_media_unassessed`, with no guessed durations, direct MP3 URLs or playable inline video claims. A valid HTML page does not certify media playback.
 49. Open an actual ELLLO video on the learner's mobile device; require heard speech before any listening score. Check duration of **the whole file**, including lessons advertised as One Minute, against ≤35s default or explicit extended ≤90s.
 50. Verify full transcript is not copied to public GitHub; read transcript only if permitted for private lesson preparation, keep original-site attribution, and author original questions about verified spoken content. Verify restrictions in ELLLO FAQ before any future downloads/rehosting.
+
+
+## ELLLO automatic search + native card regression
+
+51. Ask ASIT for A2 transport listening without mentioning ELLLO. The assistant should consult seed metadata, open the live ELLLO original page, and check verified actual duration before constructing 2–3 meaningful questions. It must not stop after proposing search strings or ask the learner to search manually.
+52. Ask ASIT to practice A2 Present Continuous via spoken grammar. The assistant automatically finds the ELLLO Sound Grammar lesson and selects **a single conversation** among four. Verify each new question and its supporting source evidence refer ONLY to that conversation.
+53. Ask for an unindexed topic. Confirm ELLLO-scoped live web search is initiated; a relevant page must be opened and inspected rather than fabricating answer content from a search snippet. If nothing is verified, explain unavailable, no unrelated random site.
+54. Fail the media duration gate, deny playback, or reveal transcript early. Expected: no independent listening score; show unavailable or assisted status with accurate source and privacy labelling.
+55. Native card contains 2–3 source-grounded original questions, no visible key, one Submit, direct original-site link, no standalone HTML. Submission after heard media is evaluated against trusted original rubric; local user data is not saved without explicit consent/readback.
+56. Check repository offline tests independently from **real** end-to-end browser/mobile QA. Offline pass does not prove ELLLO or external site playback succeeds on this device.

@@ -297,3 +297,36 @@ test('mobile OGG is not automatically playable despite presence of an audio widg
  assert.equal(p.kind,'unavailable');
  assert.equal(p.evidence_modality,'unassessed');
 });
+
+test('ELLLO listening request auto-routes to web discovery rather than a dead video widget',()=>{
+ const p=selectUiPattern({requestedType:'listening',delivery:'elllo_external',
+  elllo:{request:{topic:'train transport',level:'A2',format:'video'}}});
+ assert.equal(p.kind,'elllo_discovery_needed');
+ assert.equal(p.discovery.provider,'elllo');
+ assert.equal(p.discovery.must_fetch_and_verify_selected_page,true);
+ assert.equal(p.discovery.known_candidates[0].ready,false);
+ assert.equal(p.progress_saved,false);
+});
+test('ELLLO validated card renders original link and native question controls without answer leakage',()=>{
+ const a={status:'ready_for_user_playback_test',media:{source:'elllo',
+  source_url:'https://elllo.org/video/A2BEG/A2-015-LESYA-USE-TRAIN-OR-BUS.htm',
+  title:'Transport',format:'video',duration_seconds:27,conversation_index:null},
+  questions:[{id:'a',type:'single_choice',prompt:'How did she get there?',
+   expected:'bus',required:true,
+   options:[{value:'bus',label:'Bus'},{value:'taxi',label:'Taxi'}]},
+   {id:'b',type:'short_answer',prompt:'What else did she use?',expected:'train',required:true}]};
+ const p=selectUiPattern({requestedType:'listening',delivery:'elllo_external',
+  elllo:{activity:a}});
+ assert.equal(p.kind,'elllo_external_media_card');
+ assert.equal(p.presentation,'native_intelligent_ui_with_original_elllo_link');
+ assert.equal(p.submit_count,1);
+ assert.equal(p.requires_heard_confirmation,true);
+ assert.equal(p.media_rehosted,false);
+ assert.equal(p.public_questions[0].expected,undefined);
+ assert.equal(p.public_questions[1].expected,undefined);
+ assert.equal(JSON.stringify(p).includes('expected'),false);
+});
+test('other grammar and vocabulary exercises cannot be mislabeled as listening',()=>{
+ assert.throws(()=>selectUiPattern({requestedType:'cloze',delivery:'elllo_external',
+  elllo:{request:{topic:'travel'}}}),/ELLLO media activities/);
+});
