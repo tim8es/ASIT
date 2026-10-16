@@ -62,3 +62,8 @@ For `delivery='audio_card'`, prefer **native Intelligent UI for all educational 
 ## Confirmed mobile silent-player fallback
 
 ASIT field QA demonstrated an inline `audio/ogg` player whose controls displayed on mobile while sound never played. Distinguish UI render capability from audio decode/play capability. Treat unverified mobile OGG as unavailable; choose a user-playable MP3/AAC asset with a **real link**, while retaining native question controls in the chat. A player error or the learner's report of no sound overrides any provisional planned `audio_card` status and makes listening `not_assessed`. When external audio was genuinely heard, record `self_reported_external_audio_comprehension`, not verified embedded playback. See [Listen → Answer](../docs/LISTEN-ANSWER-AUDIO-CARDS.md).
+
+
+## Mandatory bounded audio for each normal listening card
+
+Never suggest a long audiobook chapter or podcast with "listen to first X seconds". Select an **actual standalone 15–35s clip**, or a purposeful 5–14s micro-item, with trusted duration verified. In `planListenAnswerCard` missing duration or `duration_seconds>35` returns `unavailable` for standard cards, regardless of media format or external link fallback. Learners may explicitly request a longer audio activity, up to 90s; no longer recording is silently substituted. Match every question to the *actual complete clip*, not broader surrounding content. For a mobile external-audio handoff, native questions remain in chat; listening remains unassessed if clip did not play.
