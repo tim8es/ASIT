@@ -60,7 +60,8 @@ export function assessListenAnswerCard({questions,answers={},playback={},earlyEx
  return {
   total_count:questions.length,answered_count:answeredCount,
   required_unanswered_ids:unfilledRequired,
-  completion:complete?'completed':'incomplete',
+  form_completion:complete?'completed':'incomplete',
+  completion:complete&&evidence.label!=='not_assessed'?'completed':'incomplete',
   early_exit:earlyExit===true,
   // A form may be filled but listening is NOT assessed unless the source was actually played.
   listening_evidence:evidence,
