@@ -41,6 +41,19 @@ Before presenting a storage-backed activity, save its trusted rubric and metadat
 
 After significant attempts or lesson close, update affected competency summary, review schedule, session and small adaptive_profile. Keep state_revision monotonic, read it before updating and verify it after; recognize races, re-load if conflicting. Never overwrite historical observations just to simplify the next lesson. Do not claim a whole transaction succeeded when only the attempt row was verified.
 
+## Mandatory save gate (v0.5, skills-only; no server)
+
+For each assessed learner submission, treat persistence as a **required workflow when recording_consent is not off and the connected user-owned workbook is available**, not as an optional post-lesson suggestion. A native Submit is only a chat turn, never a storage write. This is an instruction-level best-effort protocol, **not** a background job, atomic transaction or guarantee that the host invokes tools.
+
+1. Before showing a graded storage-backed task, register its trusted Activity and verify readback; for composite submissions use separate Activities/Attempts for distinct graded subtasks and modalities. If registration fails, clearly label the task unsaved and do not promise CEFR evidence.
+2. After grading each submitted subtask, check consent, workbook identity and current schema; check whether its stable attempt_id already exists. If equivalent, reuse the verified receipt; if conflicting or ambiguous in summary_only mode, stop with `duplicate_unverified` rather than appending again.
+3. Append the consented Attempt; read back the exact row and validate ID, activity/session/competency, grade, modality/operation and privacy mode. If the append times out or has an unknown outcome, **read before any retry**. Retry an append only when absence is verified and no conflicting writer is evident. Never claim exactly-once guarantees on Sheets.
+4. Once Attempt is verified, project its evidence into Sessions, Competencies, Reviews and Config.state_revision as applicable, with per-entity readback. Preserve existing rows and unrelated fields; use guarded revision checks and append-only event/repair records when in-place mutation is unsafe or unsupported. Do not invent mastery, due dates, CEFR coverage or a revision increment. If a projection cannot be safely written, leave it pending and report partial sync.
+5. Report one of: `Fully synced` only after all required projections are verified; `Attempt saved / Partial sync` when the Attempt exists but any projection remains pending; `Not verified` when the write outcome is uncertain; `Not saved` when storage is off/unavailable or no write occurred. Feedback to the learner is never withheld because storage fails.
+6. On the next authorized session, read the last Sessions/Attempts and any pending sync markers; reconcile by exact IDs before adding new records. Do not automatically backfill historical missing answers or change consent. Never request consent on every exercise once an active mode is verified, but respect withdrawal immediately.
+
+**Acceptance checks:** ordinary lesson across two chats; composite per-subtask evidence; replay of identical attempt_id; ambiguous timeout; unavailable Drive; successful Attempt with failed projection; revision race; summary_only privacy; no connected storage. A test passes only with verified provider readback and truthful status labels. Do not use fabricated or synthetic results as learner CEFR evidence.
+
 ## Privacy / scope
 
 Don't upload private Sheet links, raw answers, user profile or tokens to GitHub. Summaries may themselves be personal and must remain private. Allow learner-controlled correction, export and deletion with explicit confirmation and exact readback. Existing legacy versions require permission and a verified backup before migration; don't silently rewrite them.
