@@ -10,15 +10,15 @@ test('ELLLO is a single selected educational discovery source',()=>{
  assert.equal(ELLLO_SOURCE.video_redistribution_authorized,false);
  assert.equal(ELLLO_SOURCE.transcript_republication_authorized,false);
  assert.equal(ELLLO_SOURCE.native_inline_video_verified,false);
- assert.equal(ELLLO_STARTER_CANDIDATES.length,5);
- assert.equal(new Set(ELLLO_STARTER_CANDIDATES.map(x=>x.id)).size,5);
+ assert.equal(ELLLO_STARTER_CANDIDATES.length,6);
+ assert.equal(new Set(ELLLO_STARTER_CANDIDATES.map(x=>x.id)).size,6);
 });
 test('starter index contains only grounded HTTPS ELLLO lesson links and no copied media',()=>{
  for(const x of ELLLO_STARTER_CANDIDATES){
   const url=new URL(x.lesson_url);
   assert.equal(url.protocol,'https:');
   assert.equal(url.hostname,'elllo.org');
-  assert.equal(x.media,'video_with_audio');
+  assert.ok(['video_with_audio','sound_grammar_conversations'].includes(x.media));
   assert.equal(x.audio_asset_url,null);
   assert.equal(x.video_asset_url,null);
   assert.equal(x.verified_duration_seconds,null);
