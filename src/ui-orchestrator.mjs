@@ -58,11 +58,15 @@ export function selectUiPattern({action,requestedType=null,mode='lesson',capabil
     const plan=planListenAnswerCard({
       audioAsset:audioCard?.trustedAudioAsset,
       questions:audioCard?.trustedQuestions??[],
-      clientAudioSupported:capabilities.audioPlayback===true
+      clientAudioSupported:capabilities.audioPlayback===true,
+      audioFormatConfirmed:capabilities.audioFormatConfirmed===true,
+      externalAudioLinkAvailable:capabilities.externalAudioLinkAvailable===true
     });
-    return {kind:plan.render==='audio_card'?'audio_card':'unavailable',
+    return {kind:plan.render==='audio_card'?'audio_card':
+      plan.render==='native_questions_with_external_audio'?'external_audio_handoff':'unavailable',
       type:'listening',action:'listen',interaction_mode:'audio_card_questions',
-      evidence_modality:plan.render==='audio_card'?'pending_listening':'unassessed',
+      evidence_modality:plan.render==='audio_card'?'pending_listening':
+        plan.render==='native_questions_with_external_audio'?'pending_self_reported_external_listening':'unassessed',
       card:plan,spec_ref:media};
   }
   if(delivery==='native_voice'){

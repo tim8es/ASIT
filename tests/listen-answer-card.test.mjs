@@ -119,3 +119,43 @@ test('higher bitrate alone does not establish that speech sounds natural',()=>{
  assert.equal(q.production_ready,false);
  assert.equal(q.editorial_status,'needs_human_listening_review');
 });
+
+test('mobile OGG without verified decoder must not claim embedded playback',()=>{
+ const r=planListenAnswerCard({questions,clientAudioSupported:true,audioAsset:{
+  uri:'https://example.org/legitimate-voice.ogg',verified:true,mime_type:'audio/ogg'
+ }});
+ assert.equal(r.render,'unavailable');
+ assert.equal(r.reason,'audio_codec_not_confirmed');
+});
+test('external fallback still uses native questions and demands audible confirmation',()=>{
+ const r=planListenAnswerCard({questions,clientAudioSupported:false,
+  externalAudioLinkAvailable:true,
+  audioAsset:{uri:'https://example.org/legitimate-voice.mp3',verified:true,mime_type:'audio/mpeg'}});
+ assert.equal(r.render,'native_questions_with_external_audio');
+ assert.equal(r.question_ui,'native_intelligent_ui');
+ assert.equal(r.embedded_audio_claim,false);
+ assert.equal(r.listen_confirmation_required,true);
+ assert.equal(r.completion_without_hearing,'not_assessed');
+});
+test('unverified OGG is not offered as a mobile fallback simply because URL exists',()=>{
+ const r=planListenAnswerCard({questions,clientAudioSupported:false,
+  externalAudioLinkAvailable:true,
+  audioAsset:{uri:'https://example.org/legitimate-voice.ogg',verified:true,mime_type:'audio/ogg'}});
+ assert.equal(r.render,'unavailable');
+ assert.equal(r.reason,'audio_codec_not_confirmed');
+});
+test('self-reported external listening is labelled as reported, never client telemetry',()=>{
+ const r=assessListenAnswerCard({questions,answers,playback:{
+  delivery:'external',assetPlayable:true,externalAudioOpened:true,
+  learnerReportsCompletedClip:true,learnerConfirmedHeard:true}});
+ assert.equal(r.listening_evidence.label,'self_reported_external_audio_comprehension');
+ assert.equal(r.listening_evidence.modality,'listening_self_report');
+ assert.equal(r.independent_mastery_claim,false);
+});
+test('an opened external file with no listened confirmation receives no listening score',()=>{
+ const r=assessListenAnswerCard({questions,answers,playback:{
+  delivery:'external',assetPlayable:true,externalAudioOpened:true,
+  learnerReportsCompletedClip:false,learnerConfirmedHeard:false}});
+ assert.equal(r.listening_evidence.label,'not_assessed');
+ assert.equal(r.correct_count,null);
+});

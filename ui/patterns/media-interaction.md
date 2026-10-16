@@ -39,3 +39,8 @@ The card shows Play/Replay and optional slower speed, waits for playback, asks g
 ## Intelligent UI FIRST: in-chat Listen → Answer (v0.2)
 
 **Do not default to standalone HTML pages for audio lessons.** The in-chat stage uses native DIL `radio-group`, `input`, `textarea`, `checkbox`, and one final Submit. A minimal embedded media-only adapter can play a real licensed sound clip if that client supports it; the entire card must NOT be an HTML app. Do not expose inert native "Play" buttons pretending to control audio. If inline playback unavailable, provide direct genuine playable audio attachment/link plus the native in-chat question form and label the mode accurately. Require editorial voice quality review; the former 22.05kHz/32kbps synthetic sample is unacceptable as a showcase. Source: [Listen → Answer inline contract](../../docs/LISTEN-ANSWER-AUDIO-CARDS.md).
+
+
+## Confirmed mobile audio card rendering-but-not-playing case
+
+A mobile learner reported that ASIT's inline audio surface rendered but audio was silent for a real Wikimedia OGG source. Therefore rendering alone is never capability evidence. If `audio/ogg` support isn't specifically verified, decline inline playback and seek a genuine mobile-compatible MP3/AAC source. If the host has no supported inline media, keep native DIL gist/detail question controls and use a real MP3 attachment/link after a learner-heard confirmation; never re-label a silent player as listening practice. The `external_audio_handoff` reference plan explicitly records the weaker self-reported listening provenance. See [dedicated contract](../../docs/LISTEN-ANSWER-AUDIO-CARDS.md).

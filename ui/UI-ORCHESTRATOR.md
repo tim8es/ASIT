@@ -57,3 +57,8 @@ Choose `delivery='audio_card'` only when a real trusted audio asset is provided 
 ## Native media-card hierarchy
 
 For `delivery='audio_card'`, prefer **native Intelligent UI for all educational interaction** and embed only the smallest genuinely functional audio player surface when available. A separate downloadable HTML website is a last-resort QA artifact, not a real ASIT lesson. DIL has no guaranteed built-in `AudioPlayer`, so tests must establish actual audio playback; do not make a decorative Play button. Voice quality requires human review; flag old 22.05kHz mono/32kbps low-quality TTS rather than recycling it. Native radio/text answers, required-response validation, transcript support and Submit remain in the actual chat. Mobile especially needs real-world audio testing.
+
+
+## Confirmed mobile silent-player fallback
+
+ASIT field QA demonstrated an inline `audio/ogg` player whose controls displayed on mobile while sound never played. Distinguish UI render capability from audio decode/play capability. Treat unverified mobile OGG as unavailable; choose a user-playable MP3/AAC asset with a **real link**, while retaining native question controls in the chat. A player error or the learner's report of no sound overrides any provisional planned `audio_card` status and makes listening `not_assessed`. When external audio was genuinely heard, record `self_reported_external_audio_comprehension`, not verified embedded playback. See [Listen → Answer](../docs/LISTEN-ANSWER-AUDIO-CARDS.md).
