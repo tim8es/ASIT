@@ -1,6 +1,6 @@
 # ASIT Skills-only plugin: source and release process
 
-This directory is the **tracked source** of the private ASIT Skills Plugin v0.1.0. The existing GitHub-first ASIT Project remains a separate supported runtime; nothing here changes its Engine or Google Drive storage contract.
+This directory is the **tracked source** of the private ASIT Skills Plugin v0.2.0. The existing GitHub-first ASIT Project remains a separate supported runtime; nothing here changes its Engine or Google Drive storage contract.
 
 ## Contents
 - `plugin.json`: sanitized source manifest (do not commit account-generated owner metadata or credentials).
@@ -10,6 +10,10 @@ This directory is the **tracked source** of the private ASIT Skills Plugin v0.1.
 - `scripts/package.py`: standard-library validation and reproducible ZIP packaging.
 
 No `mcp.json`, hosted service, player, crawler, private learner workbook or secrets are included. No repository `src/*.mjs` runs automatically in ChatGPT merely because it exists in GitHub. Original ELLLO media stays on ELLLO.
+
+## Runtime and context budget
+
+Keep `asit-teacher` an always-small router; place rendering detail only in focused references. Do not fetch the repo or media on every turn. `visual-feedback.md` loads only when a structured interactive exercise is actually rendered. Automated package checks cover reference links and feedback contract; actual client playback, responsive UI and cross-chat writes still require manual acceptance.
 
 ## Validate
 ```sh
