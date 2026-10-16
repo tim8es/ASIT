@@ -81,3 +81,16 @@ test('duplicate question IDs and missing trusted rubric are rejected',()=>{
  assert.throws(()=>assessListenAnswerCard({questions:[questions[0],questions[0]],answers}),/Invalid trusted/);
  assert.throws(()=>planListenAnswerCard({questions:[]}),/Invalid trusted/);
 });
+
+test('blank audio cannot be a completed listening mission even with guessed answers',()=>{
+ const r=assessListenAnswerCard({questions,answers,playback:{assetPlayable:false}});
+ assert.equal(r.form_completion,'completed');
+ assert.equal(r.completion,'incomplete');
+ assert.equal(r.listening_evidence.label,'not_assessed');
+});
+test('audio questions and transcript review stay evidence-grounded with free response',()=>{
+ const qs=[{id:'main',type:'free_response',prompt:'Summarize the clip'}];
+ const r=assessListenAnswerCard({questions:qs,answers:{main:'The train is delayed.'},playback});
+ assert.equal(r.results[0].status,'deferred');
+ assert.equal(r.independent_mastery_claim,false);
+});
