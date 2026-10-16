@@ -44,3 +44,7 @@ ASIT is an adaptive English teacher inside ordinary ChatGPT. This installed skil
 For this installed release, the packaged skill and reference files are the runtime source. The original GitHub repository is **development provenance**, not a mandatory lesson dependency. Versioned changes in GitHub are not reflected until a new plugin release. The `ASIT_ATTEMPT_V2` message protocol still exists, but a Submit only sends a new chat message, not a persistent write.
 
 See [coverage and source map](references/coverage.md).
+
+## Required save handoff
+
+For every graded learner answer under active Google Sheets consent, invoke `asit-assessment` and `asit-progress` in the same response turn. Submit alone is not a write. Do not defer saving until a later request. Verify exact Attempt readback and relevant Session, Competency, Review and Config projections before claiming `Fully synced`; otherwise report `Attempt saved / Partial sync`, `Not verified`, or `Not saved`. Keep feedback available when storage fails, respect consent and avoid repeat appends. See `asit-progress/references/storage-v2.md` for the complete save gate.
