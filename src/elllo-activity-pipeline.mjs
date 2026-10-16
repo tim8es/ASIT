@@ -45,10 +45,12 @@ export function planEllloSearch({topic='',grammar='',level=null,format='video',
   'site:elllo.org '+levelFragment+terms+' '+
    (format==='sound_grammar'?'grammar conversation':'short video English listening')
  ];
- // The current seeded index is One Minute video ONLY, not Sound Grammar.
- const indexed=(format==='sound_grammar'?[]:
-  searchEllloSource({topic:terms,level,limit:5}))
-  .filter(x=>!recentLessonUrls.includes(x.lesson_url));
+ // Only use cached candidates of the REQUESTED media collection.
+ const indexed=searchEllloSource({topic:terms,level,limit:10})
+  .filter(x=>format==='sound_grammar'?x.media==='sound_grammar_conversations':
+    x.media==='video_with_audio')
+  .filter(x=>!recentLessonUrls.includes(x.lesson_url))
+  .slice(0,5);
  return {provider:'elllo',stage:'search',format,level,focus:clean,
   known_candidates:indexed.map(x=>({id:x.id,url:x.lesson_url,title:x.title,
     level:x.level,ready:false})),
