@@ -55,3 +55,14 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 - **Package validation**: syntax, paths, 18-pattern registry, schema/consent markers and no MCP configuration.
 - **Host QA**: implicit skill routing, native single Submit, source playback on learner's actual device, Drive connection/permission, real readback and cross-chat continuation. These are not established by ZIP/package tests.
 - **Upgrade QA**: compare outputs and behavior against ASIT Project + GitHub baseline before replacing that working setup. Source repo remains untouched by the plugin build; this plugin is a separate version.
+
+## v0.2.4 persistent-state regression checks
+- [ ] On first setup, Config contains schema_version, state_revision, learner_id, target_language, recording_consent, audio_consent=false, cefr_confidence_label=unassessed, all valid JSON, and exact verified readback.
+- [ ] No identity or consent => no user workbook writes; malformed existing workbook => inspection/permissioned repair, never destructive overwrite.
+- [ ] One Submit with recognition, writing, and listening produces distinct trusted Activities/Attempts; unheard audio remains not_assessed.
+- [ ] Summary-only mode never writes verbatim answers or first-response text to Events; first-try metadata is explicitly unverified.
+- [ ] Attempt readback succeeds but Sessions/Reviews update fails => Partial sync, not fully saved.
+- [ ] Google Drive account connected but missing writable workbook => not initialized; install state is separate from learner storage.
+- [ ] Brand-new chat can restore active goal, focus, review queue and privacy mode through bounded live reads; no memory-based fiction.
+- [ ] Pausing ASIT saving prevents new writes without disabling/uninstalling Google Drive or deleting history.
+- [ ] Test actual provider readback and web/mobile UI outside CI; offline source tests alone do not establish these outcomes.
