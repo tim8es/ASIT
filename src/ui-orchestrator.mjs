@@ -49,6 +49,8 @@ export function selectUiPattern({action,requestedType=null,mode='lesson',capabil
     throw new Error('Unknown exercise type');
   const resolvedAction=action??UI_CANDIDATES.find(p=>p.type===requestedType)?.action;
   if(!validAction.has(resolvedAction))throw new Error('Invalid learner action');
+  if(requestedType!==null&&!UI_CANDIDATES.some(p=>p.type===requestedType&&p.action===resolvedAction))
+    throw new Error('Requested exercise does not match learner action');
   if(delivery==='native_voice'){
     if(!['listen','speak','interact'].includes(resolvedAction))
       throw new Error('Native Voice delivery requires listening, speaking or interaction');
@@ -66,8 +68,7 @@ export function selectUiPattern({action,requestedType=null,mode='lesson',capabil
         (voiceIntent==='listening'?'pending_audio_comprehension': 'pending_voice_exchange'),
       spec_ref:media};
   }
-  if(requestedType!==null&&!UI_CANDIDATES.some(p=>p.type===requestedType&&p.action===resolvedAction))
-    throw new Error('Requested exercise does not match learner action');
+
   if(!Array.isArray(recentTypes))throw new Error('Invalid pattern history');
   const cap={...defaults,...capabilities};
   if(resolvedAction==='speak'&&!(cap.audioCapture&&cap.audioAccessible))
