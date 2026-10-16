@@ -82,3 +82,7 @@ ASIT has a [Voice-first handoff](docs/VOICE-FIRST-LESSONS.md): a learner can tap
 ### Listen → Answer MP3 cards (self-paced listening)
 
 Besides Voice-first speaking lessons, ASIT now has an explicit [Listen → Answer audio-card contract](docs/LISTEN-ANSWER-AUDIO-CARDS.md), offline reference grader (`src/listen-answer-card.mjs`) and tests. This format uses a **real MP3**, Replay/slow speed and text/choice questions with a transcript after answering. A self-contained **downloadable browser demo** may carry a generated audio clip inline; it is not automatically an installed embedded ChatGPT player. In-chat playback on mobile requires live acceptance and a supported audio attachment/player; unavailable audio results in `not_assessed`, not a fabricated listening grade.
+
+### 2026-10-16 audio-card UX correction
+
+**Inline Intelligent UI is the default** for Listen → Answer, not a standalone HTML file. Genuine audio playback may need a small inline audio-only adapter if the ChatGPT client supports it, while all questions, answer controls, feedback and Submit remain native. The original 22.05kHz/~32kbps TTS demo was rejected as poor quality; new recordings require a real natural-voice editorial check. See [updated audio card contract](docs/LISTEN-ANSWER-AUDIO-CARDS.md). Embedded audio support on mobile is still client-acceptance-gated; neither an MP3 attachment nor pure Node.js planner installs a universal inline audio widget.
