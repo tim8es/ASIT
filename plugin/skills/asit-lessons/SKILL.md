@@ -17,6 +17,8 @@ Default **seven minutes**, **four related exercises** (up to five recommended fo
 4. **Vocabulary last**: 3–6 useful words or chunks with context; do not expose test answers.
 5. **One final Submit**, consolidated feedback in the next ChatGPT assistant turn. For deterministic native choices/builders, show immediate provisional `Correct` / `Try again` feedback with an explanation or non-spoiler clue when controls support it; defer free writing and ambiguous answers. Feedback is not a saved grade.
 
+A combined four-task form may use ONE final Submit but, if storage is enabled, each graded subtask must have its own pre-registered trusted Activity with real modality/operation and its own Attempt after grading; the parent Submit envelope is not a multi-domain CEFR score. See asit-progress storage-v2 for verified persistence.
+
 If a real conversational segment spans multiple turns, use natural dialogue and do not pretend it was completed as a static single form. If a required blank remains, keep lesson incomplete; skipped tasks `not_assessed`. The form's actual response must be sent as a real new chat turn, never an inert button.
 
 ## Adaptive progression
