@@ -276,3 +276,24 @@ test('real audio card delivery is separate from platform Voice and cannot fake a
  assert.equal(available.interaction_mode,'audio_card_questions');
  assert.throws(()=>selectUiPattern({requestedType:'cloze',delivery:'audio_card'}),/only supports real listening/);
 });
+
+test('failed mobile inline audio falls back to native in-chat questions and verified MP3 link',()=>{
+ const p=selectUiPattern({requestedType:'listening',delivery:'audio_card',
+ capabilities:{audioPlayback:false,externalAudioLinkAvailable:true},
+ audioCard:{trustedAudioAsset:{uri:'https://example.org/recording.mp3',
+ mime_type:'audio/mpeg',verified:true},
+ trustedQuestions:[{id:'gist',type:'single_choice',prompt:'What happened?',expected:'arrival'}]}});
+ assert.equal(p.kind,'external_audio_handoff');
+ assert.equal(p.card.question_ui,'native_intelligent_ui');
+ assert.equal(p.evidence_modality,'pending_self_reported_external_listening');
+ assert.equal(p.card.embedded_audio_claim,false);
+});
+test('mobile OGG is not automatically playable despite presence of an audio widget',()=>{
+ const p=selectUiPattern({requestedType:'listening',delivery:'audio_card',
+ capabilities:{audioPlayback:true,externalAudioLinkAvailable:true},
+ audioCard:{trustedAudioAsset:{uri:'https://example.org/recording.ogg',
+ mime_type:'audio/ogg',verified:true},
+ trustedQuestions:[{id:'gist',type:'single_choice',prompt:'What happened?',expected:'arrival'}]}});
+ assert.equal(p.kind,'unavailable');
+ assert.equal(p.evidence_modality,'unassessed');
+});
