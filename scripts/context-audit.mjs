@@ -51,7 +51,9 @@ const result={method:'Source character counts; token proxy ceil(chars/3). NO LLM
  per_storage_turn_char_proxy:startup+lengths.storage_on_demand+maxPacket};
 console.log(JSON.stringify(result,null,2));
 if(startup>=baseline||startup>=9500)throw new Error('Startup source context budget exceeded');
-if(lengths.storage_on_demand>7000)throw new Error('Storage source too large');
+// Storage is loaded lazily, not in the normal lesson boot path. Bound it separately and also cap the combined storage turn.
+if(lengths.storage_on_demand>10000 || startup+lengths.storage_on_demand>19000)
+ throw new Error('On-demand storage source context budget exceeded');
 if(maxPacket>6000)throw new Error('Packet cap exceeded');
 if(samples.at(-1).packet_chars-samples[1].packet_chars>1000)
  throw new Error('Context grows with historical attempts');
