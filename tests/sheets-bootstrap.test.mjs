@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import template from '../templates/tracker-v2.json' with {type:'json'};
+import {hydrateWorkbook} from '../src/hydrate-state.mjs';
 import {assertTemplate,planEmptyWorkbookStructure,planHeaderWrites,planConfigSeed}
   from '../src/sheets-bootstrap.mjs';
 const fresh={sheets:[{properties:{sheetId:42,title:'Sheet1',gridProperties:{columnCount:26}}}]};
@@ -51,4 +52,18 @@ test('initialization refuses blank synthetic learner identity and unsupported la
 test('bootstrap refuses unknown existing workbook even with one default tab',()=>{
  assert.throws(()=>planEmptyWorkbookStructure(template,fresh),/must be verified/);
  assert.throws(()=>planEmptyWorkbookStructure(template,fresh,{creationVerified:true}),/must be verified/);
+});
+
+test('a newly seeded nine-tab workbook can hydrate without any fabricated lesson history',()=>{
+ const empty=Object.fromEntries(template.tabs.map(tab=>[tab.name,[tab.columns]]));
+ const req=planConfigSeed(deployed,'summary_only',{consentGranted:true,learnerId:'synthetic-test-id',nowIso:'2026-10-16T15:00:00.000Z'});
+ const rows=req[0].updateCells.rows.map(row=>row.values.map(cell=>cell.userEnteredValue.stringValue));
+ empty.Config.push(...rows);
+ const state=hydrateWorkbook(empty);
+ assert.equal(state.profile.learner_id,'synthetic-test-id');
+ assert.equal(state.revision,0);
+ assert.equal(state.source.recording_consent,'summary_only');
+ assert.equal(state.competencies.length,0);
+ assert.equal(state.attempts.length,0);
+ assert.equal(state.profile.working_level,null);
 });
