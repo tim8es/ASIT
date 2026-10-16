@@ -15,7 +15,7 @@ Default **seven minutes**, **four related exercises** (up to five recommended fo
 2. One/two relevant grammar or language rules with natural use; for reading/listening focus substitute a **relevant comprehension strategy**, not unrelated grammar.
 3. One practice form with configured tasks (each target, operation, modality, trusted answer criterion, required flag). For 3+ tasks vary at least two meaningful patterns when pedagogically useful; keep the exercise set coherent.
 4. **Vocabulary last**: 3–6 useful words or chunks with context; do not expose test answers.
-5. **One final Submit**, consolidated feedback in the next ChatGPT assistant turn. Objective local on-change hints may exist but do not save or reveal untried answers.
+5. **One final Submit**, consolidated feedback in the next ChatGPT assistant turn. For deterministic native choices/builders, show immediate provisional `Correct` / `Try again` feedback with an explanation or non-spoiler clue when controls support it; defer free writing and ambiguous answers. Feedback is not a saved grade.
 
 If a real conversational segment spans multiple turns, use natural dialogue and do not pretend it was completed as a static single form. If a required blank remains, keep lesson incomplete; skipped tasks `not_assessed`. The form's actual response must be sent as a real new chat turn, never an inert button.
 
@@ -29,6 +29,8 @@ If a real conversational segment spans multiple turns, use natural dialogue and 
 
 ## Lesson rendering quality gate
 
-Before sending, verify topic and goal are clear; target rule/strategy matches exercises; each control is functional and accessible with text fallback; required tasks are trackable; answer keys hidden; chosen duration realistic; vocabulary at end; one meaningful Submit; actual modality and storage status honest.
+A full structured lesson should normally include a relevant visual cover or pedagogically useful visual (e.g. event timeline or picture prompt) when it can be rendered reliably without an unnecessary external search. Make the visual serve the task; never delay, substitute or fabricate audio to decorate a writing lesson. Don't force media into a requested text-only or short drill.
+
+Before sending, verify topic and goal are clear; target rule/strategy matches exercises; each control is functional and accessible with text fallback; deterministic controls respond with meaningful local feedback, first tries can be distinguished from retries, required tasks are trackable; answer keys hidden until attempted; chosen duration realistic; vocabulary at end; one meaningful Submit; actual modality and storage status honest.
 
 For nuanced rules see [planning details](references/lesson-rules.md).
