@@ -96,3 +96,8 @@ After real learner testing, **full audiobook chapters are forbidden in normal au
 ### First audio + video lesson source: ELLLO
 
 ASIT uses **ELLLO** as its first preferred source of real English video/listening lessons. Initial use is **metadata-only discovery with original ELLLO page links** (no copied audio/video/transcripts), five checked source-page candidates with topic/level filters in `src/elllo-source.mjs` and tests in `tests/elllo-source.test.mjs`. The pilot focuses on `One Minute English` from people of different countries; longer grammar/conversation formats remain optional later. A One Minute title does **not** certify a <=35s source, verified mobile playback or permission to rehost video. See `docs/ELLLO-SOURCE.md`. No actual ELLLO media is embedded or saved to the repo.
+
+
+### ELLLO auto-discovery → native listening/video card
+
+When a planned lesson calls for spoken comprehension or spoken grammar, ASIT can now **automatically look up ELLLO** in the same ChatGPT session: first a small seed index (five video pages plus one Sound Grammar page), then ELLLO-scoped web search; fetch and verify the exact page, actual duration and selected dialogue/script, author **2–3 original evidence-backed questions**, and show the source link with native answer controls/one Submit. The source is opened on ELLLO, **not** copied into a fake in-chat audio/video player. See `docs/ELLLO-AUTO-LESSONS.md` and `src/elllo-activity-pipeline.mjs`. Actual web lookup must be performed by the teaching assistant using available tools: the offline Node planner is not a crawler. Unknown duration or hearing failure remains unassessed; no learner data in GitHub.
