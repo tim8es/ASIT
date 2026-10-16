@@ -99,7 +99,7 @@ export function planListenAnswerCard({audioAsset=null,questions=[],clientAudioSu
  const codecVerified=audioAsset?.mime_type!=='audio/ogg'||audioFormatConfirmed;
  const inlineVerified=sourceVerified&&clientAudioSupported&&codecVerified;
  if(!inlineVerified){
-   if(sourceVerified&&externalAudioLinkAvailable){
+   if(sourceVerified&&externalAudioLinkAvailable&&codecVerified){
      return {
        render:'native_questions_with_external_audio',type:'listening',
        evidence_modality:'pending_self_reported_external_listening',
