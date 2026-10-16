@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import template from '../templates/tracker-v2.json' with {type:'json'};
 import {hydrateWorkbook} from '../src/hydrate-state.mjs';
 import {encodeAttemptRow} from '../src/storage-contract.mjs';
+import {buildAttemptProvenanceEvent} from '../src/composite-evidence.mjs';
 function fixture(){
   const tables=Object.fromEntries(template.tabs.map(x=>[x.name,[x.columns]]));
   const push=(tab,obj)=>tables[tab].push(template.tabs.find(x=>x.name===tab).columns.map(k=>obj[k]??''));
@@ -108,4 +109,21 @@ test('corrupt stored mastery-like status cannot leak into the lesson',()=>{
  const t=fixture(),head=t.Competencies[0],row=t.Competencies[1];
  row[head.indexOf('status')]='guaranteed C2';
  assert.throws(()=>hydrateWorkbook(t),/Invalid stored competency status/);
+});
+
+test('qualifying nonverbatim provenance survives complete workbook hydration',()=>{
+ const t=fixture();
+ t.Events.push(buildAttemptProvenanceEvent({eventId:'E1',attemptId:'T1',revision:5,
+  timestampUtc:'2026-10-16T15:00:00.000Z',privacyMode:'summary_only',
+  observed:{first_attempt_assessment:'needs_support',revisions:2}}));
+ const x=hydrateWorkbook(t);
+ assert.equal(x.events.length,1);
+ assert.equal(x.events[0].metadata.first_attempt_assessment,'needs_support');
+ assert.equal(x.events[0].entity_id,'T1');
+});
+test('unknown attempt provenance reference fails closed during complete restore',()=>{
+ const t=fixture();
+ t.Events.push(buildAttemptProvenanceEvent({eventId:'E1',attemptId:'not-real',revision:5,
+  timestampUtc:'2026-10-16T15:00:00.000Z',privacyMode:'summary_only'}));
+ assert.throws(()=>hydrateWorkbook(t),/unavailable attempt/);
 });
