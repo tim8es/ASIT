@@ -101,3 +101,7 @@ ASIT uses **ELLLO** as its first preferred source of real English video/listenin
 ### ELLLO auto-discovery → native listening/video card
 
 When a planned lesson calls for spoken comprehension or spoken grammar, ASIT can now **automatically look up ELLLO** in the same ChatGPT session: first a small seed index (five video pages plus one Sound Grammar page), then ELLLO-scoped web search; fetch and verify the exact page, actual duration and selected dialogue/script, author **2–3 original evidence-backed questions**, and show the source link with native answer controls/one Submit. The source is opened on ELLLO, **not** copied into a fake in-chat audio/video player. See `docs/ELLLO-AUTO-LESSONS.md` and `src/elllo-activity-pipeline.mjs`. Actual web lookup must be performed by the teaching assistant using available tools: the offline Node planner is not a crawler. Unknown duration or hearing failure remains unassessed; no learner data in GitHub.
+
+## Standalone ChatGPT Skills plugin
+
+The private [ASIT Skills-only plugin source](plugin/DEVELOPMENT.md) is tracked under `plugin/` (8 skills: teacher, onboarding, lessons, exercises, ELLLO media, Voice, assessment and progress). It is separate from the GitHub-first ChatGPT Project installation and contains no MCP configuration. Validate and build using `python3 plugin/scripts/package.py --check` and `python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.1.0.zip`. Updating GitHub does **not** automatically publish a new plugin release.

@@ -1,0 +1,26 @@
+name: ASIT Skills Plugin package
+
+on:
+  push:
+    paths:
+      - 'plugin/**'
+      - '.github/workflows/plugin-package.yml'
+  pull_request:
+    paths:
+      - 'plugin/**'
+      - '.github/workflows/plugin-package.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate ASIT portable skills package
+        run: python3 plugin/scripts/package.py --check
+      - name: Build and verify portable ZIP
+        run: python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.1.0.zip
