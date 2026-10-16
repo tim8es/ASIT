@@ -15,6 +15,8 @@ For an explicit setup request, show a compact accessible picker or conversationa
 - Check Google Drive connection: inspect available plugin/tool state. If not installed and plugin discovery/suggestion is supported, offer the actual install suggestion. Otherwise direct user to Settings > Plugins > Google Drive; the user must complete install/connect/authorization.
 For previously enabled storage: Pause ASIT saving (off) and Resume (fresh confirmation). These are ASIT data-flow choices, NOT app installation toggles. Do not visually claim connected/saved based on button selection alone.
 
+**READBACK gate:** provider writes are incomplete until the exact affected row has been read and checked; the UI must not display a success badge before verification.
+
 ## Execution
 A. Determine current Google Drive plugin/tool availability if it is relevant. An installed app may still require account consent. Do not invent plugin IDs, deep links, permissions, workbook IDs, or installation success.
 B. Ask informed mode consent first. If off, keep teaching unsaved. If summary_only/raw, find one learner-owned native spreadsheet through Drive search; disambiguate duplicates and ask before creating a missing workbook. The Google Sheets plugin uses its supported creation route (Spreadsheets capability may create a local .xlsx template for import); a native one-tab blank workbook may instead use the two-phase bootstrap only after verified creation and empty-grid checks. Imported workbooks with nine tabs must NOT be sent through the one-tab bootstrap. Follow storage-v2.md.
