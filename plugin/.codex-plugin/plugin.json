@@ -7,16 +7,22 @@
     "defaultPrompt": [
       "Start or continue my English learning program with ASIT.",
       "Give me an ASIT lesson with four varied interactive exercises.",
-      "Show my evidence-based CEFR profile and next skill to practise."
+      "Show my evidence-based CEFR profile and next skill to practise.",
+      "Enable or pause my ASIT progress saving in Google Sheets."
     ],
     "developerName": "ASIT Project",
     "displayName": "ASIT \u2014 English Tutor",
-    "longDescription": "Adaptive English lessons and CEFR-aligned qualitative progress in ChatGPT: interactive lessons, reading/listening/writing/speaking evidence, authentic media, formative feedback and optional user-owned Google Sheets. Skills-only; no MCP, server, or external AI API.",
+    "longDescription": "Adaptive English lessons in ChatGPT with scene-based practice, live feedback, verified ELLLO source listening workflows, CEFR evidence and optional progress saving to user-owned Google Sheets via Google Drive. Skills-only; no MCP or server.",
     "shortDescription": "English tutor & CEFR progress"
   },
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/asit-onboarding/SKILL.md"
+    }
+  },
   "name": "asit-english-tutor",
-  "version": "0.2.2",
-  "description": "ASIT adaptive English tutor with CEFR-aligned evidence analytics, interactive mini-lessons, listening/video discovery and optional private learner progress.",
+  "version": "0.2.5",
+  "description": "ASIT adaptive English tutor with story-based lessons, verified ELLLO listening and consented Google Sheets progress via Google Drive.",
   "author": {
     "name": "ASIT Project"
   },
