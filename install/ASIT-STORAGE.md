@@ -31,7 +31,7 @@ Initialize **all seven mandatory Config JSON values**: `schema_version=2`, `stat
 
 ## Composite lesson activity (v0.5; v2 schema unchanged)
 
-When a mini-lesson has multiple controls under one Submit, register a **trusted parent Activity** with itemized rubric, then send existing `ASIT_ATTEMPT_V2` with bounded JSON **string** in `answer` mapping task IDs to answers. Validate subtask IDs, operations and expected alternatives against the trusted rubric, never learner-provided metadata. Evaluate subparts individually; the parent Attempts row holds a consented aggregate, without inferring spoken/listening skill from typed or recognition work. If a composite cannot preserve truthful evidence, store only the valid supported scope. Consent and exact readback remain mandatory; no schema migration is required. See [seven-minute lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
+When a mini-lesson has multiple controls under one Submit, register a trusted parent Activity AND one trusted Activity for EACH assessed subtask with its own competency/rubric/modality/operation. After one `ASIT_ATTEMPT_V2` containing bounded JSON answers by task ID, independently grade and store a separate Attempt per valid subtask; the parent is only an envelope, never a multi-domain CEFR result. Incomplete/unheard tasks are `not_assessed`. Privacy-safe first-try/revision/hint provenance belongs in Events, never verbatim first answers in summary_only mode. Consent and exact readback remain mandatory; no schema migration is required. See [seven-minute lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
 ## Structured submission
 
