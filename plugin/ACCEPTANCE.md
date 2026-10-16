@@ -57,6 +57,9 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 - **Upgrade QA**: compare outputs and behavior against ASIT Project + GitHub baseline before replacing that working setup. Source repo remains untouched by the plugin build; this plugin is a separate version.
 
 ## v0.2.4 persistent-state regression checks
+- [ ] Existing five-key Config remains readable with legacy `audio_transcript_consent=false`; new audio consent defaults off and CEFR confidence unassessed until permitted repair.
+- [ ] Read-only integrity scanner identifies orphan activity/attempt references and unknown attempt privacy without guessing IDs or exposing answer text.
+- [ ] Repair plan appends only missing keys; no automatic writes or destructive migration for a previously populated workbook.
 - [ ] On first setup, Config contains schema_version, state_revision, learner_id, target_language, recording_consent, audio_consent=false, cefr_confidence_label=unassessed, all valid JSON, and exact verified readback.
 - [ ] No identity or consent => no user workbook writes; malformed existing workbook => inspection/permissioned repair, never destructive overwrite.
 - [ ] One Submit with recognition, writing, and listening produces distinct trusted Activities/Attempts; unheard audio remains not_assessed.
