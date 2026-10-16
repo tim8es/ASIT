@@ -69,3 +69,16 @@ The bundled *user-facing downloadable proof-of-concept* is a self-contained HTML
 - [ ] Revealing transcript before response changes modality to text-supported; reveal after submission does not corrupt previous status.
 - [ ] Required questions blank → incomplete; early exit explicit. No phantom 3/3.
 - [ ] Submit sends one true ChatGPT turn; learner state saved only after explicit consent and verified connector write/readback.
+
+
+## Mobile playback failure: field QA 2026-10-16
+
+Observed in an ASIT mobile ChatGPT demo: the minimal inline media adapter *rendered*, but no sound played. Learner did not answer any of three questions and selected failure; listening is `not_assessed`. **No learner profile, answers or precise device identifiers are committed.** Original demonstrated source was a Wikimedia Commons `audio/ogg` Vorbis recording, not MP3. The Commons source exists, but codec availability, media network policy and in-chat embed support were not verified on the device, so the exact cause is unknown.
+
+Open public issue: an Apps SDK iOS widget was reported to render normally yet produce no audio (https://github.com/openai/openai-apps-sdk-examples/issues/214). That is an analogous **unresolved report, not proof** that this ASIT client has the same issue.
+
+**Mandatory safety change:** when mobile inline media is unverified or fails, do **not** suggest retrying visually identical inert audio controls or call it working. Mark listening `not_assessed`, keep native Intelligent UI questions in the chat, and offer a genuine validated MP3/AAC attachment or file link. Confirm the learner actually heard the clip **before** enabling listening answers. The link-opening event alone is not evidence. When the learner reports external playback, label evaluation `self_reported_external_audio_comprehension` (not host-verified). If no actual audio plays, stop and don't grade listening guesses.
+
+Prioritize portable MP3/AAC for mobile delivery. OGG is an optional tested fallback only when **codec support for this client and asset is confirmed**. A valid OGG source URL is insufficient. Native webview client controls, OS/browser differences, audio media policy, network permissions and audio format remain separate hypotheses until reproduced. Do not claim swapping OGG to MP3 alone fixes in-app playback.
+
+**Short-term accepted UX:** visible source link/MP3 attachment plus 2–3 native `radio-group` / `input` tasks and final `Submit` in the *same chat*; optional host-verified inline audio later. No standalone HTML page and no decorative player. Long-term: require a first-party audio primitive or verified sanctioned host audio bridge to deliver seamless playback; source repository rules cannot grant new client capabilities.
