@@ -40,3 +40,12 @@ Complete and date these actual-device cases before reporting the whole interacti
 26. Request a spoken reply and continue for at least two responsive learner turns. If only a transcript is available to the evaluating teacher, verify pronunciation stays **not_assessed** even though textual appropriateness can be reviewed.
 27. If Voice is not shown or cannot be activated, verify no fake Play/Record button, no sound-score claim and a valid text lesson fallback. Check that the plan/record did not claim to start Voice programmatically.
 28. Confirm the teacher does not save private voice content to Drive without specific consent and a write+readback receipt; no audio or transcripts reach GitHub.
+
+## Listen → Answer MP3 card acceptance
+
+29. Open a **real offline MP3** in the standalone self-contained demo on iOS, Android and desktop browser. Press Play and confirm actual audible words, not an animated icon. Confirm working 0.8× and Replay.
+30. Before playback completes, questions remain disabled/hidden. On audio error the learner sees an honest failure and no listening score. Test offline/self-contained operation with network disconnected.
+31. After audible playback, answer wrong and right gist/detail items; confirm one Submit, itemized feedback and no answer-key leakage before attempt. Short answer supports acceptable time variants.
+32. Leave a required detail blank: cannot submit normally; check explicit incomplete early finish if provided. Try transcript reveal only after first attempt.
+33. If learner reads transcript before answering or reports not listening, evidence is text-supported/unassessed, not independent auditory comprehension. Player ended event alone must not automatically certify hearing.
+34. Distinguish native **in-chat** playback from opening a downloaded MP3/standalone HTML in an external browser. Passing standalone browser checks alone is **not** native ChatGPT mobile audio-card acceptance; keep that UI capability labelled unverified until directly tested.
