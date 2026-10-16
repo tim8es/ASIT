@@ -1,5 +1,6 @@
 /** Optional deterministic UI selection oracle. ChatGPT itself renders native controls. */
 import {resolveLessonSettings} from './lesson-blueprint.mjs';
+import {planVoiceHandoff} from './voice-session.mjs';
 
 const pattern=(type,action,operation,spec,extras={})=>
   Object.freeze({type,action,operation,spec_ref:spec,...extras});
@@ -32,7 +33,7 @@ const validAction=new Set(['remember','recognize','read','build','explain','appl
 const nonemptyString=x=>typeof x==='string'&&x.trim().length>0;
 const defaults=Object.freeze({audioCapture:false,audioAccessible:false,audioPlayback:false,hasRelevantImage:false,hasInteractiveImageRegions:false,drag:false});
 
-export function selectUiPattern({action,requestedType=null,mode='lesson',capabilities={},recentTypes=[]}={}){
+export function selectUiPattern({action,requestedType=null,mode='lesson',capabilities={},recentTypes=[],delivery='native_form'}={}){
   if(mode==='conversation'||mode==='direct_answer')
     return {kind:'ordinary_chat',operation:'interaction',evidence_modality:'typed_text'};
   if(!['lesson','diagnostic'].includes(mode))throw new Error('Invalid UI mode');
@@ -48,6 +49,23 @@ export function selectUiPattern({action,requestedType=null,mode='lesson',capabil
     throw new Error('Unknown exercise type');
   const resolvedAction=action??UI_CANDIDATES.find(p=>p.type===requestedType)?.action;
   if(!validAction.has(resolvedAction))throw new Error('Invalid learner action');
+  if(delivery==='native_voice'){
+    if(!['listen','speak','interact'].includes(resolvedAction))
+      throw new Error('Native Voice delivery requires listening, speaking or interaction');
+    const voiceIntent=resolvedAction==='listen'?'listening':resolvedAction==='speak'?'speaking':'dialogue';
+    const plan=planVoiceHandoff({intent:voiceIntent,
+      voiceUiAvailable:capabilities.voiceUiAvailable===true,
+      voiceActivated:capabilities.voiceActivated===true,
+      assistantAudioAudible:capabilities.assistantAudioAudible===true,
+      learnerAudioAccessible:capabilities.learnerAudioAccessible===true});
+    return {kind:plan.status==='unavailable'?'unavailable':
+      plan.status==='requires_manual_voice_activation'?'voice_handoff':'voice_session',
+      type:requestedType??(voiceIntent==='listening'?'listening':voiceIntent==='speaking'?'spoken_response':'dialogue'),
+      action:resolvedAction,interaction_mode:'chat_turns',voice:plan,
+      evidence_modality:plan.status==='unavailable'?'unassessed':
+        (voiceIntent==='listening'?'pending_audio_comprehension': 'pending_voice_exchange'),
+      spec_ref:media};
+  }
   if(requestedType!==null&&!UI_CANDIDATES.some(p=>p.type===requestedType&&p.action===resolvedAction))
     throw new Error('Requested exercise does not match learner action');
   if(!Array.isArray(recentTypes))throw new Error('Invalid pattern history');
