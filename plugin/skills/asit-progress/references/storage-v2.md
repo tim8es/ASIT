@@ -26,6 +26,10 @@ Events: event_id | event_type | entity_id | revision | timestamp_utc | metadata_
 2. Seed and verify ALL seven initial Config JSON values: `schema_version=2`, `state_revision=0`, opaque `learner_id` (not name/email), `target_language="English"`, explicitly consented `recording_consent`, `audio_consent=false`, and `cefr_confidence_label="unassessed"`. Never claim a workbook is initialized if any are missing. Record an actual UTC timestamp when available. Other values stay unknown until observed/approved.
 3. One form may send a parent `ASIT_ATTEMPT_V2` composite string, but each graded SUBTASK must have its own trusted Activity with its own competency, modality, operation, and rubric saved and read back before the lesson. The parent is only a submission envelope. Store one Attempt per graded subtask; missing/unheard tasks are `not_assessed` and cannot be claimed as CEFR evidence.
 
+## Existing v2 compatibility and integrity gate
+
+A historical nine-tab v2 workbook can have all five original core Config values yet omit `audio_consent` and `cefr_confidence_label`, or use `audio_transcript_consent` instead. Preserve readable history; treat absent current audio consent as **false**, and missing CEFR confidence as **unassessed**. Offer a **separately authorized, append-only Config repair** that writes only absent keys and verifies the new rows; never overwrite or silently migrate. Full historical restoration also requires a read-only referential audit of Activity/Attempt IDs, competency/session links, privacy modes and required JSON. If an orphan or unknown privacy mode is found, quarantine the affected evidence, explain the exact tab/row to the learner, and do not claim complete longitudinal CEFR coverage. Do not infer consent from neighboring rows or assign guessed IDs; require explicit user review/backup for correction.
+
 ## Session reads and attempt writes
 
 - Minimal read: targeted Config, active Goals/Plans, most recent Sessions, due Reviews, target Competencies, **recent 3–6 relevant Attempts**. Don't fetch every tab, all raw answers and old history in a normal lesson. Dedicated audits can paginate.
