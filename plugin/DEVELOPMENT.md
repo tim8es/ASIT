@@ -1,6 +1,6 @@
 # ASIT Skills-only plugin: source and release process
 
-This directory is the **tracked source** of the private ASIT Skills Plugin v0.2.3. The existing GitHub-first ASIT Project remains a separate supported runtime; nothing here changes its Engine or Google Drive storage contract.
+This directory is the **tracked source** of the private ASIT Skills Plugin v0.2.4. The existing GitHub-first ASIT Project remains a separate supported runtime; nothing here changes its Engine or Google Drive storage contract.
 
 ## Contents
 - `plugin.json`: sanitized source manifest (do not commit account-generated owner metadata or credentials).
@@ -23,7 +23,7 @@ Checks skill names, manifests, local links, mandatory routing/consent markers an
 
 ## Build archive
 ```sh
-python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.2.3.zip
+python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.2.4.zip
 ```
 The archive has one enclosing `asit-english-tutor/` directory with the portable skills and references; development scripts are not included. CI runs the same checks and rebuild.
 
