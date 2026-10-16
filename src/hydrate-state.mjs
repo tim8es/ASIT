@@ -136,6 +136,22 @@ export function hydrateWorkbook(tables){
   })),'id','session');
   for(const s of sessions)if(s.attempt_ids.some(x=>!attempts.some(a=>a.attempt_id===x)))
     throw new Error('Session references unavailable attempt');
+  // Full-workbook audit restores Events, but ordinary lesson context must read
+  // only a small scoped event slice. Attempt provenance is not verified UI telemetry.
+  const events=byId(rows.Events.map(r=>({
+    id:String(r.event_id),type:String(r.event_type),entity_id:String(r.entity_id),
+    revision:Number(r.revision),timestamp_utc:String(r.timestamp_utc),
+    metadata:parseJson(r.metadata_json,'Events.metadata.'+r.event_id)
+  })),'id','event');
+  for(const event of events){
+    if(!nonempty(event.type)||!nonempty(event.entity_id)||
+       !Number.isSafeInteger(event.revision)||event.revision<0||
+       !event.metadata||typeof event.metadata!=='object'||Array.isArray(event.metadata))
+      throw new Error('Invalid stored event '+event.id);
+    if(event.type==='attempt_provenance'&&
+       !attempts.some(a=>a.attempt_id===event.entity_id))
+      throw new Error('Event refers to unavailable attempt '+event.id);
+  }
   const profile=createLearnerState({
     learnerId:cfg.get('learner_id'),targetLanguage:cfg.get('target_language'),
     nativeLanguage:cfg.get('native_language')??null,
@@ -148,7 +164,7 @@ export function hydrateWorkbook(tables){
   profile.profile.level_evidence=cfg.get('cefr_confidence_label')??'unassessed';
   return {
     ...profile,competencies:comps,attempts,review_queue:reviews,
-    sessions,learning_plan:plans,revision:cfg.get('state_revision'),
+    sessions,learning_plan:plans,events,revision:cfg.get('state_revision'),
     source:{schema_version:2,recording_consent:cfg.get('recording_consent'),restored:true},
     // The active prompt/rubric registry is separate from the learner state.
     activities:acts
