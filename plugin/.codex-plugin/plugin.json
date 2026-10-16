@@ -31,5 +31,9 @@
     "progress"
   ],
   "skills": "./skills",
-  "onboardingSkill": "./skills/asit-onboarding/SKILL.md"
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/asit-onboarding/SKILL.md"
+    }
+  }
 }
