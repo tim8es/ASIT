@@ -82,3 +82,41 @@ export function planConfigSeed(metadata,mode,{consentGranted=false,learnerId,tar
    fields:'userEnteredValue'
  }}];
 }
+
+/** Non-destructive repair for existing valid v2 Config tabs. No call to this
+ * planner may itself authorize a write; use provider readback after the append.
+ * Do not migrate a legacy audio_transcript_consent=true into audio consent.
+ */
+export function planLegacyConfigRepair(metadata,configRows,{consentGranted=false,nowIso=null}={}){
+ if(!consentGranted)throw new Error('Consent required before changing an existing workbook');
+ if(!Array.isArray(configRows)||configRows[0]?.join('|')!=='key|json_value|updated_at_utc')
+  throw new Error('Config header mismatch');
+ if(nowIso!==null&&(typeof nowIso!=='string'||!nowIso.endsWith('Z')||!Number.isFinite(Date.parse(nowIso))))
+  throw new Error('Invalid trusted UTC timestamp');
+ const config=new Map();
+ for(const row of configRows.slice(1)){
+  if(!Array.isArray(row)||row.length>3)throw new Error('Corrupt Config row');
+  if(!row[0])continue;
+  if(config.has(row[0]))throw new Error('Duplicate Config key');
+  try{config.set(row[0],JSON.parse(String(row[1])));}catch{throw new Error('Corrupt Config JSON');}
+ }
+ if(config.get('schema_version')!==2||!Number.isSafeInteger(config.get('state_revision'))||
+   config.get('state_revision')<0||!validTitle(config.get('learner_id'))||
+   config.get('target_language')!=='English'||
+   !['off','raw','summary_only'].includes(config.get('recording_consent')))
+  throw new Error('Existing core v2 Config is not safe to repair');
+ if(config.has('audio_consent')&&typeof config.get('audio_consent')!=='boolean')
+  throw new Error('Invalid audio consent setting');
+ if(config.has('cefr_confidence_label')&&typeof config.get('cefr_confidence_label')!=='string')
+  throw new Error('Invalid CEFR confidence setting');
+ const missing=[];
+ if(!config.has('audio_consent'))missing.push(['audio_consent',false]);
+ if(!config.has('cefr_confidence_label'))missing.push(['cefr_confidence_label','unassessed']);
+ if(!missing.length)return [];
+ const sheet=metadata?.sheets?.map(s=>s.properties??s).find(s=>s.title==='Config');
+ if(!sheet||!Number.isInteger(sheet.sheetId))throw new Error('Config tab unavailable');
+ const val=x=>({userEnteredValue:{stringValue:String(x)}});
+ return [{appendCells:{sheetId:sheet.sheetId,
+  rows:missing.map(([key,value])=>({values:[val(key),val(JSON.stringify(value)),val(nowIso??'')]})),
+  fields:'userEnteredValue'}}];
+}
