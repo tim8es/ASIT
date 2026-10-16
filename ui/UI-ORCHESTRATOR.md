@@ -53,3 +53,7 @@ For `listening`, `spoken_response`, or audio-rich `dialogue`, when user wants a 
 ## Self-paced Listen → Answer cards (not Voice)
 
 Choose `delivery='audio_card'` only when a real trusted audio asset is provided with questions and the client has **verified audio playback**. The `selectUiPattern` reference calls `planListenAnswerCard`. If absent, return `unavailable` and offer a legitimate audio attachment or explicit reading alternative; never substitute an inert speaker icon. Transcript after the first answer; if shown earlier, flag `audio_plus_text_supported`. Listen → Answer is **a delivery format under the existing `listening` type**, not a nineteenth exercise type. See [dedicated contract](../docs/LISTEN-ANSWER-AUDIO-CARDS.md).
+
+## Native media-card hierarchy
+
+For `delivery='audio_card'`, prefer **native Intelligent UI for all educational interaction** and embed only the smallest genuinely functional audio player surface when available. A separate downloadable HTML website is a last-resort QA artifact, not a real ASIT lesson. DIL has no guaranteed built-in `AudioPlayer`, so tests must establish actual audio playback; do not make a decorative Play button. Voice quality requires human review; flag old 22.05kHz mono/32kbps low-quality TTS rather than recycling it. Native radio/text answers, required-response validation, transcript support and Submit remain in the actual chat. Mobile especially needs real-world audio testing.
