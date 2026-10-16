@@ -4,7 +4,7 @@
 Runs with Python standard library; never reads private learner data or calls APIs.
 Usage:
   python3 plugin/scripts/package.py --check
-  python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.1.0.zip
+  python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.2.0.zip
 """
 import argparse
 import json
@@ -52,6 +52,14 @@ def check():
     teacher = (ROOT / 'skills/asit-teacher/SKILL.md').read_text(encoding='utf-8')
     for item in EXPECTED - {'asit-teacher'}:
         assert item in teacher, f'Router omitted skill {item}'
+    exercise = (ROOT / 'skills/asit-exercises/SKILL.md').read_text(encoding='utf-8')
+    visual = (ROOT / 'skills/asit-exercises/references/visual-feedback.md').read_text(encoding='utf-8')
+    lessons = (ROOT / 'skills/asit-lessons/SKILL.md').read_text(encoding='utf-8')
+    assert 'visual-feedback.md' in exercise and 'only when rendering' in exercise
+    assert 'first nonblank attempt' in visual and 'Try again' in visual and 'Review after Submit' in visual
+    assert 'Do not block teaching on art generation' in visual
+    assert 'Correct' in lessons and 'one final submit' in lessons.lower()
+    assert 'Never fetch GitHub' in teacher
     media = (ROOT / 'skills/asit-media/SKILL.md').read_text(encoding='utf-8')
     assert 'ELLLO' in media and 'Sound Grammar' in media
     progress = (ROOT / 'skills/asit-progress/SKILL.md').read_text(encoding='utf-8')

@@ -1,4 +1,4 @@
-# ASIT v0.1 private plugin — manual acceptance scenarios
+# ASIT v0.2 private plugin — manual acceptance scenarios
 
 This is a **checklist, not a claim that these flows have already run in ChatGPT**. Evaluate in a new normal chat after installation, without ASIT Project Instructions or a downloaded GitHub Engine.
 
@@ -22,6 +22,17 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 | 16 | Save every answer to my Drive | Ask explicit informed privacy choice and connector access; no save before readback |
 | 17 | Disable saving and continue | Respect off; no writes; teach unsaved |
 | 18 | Teach me with only text today | No forced audio/video/UI; honest modality |
+
+## v0.2 responsiveness and speed checks
+
+- [ ] A normal full structured lesson displays a relevant visual when supported (or explicitly sensible text-only fallback); cover does not replace a graded task.
+- [ ] Each unambiguous native choice displays provisional Correct + why or Try again + non-spoiler clue immediately after selection, **not** before interaction.
+- [ ] Changing a choice retains the first try, revisions and hint exposure where capture works; Reset must not count as an independent first success.
+- [ ] Free writing and plausible synonyms do not receive false string-matching grades; one real Submit performs trusted assessment.
+- [ ] Text-only or quick grammar explanations do not load UI/media references, scan GitHub, search audio or read full learner history.
+- [ ] Image unavailable: the task has an accessible fallback, visual evidence is not claimed.
+- [ ] Audio not heard: listening stays not_assessed, even with a completed question form.
+- [ ] Unanswered required free writing keeps the lesson incomplete; saved state is reported only after provider readback.
 
 ## QA tiers
 

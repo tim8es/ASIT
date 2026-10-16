@@ -23,4 +23,13 @@ jobs:
       - name: Validate ASIT portable skills package
         run: python3 plugin/scripts/package.py --check
       - name: Build and verify portable ZIP
-        run: python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.1.0.zip
+        run: python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.2.0.zip
+      - name: Prepare package source for release QA
+        run: unzip -q dist/ASIT_Skills_Plugin_v0.2.0.zip -d artifact
+      - name: Upload plugin source archive for manual release
+        uses: actions/upload-artifact@v4
+        with:
+          name: asit-english-tutor-v0.2.0
+          path: artifact/asit-english-tutor/
+          if-no-files-found: error
+          retention-days: 7

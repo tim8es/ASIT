@@ -1,4 +1,4 @@
-# ASIT — English Tutor / Skills-only private plugin v0.1.0
+# ASIT — English Tutor / Skills-only private plugin v0.2.0
 
 This is a standalone ChatGPT skills plugin adapted from tim8es/ASIT, commit 01bf2516c3466c01221124bce50b53627a779ccb (2026-10-16). It contains instructions and supporting references, NOT the repo's executable `.mjs` modules, a crawler, media files, an MCP server, a GitHub credential, or a private learner workbook.
 
@@ -16,6 +16,10 @@ This is a standalone ChatGPT skills plugin adapted from tim8es/ASIT, commit 01bf
 | asit-progress | Optional user-owned Google Drive/Sheets state, consent, readback and due review |
 
 The plugin uses currently available ChatGPT tools only; it cannot provide tools not present in the host. It may optionally use public web search and a user-connected Google Drive/Sheets plugin when available. It should never imply that installing ASIT connects ELLLO as an API or connects Drive automatically.
+
+## Visual and responsiveness update (v0.2.0)
+
+For full structured lessons, choose a purposeful cover/visual when feasible, and give local explanatory Correct/Try again feedback on deterministic answers. A tiny lazily-loaded `asit-exercises/references/visual-feedback.md` contains rendering detail; the teacher entrypoint remains brief. No always-on crawler or image/audio fetch is introduced. First tries and hints are only provisional until a real Submit and trusted review. Video/audio/Voice follow existing honest playback gates and consented Drive readback.
 
 ## Verification tiers
 
