@@ -32,3 +32,11 @@ Record test cases, dates, client and redacted result in private QA notes. Do not
 23. Test final required writing blank. Ensure 4/5 is labeled incomplete, positive finale stays locked and explicit incomplete early exit does not fabricate writing evidence.
 
 Complete and date these actual-device cases before reporting the whole interactive product as validated. GitHub CI alone verifies contracts and pure reference helpers, not the native UI.
+
+## Same-chat Voice handoff (real mobile user test)
+
+24. On a device with the platform Voice icon available, begin in an ASIT Project chat, select Voice **manually**, allow microphone access and request a three-minute audio lesson. Verify a genuine audible teacher sentence and one listener reply before attributing any listening evidence. The chat's native Voice settings may vary.
+25. Try the same session with the text transcript visible or read during response. Verify **audio + text supported**, not pure independent listening, is the recorded modality.
+26. Request a spoken reply and continue for at least two responsive learner turns. If only a transcript is available to the evaluating teacher, verify pronunciation stays **not_assessed** even though textual appropriateness can be reviewed.
+27. If Voice is not shown or cannot be activated, verify no fake Play/Record button, no sound-score claim and a valid text lesson fallback. Check that the plan/record did not claim to start Voice programmatically.
+28. Confirm the teacher does not save private voice content to Drive without specific consent and a write+readback receipt; no audio or transcripts reach GitHub.
