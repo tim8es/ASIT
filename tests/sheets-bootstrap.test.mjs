@@ -33,14 +33,19 @@ test('missing tab is a structural failure',()=>{
 });
 test('creation cannot persist without consent',()=>{
  assert.throws(()=>planConfigSeed(deployed,'summary_only'),/Consent/);
- assert.throws(()=>planConfigSeed(deployed,'off',{consentGranted:true}),/No authorized/);
+ assert.throws(()=>planConfigSeed(deployed,'off',{consentGranted:true,learnerId:'fixture'}),/No authorized/);
 });
-test('private configuration only seeds schema, revision and granted recording mode',()=>{
- const requests=planConfigSeed(deployed,'summary_only',{consentGranted:true});
+test('bootstrap seeds every mandatory Config key with JSON values and verified identity',()=>{
+ const requests=planConfigSeed(deployed,'summary_only',{consentGranted:true,learnerId:'synthetic-private-id',targetLanguage:'English',nowIso:'2026-10-16T15:00:00.000Z'});
  assert.equal(requests.length,1);
  const rows=requests[0].updateCells.rows.map(r=>r.values.map(x=>x.userEnteredValue.stringValue));
- assert.deepEqual(rows.map(x=>x[0]),['schema_version','state_revision','recording_consent']);
- assert.equal(rows[2][1],'"summary_only"');
+ const values=Object.fromEntries(rows.map(x=>[x[0],JSON.parse(x[1])]));
+ assert.deepEqual(values,{schema_version:2,state_revision:0,learner_id:'synthetic-private-id',target_language:'English',recording_consent:'summary_only',audio_consent:false,cefr_confidence_label:'unassessed'});
+ assert.equal(rows.every(x=>x[2]==='2026-10-16T15:00:00.000Z'),true);
+});
+test('initialization refuses blank synthetic learner identity and unsupported language',()=>{
+ assert.throws(()=>planConfigSeed(deployed,'summary_only',{consentGranted:true}),/learner ID/);
+ assert.throws(()=>planConfigSeed(deployed,'summary_only',{consentGranted:true,learnerId:'id',targetLanguage:'French'}),/English/);
 });
 
 test('bootstrap refuses unknown existing workbook even with one default tab',()=>{
