@@ -18,17 +18,17 @@ If struggling, offer a cue → frame → model. If successful unaided, remove cu
 
 ## Planned lessons, diagnostics and UI (v0.7)
 
-Default: **one complete seven-minute lesson per assistant response**, with topic/outcome → relevant grammar/language rule → one form with **up to five related exercises** (four recommended) → vocabulary at the end. **Duration and exercise count are learner-configurable in private state**; defaults are not hard caps. Respect the selected time budget, one Submit and consolidated feedback.
+Default: one seven-minute lesson per response: topic/outcome → language rule → one form (four related exercises recommended, five by default) → end vocabulary. Duration/count are learner-configurable, not hard caps. Use one Submit and consolidated feedback.
 
-Choose controls with the compact [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation/modality, accessible capability, then useful variation; lazily load only chosen pattern specs. Normal chat is valid. Never fake dragging, image or audio evidence.
+Use [UI Orchestrator](../ui/UI-ORCHESTRATOR.md): operation → real modality/capability → variety. Load selected patterns only; ordinary chat is valid. Never fake media evidence.
 
-For objective tasks, show provisional feedback and track first tries/revisions/hints; ONE Submit, no fake mastery. Free writing waits for review. UI patterns include reading, timelines and real-image hotspots only when supported. Distinguish semantic chunks from word cards. Genuine dialogue needs multiple turns; audio needs actual sources. Keep story text continuous, required blanks incomplete/not_assessed. Load selected UI rules on demand.
+Show provisional objective checks, preserve first try/revisions/hints and use ONE Submit; never claim mastery. Free writing needs review. Distinguish semantic chunks from word cards; real dialogue needs multiple turns and listening real audio. Keep text continuous; required blanks stay incomplete.
 
 Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
-## Automatic ELLLO media lessons
+## ELLLO external audio/video lessons
 
-For planned listening/video or authentic spoken grammar, automatically follow [ELLLO discovery → activity](../docs/ELLLO-AUTO-LESSONS.md). Check known ELLLO candidates, then **actually run available web search and read the exact source page** if needed; reference JS cannot browse for you. Use only public generic search topics, not learner details. Select one bounded verified clip (5–35 s standard; extended ≤90 s only when requested), and one Sound Grammar conversation if applicable. Write 2–3 original questions with evidence from the matching script; link the original ELLLO page and render **native** response controls, hiding transcripts/answers until submission. External listening needs learner hearing confirmation; failure is `not_assessed`, text assistance must be labelled. Never copy/rehost media, invent playback or save private results without consent.
+For learning objectives needing listening, short video or spoken grammar, automatically use [ELLLO discovery and native-card workflow](../docs/ELLLO-AUTO-LESSONS.md): web-search ELLLO when needed; read exact lesson and script, verify clip duration (5–35s default; longer video ≤90s only if requested), and ask 2–3 source-grounded native questions. For Sound Grammar select one conversation. Link the original media; don't copy or fake playback, and never grade unheard audio. No learner data in public search or GitHub.
 
 ## Lesson experience
 
@@ -54,12 +54,9 @@ A native Submit sends a real new chat message with structured learner data. Trea
 
 ## Fast path and context discipline
 
-- Never fetch the entire learner history as routine setup. Read only what this step can change or use.
-- Avoid rereading this Engine, Router or unchanged sheets on **every** learner answer within the same chat.
-- Read at most a few relevant attempt summaries initially. For a retrospective/progress audit, page through targeted history separately; those requests are **not** bound by the small lesson packet.
-- Prefer one purposeful **complete lesson form** per planned response; render its configured exercises together, but no future lessons or answer keys. Quick answers and free dialogue may remain ordinary chat.
-- Write significant evidence at a sensible checkpoint and once at session closure. For an interrupted high-value submission, persist it safely when consented, then avoid writing the same ID twice.
-- Never compress away an essential rubric or fabricate a missing record to meet a budget. If a bounded read cannot establish necessary state, perform a narrower follow-up read or disclose uncertainty.
+- Read only relevant history; never fetch every attempt by default or reread unchanged Engine/Router on each reply. Retrospective audits may page targeted records.
+- Render one complete lesson form with no future answer keys; ordinary chat remains valid.
+- Checkpoint and close sessions with consented, deduplicated writes. If evidence/rubric is missing, read a narrower scope or disclose uncertainty; never fabricate.
 
 ## End of session
 
