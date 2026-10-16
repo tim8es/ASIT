@@ -21,7 +21,8 @@
         "displayName": "ASIT — English Tutor",
         "longDescription": "Adaptive English lessons in ChatGPT with scene-based practice, live feedback, verified ELLLO source listening workflows, CEFR evidence and optional progress saving to user-owned Google Sheets via Google Drive. Skills-only; no MCP or server.",
         "shortDescription": "English tutor & CEFR progress"
-      }
+      },
+      "onboardingSkill": "./skills/asit-onboarding/SKILL.md"
     }
   },
   "keywords": [
@@ -34,5 +35,5 @@
     "progress"
   ],
   "name": "asit-english-tutor",
-  "version": "0.2.3"
+  "version": "0.2.4"
 }
