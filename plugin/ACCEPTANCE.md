@@ -1,4 +1,4 @@
-# ASIT v0.2 private plugin — manual acceptance scenarios
+# ASIT v0.2.3 private plugin — manual acceptance scenarios
 
 This is a **checklist, not a claim that these flows have already run in ChatGPT**. Evaluate in a new normal chat after installation, without ASIT Project Instructions or a downloaded GitHub Engine.
 
@@ -22,6 +22,12 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 | 16 | Save every answer to my Drive | Ask explicit informed privacy choice and connector access; no save before readback |
 | 17 | Disable saving and continue | Respect off; no writes; teach unsaved |
 | 18 | Teach me with only text today | No forced audio/video/UI; honest modality |
+| 19 | I keep forgetting is/are | After two independent errors, switch operation; do not issue another near-identical translation |
+| 20 | Four-task picture-based apartment lesson | Story with one communicative mission, at least 3 operations, image supplies actual task evidence |
+| 21 | ELLLO listening lesson about articles | Verified exact source and duration, in-lesson comprehension questions, hearing-mode self-report, one Submit |
+| 22 | Enable Google Sheets progress saving | Google Drive availability/authorization check, explicit summary_only/raw choice, verified workbook readback |
+| 23 | Pause ASIT progress saving | Stop ASIT writes; no Google Drive app uninstall; no claim of cross-chat pause without verified Config |
+| 24 | Install or disable Google Drive plugin | User guided through ChatGPT plugin installation/settings or real suggestion; no fake automation or claimed success |
 
 ## v0.2 responsiveness and speed checks
 
@@ -33,6 +39,16 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 - [ ] Image unavailable: the task has an accessible fallback, visual evidence is not claimed.
 - [ ] Audio not heard: listening stays not_assessed, even with a completed question form.
 - [ ] Unanswered required free writing keeps the lesson incomplete; saved state is reported only after provider readback.
+
+## Dogfooding regression acceptance (2026-10-16)
+
+- [ ] A learner repeatedly omitting is/are receives at least one NEW operation, e.g. error detection or image-grounded repair, within the next attempt; no unbounded translation loop.
+- [ ] Native lesson supports a real-world mission, meaningful scene and independent final communication; an illustrative cover is not scored as image comprehension.
+- [ ] Source-specific ELLLO questions follow a verified individual audio track, not a generic page link. Unknown duration/audio playback is not_assessed.
+- [ ] First response versus corrected/assisted answer remains distinct. A correct after-feedback option is not independent CEFR evidence.
+- [ ] When Google Drive is installed but account authentication or workbook is missing, no false saved/connected claim is displayed.
+- [ ] Off/summary_only/raw in-chat ASIT settings are separate from actual ChatGPT plugin installation and provider authorization.
+- [ ] Accessibility, button behavior, audio on mobile and true provider readback require manual web/mobile validation.
 
 ## QA tiers
 
