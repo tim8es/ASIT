@@ -2,6 +2,7 @@
 import {resolveLessonSettings} from './lesson-blueprint.mjs';
 import {planVoiceHandoff} from './voice-session.mjs';
 import {planListenAnswerCard} from './listen-answer-card.mjs';
+import {planEllloSearch} from './elllo-activity-pipeline.mjs';
 
 const pattern=(type,action,operation,spec,extras={})=>
   Object.freeze({type,action,operation,spec_ref:spec,...extras});
@@ -34,7 +35,7 @@ const validAction=new Set(['remember','recognize','read','build','explain','appl
 const nonemptyString=x=>typeof x==='string'&&x.trim().length>0;
 const defaults=Object.freeze({audioCapture:false,audioAccessible:false,audioPlayback:false,hasRelevantImage:false,hasInteractiveImageRegions:false,drag:false});
 
-export function selectUiPattern({action,requestedType=null,mode='lesson',capabilities={},recentTypes=[],delivery='native_form',audioCard=null}={}){
+export function selectUiPattern({action,requestedType=null,mode='lesson',capabilities={},recentTypes=[],delivery='native_form',audioCard=null,elllo=null}={}){
   if(mode==='conversation'||mode==='direct_answer')
     return {kind:'ordinary_chat',operation:'interaction',evidence_modality:'typed_text'};
   if(!['lesson','diagnostic'].includes(mode))throw new Error('Invalid UI mode');
@@ -52,6 +53,34 @@ export function selectUiPattern({action,requestedType=null,mode='lesson',capabil
   if(!validAction.has(resolvedAction))throw new Error('Invalid learner action');
   if(requestedType!==null&&!UI_CANDIDATES.some(p=>p.type===requestedType&&p.action===resolvedAction))
     throw new Error('Requested exercise does not match learner action');
+  if(delivery==='elllo_external'){
+    if(resolvedAction!=='listen'||requestedType&&requestedType!=='listening')
+      throw new Error('ELLLO media activities are listening exercises');
+    const activity=elllo?.activity;
+    if(activity?.status==='ready_for_user_playback_test'&&
+       activity.media?.source==='elllo'){
+      // Return only learner-visible questions. The trusted rubric remains server-side.
+      return {kind:'elllo_external_media_card',type:'listening',
+        action:'listen',spec_ref:media,
+        presentation:'native_intelligent_ui_with_original_elllo_link',
+        source_url:activity.media.source_url,title:activity.media.title,
+        video_or_audio:activity.media.format,
+        duration_seconds:activity.media.duration_seconds,
+        conversation_index:activity.media.conversation_index,
+        public_questions:activity.questions.map(q=>({
+          id:q.id,type:q.type,prompt:q.prompt,
+          ...(q.options?{options:q.options}:{}),required:q.required
+        })),
+        submit_count:1,requires_heard_confirmation:true,
+        transcript_before_submit:'hidden',
+        grade_only_after_real_user_submit:true,
+        evidence_modality:'awaiting_self_reported_source_playback',
+        media_rehosted:false,progress_saved:false};
+    }
+    return {kind:'elllo_discovery_needed',type:'listening',
+      action:'listen',spec_ref:media,progress_saved:false,
+      discovery:planEllloSearch(elllo?.request??{})};
+  }
   if(delivery==='audio_card'){
     if(resolvedAction!=='listen'||requestedType&&requestedType!=='listening')
       throw new Error('Audio card delivery only supports real listening activities');
