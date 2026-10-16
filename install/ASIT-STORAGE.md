@@ -20,7 +20,7 @@ After consent only: create new blank native Sheet, verify it is new and empty, a
 - Sessions: session_id | started_at_utc | ended_at_utc | goal_ids_json | attempt_ids_json | summary | next_step
 - Events: event_id | event_type | entity_id | revision | timestamp_utc | metadata_json
 
-Initialize Config `schema_version=2`, `state_revision=0`, `recording_consent` to explicitly chosen mode, private `learner_id`, `target_language="English"` as JSON values. Other Config values stay unknown until observed/approved. Individual `adaptive_profile` is optional JSON and contains **current challenge preference, scaffolding observations, feedback preferences, focus and brief decision evidence references**; no default CEFR/profession/native language. Keep editable goal priorities and user choices distinct from teacher observations.
+Initialize **all seven mandatory Config JSON values**: `schema_version=2`, `state_revision=0`, private opaque `learner_id`, `target_language="English"`, explicitly consented `recording_consent`, `audio_consent=false` (unless separately approved), and `cefr_confidence_label="unassessed"`. Verify exact readback before marking setup ready. Missing keys mean incomplete setup, not a successful connection. Other Config values stay unknown until observed/approved. Individual `adaptive_profile` is optional JSON and contains **current challenge preference, scaffolding observations, feedback preferences, focus and brief decision evidence references**; no default CEFR/profession/native language. Keep editable goal priorities and user choices distinct from teacher observations.
 
 ## Bounded everyday read
 
@@ -31,7 +31,7 @@ Initialize Config `schema_version=2`, `state_revision=0`, `recording_consent` to
 
 ## Composite lesson activity (v0.5; v2 schema unchanged)
 
-When a mini-lesson has multiple controls under one Submit, register a **trusted parent Activity** with itemized rubric, then send existing `ASIT_ATTEMPT_V2` with bounded JSON **string** in `answer` mapping task IDs to answers. Validate subtask IDs, operations and expected alternatives against the trusted rubric, never learner-provided metadata. Evaluate subparts individually; the parent Attempts row holds a consented aggregate, without inferring spoken/listening skill from typed or recognition work. If a composite cannot preserve truthful evidence, store only the valid supported scope. Consent and exact readback remain mandatory; no schema migration is required. See [seven-minute lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
+When a mini-lesson has multiple controls under one Submit, register a trusted parent Activity AND one trusted Activity for EACH assessed subtask with its own competency/rubric/modality/operation. After one `ASIT_ATTEMPT_V2` containing bounded JSON answers by task ID, independently grade and store a separate Attempt per valid subtask; the parent is only an envelope, never a multi-domain CEFR result. Incomplete/unheard tasks are `not_assessed`. Privacy-safe first-try/revision/hint provenance belongs in Events, never verbatim first answers in summary_only mode. Consent and exact readback remain mandatory; no schema migration is required. See [seven-minute lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
 ## Structured submission
 

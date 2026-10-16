@@ -56,6 +56,13 @@ export function hydrateWorkbook(tables){
   // Verify all tab headers BEFORE interpreting any untrusted cell content.
   const rows=Object.fromEntries(template.tabs.map(t=>[t.name,tableRows(tables,t.name)]));
   const cfg=parseConfig(rows.Config);
+  // Older valid v2 workbooks may use audio_transcript_consent and omit two
+  // newer Config values. Preserve historic evidence and surface a safe repair
+  // need without enabling audio or silently mutating the existing workbook.
+  const missingConfigKeys=['audio_consent','cefr_confidence_label'].filter(key=>!cfg.has(key));
+  if(cfg.has('audio_consent')&&typeof cfg.get('audio_consent')!=='boolean')
+    throw new Error('Invalid Config.audio_consent');
+  const effectiveAudioConsent=cfg.get('audio_consent')===true;
   const goals=byId(rows.Goals.map(r=>({
     id:String(r.goal_id),description:String(r.description),
     priority:r.priority===''?null:Number(r.priority),status:String(r.status)
@@ -136,6 +143,22 @@ export function hydrateWorkbook(tables){
   })),'id','session');
   for(const s of sessions)if(s.attempt_ids.some(x=>!attempts.some(a=>a.attempt_id===x)))
     throw new Error('Session references unavailable attempt');
+  // Full-workbook audit restores Events, but ordinary lesson context must read
+  // only a small scoped event slice. Attempt provenance is not verified UI telemetry.
+  const events=byId(rows.Events.map(r=>({
+    id:String(r.event_id),type:String(r.event_type),entity_id:String(r.entity_id),
+    revision:Number(r.revision),timestamp_utc:String(r.timestamp_utc),
+    metadata:parseJson(r.metadata_json,'Events.metadata.'+r.event_id)
+  })),'id','event');
+  for(const event of events){
+    if(!nonempty(event.type)||!nonempty(event.entity_id)||
+       !Number.isSafeInteger(event.revision)||event.revision<0||
+       !event.metadata||typeof event.metadata!=='object'||Array.isArray(event.metadata))
+      throw new Error('Invalid stored event '+event.id);
+    if(event.type==='attempt_provenance'&&
+       !attempts.some(a=>a.attempt_id===event.entity_id))
+      throw new Error('Event refers to unavailable attempt '+event.id);
+  }
   const profile=createLearnerState({
     learnerId:cfg.get('learner_id'),targetLanguage:cfg.get('target_language'),
     nativeLanguage:cfg.get('native_language')??null,
@@ -148,8 +171,11 @@ export function hydrateWorkbook(tables){
   profile.profile.level_evidence=cfg.get('cefr_confidence_label')??'unassessed';
   return {
     ...profile,competencies:comps,attempts,review_queue:reviews,
-    sessions,learning_plan:plans,revision:cfg.get('state_revision'),
-    source:{schema_version:2,recording_consent:cfg.get('recording_consent'),restored:true},
+    sessions,learning_plan:plans,events,revision:cfg.get('state_revision'),
+    source:{schema_version:2,recording_consent:cfg.get('recording_consent'),restored:true,
+      effective_audio_consent:effectiveAudioConsent,
+      missing_config_keys:missingConfigKeys,
+      needs_config_repair:missingConfigKeys.length>0},
     // The active prompt/rubric registry is separate from the learner state.
     activities:acts
   };

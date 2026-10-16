@@ -55,15 +55,68 @@ export function planHeaderWrites(template,metadata){
  }
  return requests;
 }
-/** Call only after the learner explicitly accepted durable state and a verified privacy mode. */
-export function planConfigSeed(metadata,mode,{consentGranted=false}={}){
+/** New-workbook Config is unusable without an opaque learner identifier and language.
+ * This pure request builder never creates identities or obtains consent itself.
+ * Never reuse a display name, email address or workbook title as learnerId.
+ */
+export function planConfigSeed(metadata,mode,{consentGranted=false,learnerId,targetLanguage='English',nowIso=null}={}){
  if(!consentGranted)throw new Error('Consent is required');
  if(!['raw','summary_only'].includes(mode))throw new Error('No authorized storage mode');
+ if(typeof learnerId!=='string'||!learnerId.trim())throw new Error('A private learner ID is required');
+ if(targetLanguage!=='English')throw new Error('ASIT currently teaches English only');
+ if(nowIso!==null&&(typeof nowIso!=='string'||!nowIso.endsWith('Z')||!Number.isFinite(Date.parse(nowIso))))
+  throw new Error('Valid UTC initialization timestamp required');
  const sheet=metadata?.sheets?.map(x=>x.properties??x).find(x=>x.title==='Config');
  if(!sheet||!Number.isInteger(sheet.sheetId))throw new Error('Config tab unavailable');
- const pairs=[['schema_version','2'],['state_revision','0'],['recording_consent',JSON.stringify(mode)]];
- const val=x=>({userEnteredValue:{stringValue:x}});
- return [{updateCells:{range:{sheetId:sheet.sheetId,startRowIndex:1,endRowIndex:4,
-   startColumnIndex:0,endColumnIndex:2},rows:pairs.map(x=>({values:x.map(val)})),
-   fields:'userEnteredValue'}}];
+ const pairs=[
+   ['schema_version',2],['state_revision',0],
+   ['learner_id',learnerId],['target_language',targetLanguage],
+   ['recording_consent',mode],['audio_consent',false],
+   ['cefr_confidence_label','unassessed']
+ ];
+ const val=x=>({userEnteredValue:{stringValue:String(x)}});
+ return [{updateCells:{
+   range:{sheetId:sheet.sheetId,startRowIndex:1,endRowIndex:pairs.length+1,
+     startColumnIndex:0,endColumnIndex:3},
+   rows:pairs.map(([key,value])=>({values:[val(key),val(JSON.stringify(value)),val(nowIso??'')]})),
+   fields:'userEnteredValue'
+ }}];
+}
+
+/** Non-destructive repair for existing valid v2 Config tabs. No call to this
+ * planner may itself authorize a write; use provider readback after the append.
+ * Do not migrate a legacy audio_transcript_consent=true into audio consent.
+ */
+export function planLegacyConfigRepair(metadata,configRows,{consentGranted=false,nowIso=null}={}){
+ if(!consentGranted)throw new Error('Consent required before changing an existing workbook');
+ if(!Array.isArray(configRows)||configRows[0]?.join('|')!=='key|json_value|updated_at_utc')
+  throw new Error('Config header mismatch');
+ if(nowIso!==null&&(typeof nowIso!=='string'||!nowIso.endsWith('Z')||!Number.isFinite(Date.parse(nowIso))))
+  throw new Error('Invalid trusted UTC timestamp');
+ const config=new Map();
+ for(const row of configRows.slice(1)){
+  if(!Array.isArray(row)||row.length>3)throw new Error('Corrupt Config row');
+  if(!row[0])continue;
+  if(config.has(row[0]))throw new Error('Duplicate Config key');
+  try{config.set(row[0],JSON.parse(String(row[1])));}catch{throw new Error('Corrupt Config JSON');}
+ }
+ if(config.get('schema_version')!==2||!Number.isSafeInteger(config.get('state_revision'))||
+   config.get('state_revision')<0||!validTitle(config.get('learner_id'))||
+   config.get('target_language')!=='English'||
+   !['off','raw','summary_only'].includes(config.get('recording_consent')))
+  throw new Error('Existing core v2 Config is not safe to repair');
+ if(config.has('audio_consent')&&typeof config.get('audio_consent')!=='boolean')
+  throw new Error('Invalid audio consent setting');
+ if(config.has('cefr_confidence_label')&&typeof config.get('cefr_confidence_label')!=='string')
+  throw new Error('Invalid CEFR confidence setting');
+ const missing=[];
+ if(!config.has('audio_consent'))missing.push(['audio_consent',false]);
+ if(!config.has('cefr_confidence_label'))missing.push(['cefr_confidence_label','unassessed']);
+ if(!missing.length)return [];
+ const sheet=metadata?.sheets?.map(s=>s.properties??s).find(s=>s.title==='Config');
+ if(!sheet||!Number.isInteger(sheet.sheetId))throw new Error('Config tab unavailable');
+ const val=x=>({userEnteredValue:{stringValue:String(x)}});
+ return [{appendCells:{sheetId:sheet.sheetId,
+  rows:missing.map(([key,value])=>({values:[val(key),val(JSON.stringify(value)),val(nowIso??'')]})),
+  fields:'userEnteredValue'}}];
 }

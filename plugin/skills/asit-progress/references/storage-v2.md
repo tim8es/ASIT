@@ -22,14 +22,20 @@ Events: event_id | event_type | entity_id | revision | timestamp_utc | metadata_
 
 ## First-time setup
 
-1. Confirm Drive/Sheets tools and learner consent; verify no existing workbook ambiguities. Create a new private blank native Sheet, check provider-assigned IDs, build nine tabs, write exact headers, re-read cells and validate.
-2. Seed `Config` JSON keys: `schema_version=2`, `state_revision=0`, `recording_consent` chosen consent mode, private `learner_id`, `target_language="English"`; leave unobserved learner properties unknown. `Config.adaptive_profile` can store learner-approved settings and evidence-linked observations, not invented defaults.
-3. A planned lesson may create a trusted **parent Activity** with itemized rubric and one `ASIT_ATTEMPT_V2` composite answer string. Before showing a storage-backed task save trusted Activity and verify readback.
+1. Search user-owned Sheets first, including an earlier `ASIT — Private Learner State` title; do not assume an exact newer title. Confirm unique identity and metadata. Only create a private workbook when no verified existing store exists and user has approved creation. Verify tabs and header readback. Do not attempt blank-sheet bootstrap against an imported populated workbook.
+2. Seed and verify ALL seven initial Config JSON values: `schema_version=2`, `state_revision=0`, opaque `learner_id` (not name/email), `target_language="English"`, explicitly consented `recording_consent`, `audio_consent=false`, and `cefr_confidence_label="unassessed"`. Never claim a workbook is initialized if any are missing. Record an actual UTC timestamp when available. Other values stay unknown until observed/approved.
+3. One form may send a parent `ASIT_ATTEMPT_V2` composite string, but each graded SUBTASK must have its own trusted Activity with its own competency, modality, operation, and rubric saved and read back before the lesson. The parent is only a submission envelope. Store one Attempt per graded subtask; missing/unheard tasks are `not_assessed` and cannot be claimed as CEFR evidence.
+
+## Existing v2 compatibility and integrity gate
+
+A historical nine-tab v2 workbook can have all five original core Config values yet omit `audio_consent` and `cefr_confidence_label`, or use `audio_transcript_consent` instead. Preserve readable history; treat absent current audio consent as **false**, and missing CEFR confidence as **unassessed**. Offer a **separately authorized, append-only Config repair** that writes only absent keys and verifies the new rows; never overwrite or silently migrate. Full historical restoration also requires a read-only referential audit of Activity/Attempt IDs, competency/session links, privacy modes and required JSON. If an orphan or unknown privacy mode is found, quarantine the affected evidence, explain the exact tab/row to the learner, and do not claim complete longitudinal CEFR coverage. Do not infer consent from neighboring rows or assign guessed IDs; require explicit user review/backup for correction.
 
 ## Session reads and attempt writes
 
 - Minimal read: targeted Config, active Goals/Plans, most recent Sessions, due Reviews, target Competencies, **recent 3–6 relevant Attempts**. Don't fetch every tab, all raw answers and old history in a normal lesson. Dedicated audits can paginate.
 - Validate untrusted attempt envelope/IDs against Activity in user-owned store. Read for exact existing attempt ID; equivalent duplicate skip, conflict stop, summary-only ambiguous replay `duplicate_unverified`.
 - Evaluate externally to Sheets against trusted rubric and modality; append consented answer-or-summary row; read back exact attempt ID, answer/summary, grade, competency, privacy and operation. **Only after matching readback** report `Saved`.
-- Update review, session, competency summaries and Config revision conservatively with readback; concurrent changes require reload. Don't claim an atomic whole-workbook transaction.
+- When useful, store privacy-safe non-verbatim first-try outcome, revision count, hint exposure and learner hearing report in `Events` as `attempt_provenance` with `ui_provenance=self_report_unverified`. Do not persist first-answer text in summary_only mode or present UI metadata as trusted telemetry.
+- After verified Attempt readback, update review/session/competency summaries and Config revision conservatively with separate readback. Report `Attempt saved` separately from `Fully synced`; incomplete projection updates must be labelled `Partial sync`. Concurrent writers may race; Google Sheets is not transactional.
+- Everyday continuation reads only bounded Config, plan, latest Session, due Reviews and 3–6 relevant Attempts; full `hydrateWorkbook` source is for offline full audits, not required on every lesson.
 - For consent withdrawal, deletion, export or migrations, follow explicit user intent and safety checks. Never overwrite unknown data or publish workbook identifiers in a repository.

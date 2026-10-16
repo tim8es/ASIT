@@ -1,7 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import template from '../templates/tracker-v2.json' with {type:'json'};
-import {assertTemplate,planEmptyWorkbookStructure,planHeaderWrites,planConfigSeed}
+import {hydrateWorkbook} from '../src/hydrate-state.mjs';
+import {assertTemplate,planEmptyWorkbookStructure,planHeaderWrites,planConfigSeed,planLegacyConfigRepair}
   from '../src/sheets-bootstrap.mjs';
 const fresh={sheets:[{properties:{sheetId:42,title:'Sheet1',gridProperties:{columnCount:26}}}]};
 const verified={creationVerified:true,emptyVerified:true};
@@ -33,17 +34,62 @@ test('missing tab is a structural failure',()=>{
 });
 test('creation cannot persist without consent',()=>{
  assert.throws(()=>planConfigSeed(deployed,'summary_only'),/Consent/);
- assert.throws(()=>planConfigSeed(deployed,'off',{consentGranted:true}),/No authorized/);
+ assert.throws(()=>planConfigSeed(deployed,'off',{consentGranted:true,learnerId:'fixture'}),/No authorized/);
 });
-test('private configuration only seeds schema, revision and granted recording mode',()=>{
- const requests=planConfigSeed(deployed,'summary_only',{consentGranted:true});
+test('bootstrap seeds every mandatory Config key with JSON values and verified identity',()=>{
+ const requests=planConfigSeed(deployed,'summary_only',{consentGranted:true,learnerId:'synthetic-private-id',targetLanguage:'English',nowIso:'2026-10-16T15:00:00.000Z'});
  assert.equal(requests.length,1);
  const rows=requests[0].updateCells.rows.map(r=>r.values.map(x=>x.userEnteredValue.stringValue));
- assert.deepEqual(rows.map(x=>x[0]),['schema_version','state_revision','recording_consent']);
- assert.equal(rows[2][1],'"summary_only"');
+ const values=Object.fromEntries(rows.map(x=>[x[0],JSON.parse(x[1])]));
+ assert.deepEqual(values,{schema_version:2,state_revision:0,learner_id:'synthetic-private-id',target_language:'English',recording_consent:'summary_only',audio_consent:false,cefr_confidence_label:'unassessed'});
+ assert.equal(rows.every(x=>x[2]==='2026-10-16T15:00:00.000Z'),true);
+});
+test('initialization refuses blank synthetic learner identity and unsupported language',()=>{
+ assert.throws(()=>planConfigSeed(deployed,'summary_only',{consentGranted:true}),/learner ID/);
+ assert.throws(()=>planConfigSeed(deployed,'summary_only',{consentGranted:true,learnerId:'id',targetLanguage:'French'}),/English/);
 });
 
 test('bootstrap refuses unknown existing workbook even with one default tab',()=>{
  assert.throws(()=>planEmptyWorkbookStructure(template,fresh),/must be verified/);
  assert.throws(()=>planEmptyWorkbookStructure(template,fresh,{creationVerified:true}),/must be verified/);
+});
+
+test('a newly seeded nine-tab workbook can hydrate without any fabricated lesson history',()=>{
+ const empty=Object.fromEntries(template.tabs.map(tab=>[tab.name,[tab.columns]]));
+ const req=planConfigSeed(deployed,'summary_only',{consentGranted:true,learnerId:'synthetic-test-id',nowIso:'2026-10-16T15:00:00.000Z'});
+ const rows=req[0].updateCells.rows.map(row=>row.values.map(cell=>cell.userEnteredValue.stringValue));
+ empty.Config.push(...rows);
+ const state=hydrateWorkbook(empty);
+ assert.equal(state.profile.learner_id,'synthetic-test-id');
+ assert.equal(state.revision,0);
+ assert.equal(state.source.recording_consent,'summary_only');
+ assert.equal(state.competencies.length,0);
+ assert.equal(state.attempts.length,0);
+ assert.equal(state.profile.working_level,null);
+});
+
+test('legacy five-key v2 Config gets an append-only safe repair proposal with explicit approval',()=>{
+ const existing=[
+ ['key','json_value','updated_at_utc'],
+ ['schema_version','2',''],['state_revision','6',''],['learner_id','"synthetic-id"',''],
+ ['target_language','"English"',''],['recording_consent','"summary_only"',''],
+ ['audio_transcript_consent','false','']
+ ];
+ assert.throws(()=>planLegacyConfigRepair(deployed,existing),/Consent/);
+ const requests=planLegacyConfigRepair(deployed,existing,{consentGranted:true,nowIso:'2026-10-16T15:00:00.000Z'});
+ assert.equal(requests.length,1);
+ const rows=requests[0].appendCells.rows.map(r=>r.values.map(x=>x.userEnteredValue.stringValue));
+ assert.deepEqual(rows.map(r=>r[0]),['audio_consent','cefr_confidence_label']);
+ assert.equal(rows[0][1],'false');
+ assert.equal(rows[1][1],'"unassessed"');
+ assert.equal(requests[0].appendCells.sheetId,42);
+});
+test('already complete Config has no repair writes',()=>{
+ const rows=[
+ ['key','json_value','updated_at_utc'],['schema_version','2',''],['state_revision','0',''],
+ ['learner_id','"synthetic-id"',''],['target_language','"English"',''],
+ ['recording_consent','"summary_only"',''],['audio_consent','false',''],
+ ['cefr_confidence_label','"unassessed"','']
+ ];
+ assert.deepEqual(planLegacyConfigRepair(deployed,rows,{consentGranted:true}),[]);
 });
