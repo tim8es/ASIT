@@ -4,7 +4,7 @@ import {summarizeCompetency} from './learning-state.mjs';
 export function summarizeLearningProgress(state) {
   const bySkill=(state.competencies??[]).map(c=>({
     competency_id:c.id,can_do:c.can_do,
-    ...summarizeCompetency(state.attempts??[],c.id)
+    ...summarizeCompetency(state.attempts??[],c.id,c)
   }));
   return {
     observed_attempts:(state.attempts??[]).length,
