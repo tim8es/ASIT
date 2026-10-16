@@ -12,7 +12,7 @@ Choose the interface by the learner's **operation and actual observable modality
 1. Know target competency, task prompt, correct rubric with accepted alternatives, required fields, operation, modality and hint policy **before** presenting an exercise.
 2. Prefer ChatGPT-native controls for selection, text, ordering, feedback and a single Submit when supported; make all visible controls actually respond. If platform controls are unavailable, use an accessible numbered/text fallback **and describe changed modality**. Do not fabricate drag, clicks on images, Play, Record, unseen text or saved history.
 3. For 3+ related practice exercises, select 2+ complementary formats where pedagogically justified; planned lessons use `asit-lessons` order and duration rules.
-4. Deterministic answers may get **provisional** local `correct` / `try again` only after first learner input; keep first attempt, retry count and hints available for the trusted final review. If synonyms/creative responses are plausible, defer teacher review; don't mark unrecognized plausible answers incorrect automatically.
+4. Deterministic choices, clozes with unambiguous accepted forms, and completed word orders **must** show provisional local `Correct` / `Try again` plus brief explanation/clue after interaction when native state supports it. Never show the key before an attempt. Retain first try separately from current answer, revision count and hint exposure as untrusted provisional metadata. Free writing, ambiguous answers and plausible unlisted synonyms receive `Review after Submit`, not invented immediate grading.
 5. A real form has **one final Submit** that posts a new ChatGPT turn. Required blanks block ordinary completion; the user may deliberately finish incomplete. Local states are not saved records. The teacher re-checks answers from trusted rubric after Submit using `asit-assessment`.
 6. Preserve narrative text as full sentences; don't split a sentence into multiple blocks just to insert a popover. Only show clickable underlined explanation when it is actually a working control.
 
@@ -29,6 +29,10 @@ Choose the interface by the learner's **operation and actual observable modality
 **Interaction.** `dialogue` requires real multi-turn responsive chat, not one static textarea.
 
 **Progress explorer.** This is a read-only view of actually verified learner state; no fake percentages, no grading and no Submit required. Use `asit-progress`.
+
+## Visual, feedback and responsiveness
+
+For structured exercises load [visual + live feedback contract](references/visual-feedback.md) **only when rendering the UI**, not on routing, progress lookup, small vocabulary questions or pure chat. Prefer a relevant cover/scene/timeline for a full lesson when reliable and useful; never search media solely as decoration or claim motion/audio without an actual supported component. Form controls must visibly react and remain keyboard-friendly; one real Submit, no inert buttons.
 
 ## Detailed patterns
 
