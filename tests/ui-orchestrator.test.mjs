@@ -227,3 +227,33 @@ test('timeline permits alternative trusted chronologies and defers ambiguous rub
  assert.equal(checkObjectiveInput({type:'timeline_ordering',
   answer:['b','a'],expected:null}).status,'deferred');
 });
+
+test('same-chat native Voice explicitly hands off to platform activation, not fake audio',()=>{
+ const p=selectUiPattern({requestedType:'listening',delivery:'native_voice',
+ capabilities:{voiceUiAvailable:true}});
+ assert.equal(p.kind,'voice_handoff');
+ assert.equal(p.voice.status,'requires_manual_voice_activation');
+ assert.equal(p.voice.opened_voice_programmatically,false);
+ const unavailable=selectUiPattern({requestedType:'listening',delivery:'native_voice'});
+ assert.equal(unavailable.kind,'unavailable');
+});
+test('native Voice route tracks actual audible prompt, not button presence',()=>{
+ const pending=selectUiPattern({requestedType:'listening',delivery:'native_voice',
+ capabilities:{voiceUiAvailable:true,voiceActivated:true}});
+ assert.equal(pending.kind,'voice_session');
+ assert.equal(pending.voice.status,'awaiting_actual_audio');
+ assert.equal(pending.voice.listening_evidence,'not_assessed');
+ const live=selectUiPattern({requestedType:'listening',delivery:'native_voice',
+ capabilities:{voiceUiAvailable:true,voiceActivated:true,assistantAudioAudible:true}});
+ assert.equal(live.voice.status,'ready_for_voice_exchange');
+ assert.equal(live.voice.listening_evidence,'pending_actual_response');
+});
+test('native Voice dialog is multi-turn and microphone cannot be opened by lesson card',()=>{
+ const p=selectUiPattern({requestedType:'dialogue',delivery:'native_voice',
+ capabilities:{voiceUiAvailable:true,voiceActivated:true}});
+ assert.equal(p.kind,'voice_session');
+ assert.equal(p.interaction_mode,'chat_turns');
+ assert.equal(p.voice.opened_voice_programmatically,false);
+ assert.equal(p.voice.pronunciation_evidence,'not_assessed');
+ assert.throws(()=>selectUiPattern({requestedType:'cloze',delivery:'native_voice'}),/requires listening/);
+});
