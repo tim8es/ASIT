@@ -1,0 +1,55 @@
+# Listen → Answer audio cards — ASIT v0.1
+
+**Purpose:** a learner taps a **real** playable audio clip in a normal ChatGPT lesson, then answers short gist/detail questions. This is **different from Voice-first dialogue** and doesn't require speaking to the tutor. The UI card can use native controls plus a genuinely supported player. Its model/Node contract does not install an HTML audio bridge.
+
+## Learner flow and design
+
+1. **Listening card:** short title + duration + accessible working `Play` control for an actual original/licensed/approved MP3 or other verified decodable audio asset. A player has an explicit load/error state. `Replay` and optional `0.8×` should be working controls, not icons without an action. Background artwork optional and must not leak scored answers.
+2. **Playback gate:** track `canplay / playing / ended / error` events (or equivalent). Do not unlock purported heard comprehension when the clip failed or never finished. Player events are *provisional metadata*; they do not prove human auditory perception. Capture a learner confirmation whether the response relied on the transcript.
+3. **Question face:** after an actual playback, show two or three connected questions (gist first, detail second; one free typed detail is useful). Use 2–4 meaningful options or one native input. Do not show the passage transcript or correct answers **before** the first attempt, unless the learner requests a transcript, in which case mark `audio_plus_text_supported` rather than unassisted listening.
+4. **One Submit:** check every required question, allow a clearly labeled `Finish early — incomplete` path, send a real chat turn with stable Activity/item IDs and the final answers. Objective options can be checked using the trusted rubric after Submit; free explanations must be reviewed by the assistant. Do not mark a partially filled pack as complete.
+5. **Feedback:** identify gist vs detail success, one meaningful misunderstanding, specific evidence from transcript *after* first attempt, replay and optional second attempt. Transcript reveal after review must not retroactively turn the original attempt into text-supported.
+6. **Result evidence:** `provisional_heard_comprehension` only when the clip really played through, answers exist, and learner confirms listening without reading; `audio_plus_text_supported` if transcript shown before the response; otherwise `not_assessed`. Distinguish `completed_form` from `listening_skill_assessed`. Replay count and playback speed are task metadata, not proof of listening mastery. Store only after informed consent and verified Drive write/readback.
+7. **Audio unavailable:** show a clear error/alternative. An attached audio file that opens only as a separate download does not guarantee *embedded in-chat* playback. If the client cannot play the real clip inline, offer a genuine downloadable attachment or a reading equivalent **with changed modality**, not a silent speaker icon.
+
+## Authoring contract
+
+The trusted Activity (not user-editable form data) specifies:
+
+- `asset_id`, `mime_type`, `duration_seconds`, `uri` or attached media reference, `verified_access`, optionally `copyright/license`; avoid invented or expiring URLs.
+- `transcript` held until appropriate reveal, `question_id`, `operation` (`gist`, `detail`, optional `inference`), stable prompt, `type` (`single_choice`, `short_answer`, `free_response`), accepted variants and whether required.
+- Supported client playback capability is independently tested; the manifest alone is not capability evidence. Use `src/listen-answer-card.mjs` as a portable reference evaluator.
+
+### Recommended card states
+
+`loading → ready → playing → listened → answering → submitted → reviewed`.
+
+From `loading/playing` on error → `unavailable`, never `completed` or scored as listening. From `listened`, transcript reveal before Submit → `assisted_text`. An explicit skip → `incomplete`. Attempted replay supports `playing` again without erasing written answers.
+
+## Audio generation and in-chat feasibility
+
+For reproducible demonstration, this repository describes a self-contained HTML player using an actual *embedded MP3* (for example generated offline with open-source tools); on an ordinary browser this provides real sound and avoids external API keys. This **does not imply that ChatGPT currently supports arbitrary native HTML audio playback** in all mobile clients. ASIT should use the clip as a verified attachment/link fallback and only show an inline player after QA proves it on the target client.
+
+High-quality production TTS can be generated outside the UI from a real text-to-speech provider (for example the OpenAI Speech API) and delivered as MP3 **with an approved asset-serving mechanism**, but this requires infrastructure, account permissions and possibly cost. Never place API keys in in-chat JavaScript, a public source file or learner storage. User-owned/audio-uploaded legitimate recordings are valid when rights and client access allow it.
+
+**Do not claim that a working standalone HTML prototype has automatically become a native ChatGPT component.** The learner-facing demo is a client QA artifact.
+
+## Sample synthetic exercise
+
+Spoken (do not show before first attempt): "Attention passengers. The train to Brighton departs at nine fifteen from platform four. Please arrive five minutes early."
+
+Questions: (1) Where is the train going? Brighton / Bristol / Leeds. (2) Which platform? 3 / 4 / 5. (3) What time? Accept 9:15, 09:15, nine fifteen.
+
+The bundled *user-facing downloadable proof-of-concept* is a self-contained HTML document with an embedded test MP3 and all three questions; source engine specifications and test fixtures never contain user voice data. Synthesized voice quality is a placeholder, not an evaluation baseline for accent or natural pronunciation.
+
+## QA acceptance
+
+- [ ] iOS/Android ChatGPT: tested file or player actually yields audible output, not just `audio controls` rendering.
+- [ ] Real MP3 has successful decode/play, repeat works, 0.8× audio changes speed, controls have keyboard-accessible alternatives.
+- [ ] Before actual audible playback, there is no scored listening success and normal listening questions remain gated.
+- [ ] Without audio or on player error, mark `not_assessed` and offer a **genuine** fallback; no fabricated completion.
+- [ ] Objective correct/wrong/distractor feedback matches trusted audio transcript and questions. Record first attempt/replay/hints separately.
+- [ ] Free answer or unrecognized reasonable synonyms get teacher review, not incorrect-by-string-compare.
+- [ ] Revealing transcript before response changes modality to text-supported; reveal after submission does not corrupt previous status.
+- [ ] Required questions blank → incomplete; early exit explicit. No phantom 3/3.
+- [ ] Submit sends one true ChatGPT turn; learner state saved only after explicit consent and verified connector write/readback.
