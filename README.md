@@ -1,5 +1,7 @@
 # ASIT — Adaptive System for Intelligent Tutoring
 
+> **Current ChatGPT plugin release (2026-10-16): ASIT 0.2.5.** Its packaged source lives in [`plugin/`](plugin/), and the installed runtime is a skills-only ChatGPT plugin (no dedicated MCP or server). `install/PROJECT-ROUTER.md` below documents the older GitHub-first Project workflow; it is not required for the installed plugin. GitHub commits do not automatically install a new release: publish and verify through Plugin Creator. Learner results remain in the consented private Google Sheets workbook, not in this repo.
+
 **ChatGPT-native personal English tutor with an evidence-backed learning plan — MLP candidate.**
 
 ASIT operates in a **normal ChatGPT conversation**, using native interactive controls when available. It does not host a separate website, call an external LLM API, or require a custom MCP server. A learner-owned storage connector (Google Drive / Sheets in v0.2) keeps progress between chats.
