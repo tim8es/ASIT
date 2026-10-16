@@ -22,7 +22,7 @@ Events: event_id | event_type | entity_id | revision | timestamp_utc | metadata_
 
 ## First-time setup
 
-1. Confirm Drive/Sheets tools and learner consent; verify no existing workbook ambiguities. Create a new private blank native Sheet, check provider-assigned IDs, build nine tabs, write exact headers, re-read cells and validate.
+1. Search user-owned Sheets first, including an earlier `ASIT — Private Learner State` title; do not assume an exact newer title. Confirm unique identity and metadata. Only create a private workbook when no verified existing store exists and user has approved creation. Verify tabs and header readback. Do not attempt blank-sheet bootstrap against an imported populated workbook.
 2. Seed and verify ALL seven initial Config JSON values: `schema_version=2`, `state_revision=0`, opaque `learner_id` (not name/email), `target_language="English"`, explicitly consented `recording_consent`, `audio_consent=false`, and `cefr_confidence_label="unassessed"`. Never claim a workbook is initialized if any are missing. Record an actual UTC timestamp when available. Other values stay unknown until observed/approved.
 3. One form may send a parent `ASIT_ATTEMPT_V2` composite string, but each graded SUBTASK must have its own trusted Activity with its own competency, modality, operation, and rubric saved and read back before the lesson. The parent is only a submission envelope. Store one Attempt per graded subtask; missing/unheard tasks are `not_assessed` and cannot be claimed as CEFR evidence.
 
