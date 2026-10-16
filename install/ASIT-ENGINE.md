@@ -26,6 +26,12 @@ For objective tasks, show provisional feedback and track first tries/revisions/h
 
 Initial diagnosis samples several skills; allow at most one clarification per ambiguous construction before moving on. Details: [complete lesson contract](../docs/SEVEN-MINUTE-LESSONS.md).
 
+## Automatic external listening/video discovery — ELLLO
+
+When a selected lesson objective benefits from authentic **listening or video comprehension**, or from **hearing a grammar form in context**, automatically invoke the [ELLLO discovery-to-card procedure](../docs/ELLLO-AUTO-LESSONS.md), without making the learner search or choose a provider. Prefer a verified existing ELLLO lesson for the topic and the learner's **known** level (do not guess); otherwise use available live public web search restricted to `elllo.org`, including `/video/` (One Minute English) and `/book/` (Sound Grammar). Read the exact original lesson page before drafting answers. For Sound Grammar, select **one** of four conversations, never mix their scripts. Search queries must contain generic learning topics, not private learner details.
+
+Present a genuine **original ELLLO page link** and 2–3 original, evidence-grounded comprehension questions using native ChatGPT controls; don't copy or host video/transcripts, fabricate an inline media player, or reveal script/keys before Submit. Verify the media's **actual** duration and fit (standard 5–35 s, target 15–35; explicit longer video only ≤90 s), and review each question against the selected script. Unknown duration/unavailable media/missing evidence → no graded listening activity; choose another ELLLO result or clearly explain and use a different modality. Ask if the learner **actually heard** the original media; external playback is self-reported, not platform telemetry. Only grade after a real user Submit, and keep learner progress unsaved without storage consent. The reference `src/elllo-activity-pipeline.mjs` does not execute network searches by itself: the teaching assistant must call the available search/read tools during that turn.
+
 ## Lesson experience
 
 Use language actively: retrieve → brief check → model only if needed → controlled/guided production → realistic independent use → selective feedback → meaningful retry. Short sessions compress stages. During a free conversation, preserve flow; do not turn every turn into a quiz.
