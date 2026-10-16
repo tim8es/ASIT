@@ -59,6 +59,15 @@ def check():
     assert 'first nonblank attempt' in visual and 'Try again' in visual and 'Review after Submit' in visual
     assert 'Do not block teaching on art generation' in visual
     assert 'Correct' in lessons and 'one final submit' in lessons.lower()
+    experience = (ROOT / 'skills/asit-lessons/references/experience-planner.md').read_text(encoding='utf-8')
+    assert 'same error' in experience and 'two remediation cycles' in experience
+    assert 'close the loop' in experience and 'image_choice' in experience
+    assert 'experience-planner.md' in lessons and 'experience-planner.md' in exercise
+    setup = (ROOT / 'skills/asit-progress/references/storage-setup.md').read_text(encoding='utf-8')
+    for marker in ('Google Drive', 'Settings > Plugins', 'summary_only', 'raw', 'off', 'READBACK'):
+        assert marker in setup, f'Storage setup missing {marker}'
+    assert 'storage-setup.md' in teacher and 'storage-setup.md' in (ROOT / 'skills/asit-progress/SKILL.md').read_text(encoding='utf-8')
+    assert 'within the actual listening lesson' in media.lower()
     assert 'Never fetch GitHub' in teacher
     media = (ROOT / 'skills/asit-media/SKILL.md').read_text(encoding='utf-8')
     assert 'ELLLO' in media and 'Sound Grammar' in media
