@@ -257,3 +257,22 @@ test('native Voice dialog is multi-turn and microphone cannot be opened by lesso
  assert.equal(p.voice.pronunciation_evidence,'not_assessed');
  assert.throws(()=>selectUiPattern({requestedType:'cloze',delivery:'native_voice'}),/requires listening/);
 });
+
+test('real audio card delivery is separate from platform Voice and cannot fake a player',()=>{
+ const questions=[{id:'q',type:'single_choice',prompt:'What did you hear?',expected:'train'}];
+ const unavailable=selectUiPattern({requestedType:'listening',delivery:'audio_card',
+ capabilities:{audioPlayback:false},audioCard:{
+ trustedAudioAsset:{uri:'asset',mime_type:'audio/mpeg',verified:true},
+ trustedQuestions:questions}});
+ assert.equal(unavailable.kind,'unavailable');
+ assert.equal(unavailable.evidence_modality,'unassessed');
+ const available=selectUiPattern({requestedType:'listening',delivery:'audio_card',
+ capabilities:{audioPlayback:true},audioCard:{
+ trustedAudioAsset:{uri:'asset',mime_type:'audio/mpeg',verified:true},
+ trustedQuestions:questions}});
+ assert.equal(available.kind,'audio_card');
+ assert.equal(available.card.requires_real_playback,true);
+ assert.equal(available.card.allows_one_final_submit,true);
+ assert.equal(available.interaction_mode,'audio_card_questions');
+ assert.throws(()=>selectUiPattern({requestedType:'cloze',delivery:'audio_card'}),/only supports real listening/);
+});

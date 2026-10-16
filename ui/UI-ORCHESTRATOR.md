@@ -49,3 +49,7 @@ See [UX dogfooding report](../docs/UX-DOGFOOD-2026-10-16.md). Run client-specifi
 ## Voice-first delivery route
 
 For `listening`, `spoken_response`, or audio-rich `dialogue`, when user wants a real sound-based lesson *inside ChatGPT*, select the [native same-chat Voice handoff](../docs/VOICE-FIRST-LESSONS.md) rather than a nonfunctional audio tile. The learner taps Voice manually; the UI cannot activate the device microphone from a regular DIL control. Use the `src/voice-session.mjs` **offline** helper only as a planner/test oracle. No sound is claimed until audible teacher speech actually occurs; a text transcript is not raw spoken evidence. Voice is a live multi-turn activity and may end with a normal text recap/checkpoint. Preserve the 18-pattern catalog (same `listening` and `spoken_response` types; delivery differs, not another fabricated type).
+
+## Self-paced Listen → Answer cards (not Voice)
+
+Choose `delivery='audio_card'` only when a real trusted audio asset is provided with questions and the client has **verified audio playback**. The `selectUiPattern` reference calls `planListenAnswerCard`. If absent, return `unavailable` and offer a legitimate audio attachment or explicit reading alternative; never substitute an inert speaker icon. Transcript after the first answer; if shown earlier, flag `audio_plus_text_supported`. Listen → Answer is **a delivery format under the existing `listening` type**, not a nineteenth exercise type. See [dedicated contract](../docs/LISTEN-ANSWER-AUDIO-CARDS.md).

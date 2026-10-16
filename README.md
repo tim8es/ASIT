@@ -78,3 +78,7 @@ The registry includes 18 pattern contracts, including new `reading_comprehension
 ### Audio lessons directly inside ChatGPT
 
 ASIT has a [Voice-first handoff](docs/VOICE-FIRST-LESSONS.md): a learner can tap the platform's Voice icon in the **same chat** and hold an interactive listening/speaking practice with a spoken tutor (when Voice is available). This is a *documented delivery route and reference planner*, not an installed audio playback/capture widget. A text transcript is not sufficient proof of pronunciation. `src/voice-session.mjs` and `tests/voice-session.test.mjs` explicitly distinguish unavailable Voice, actual audible prompts, learner audio review and supported listening. Bespoke `Play/Replay/Record` cards remain unimplemented until a real supported client audio path exists.
+
+### Listen → Answer MP3 cards (self-paced listening)
+
+Besides Voice-first speaking lessons, ASIT now has an explicit [Listen → Answer audio-card contract](docs/LISTEN-ANSWER-AUDIO-CARDS.md), offline reference grader (`src/listen-answer-card.mjs`) and tests. This format uses a **real MP3**, Replay/slow speed and text/choice questions with a transcript after answering. A self-contained **downloadable browser demo** may carry a generated audio clip inline; it is not automatically an installed embedded ChatGPT player. In-chat playback on mobile requires live acceptance and a supported audio attachment/player; unavailable audio results in `not_assessed`, not a fabricated listening grade.

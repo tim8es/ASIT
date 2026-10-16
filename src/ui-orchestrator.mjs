@@ -1,6 +1,7 @@
 /** Optional deterministic UI selection oracle. ChatGPT itself renders native controls. */
 import {resolveLessonSettings} from './lesson-blueprint.mjs';
 import {planVoiceHandoff} from './voice-session.mjs';
+import {planListenAnswerCard} from './listen-answer-card.mjs';
 
 const pattern=(type,action,operation,spec,extras={})=>
   Object.freeze({type,action,operation,spec_ref:spec,...extras});
@@ -33,7 +34,7 @@ const validAction=new Set(['remember','recognize','read','build','explain','appl
 const nonemptyString=x=>typeof x==='string'&&x.trim().length>0;
 const defaults=Object.freeze({audioCapture:false,audioAccessible:false,audioPlayback:false,hasRelevantImage:false,hasInteractiveImageRegions:false,drag:false});
 
-export function selectUiPattern({action,requestedType=null,mode='lesson',capabilities={},recentTypes=[],delivery='native_form'}={}){
+export function selectUiPattern({action,requestedType=null,mode='lesson',capabilities={},recentTypes=[],delivery='native_form',audioCard=null}={}){
   if(mode==='conversation'||mode==='direct_answer')
     return {kind:'ordinary_chat',operation:'interaction',evidence_modality:'typed_text'};
   if(!['lesson','diagnostic'].includes(mode))throw new Error('Invalid UI mode');
@@ -51,6 +52,19 @@ export function selectUiPattern({action,requestedType=null,mode='lesson',capabil
   if(!validAction.has(resolvedAction))throw new Error('Invalid learner action');
   if(requestedType!==null&&!UI_CANDIDATES.some(p=>p.type===requestedType&&p.action===resolvedAction))
     throw new Error('Requested exercise does not match learner action');
+  if(delivery==='audio_card'){
+    if(resolvedAction!=='listen'||requestedType&&requestedType!=='listening')
+      throw new Error('Audio card delivery only supports real listening activities');
+    const plan=planListenAnswerCard({
+      audioAsset:audioCard?.trustedAudioAsset,
+      questions:audioCard?.trustedQuestions??[],
+      clientAudioSupported:capabilities.audioPlayback===true
+    });
+    return {kind:plan.render==='audio_card'?'audio_card':'unavailable',
+      type:'listening',action:'listen',interaction_mode:'audio_card_questions',
+      evidence_modality:plan.render==='audio_card'?'pending_listening':'unassessed',
+      card:plan,spec_ref:media};
+  }
   if(delivery==='native_voice'){
     if(!['listen','speak','interact'].includes(resolvedAction))
       throw new Error('Native Voice delivery requires listening, speaking or interaction');
