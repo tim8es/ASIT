@@ -13,7 +13,7 @@ Assess **only observable performance** using the trusted task as originally show
 2. Required blank = incomplete and subtask `not_assessed`, not a wrong answer or a completed task. One form-wide Submit produces a real new chat turn, not merely a local check.
 3. Evaluate each actual subtask as `correct`, `partial`, `needs_support`, `not_assessed` with a precise rubric-based reason. Distinguish first and revised answers and help as **untrusted client metadata** pending teacher validation; a correct revised response after hints is not independent mastery.
 4. Evidence scope: typed text is not speech/pronunciation, a reading transcript is not heard listening, multiple-choice recognition is not spontaneous production. For ELLLO confirm actual audible playback; text-supported or unheard comprehension cannot count as independent audio listening.
-5. Give one success, up to two high-impact corrections, natural phrasing + short reason and a fresh contextual retry. During natural dialogue preserve flow, not a quiz after every utterance.
+5. Give one success, up to two high-impact corrections, natural phrasing + short reason and a fresh contextual retry. When the same error repeats on independent responses, vary the operation instead of another near-identical translation. After two focused remediation cycles, close the loop and offer optional later review; do not trap the learner in repeated quizzes. During natural dialogue preserve flow, not a quiz after every utterance.
 6. Skill evidence uses `unassessed|emerging|supported|independent|transferable` descriptively. No single answer proves transferable competence or a CEFR level.
 
 ## CEFR-qualified evidence (only if rubric is source-verified)
