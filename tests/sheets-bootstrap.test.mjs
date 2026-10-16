@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import template from '../templates/tracker-v2.json' with {type:'json'};
 import {hydrateWorkbook} from '../src/hydrate-state.mjs';
-import {assertTemplate,planEmptyWorkbookStructure,planHeaderWrites,planConfigSeed}
+import {assertTemplate,planEmptyWorkbookStructure,planHeaderWrites,planConfigSeed,planLegacyConfigRepair}
   from '../src/sheets-bootstrap.mjs';
 const fresh={sheets:[{properties:{sheetId:42,title:'Sheet1',gridProperties:{columnCount:26}}}]};
 const verified={creationVerified:true,emptyVerified:true};
@@ -66,4 +66,30 @@ test('a newly seeded nine-tab workbook can hydrate without any fabricated lesson
  assert.equal(state.competencies.length,0);
  assert.equal(state.attempts.length,0);
  assert.equal(state.profile.working_level,null);
+});
+
+test('legacy five-key v2 Config gets an append-only safe repair proposal with explicit approval',()=>{
+ const existing=[
+ ['key','json_value','updated_at_utc'],
+ ['schema_version','2',''],['state_revision','6',''],['learner_id','"synthetic-id"',''],
+ ['target_language','"English"',''],['recording_consent','"summary_only"',''],
+ ['audio_transcript_consent','false','']
+ ];
+ assert.throws(()=>planLegacyConfigRepair(deployed,existing),/Consent/);
+ const requests=planLegacyConfigRepair(deployed,existing,{consentGranted:true,nowIso:'2026-10-16T15:00:00.000Z'});
+ assert.equal(requests.length,1);
+ const rows=requests[0].appendCells.rows.map(r=>r.values.map(x=>x.userEnteredValue.stringValue));
+ assert.deepEqual(rows.map(r=>r[0]),['audio_consent','cefr_confidence_label']);
+ assert.equal(rows[0][1],'false');
+ assert.equal(rows[1][1],'"unassessed"');
+ assert.equal(requests[0].appendCells.sheetId,42);
+});
+test('already complete Config has no repair writes',()=>{
+ const rows=[
+ ['key','json_value','updated_at_utc'],['schema_version','2',''],['state_revision','0',''],
+ ['learner_id','"synthetic-id"',''],['target_language','"English"',''],
+ ['recording_consent','"summary_only"',''],['audio_consent','false',''],
+ ['cefr_confidence_label','"unassessed"','']
+ ];
+ assert.deepEqual(planLegacyConfigRepair(deployed,rows,{consentGranted:true}),[]);
 });
