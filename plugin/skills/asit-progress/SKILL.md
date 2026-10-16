@@ -19,7 +19,7 @@ Google Sheets works through the Google Drive ChatGPT app when the user and works
 
 ## Setup completion gate
 
-A Google Drive plugin being installed does NOT mean ASIT storage is initialized. Before calling storage ready, verify ownership, exact nine headers, ALL seven Config values (`schema_version`, `state_revision`, `learner_id`, `target_language`, `recording_consent`, `audio_consent`, `cefr_confidence_label`), and real provider readback. A partially initialized workbook needs user-approved repair, not overwriting. One composite Submit may require multiple trusted Activities and Attempts to preserve separate CEFR modalities. See storage-v2.
+A Google Drive plugin being installed does NOT mean ASIT storage is initialized. Before calling storage ready, verify ownership, exact nine headers, ALL seven Config values (`schema_version`, `state_revision`, `learner_id`, `target_language`, `recording_consent`, `audio_consent`, `cefr_confidence_label`), and real provider readback. A partially initialized workbook needs user-approved repair, not overwriting. Older five-key v2 Config with legacy `audio_transcript_consent` can be read conservatively but is NOT fully migrated. Use append-only repair with consent and a read-only referential check of activity/session/competency IDs and per-row privacy mode; do not claim complete CEFR history when orphan records are present. One composite Submit may require multiple trusted Activities and Attempts to preserve separate CEFR modalities. See storage-v2.
 
 ## Everyday bounded reads
 
