@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "selection_rule": "learner action -> observed operation/modality -> accessible capability -> justified variety; load only selected pattern spec",
   "patterns": [
     {
@@ -68,9 +68,13 @@
     {
       "type": "listening",
       "goal": "understand actual audio",
-      "input": "actually accessible audio track, replay/speed if supported, gist and detail questions",
-      "assessment": "gist and detail; never simulate an unheard recording",
-      "spec_ref": "ui/patterns/media-interaction.md"
+      "input": "real verified audio asset with working MP3 Play/Replay and optional slow speed; gist/detail questions, transcript reveal after first attempt",
+      "assessment": "real playback + learner listening confirmation + trusted rubric; audio+text if transcript revealed early; otherwise not_assessed",
+      "spec_ref": "ui/patterns/media-interaction.md",
+      "delivery_formats": [
+        "native_voice_live",
+        "verified_audio_card"
+      ]
     },
     {
       "type": "scenario",
@@ -173,7 +177,9 @@
       "hasRelevantImage"
     ],
     "listening": [
-      "audioPlayback with real audio source actually available"
+      "verified real playable audio asset",
+      "client audio playback actually tested",
+      "learner heard confirmation for provisional independent listening"
     ],
     "spoken_response": [
       "audioCapture",
@@ -188,6 +194,7 @@
     "popovers": "keep story sentence continuous; move term-help control outside line if native popover breaks text",
     "sentence_builder": "meaningful semantic chunks",
     "card_ordering": "individual word card ordering",
-    "progress_explorer": "read-only verified learner evidence, never a fabricated proficiency percentage"
+    "progress_explorer": "read-only verified learner evidence, never a fabricated proficiency percentage",
+    "listen_answer_card": "no response-time fantasy, player load/error/ended handling, Play/Replay/optional 0.8 speed, real MP3, one final Submit, transcript after response; unavailable if client cannot play"
   }
 }
