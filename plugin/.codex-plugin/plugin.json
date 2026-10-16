@@ -1,0 +1,33 @@
+{
+  "interface": {
+    "capabilities": [
+      "Interactive"
+    ],
+    "category": "Education",
+    "defaultPrompt": [
+      "Start or continue my English learning program with ASIT.",
+      "Give me an ASIT lesson with four varied interactive exercises.",
+      "Show my evidence-based CEFR profile and next skill to practise."
+    ],
+    "developerName": "ASIT Project",
+    "displayName": "ASIT \u2014 English Tutor",
+    "longDescription": "Adaptive English lessons and CEFR-aligned qualitative progress in ChatGPT: interactive lessons, reading/listening/writing/speaking evidence, authentic media, formative feedback and optional user-owned Google Sheets. Skills-only; no MCP, server, or external AI API.",
+    "shortDescription": "Adaptive English practice and CEFR progress"
+  },
+  "name": "asit-english-tutor",
+  "version": "0.2.1",
+  "description": "ASIT adaptive English tutor with CEFR-aligned evidence analytics, interactive mini-lessons, listening/video discovery and optional private learner progress.",
+  "author": {
+    "name": "ASIT Project"
+  },
+  "keywords": [
+    "English",
+    "tutor",
+    "language-learning",
+    "ASIT",
+    "listening",
+    "CEFR",
+    "progress"
+  ],
+  "skills": "./skills"
+}
