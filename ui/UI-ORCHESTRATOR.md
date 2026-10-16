@@ -67,3 +67,8 @@ ASIT field QA demonstrated an inline `audio/ogg` player whose controls displayed
 ## Mandatory bounded audio for each normal listening card
 
 Never suggest a long audiobook chapter or podcast with "listen to first X seconds". Select an **actual standalone 15–35s clip**, or a purposeful 5–14s micro-item, with trusted duration verified. In `planListenAnswerCard` missing duration or `duration_seconds>35` returns `unavailable` for standard cards, regardless of media format or external link fallback. Learners may explicitly request a longer audio activity, up to 90s; no longer recording is silently substituted. Match every question to the *actual complete clip*, not broader surrounding content. For a mobile external-audio handoff, native questions remain in chat; listening remains unassessed if clip did not play.
+
+
+## First external listening/video provider: ELLLO
+
+Prefer **ELLLO only** during the initial pilot whenever a source recording/video needs to be discovered and there is no reusable verified audio asset. Read [ELLLO source selection, rights and QA](../docs/ELLLO-SOURCE.md), consult `src/elllo-source.mjs` for five prechecked **lesson pages** and local topic/level filtering. These pages are not verified playable short clips. Never conflate ELLLO's promotional *One Minute English* label with a file's actual verified duration, or represent a link to its external page as a native in-chat video player. Video is original-site link only, no rehosting. Use native Intelligent UI for surrounding gist/detail items **after** the exact full clip has been checked and the learner confirms hearing. The learner's CEFR level must not be presumed from a sample candidate.
