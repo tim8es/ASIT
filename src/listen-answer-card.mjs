@@ -88,8 +88,39 @@ export function planListenAnswerCard({audioAsset=null,questions=[],clientAudioSu
  return {render:'audio_card',type:'listening',ui:[
    'audio_play_and_replay','speed_if_available','gist_and_detail_questions',
    'submit_after_real_playback','teacher_feedback','post_attempt_transcript'],
+   // Native lesson UI owns questions/status/Submit. A minimal verified media surface
+   // is the only non-native part; do not open a standalone HTML page by default.
+   presentation:{
+     surface:'in_chat_intelligent_ui',
+     standalone_html:false,
+     media_adapter:'minimal_inline_audio_only',
+     response_controls:'native_radio_input_textarea',
+     feedback_controls:'native_provisional_status_then_teacher_review',
+     completion_control:'one_native_submit',
+     fallback:'playable_asset_link_with_native_questions'
+   },
    source_kind:'verified_audio_asset',evidence_modality:'pending_listening',
    allows_one_final_submit:true,requires_real_playback:true,
    transcript_hidden_until_after_first_attempt:true,
    questions_count:questions.length,stored:false};
+}
+
+
+/** Audio recording quality hints support production QA; not a substitute for listening. */
+export function auditListeningAudioAsset({sampleRateHz=null,bitRateKbps=null,
+  sourceKind='unknown',naturalnessReviewed=false}={}){
+ const technical=[];
+ if(Number.isFinite(sampleRateHz)&&sampleRateHz<32000)
+   technical.push('sample_rate_below_32k');
+ if(Number.isFinite(bitRateKbps)&&bitRateKbps<64)
+   technical.push('bit_rate_below_64kbps');
+ return {
+  technical_warnings:technical,
+  editorial_status:naturalnessReviewed===true?'human_reviewed':'needs_human_listening_review',
+  source_kind:sourceKind,
+  preferred_source:'clear_natural_human_or_high_quality_licensed_tts',
+  production_ready:technical.length===0&&naturalnessReviewed===true,
+  // Higher sample rate alone never repairs robotic prosody or misleading transcript.
+  no_automatic_naturalness_claim:true
+ };
 }
