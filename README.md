@@ -86,3 +86,8 @@ Besides Voice-first speaking lessons, ASIT now has an explicit [Listen → Answe
 ### 2026-10-16 audio-card UX correction
 
 **Inline Intelligent UI is the default** for Listen → Answer, not a standalone HTML file. Genuine audio playback may need a small inline audio-only adapter if the ChatGPT client supports it, while all questions, answer controls, feedback and Submit remain native. The original 22.05kHz/~32kbps TTS demo was rejected as poor quality; new recordings require a real natural-voice editorial check. See [updated audio card contract](docs/LISTEN-ANSWER-AUDIO-CARDS.md). Embedded audio support on mobile is still client-acceptance-gated; neither an MP3 attachment nor pure Node.js planner installs a universal inline audio widget.
+
+
+### Short audio only: normal Listen → Answer cards
+
+After real learner testing, **full audiobook chapters are forbidden in normal audio cards** even when instructions suggest listening to only the first minute. Cards require a genuine, *complete* 15–35 second stand-alone audio source with verified duration and 2–3 questions matched to the recorded excerpt. An explicit advanced/extended mode may use up to 90 seconds. Unverified length or long-source playback is rejected by `auditListeningDuration`; native Q&A and sound availability safeguards remain unchanged. See [the short-audio rule](docs/LISTEN-ANSWER-AUDIO-CARDS.md).

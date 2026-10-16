@@ -44,3 +44,8 @@ The card shows Play/Replay and optional slower speed, waits for playback, asks g
 ## Confirmed mobile audio card rendering-but-not-playing case
 
 A mobile learner reported that ASIT's inline audio surface rendered but audio was silent for a real Wikimedia OGG source. Therefore rendering alone is never capability evidence. If `audio/ogg` support isn't specifically verified, decline inline playback and seek a genuine mobile-compatible MP3/AAC source. If the host has no supported inline media, keep native DIL gist/detail question controls and use a real MP3 attachment/link after a learner-heard confirmation; never re-label a silent player as listening practice. The `external_audio_handoff` reference plan explicitly records the weaker self-reported listening provenance. See [dedicated contract](../../docs/LISTEN-ANSWER-AUDIO-CARDS.md).
+
+
+## Duration contract for Listen → Answer
+
+The actual file must be a bounded standalone short asset (**normally 15–35s**, optional coherent 5–14s microclip); do not send a 10-minute recording with a manual "listen to first 90 seconds" instruction. `src/listen-answer-card.mjs` requires verified `duration_seconds` and rejects unverified durations and >35s default. Extended up to 90s requires explicit learner request. Two or three questions must be answerable from **within that exact audio clip**. Keep learner controls native and use a genuine verified recording rather than low-quality synthetic placeholder.

@@ -64,3 +64,11 @@ Complete and date these actual-device cases before reporting the whole interacti
 40. Simulate inline failure after card render. Expected: listening `not_assessed`, no graded guessed answers, one accessible real MP3 external playback option when a verified compatible source exists, and native DIL questions remaining in the chat. No automatic standalone HTML page.
 41. After opening external MP3, mark `not_assessed` until the learner confirms actual completed audible listening. If learner confirms hearing, use `self_reported_external_audio_comprehension` with no host playback telemetry claim.
 42. If the native ChatGPT client itself restricts embedded playback, stop retrying broken in-app embeds. Record device/OS/app-version **only if volunteered** in a private user test; never write real learner device details to public GitHub.
+
+
+## Audio duration regression after learner feedback
+
+43. A user-provided 10m40s audiobook chapter must be rejected as a normal listening card even if the prompt says "only the first 30/90 seconds"; a time fragment on the URL does not count as a trimmed asset.
+44. Accept an actual 26-second standalone MP3 with verified duration for an ordinary listening card. Check the 2–3 questions against the precise heard content and that the learner can listen start-to-end without manual seeking.
+45. Unknown or unverified duration → unavailable; >35 seconds default → unavailable; 36–90 seconds requires explicit extended-listening choice; >90 seconds cannot be used as one audio card.
+46. QA the **actual playable short asset** and naturalness on mobile; success of the duration validator or a source webpage description alone does not prove mobile playback or linguistic adequacy.

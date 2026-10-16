@@ -87,13 +87,41 @@ export function assessListenAnswerCard({questions,answers={},playback={},earlyEx
  };
 }
 
+/** Ordinary ASIT listening cards must have a bounded, known actual media duration.
+ * The chapter's length, not a suggested listening offset, is decisive.
+ */
+export const STANDARD_LISTENING_MAX_SECONDS=35;
+export const EXTENDED_LISTENING_MAX_SECONDS=90;
+export function auditListeningDuration({durationSeconds=null,durationVerified=false,
+  extendedListening=false}={}){
+ const limit=extendedListening?EXTENDED_LISTENING_MAX_SECONDS:STANDARD_LISTENING_MAX_SECONDS;
+ if(durationVerified!==true||!Number.isFinite(durationSeconds)||durationSeconds<5)
+   return {eligible:false,reason:'clip_duration_not_verified',maximum_seconds:limit};
+ if(durationSeconds>limit)
+   return {eligible:false,reason:'clip_too_long',actual_seconds:durationSeconds,
+     maximum_seconds:limit,remedy:'trim_to_self_contained_clip_with_matched_questions'};
+ return {eligible:true,reason:'short_clip_verified',actual_seconds:durationSeconds,
+   maximum_seconds:limit};
+}
+
 /** Author a native audio card only for a confirmed, genuine playable source. */
 export function planListenAnswerCard({audioAsset=null,questions=[],clientAudioSupported=false,
-  audioFormatConfirmed=false,externalAudioLinkAvailable=false}={}){
+  audioFormatConfirmed=false,externalAudioLinkAvailable=false,
+  extendedListening=false}={}){
  if(!validQuestions(questions))throw new Error('Invalid trusted audio question rubric');
  const sourceVerified=audioAsset?.verified===true&&
   ['audio/mpeg','audio/wav','audio/ogg','audio/mp4'].includes(audioAsset?.mime_type)&&
   typeof audioAsset?.uri==='string'&&audioAsset.uri.trim().length>0;
+ const duration=auditListeningDuration({durationSeconds:audioAsset?.duration_seconds,
+   durationVerified:audioAsset?.duration_verified===true,extendedListening});
+ // Hard veto: a ten-minute chapter with "listen to the first 30 seconds"
+ // is NOT a 30-second asset and cannot be used as an ordinary card.
+ if(!sourceVerified||!duration.eligible){
+   return {render:'unavailable',type:'listening',evidence_modality:'unassessed',
+     reason:!sourceVerified?'no_verified_audio_asset':duration.reason,
+     duration_audit:duration,
+     fallback:'use_an_actual_short_bounded_audio_asset_not_a_long_chapter'};
+ }
  // Mobile webviews may display controls but fail to play audio. OGG Vorbis
  // especially needs an explicitly tested codec; support cannot be inferred.
  const codecVerified=audioAsset?.mime_type!=='audio/ogg'||audioFormatConfirmed;
@@ -134,7 +162,8 @@ export function planListenAnswerCard({audioAsset=null,questions=[],clientAudioSu
    source_kind:'verified_audio_asset',evidence_modality:'pending_listening',
    allows_one_final_submit:true,requires_real_playback:true,
    transcript_hidden_until_after_first_attempt:true,
-   questions_count:questions.length,stored:false};
+   questions_count:questions.length,audio_duration_seconds:duration.actual_seconds,
+   max_duration_seconds:duration.maximum_seconds,stored:false};
 }
 
 

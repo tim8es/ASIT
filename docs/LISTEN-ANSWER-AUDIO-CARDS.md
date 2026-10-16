@@ -82,3 +82,17 @@ Open public issue: an Apps SDK iOS widget was reported to render normally yet pr
 Prioritize portable MP3/AAC for mobile delivery. OGG is an optional tested fallback only when **codec support for this client and asset is confirmed**. A valid OGG source URL is insufficient. Native webview client controls, OS/browser differences, audio media policy, network permissions and audio format remain separate hypotheses until reproduced. Do not claim swapping OGG to MP3 alone fixes in-app playback.
 
 **Short-term accepted UX:** visible source link/MP3 attachment plus 2–3 native `radio-group` / `input` tasks and final `Submit` in the *same chat*; optional host-verified inline audio later. No standalone HTML page and no decorative player. Long-term: require a first-party audio primitive or verified sanctioned host audio bridge to deliver seamless playback; source repository rules cannot grant new client capabilities.
+
+
+## Mandatory short audio segment policy — real learner QA
+
+A learner correctly rejected a *full 10m40s audiobook chapter*, even though the lesson instructed them to listen to its first 90 seconds. **Suggesting a short offset in a long file is not acceptable.** The file/URL itself must resolve to a genuinely short, standalone media asset with duration verified from trustworthy source metadata or probed file duration. Do **not** use a URL to a long recording plus manual scrubbing instructions or a `#t=...` fragment as an ordinary-card replacement.
+
+- **Default**: an actual **15–35 second** coherent excerpt (shorter 5–14 second micro-items permitted when purposeful), generally 2–3 gist/detail questions, no answer-bearing transcript before the first attempt.
+- **Explicit opt-in extended practice only**: 36–90 seconds, with an activity reason; 90+ seconds is not a standard one-card lesson.
+- **Hard code gate**: `auditListeningDuration` rejects unverified/unknown durations, clips under 5 s, >35 s in default mode and >90 s in extended mode. A full chapter never slips through by a "listen only to first N seconds" instruction. This applies to embedded and external-link delivery equally.
+- **Source integrity**: match the complete clip boundaries and transcript with every question. Clip at natural sentence boundaries before authoring questions, verify actual audible content, and avoid leaking any answers in displayed clip labels or subtitles.
+- **Natural audio first**: genuinely clear recorded speaker or editorially reviewed high-quality synthesis; reject artificial/robotic low-quality samples as default lesson material.
+- **UI**: one click/tap to the *short clip* and native ChatGPT questions, no full-chapter player, manual seeking, or separate HTML lesson.
+
+Example publicly available short full-length asset: Palomar College English Listening Practice **Why Were You Absent? 1** (catalogued **0:26**), `https://www.palomar.edu/englishlisteningpractice/wp-content/uploads/sites/116/2019/09/Why-Were-You-Absent-1.mp3`. Source listing and transcript: `https://www.palomar.edu/englishlisteningpractice/activities/`. Only claim end-user audio works after the user actually hears it, and don't redistribute source audio without permission. Suitable grounded prompts: purpose of the message; reason for absence; how speaker plans to get homework. This example is a **real short asset link**, not a bundled download or native in-chat audio driver.

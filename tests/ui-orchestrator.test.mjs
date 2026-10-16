@@ -262,13 +262,13 @@ test('real audio card delivery is separate from platform Voice and cannot fake a
  const questions=[{id:'q',type:'single_choice',prompt:'What did you hear?',expected:'train'}];
  const unavailable=selectUiPattern({requestedType:'listening',delivery:'audio_card',
  capabilities:{audioPlayback:false},audioCard:{
- trustedAudioAsset:{uri:'asset',mime_type:'audio/mpeg',verified:true},
+ trustedAudioAsset:{uri:'asset',mime_type:'audio/mpeg',verified:true,duration_seconds:26,duration_verified:true},
  trustedQuestions:questions}});
  assert.equal(unavailable.kind,'unavailable');
  assert.equal(unavailable.evidence_modality,'unassessed');
  const available=selectUiPattern({requestedType:'listening',delivery:'audio_card',
  capabilities:{audioPlayback:true},audioCard:{
- trustedAudioAsset:{uri:'asset',mime_type:'audio/mpeg',verified:true},
+ trustedAudioAsset:{uri:'asset',mime_type:'audio/mpeg',verified:true,duration_seconds:26,duration_verified:true},
  trustedQuestions:questions}});
  assert.equal(available.kind,'audio_card');
  assert.equal(available.card.requires_real_playback,true);
@@ -281,7 +281,7 @@ test('failed mobile inline audio falls back to native in-chat questions and veri
  const p=selectUiPattern({requestedType:'listening',delivery:'audio_card',
  capabilities:{audioPlayback:false,externalAudioLinkAvailable:true},
  audioCard:{trustedAudioAsset:{uri:'https://example.org/recording.mp3',
- mime_type:'audio/mpeg',verified:true},
+ mime_type:'audio/mpeg',verified:true,duration_seconds:26,duration_verified:true},
  trustedQuestions:[{id:'gist',type:'single_choice',prompt:'What happened?',expected:'arrival'}]}});
  assert.equal(p.kind,'external_audio_handoff');
  assert.equal(p.card.question_ui,'native_intelligent_ui');
@@ -292,7 +292,7 @@ test('mobile OGG is not automatically playable despite presence of an audio widg
  const p=selectUiPattern({requestedType:'listening',delivery:'audio_card',
  capabilities:{audioPlayback:true,externalAudioLinkAvailable:true},
  audioCard:{trustedAudioAsset:{uri:'https://example.org/recording.ogg',
- mime_type:'audio/ogg',verified:true},
+ mime_type:'audio/ogg',verified:true,duration_seconds:26,duration_verified:true},
  trustedQuestions:[{id:'gist',type:'single_choice',prompt:'What happened?',expected:'arrival'}]}});
  assert.equal(p.kind,'unavailable');
  assert.equal(p.evidence_modality,'unassessed');
