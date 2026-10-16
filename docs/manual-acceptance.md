@@ -49,3 +49,10 @@ Complete and date these actual-device cases before reporting the whole interacti
 32. Leave a required detail blank: cannot submit normally; check explicit incomplete early finish if provided. Try transcript reveal only after first attempt.
 33. If learner reads transcript before answering or reports not listening, evidence is text-supported/unassessed, not independent auditory comprehension. Player ended event alone must not automatically certify hearing.
 34. Distinguish native **in-chat** playback from opening a downloaded MP3/standalone HTML in an external browser. Passing standalone browser checks alone is **not** native ChatGPT mobile audio-card acceptance; keep that UI capability labelled unverified until directly tested.
+
+## Intelligent UI inline media regression
+
+35. On mobile, show the actual listening stage *within the chat bubble*; radio/input and one Submit must be native Intelligent UI. A standalone HTML page cannot pass this check.
+36. The only non-native surface permitted is a **minimal functioning audio media slot**. Confirm Play/Pause/Replay/speed audibly work (not merely animate), and questions stay in the chat. If media playback fails, mark `not_assessed` and offer a real fallback link.
+37. Inspect MP3 sample rate/bitrate and **listen as a human** for naturalness, stress, pacing and background noise. Flag 22.05kHz/32kbps demonstration voice as unsuitable even if technically playable; do not equate high bitrate with natural prosody.
+38. Check no transcript leaks before the first answer unless the user explicitly requests text help; after help downgrade evidence to assisted audio+text.
