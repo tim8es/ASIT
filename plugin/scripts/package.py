@@ -70,7 +70,8 @@ def check():
     assert 'within the actual listening lesson' in (ROOT / 'skills/asit-media/SKILL.md').read_text(encoding='utf-8').lower()
     storage = (ROOT / 'skills/asit-progress/references/storage-v2.md').read_text(encoding='utf-8')
     for word in ('learner_id','target_language','audio_consent','cefr_confidence_label','SUBTASK','Attempt saved'):
-        assert word.lower() in (storage + progress).lower(), f'Incomplete persistence instruction: {word}'
+        progress_copy = (ROOT / 'skills/asit-progress/SKILL.md').read_text(encoding='utf-8')
+        assert word.lower() in (storage + progress_copy).lower(), f'Incomplete persistence instruction: {word}'
     onboarding = manifest['extensions']['com.openai'].get('onboardingSkill')
     assert onboarding == './skills/asit-onboarding/SKILL.md' and (ROOT / onboarding[2:]).is_file()
     assert 'Never fetch GitHub' in teacher
