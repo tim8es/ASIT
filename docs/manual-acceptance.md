@@ -72,3 +72,11 @@ Complete and date these actual-device cases before reporting the whole interacti
 44. Accept an actual 26-second standalone MP3 with verified duration for an ordinary listening card. Check the 2–3 questions against the precise heard content and that the learner can listen start-to-end without manual seeking.
 45. Unknown or unverified duration → unavailable; >35 seconds default → unavailable; 36–90 seconds requires explicit extended-listening choice; >90 seconds cannot be used as one audio card.
 46. QA the **actual playable short asset** and naturalness on mobile; success of the duration validator or a source webpage description alone does not prove mobile playback or linguistic adequacy.
+
+
+## ELLLO provider pilot — field acceptance
+
+47. Verify ASIT suggests ELLLO **original lesson page URLs** for requested beginner/intermediate video/audio topics rather than copying media or publishing a new HTML player. Check the metadata-based local source index and topic/level search.
+48. Verify that the initial five records are labelled `source_lesson_verified_media_unassessed`, with no guessed durations, direct MP3 URLs or playable inline video claims. A valid HTML page does not certify media playback.
+49. Open an actual ELLLO video on the learner's mobile device; require heard speech before any listening score. Check duration of **the whole file**, including lessons advertised as One Minute, against ≤35s default or explicit extended ≤90s.
+50. Verify full transcript is not copied to public GitHub; read transcript only if permitted for private lesson preparation, keep original-site attribution, and author original questions about verified spoken content. Verify restrictions in ELLLO FAQ before any future downloads/rehosting.
