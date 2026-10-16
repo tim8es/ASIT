@@ -33,7 +33,8 @@ test('search plan uses ELLLO only, returns known pages then website queries',()=
  assert.equal(p.download_media,false);
  const g=planEllloSearch({grammar:'present continuous',level:'A2',format:'sound_grammar'});
  assert.match(g.search_queries[0],/site:elllo.org\/book\//);
- assert.equal(g.live_search_required,true);
+ assert.equal(g.known_candidates[0].url,grammarUrl);
+ assert.equal(g.must_fetch_and_verify_selected_page,true);
  assert.throws(()=>planEllloSearch({topic:'hello',format:'podcast'}),/Invalid/);
  assert.throws(()=>planEllloSearch({topic:'x'}),/concise/);
 });
