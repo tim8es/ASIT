@@ -17,6 +17,10 @@ Google Sheets works through the Google Drive ChatGPT app when the user and works
 - Search Google Drive/Sheets for a uniquely identified, learner-owned workbook such as **ASIT — Learner State**. Verify ownership, IDs and schema. No matches: ask permission before creating one. Multiple matches: disambiguate. Missing connector access is not evidence of a blank workbook.
 - For first setup, migration, schema checks or writes read [exact v2 storage contract](references/storage-v2.md). Never overwrite unknown state or assume fake IDs.
 
+## Setup completion gate
+
+A Google Drive plugin being installed does NOT mean ASIT storage is initialized. Before calling storage ready, verify ownership, exact nine headers, ALL seven Config values (`schema_version`, `state_revision`, `learner_id`, `target_language`, `recording_consent`, `audio_consent`, `cefr_confidence_label`), and real provider readback. A partially initialized workbook needs user-approved repair, not overwriting. One composite Submit may require multiple trusted Activities and Attempts to preserve separate CEFR modalities. See storage-v2.
+
 ## Everyday bounded reads
 
 Use only narrow Config (schema, consent, revision and adaptation), active Goals/Plan, latest Session summary, due Reviews, relevant Competencies and 3–6 recent relevant Attempts for normal learning. Read trusted Activity when checking an answer. For **CEFR reporting**, load [CEFR analytics and reporting contract](references/cefr-analytics.md) and page enough relevant Activities and Attempts for the requested scope; report incompleteness explicitly. Do not present a small everyday packet as comprehensive longitudinal analysis.
@@ -31,4 +35,4 @@ Review scheduling remains a heuristic due queue, not FSRS. Prioritize due retrie
 
 ## Saving and reliable reporting
 
-A native Submit sends a new chat turn and does NOT write to Sheets. Assess against trusted Activity via `asit-assessment`, check duplicate IDs, write only user-consented data and **read back the exact row**. Say `Saved` only on verified readback, otherwise `Not verified`/`Not saved`. Check state revision for updates; Google Sheets is not transactional. Any correction, deletion, export or sharing requires proper scope, user authorization where necessary, and verification.
+A native Submit sends a new chat turn and does NOT write to Sheets. Assess against trusted Activity via `asit-assessment`, check duplicate IDs, write only user-consented data and **read back the exact row**. Say `Attempt saved` on verified attempt readback, `Fully synced` only when session, review, competency and Config projection writes have also been read back, otherwise `Partial sync`/`Not verified`/`Not saved`. Check state revision for updates; Google Sheets is not transactional. Any correction, deletion, export or sharing requires proper scope, user authorization where necessary, and verification.
