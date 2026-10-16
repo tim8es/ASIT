@@ -49,3 +49,8 @@ A mobile learner reported that ASIT's inline audio surface rendered but audio wa
 ## Duration contract for Listen → Answer
 
 The actual file must be a bounded standalone short asset (**normally 15–35s**, optional coherent 5–14s microclip); do not send a 10-minute recording with a manual "listen to first 90 seconds" instruction. `src/listen-answer-card.mjs` requires verified `duration_seconds` and rejects unverified durations and >35s default. Extended up to 90s requires explicit learner request. Two or three questions must be answerable from **within that exact audio clip**. Keep learner controls native and use a genuine verified recording rather than low-quality synthetic placeholder.
+
+
+## Automatic ELLLO original-site media activity
+
+Use [ELLLO AUTO LESSONS](../../docs/ELLLO-AUTO-LESSONS.md) for automatic retrieval and teacher-authored question generation when the curriculum calls for listening/video or grammar-in-speech. The media is consumed at the **original ELLLO page**, not copied/embedded as a fake native player. Responses and one final Submit use Intelligent UI in ChatGPT. `Sound Grammar` must identify one conversation 1–4; `One Minute English` still needs verified file duration. Each of 2–3 original questions has internal text evidence, but no visible answer key before Submit. The student confirms audible playback and transcript usage; source-page viewing alone is not telemetry. Never claim the pure JS module performed network discovery.
