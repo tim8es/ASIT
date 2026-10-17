@@ -1,7 +1,9 @@
-# ASIT — English Tutor · Skills-only v0.2.11 candidate
+# ASIT English Tutor — v0.3.0 candidate (skills-only)
 
-The plugin's eight skills under `skills/` are the **runtime specification**. The ChatGPT host performs instruction-followed teaching and optional authorized Google Drive/Sheets operations. No MCP, JavaScript runtime, automatic background save hook, bundled player, or custom API is included.
+Two new lazy instruction skills: `asit-core` (subject-neutral learning/selection) and `asit-english` (English objectives, rubric, CEFR). The existing eight skills continue to own routing, lesson UI, grading, Save Gate, media, voice and onboarding.
 
-v0.2.11 candidate synchronizes the installed v0.2.10 source and incorporates the useful offline decision logic as **lazy** references: adaptive goal selection, evidence/review rules, ELLLO source validation and illustrative can-do catalog. These are not executing algorithms. Recording requires explicit consent, trusted pre-registered Activities, Google Sheets provider readbacks and honest Save Gate statuses.
+The optimized critical path prepares one trusted lesson blueprint and reuses current-turn provider-verified facts. Safe ID checks, writes and readbacks are grouped when available; dependent projection writes remain separate. Incorrect-choice feedback is now consistently non-spoiling. No features, permissions or verification gates are removed.
 
-See `ACCEPTANCE.md`, `AUTO-CONTINUATION-ACCEPTANCE.md` and `SAVE-GATE-ACCEPTANCE.md` for host-level tests. Unit/static contract tests do NOT prove that native controls, audio playback, Sheets writes or a learner session actually worked. Publishing a GitHub commit does not update the installed plugin.
+No MCP/backend, executing plugin JavaScript, bundled audio player or guaranteed native UI hook. Optional Google Sheets schema v2 remains unchanged, with consent, Activity pre-registration and readback. Source commits/static tests do not publish the plugin or prove live learner behavior.
+
+See `docs/ARCHITECTURE.md` in the repository and the existing acceptance test documents.

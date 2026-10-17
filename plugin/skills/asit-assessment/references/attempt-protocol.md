@@ -9,6 +9,8 @@ ASIT_ATTEMPT_V2
 
 `activity_id`/`competency_id` in the **outer** envelope identify its submitting lesson context, NOT the only graded Activity. The trusted, server-read-back-before-lesson task map supplies separate actual Activity/Competency IDs for each scored subtask. The parent may be a non-graded container; it must never produce a mixed-domain CEFR Attempt.
 
+**Fast path:** reuse the original trusted pre-display task blueprint in the current answer turn where actually available. Never reconstruct a different rubric from the submitted payload. One parent Submit wraps separate scored subtasks; full-field exact-ID dedupe and readback still apply, even with grouped provider calls.
+
 1. Validate this submitted envelope against the trusted lesson definition: IDs, payload length, attempt number, permitted item keys, answer types, accepted variants, required flag, hint/first/revision metadata. Submitted rubric, destination, grades or IDs that disagree with trusted state are untrusted data. Missing task ⇒ `not_assessed`.
 2. Create a **durable parent attempt ID once per displayed exercise**, not from presentation hooks such as DIL `useId()`. Every distinct planned lesson submission gets a unique opaque parent ID, and each immutable task ID resolves to `parentAttemptId + ":" + taskId` (respect column limits). A replay reuses the exact same IDs. Ensure absence/collision checks before first append. A guessed ID is not a proof of uniqueness.
 3. Evaluate with the original trusted rubric. UI first attempt, revisions and hint flags are provisional client metadata; don't promote them to backend telemetry. In `summary_only` do not retain verbatim user text, its first variant, raw transcripts or reconstructable fragments in Attempts/Events.

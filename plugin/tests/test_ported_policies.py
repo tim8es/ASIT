@@ -11,10 +11,10 @@ class PortedPoliciesTest(unittest.TestCase):
         lessons=read("skills/asit-lessons/SKILL.md")
         progress=read("skills/asit-progress/SKILL.md")
         media=read("skills/asit-media/SKILL.md")
-        self.assertIn("references/selection-invariants.md",lessons)
+        self.assertIn("../asit-core/references/selection-invariants.md",lessons)
         self.assertIn("references/evidence-review.md",progress)
         self.assertIn("references/elllo-source-validation.md",media)
-        selection=read("skills/asit-lessons/references/selection-invariants.md")
+        selection=read("skills/asit-core/references/selection-invariants.md")
         for s in ("two latest","two distinct sessions","contexts","state revision","unmet prerequisites"):
             self.assertIn(s.lower(),selection.lower())
         evidence=read("skills/asit-progress/references/evidence-review.md")

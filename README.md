@@ -1,21 +1,17 @@
-# ASIT — ChatGPT English Tutor
+# ASIT — adaptive learning through ChatGPT
 
-**Architecture:** Skills-only ChatGPT plugin. The only supported runtime specification lives in [`plugin/`](plugin/). No GitHub-first Project router, Node.js engine, MCP server or automatically running JavaScript is part of ASIT.
+One skills-only plugin: **ASIT Core** (subject-neutral learning cycle) + **English adapter** (communicative methodology, rubrics, CEFR) + ChatGPT interactive teacher. The architecture prepares future subject modules without adding a backend or rewriting the existing nine-tab Google Sheets v2 storage.
 
-- Eight skills route lessons, adaptive exercises, media, voice, assessment, CEFR evidence and verified Google Sheets progress.
-- Persistent learner state is optional and requires a user-connected Google Drive/Sheets app, explicit consent, schema validation and verified write/readback; `ASIT_ATTEMPT_V2` is a chat message, not a database hook.
-- The plugin is independent of this GitHub repository at lesson runtime. A source update must be packaged and explicitly released via Plugin Creator to reach the installed plugin.
-- The current repository source is **v0.2.11 candidate**, based on installed v0.2.10. A PR/commit is not proof of publication or successful on-device QA.
+Ten lazily routed skills cover the core, English, teacher, lessons, interactive exercises, assessment, progress, media, voice and onboarding. The current GitHub source is **v0.3.0 candidate**, not an installed release. A GitHub commit does not update the installed plugin; publication through Plugin Creator and live ChatGPT dogfooding are separate.
 
-See [architecture](docs/ARCHITECTURE.md), [migration audit](docs/LEGACY-MIGRATION.md), [plugin development](plugin/DEVELOPMENT.md), and [acceptance](plugin/ACCEPTANCE.md).
+No executing JavaScript, MCP, automatic Submit hook or custom database is included. Saving learner state is optional and requires a connected authorized Drive app, consent, trusted Activity pre-registration and verified readbacks.
 
-## Development
-Requires only Python 3 (standard library), not Node.js:
+See [architecture](docs/ARCHITECTURE.md), [plugin developer guide](plugin/DEVELOPMENT.md), and [acceptance](plugin/ACCEPTANCE.md).
+
+## Developer checks
 
 ```sh
 python3 -m unittest discover -s plugin/tests -p 'test_*.py'
 python3 plugin/scripts/package.py --check
 python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin.zip
 ```
-
-Tests validate static contracts and package integrity, NOT live ChatGPT native UI, a user's audio, lesson adaptability or real Sheets persistence. Never commit private workbook IDs, raw learner answers, personal data, or credentials.

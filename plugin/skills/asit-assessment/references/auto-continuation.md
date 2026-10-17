@@ -21,6 +21,10 @@
 - A learner says “stop for today, just mark the answers”: grade/save/report, no next form.
 - Recording consent is `off`: grade and auto-continue **unsaved**, without Drive writes or fabricated sync badges.
 
+## Continuation fast path
+
+Check explicit stop/pause/grade-only intent before loading new-lesson visuals, media or controls; always finish old grading and authorized Save Gate. Reuse the current-turn verified learner goal/preferences, trusted task map and successor identity instead of repeating a complete workbook discovery or rebuilding the same lesson multiple times. Decide the next objective once, validate a single lesson blueprint, then check/register/read back every new graded Activity before rendering. Refresh live recording consent and revision before successor writes, even when the previous Attempt is Fully synced. On replay reuse the pre-registered successor; no new IDs. Never skip answer-integrity or the full-lesson visual standard for performance.
+
 ## Efficiency guardrails
 
 Only load this small reference on ASIT answer turns, not on general progress/capability questions. Use bounded learner state and no GitHub/repository reads. Do not manufacture audio, video, UI or evidence to satisfy variety rules. This contract does not claim background notifications or teacher actions between messages.

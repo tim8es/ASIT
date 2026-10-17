@@ -18,9 +18,21 @@ This is a **Skills-only** plugin. It has no running JS service, built-in databas
 5. Only verified Attempts can affect necessary Session, Competency, Review and Config state_revision projections. Guard revision conflicts; read back every changed projection. No fabricated Reviews or unsupported CEFR status. If projections partially fail, retain Attempt receipt and report `Attempt saved / Partial sync`, not `Fully synced`.
 6. Return exactly one evidenced state to `asit-assessment`: `Fully synced` (all required readbacks), `Attempt saved / Partial sync` (Attempt verified only), `Not verified` (ambiguous provider outcome), or `Not saved` (no successful write). Feedback is independent of storage. On next authorized session, reconcile pending projections from verified original IDs only; never blind replay.
 
+## Bounded Save Gate fast path — no relaxed safety
+
+Reuse **verified provider evidence only within the current turn**. On first or uncertain workbook discovery verify identity/owner, all nine data headers and required Config. Re-check live recording consent and state_revision before a subsequent write whenever either may have changed; a previous chat, speculative cache or previous Fully synced receipt cannot authorize another mutation.
+
+When available, group bounded reads of needed Config, original Activity records and exact Attempt IDs; validate **every** required row and field. Search complete applicable ID bounds (page where necessary); a truncated ID search cannot establish absence. Perform distinct ordered phases: (1) register successor Activities before display and fully read them back, (2) after Submit batch only absent Attempts and fully read them back, (3) **only after verified Attempts** batch compatible Session/Competency/Review/Config projections and read back every required change. Never combine phases 2 and 3 merely to reduce calls.
+
+Within one submission/continuation, reuse trustworthy learner preferences and verified evidence rather than repeating discovery. Refresh Config consent/revision and independently verify every successor Activity before showing it. If the connector cannot batch, a revision changes, or an ID read is incomplete, perform necessary extra checks or report the truthful partial/unsaved state. Lower latency is a goal, never a substitute for Save Gate, privacy or quality.
+
 ## Setup, privacy and discovery
 
 App connection, ASIT save preference and workbook readiness are separate states. Google Drive app isn't automatically installed or enabled by ASIT. For explicit connect/enable/pause/resume/delete/export requests consult [storage setup](references/storage-setup.md). New persistent state requires informed privacy choice `off`, `summary_only`, `raw`; audio/transcripts require separately affirmative consent. Once mode consent is verified, don't nag every lesson. Discovery uses identifiable user-owned workbook such as `ASIT — Private Learner State`; disambiguate multiple matches. A partially migrated older workbook needs user-approved append-only repair, not a destructive overwrite. Validate owner, schema, headers and Config; do not infer missing privacy modes or orphan relationships.
+
+## Domain policy boundary
+
+The nine-tab v2 workbook is storage, not a learning interface. Do not create a Dashboard or extra documentation tabs. Consult [English adapter](../asit-english/SKILL.md) only for requested CEFR-aligned reporting, not for routine save operations.
 
 ## Bounded continuation and CEFR
 
