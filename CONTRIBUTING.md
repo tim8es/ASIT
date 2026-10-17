@@ -1,26 +1,13 @@
 # Contributing to ASIT
 
-ASIT is primarily an **English-teaching specification for ordinary ChatGPT**, plus dependency-free reference logic and synthetic tests. The source must remain generic and privacy-safe.
+The supported source of truth is `plugin/skills`, with a Python-only packaging and static contract-test toolchain. Never reintroduce Node.js engines, GitHub-first Project instructions or claims that repository scripts execute during ChatGPT lessons.
 
-## Development loop
+1. Change the smallest relevant skill and lazy reference; avoid eagerly loading all references into model context.
+2. Preserve truthful modality evidence, answer integrity, trusted Activity pre-registration, consent/privacy and exact readback.
+3. Add or adjust synthetic static tests and a manual acceptance scenario.
+4. Run `python3 -m unittest discover -s plugin/tests -p 'test_*.py'` and `python3 plugin/scripts/package.py --check`.
+5. Test actual rendered UX in ChatGPT separately. CI green is not live correctness, audio playback or Google Sheets proof.
 
-Install Node.js 22 or later (only needed for development). Run `npm test` and `npm run audit`. No LLM API key, web frontend or hosted service is required.
+Private learner state must never appear in Git commits, tests, screenshots, prompts or public searches. Deleting files in a commit does not remove prior Git history; historical exposure requires a separate reviewed purge and credential rotation if applicable.
 
-Before proposing a change:
-1. Explain which observable learning or learner experience problem it solves.
-2. Preserve first-run individualization: never preset identity, first language, job, proficiency or learning objectives.
-3. Add a fictional test covering success, invalid input and, for persistence, no-consent/failure behavior.
-4. Validate schema and installer compatibility. If the private store changes, provide a versioned migration plan and no destructive automatic upgrade.
-5. Document live vs simulated verification without inflating results.
-
-## Privacy
-
-Never commit actual learner answers, names, contact data, personal Drive file IDs, credentials, recordings or any original screenshot containing such information. Do not put private data in issues, pull requests, workflow logs, fixtures or release notes. Run the audit; remember an automated scan is incomplete.
-
-## Release policy
-
-The original repository currently contains detached historical objects still addressable by old SHA. It stays private until public-history safety is resolved. Refer to `docs/publication.md`. Keep standalone deployment free of a mandatory separate app, custom MCP server and paid API service without reproducible justification.
-
-## Definition of completion
-
-A green test run proves code invariants, not language learning. Native UI rendering, persistence permissions, fresh-chat recovery and real feedback must pass the manual acceptance plan before being called fully verified.
+Plugin Creator publication is a separate manual gated step; merging a PR does not update the installed release.

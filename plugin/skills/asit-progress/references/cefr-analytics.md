@@ -1,6 +1,6 @@
 # CEFR Evidence Analytics — ASIT v0.2.1 (lazily loaded)
 
-Use ONLY when a learner asks for CEFR/level/overall skill progress, diagnostic, or when an assessed Activity is being explicitly tagged with CEFR evidence. Do not load this on ordinary brief vocabulary questions. This is a Skills-only **procedure**, not an executing script or certified examination. The repo `src/cefr-analytics.mjs` is an offline deterministic reference/test oracle; no MCP, external API, or database is required. Google Sheets v2 remains the only optional persistent store.
+Use ONLY when a learner asks for CEFR/level/overall skill progress, diagnostic, or when an assessed Activity is being explicitly tagged with CEFR evidence. Do not load this on ordinary brief vocabulary questions. This is a Skills-only **procedure**, not an executing script or certified examination. The old offline CEFR JavaScript oracle has been retired; this skill procedure is the maintained source of truth. No MCP or external API is required. Google Sheets v2 remains the only optional persistent store.
 
 Official basis: Council of Europe, *CEFR Companion Volume* (2020), https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors . Do not invent or reproduce official descriptor IDs, quote a nonverified descriptor, or present generic skill labels as calibrated CEFR levels. CEFR uses action-oriented can-do descriptors, with distinct comprehension, production, interaction and mediation dimensions.
 

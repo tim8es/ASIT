@@ -27,3 +27,5 @@ App connection, ASIT save preference and workbook readiness are separate states.
 Daily continuation reads only Config, active Goals/Plans, latest Session, due Reviews, pertinent Competencies and 3–6 recent relevant Attempts. Verify learner-specific preferences before defaulting to 4 questions. CEFR reporting requires [CEFR analytics](references/cefr-analytics.md), appropriate evidence coverage and verified source descriptors. Report reading, listening, writing, spoken production and interaction separately; typing cannot establish speaking and reading cannot establish listening. Status `unassessed|emerging|supported|independent|transferable` is observed evidence, not an official CEFR award. Read enough relevant history for explicit longitudinal reports, label gaps. Respect corrections and preserve contradictory evidence.
 
 No private learner data goes to public searches or GitHub; user-authorized edits only; do not invent saved histories or workbook IDs.
+
+For historical evidence status or review scheduling load [evidence and review invariants](references/evidence-review.md) only when applicable. This is guidance, not executable code.

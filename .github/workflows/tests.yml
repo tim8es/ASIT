@@ -1,12 +1,9 @@
-name: ASIT source safety and learning unit tests
-
+name: ASIT Skills-only contract tests
 on:
   push:
   pull_request:
-
 permissions:
   contents: read
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,15 +11,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Test learner state, planner and protocol
-        run: node --test tests/*.test.mjs
-      - name: Scan current source for private data
-        run: node scripts/scan-public.mjs
-      - name: Scan reachable Git history
-        run: node scripts/scan-history.mjs
-      - name: Audit synthetic lesson context budgets
-        run: node scripts/context-audit.mjs
+      - name: Validate Python static skill contracts
+        run: python3 -m unittest discover -s plugin/tests -p 'test_*.py'
+      - name: Validate packaged plugin
+        run: python3 plugin/scripts/package.py --check
