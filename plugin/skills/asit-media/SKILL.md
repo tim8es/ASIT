@@ -25,3 +25,5 @@ Do not download, rip, cache or rehost ELLLO video or whole scripts. Use original
 When user prefers **Live Voice** rather than prerecorded clip, route to `asit-voice`. The in-chat form cannot make the ChatGPT microphone or Voice session start. Without actual host media support, external link + native Q&A is the allowed workflow.
 
 See [source index](references/elllo-sources.md) and [audio response contract](references/media-quality.md).
+
+For actual ELLLO candidate verification use [ELLLO source validation](references/elllo-source-validation.md), not a repository JS utility.

@@ -1,0 +1,11 @@
+# ELLLO selection/grounding invariants — from retired offline validators
+
+Read only when planning a listening/video task. This is a checklist for the teaching model, NOT an installed crawler, parser, audio player or executable validator.
+
+1. Discovery may use public, generic topic and CEFR search terms only; NEVER include learner names, private answers, goals, workbook IDs or profiles in external searches.
+2. Keep an actual original **HTTPS** ELLLO lesson URL (host elllo.org or www.elllo.org), preferably a `/video/…html` or `/book/…html` page. Reject search pages, lookalike domains, unverified download URLs and untrusted redirects. Validate the currently retrieved page, not only a search snippet or remembered link.
+3. Match the actual topic/grammar, chosen source section and track. For Sound Grammar, identify **Conversation 1–4** and verify the selected transcript excerpt belongs to THAT conversation, not a neighboring dialogue. Verify title/level only from the source, and playback/duration separately. Do not infer a playable track from an iframe graphic.
+4. Build 2–3 teacher-authored comprehension questions and trusted private rubric from the **same verified segment**. For factual finite-choice questions, each answer must be grounded in that segment; check accepted wording and plausible distractors. Do not copy the source transcript into the learner-facing question card, leak answer keys or exceed necessary short excerpts.
+5. Follow asit-media/references/media-quality.md for the current duration policy (a complete 15–60s recording preferred; verified 61–90s when appropriate). The old JavaScript fixed 35s standard cap was retired, NOT carried forward. Unknown duration/playability => candidate only, not scored listening.
+6. Present the original verified lesson link with working native question controls and one Submit. Verify the learner actually heard the sound by honest self-report and ask whether transcript was consulted. Link clicks, silent playback and script reading alone never count as listening proof.
+7. Grade as not_assessed when playback/hearing is unknown or failed; differentiate script-supported comprehension from provisional self-reported listening. Original ELLLO media is never rehosted or assumed embedded by ASIT.

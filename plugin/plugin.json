@@ -1,11 +1,25 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "asit-english-tutor",
+  "version": "0.2.11",
+  "description": "ASIT adaptive English tutor with immediate interactive correctness feedback, answer-integrity checks, automatic next lessons and verified learner state.",
   "author": {
     "name": "ASIT Project"
   },
-  "description": "ASIT adaptive English tutor with story-based lessons, verified ELLLO listening and consented Google Sheets progress via Google Drive.",
+  "keywords": [
+    "English",
+    "tutor",
+    "ASIT",
+    "visual lessons",
+    "automatic continuation",
+    "adaptive learning",
+    "listening",
+    "CEFR",
+    "progress",
+    "answer integrity"
+  ],
   "extensions": {
     "com.openai": {
+      "onboardingSkill": "./skills/asit-onboarding/SKILL.md",
       "interface": {
         "capabilities": [
           "Interactive"
@@ -19,22 +33,10 @@
         ],
         "developerName": "ASIT Project",
         "displayName": "ASIT — English Tutor",
-        "longDescription": "Adaptive English lessons in ChatGPT with visual-first picture cards, story-based practice, responsive feedback, source-verified ELLLO listening, CEFR evidence and best-effort verified Google Sheets Save Gate. Skills-only; no MCP/server.",
+        "longDescription": "Adaptive English lessons with immediate after-answer Correct / Incorrect (Try again) feedback, no advance answer hints, no copyable independent production exemplars, visual-first exercises, automatic next lessons, ELLLO listening, CEFR evidence, and verified Google Sheets saving. Skills-only.",
         "shortDescription": "English tutor & CEFR progress"
-      },
-      "onboardingSkill": "./skills/asit-onboarding/SKILL.md"
+      }
     }
   },
-  "keywords": [
-    "English",
-    "tutor",
-    "language-learning",
-    "ASIT",
-    "visual lessons",
-    "listening",
-    "CEFR",
-    "progress"
-  ],
-  "name": "asit-english-tutor",
-  "version": "0.2.7"
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 }

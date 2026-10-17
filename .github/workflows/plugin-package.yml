@@ -1,5 +1,4 @@
-name: ASIT Skills Plugin package
-
+name: ASIT Skills-only package
 on:
   push:
     paths:
@@ -9,27 +8,23 @@ on:
     paths:
       - 'plugin/**'
       - '.github/workflows/plugin-package.yml'
-
 permissions:
   contents: read
-
 jobs:
-  validate:
+  package:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Validate ASIT portable skills package
+      - name: Validate skill package
         run: python3 plugin/scripts/package.py --check
-      - name: Build and verify portable ZIP
-        run: python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin_v0.2.0.zip
-      - name: Prepare package source for release QA
-        run: unzip -q dist/ASIT_Skills_Plugin_v0.2.0.zip -d artifact
-      - name: Upload plugin source archive for manual release
+      - name: Build portable archive
+        run: python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin.zip
+      - name: Upload for manually gated plugin release
         uses: actions/upload-artifact@v4
         with:
-          name: asit-english-tutor-v0.2.0
-          path: artifact/asit-english-tutor/
+          name: asit-english-tutor-candidate
+          path: dist/ASIT_Skills_Plugin.zip
           if-no-files-found: error
           retention-days: 7

@@ -1,4 +1,4 @@
-# ASIT exercise registry — 18 types (adapted from ui/patterns.json v0.6)
+# ASIT exercise registry — 18 types (Skills-only canonical)
 
 | Type | Operation / intended evidence | Typical native control | Restriction |
 |---|---|---|---|
