@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+<title id="title">ASIT instructional workflow</title>
+<desc id="desc">Learner and ChatGPT enter four skills-first stages: select a learning goal, practise with supported ChatGPT UI, assess real evidence, and adapt. English adapter provides language rubrics and optional consented Sheets storage records progress.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3f8fc"/><stop offset="1" stop-color="#e9f3f5"/></linearGradient>
+<filter id="shadow" x="-20%" y="-30%" width="150%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="9" flood-color="#163d54" flood-opacity=".12"/></filter>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8ca7ba"/></marker>
+</defs>
+<rect width="1200" height="420" rx="22" fill="url(#bg)"/>
+<text x="52" y="57" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="800" fill="#18354a">How ASIT works</text>
+<text x="52" y="86" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" fill="#617889">A skills-first learning loop inside ChatGPT</text>
+<g font-family="Inter, Segoe UI, Arial, sans-serif">
+<rect x="50" y="118" width="245" height="155" rx="18" fill="#fff" filter="url(#shadow)"/>
+<circle cx="86" cy="156" r="17" fill="#c6f5ed"/><text x="86" y="162" text-anchor="middle" font-size="14" font-weight="800" fill="#057d71">1</text>
+<text x="63" y="196" font-size="22" font-weight="800" fill="#172f43">Select</text>
+<text x="63" y="225" font-size="15" fill="#586f7f">Set a skill and an</text><text x="63" y="245" font-size="15" fill="#586f7f">observable learning goal.</text>
+<rect x="333" y="118" width="245" height="155" rx="18" fill="#fff" filter="url(#shadow)"/>
+<circle cx="369" cy="156" r="17" fill="#d1eaff"/><text x="369" y="162" text-anchor="middle" font-size="14" font-weight="800" fill="#285eab">2</text>
+<text x="346" y="196" font-size="22" font-weight="800" fill="#172f43">Practise</text>
+<text x="346" y="225" font-size="15" fill="#586f7f">Use varied visual, text</text><text x="346" y="245" font-size="15" fill="#586f7f">and interactive tasks.</text>
+<rect x="616" y="118" width="245" height="155" rx="18" fill="#fff" filter="url(#shadow)"/>
+<circle cx="652" cy="156" r="17" fill="#eee1ff"/><text x="652" y="162" text-anchor="middle" font-size="14" font-weight="800" fill="#7950ba">3</text>
+<text x="629" y="196" font-size="22" font-weight="800" fill="#172f43">Assess</text>
+<text x="629" y="225" font-size="15" fill="#586f7f">Distinguish first tries,</text><text x="629" y="245" font-size="15" fill="#586f7f">hints and transfer.</text>
+<rect x="899" y="118" width="245" height="155" rx="18" fill="#fff" filter="url(#shadow)"/>
+<circle cx="935" cy="156" r="17" fill="#ffebd5"/><text x="935" y="162" text-anchor="middle" font-size="14" font-weight="800" fill="#ad6a14">4</text>
+<text x="912" y="196" font-size="22" font-weight="800" fill="#172f43">Adapt</text>
+<text x="912" y="225" font-size="15" fill="#586f7f">Switch approach and</text><text x="912" y="245" font-size="15" fill="#586f7f">select the next skill.</text>
+</g>
+<path d="M296 198 H324" stroke="#8ca7ba" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M579 198 H607" stroke="#8ca7ba" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M862 198 H890" stroke="#8ca7ba" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M1022 276 V303 H172 V276" stroke="#9fb6c3" stroke-width="2.5" stroke-dasharray="7 6" fill="none" marker-end="url(#arrow)"/>
+<rect x="72" y="331" width="507" height="56" rx="13" fill="#ddeef7"/>
+<circle cx="105" cy="359" r="15" fill="#266ba3"/><path d="M99 359 h12 M105 353 v12" stroke="#fff" stroke-width="2"/>
+<text x="133" y="355" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#21425c">English adapter</text>
+<text x="133" y="373" font-family="Arial, sans-serif" font-size="13" fill="#5b798d">Language rubrics and CEFR evidence rules</text>
+<rect x="618" y="331" width="509" height="56" rx="13" fill="#e1f5ea"/>
+<circle cx="651" cy="359" r="15" fill="#258b6a"/><path d="M643 354 H659 V365 H643 Z M649 354 V365 M654 354 V365" stroke="#fff" stroke-width="1.6" fill="none"/>
+<text x="678" y="355" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#246247">Optional Google Sheets progress</text>
+<text x="678" y="373" font-family="Arial, sans-serif" font-size="13" fill="#527c68">Consent and verified write/readback required</text>
+</svg>

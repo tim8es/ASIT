@@ -1,3 +1,5 @@
+![ASIT adaptive learning framework — concept illustration](docs/assets/asit-hero.svg)
+
 # ASIT — адаптивное обучение в ChatGPT
 
 **ASIT — открытый skills-first фреймворк для персонализированного обучения через ChatGPT.** Первый предметный модуль — английский язык. Архитектура разделяет общий цикл обучения и предметную методику.
@@ -16,14 +18,9 @@
 
 ## Как устроен проект
 
-```text
-ChatGPT ↔ ASIT Teacher
-           ├─ ASIT Core: адаптивный учебный цикл
-           ├─ English adapter: язык и CEFR
-           ├─ Lessons / Exercises / Media / Voice
-           ├─ Assessment: проверка и контроль сохранения
-           └─ Progress: опциональный Google Sheets v2
-```
+![Учебный цикл ASIT: выбор цели, практика, оценка, адаптация](docs/assets/asit-learning-loop.svg)
+
+*Концептуальная схема, не скриншот установленного плагина.*
 
 Текущая реализация **skills-only**: без обязательного MCP, выделенного сервера или исполняемого JS-движка. Изменения в GitHub сами по себе не обновляют установленный плагин.
 

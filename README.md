@@ -1,3 +1,5 @@
+![ASIT adaptive learning framework — concept illustration](docs/assets/asit-hero.svg)
+
 # ASIT — Adaptive Learning Framework for ChatGPT
 
 **An open-source, skills-first framework for adaptive learning in ChatGPT.** Start with English tutoring, build evidence-based learning paths, practise through interactive lessons and review progress without running your own AI backend.
@@ -30,14 +32,9 @@ ASIT separates a **subject-neutral adaptive learning loop** from a **subject-spe
 
 ### How it works
 
-```text
-Learner ↔ ChatGPT native UI ↔ ASIT Teacher
-                              ├─ ASIT Core: goal → practice → evidence → adapt
-                              ├─ English adapter: language rubric + CEFR policy
-                              ├─ Lessons / Exercises / Media / Voice
-                              ├─ Assessment: final grading + Save Gate
-                              └─ Progress: optional verified Google Sheets v2
-```
+![ASIT four-stage adaptive learning cycle: select, practise, assess, adapt](docs/assets/asit-learning-loop.svg)
+
+*Conceptual architecture illustration, not a screenshot of the installed plugin.*
 
 The ten lazy-routed skills live in [`plugin/skills/`](plugin/skills). For ownership, boundaries and data flow, see [the architecture](docs/ARCHITECTURE.md).
 
