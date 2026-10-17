@@ -10,4 +10,6 @@ python3 plugin/scripts/package.py --check
 python3 plugin/scripts/package.py --output dist/ASIT_Skills_Plugin.zip
 ```
 
-Before publishing test real 4–5-task English UI, correctness without key leaks, actual audio, per-subtask Activity pre-registration, graded response Save Gate and readback, replay, cross-chat continuation and pause. Neither static tests nor packaged zip verify ChatGPT runtime or provider writes. Never bundle scripts/tests or private learner data.
+Before publishing test real 4–5-task English UI, correctness without key leaks, actual audio, per-subtask Activity pre-registration, graded response Save Gate and readback, replay, cross-chat continuation and pause. Follow [performance and feature-preservation acceptance](PERFORMANCE-ACCEPTANCE.md) for before/after live-session latency, provider-call and lesson-quality checks. Passing static contracts does not prove a speedup.
+
+Neither static tests nor packaged zip verify ChatGPT runtime or provider writes. Never bundle scripts/tests or private learner data.
