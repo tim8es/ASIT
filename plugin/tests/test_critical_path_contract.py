@@ -50,6 +50,20 @@ class CriticalPathContractTests(unittest.TestCase):
         self.assertNotIn("brief, relevant clue explaining what to reconsider", visual)
         self.assertIn("without giving the correct answer", integrity)
 
+    def test_all_eighteen_patterns_preserved(self):
+        import re
+        source = get("skills/asit-exercises/references/pattern-registry.md")
+        names = re.findall(r"^\\| `([a-z_]+)` \\|", source, flags=re.MULTILINE)
+        expected = {
+            "cloze", "vocabulary_retrieval", "image_label", "grammar_contrast",
+            "matching", "image_choice", "image_hotspot", "reading_comprehension",
+            "sentence_builder", "error_detective", "card_ordering", "timeline_ordering",
+            "free_production", "scenario", "dialogue", "spoken_response",
+            "listening", "progress_explorer",
+        }
+        self.assertEqual(set(names), expected)
+        self.assertEqual(len(names), 18)
+
     def test_feature_set_preserved(self):
         exercise = get("skills/asit-exercises/SKILL.md")
         registry = get("skills/asit-exercises/references/pattern-registry.md")
