@@ -23,7 +23,7 @@ class CriticalPathContractTests(unittest.TestCase):
         self.assertIn("BEFORE display", lessons)
         self.assertIn("grade once", assessment)
         self.assertIn("trusted", assessment)
-        self.assertIn("SAME assistant response", assessment)
+        self.assertIn("SAME response", assessment)
         self.assertIn("Save Gate", assessment)
 
     def test_batched_reads_preserve_necessary_guards(self):
