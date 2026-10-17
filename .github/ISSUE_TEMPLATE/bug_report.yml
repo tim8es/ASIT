@@ -1,0 +1,50 @@
+name: Bug report
+description: Report a reproducible ASIT problem using synthetic data
+title: "[Bug] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Before reporting, remove learner data, tokens, workbook identifiers and private links. Security issues belong in private reporting (SECURITY.md)."
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Lesson and exercise UX
+        - Assessment and feedback
+        - Google Sheets progress
+        - Audio or voice
+        - Plugin packaging / CI
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+      description: What happened, and in which version/client? Do not attach real learner data.
+      placeholder: "On a synthetic lesson, selecting an answer..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Provide a minimal synthetic example, including whether this was a source check or a live ChatGPT test.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and verification
+      description: "Plugin candidate/installed version, ChatGPT client, tests run, and what remains unverified."
+    validations:
+      required: false
