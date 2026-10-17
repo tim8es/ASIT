@@ -53,7 +53,7 @@ class CriticalPathContractTests(unittest.TestCase):
     def test_all_eighteen_patterns_preserved(self):
         import re
         source = get("skills/asit-exercises/references/pattern-registry.md")
-        names = re.findall(r"^\\| `([a-z_]+)` \\|", source, flags=re.MULTILINE)
+        names = re.findall(r"^\| `([a-z_]+)` \|", source, flags=re.MULTILINE)
         expected = {
             "cloze", "vocabulary_retrieval", "image_label", "grammar_contrast",
             "matching", "image_choice", "image_hotspot", "reading_comprehension",
