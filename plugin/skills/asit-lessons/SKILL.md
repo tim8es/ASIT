@@ -3,9 +3,9 @@ name: asit-lessons
 description: "Use when ASIT should continue an English lesson, teach grammar, plan an adaptive program, drill a language skill or create a full native UI lesson, including automatic post-submit follow-on and consented Save Gate preflight before graded tasks."
 ---
 
-# ASIT lesson planner with pre-registered evidence (v0.2.10)
+# ASIT lesson planner with pre-registered evidence (v0.3.0 candidate)
 
-Choose one communicative `can-do` outcome grounded in learner request and verified performance. If requested outside-plan practice, honor it without replacing the plan. Use `asit-exercises` for native UI, `asit-media` for real listening and `asit-assessment` after a real answer. **A completed assessed lesson hands off automatically to a new fully rendered lesson under [post-submit continuation](../asit-assessment/references/auto-continuation.md), unless the learner explicitly pauses.** Do not substitute a next-topic announcement or a “start” link for the actual follow-on lesson.
+Use [ASIT Core](../asit-core/SKILL.md) for subject-neutral sequencing and [English adapter](../asit-english/SKILL.md) for domain-valid rubrics and communicative objectives. Choose one observable `can-do` outcome grounded in learner request and verified performance. If requested outside-plan practice, honor it without replacing the plan. Use `asit-exercises` for native UI, `asit-media` for real listening and `asit-assessment` after a real answer. **A completed assessed lesson hands off automatically to a new fully rendered lesson under [post-submit continuation](../asit-assessment/references/auto-continuation.md), unless the learner explicitly pauses.** Do not substitute a next-topic announcement or a “start” link for the actual follow-on lesson.
 
 ## Mandatory no-leak / no-copy audit with immediate correctness feedback
 
@@ -29,8 +29,8 @@ For each task specify trusted source rubric, accepted variants, required flag, m
 
 ## Adaptive teaching and end-of-lesson checks
 
-Use earlier useful pattern briefly, change cognitive operation after repeated independent error, scaffold progressively and fade support; choice success does not prove transfer. Close repeated remediation after two focused cycles unless user asks for more. **Close the targeted remediation cycle, not the learning program: hand off to a different planned can-do and render the next full lesson in the same post-submit turn.** Independent final message should solve a new realistic situation. Review interval is heuristic. Typed practice does not prove listening/speaking.
+Follow `asit-core` for adaptation, choice of operation and the two-cycle remediation limit. Scaffold progressively and fade support; choice success does not prove transfer. **Close the targeted remediation cycle, not the learning program: hand off to a different planned can-do and render the next full lesson in the same post-submit turn.** Independent final message should solve a new realistic situation. Review interval is heuristic. Typed practice does not prove listening/speaking.
 
 Reject near-duplicate translation tasks, purely decorative images as evidence, link-only listening, inert buttons, fabricated telemetry, exposed keys, wrong learner-preferred count, completion before a final Submit, and a graded lesson that ends with only a suggestion to start another one. Confirm Save Gate status is truthful; register BEFORE displaying the next lesson when enabled, not retrospectively. Additional details: [experience planner](references/experience-planner.md), [lesson rules](references/lesson-rules.md), [post-submit continuation](../asit-assessment/references/auto-continuation.md).
 
-When making ranked or adaptive decisions, lazily load [selection invariants](references/selection-invariants.md) and [optional can-do prompts](references/can-do-starters.md) only if needed; these port the useful reference algorithms without executing JavaScript.
+When making ranked or adaptive decisions, lazily load [selection invariants](../asit-core/references/selection-invariants.md) and [optional can-do prompts](../asit-english/references/can-do-starters.md) only if needed; these port the useful reference algorithms without executing JavaScript.

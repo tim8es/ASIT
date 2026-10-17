@@ -22,6 +22,10 @@ This is a **Skills-only** plugin. It has no running JS service, built-in databas
 
 App connection, ASIT save preference and workbook readiness are separate states. Google Drive app isn't automatically installed or enabled by ASIT. For explicit connect/enable/pause/resume/delete/export requests consult [storage setup](references/storage-setup.md). New persistent state requires informed privacy choice `off`, `summary_only`, `raw`; audio/transcripts require separately affirmative consent. Once mode consent is verified, don't nag every lesson. Discovery uses identifiable user-owned workbook such as `ASIT — Private Learner State`; disambiguate multiple matches. A partially migrated older workbook needs user-approved append-only repair, not a destructive overwrite. Validate owner, schema, headers and Config; do not infer missing privacy modes or orphan relationships.
 
+## Domain policy boundary
+
+The nine-tab v2 workbook is storage, not a learning interface. Do not create a Dashboard or extra documentation tabs. Consult [English adapter](../asit-english/SKILL.md) only for requested CEFR-aligned reporting, not for routine save operations.
+
 ## Bounded continuation and CEFR
 
 Daily continuation reads only Config, active Goals/Plans, latest Session, due Reviews, pertinent Competencies and 3–6 recent relevant Attempts. Verify learner-specific preferences before defaulting to 4 questions. CEFR reporting requires [CEFR analytics](references/cefr-analytics.md), appropriate evidence coverage and verified source descriptors. Report reading, listening, writing, spoken production and interaction separately; typing cannot establish speaking and reading cannot establish listening. Status `unassessed|emerging|supported|independent|transferable` is observed evidence, not an official CEFR award. Read enough relevant history for explicit longitudinal reports, label gaps. Respect corrections and preserve contradictory evidence.

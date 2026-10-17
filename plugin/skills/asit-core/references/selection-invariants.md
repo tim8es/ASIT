@@ -1,4 +1,4 @@
-# Evidence-driven lesson selection — retired JS decision oracle, executable by the teacher as a skill procedure
+# Evidence-driven lesson selection — subject-neutral model-followed decision contract
 
 Load on actual lesson planning / adaptation, not on routine answer grading. These are explicit model-followed decision rules, not executing JS or a scheduler. No repository access is required at teaching time.
 

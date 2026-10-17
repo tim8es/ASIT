@@ -15,7 +15,8 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 ROOT = Path(__file__).resolve().parents[1]
 NAME = 'asit-english-tutor'
 EXPECTED = {'asit-teacher', 'asit-onboarding', 'asit-lessons', 'asit-exercises',
-            'asit-media', 'asit-voice', 'asit-assessment', 'asit-progress'}
+            'asit-media', 'asit-voice', 'asit-assessment', 'asit-progress',
+            'asit-core', 'asit-english'}
 PACK_ROOT = {'plugin.json', 'README.md', 'ACCEPTANCE.md'}
 
 

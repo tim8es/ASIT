@@ -25,7 +25,10 @@ description: "MANDATORY coordinator for every ASIT learner answer, ASIT_ATTEMPT_
 
 Even if `first_answer` metadata is supplied, treat it as **unverified client report** and never claim cheating prevention or secure initial-attempt accuracy. Separately grade guided recognition, chunk assembly and independent transfer. An identical/pasted response that merely reproduces visible model text is not independent production evidence; examine whether the original lesson was answer-leaky before upgrading Competencies or CEFR. Genuine comprehension questions may legitimately cite facts in the passage, but copying a factual time is not independent writing. Give explicit corrective answers only **after** Submit. Follow [answer integrity](../asit-lessons/references/answer-integrity.md) when creating the successor lesson.
 
-## CEFR and assessment quality
+## English adapter and CEFR assessment quality
+
+For English-specific rubric validity and CEFR, consult [English adapter](../asit-english/SKILL.md) only when needed. This skill remains the sole Submit coordinator; the adapter never creates competing grades or writes.
+
 
 For CEFR-aligned tasks, use only a verified official descriptor/rubric registered beforehand; dimension-level evidence is distinct from grade. No exact level inferred from one answer, historical backfit or CEFR certification. If media was not heard, listening is `not_assessed`. Preserve correction history. See [CEFR analytics](../asit-progress/references/cefr-analytics.md) only for an aligned assessment/report.
 
