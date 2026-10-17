@@ -36,9 +36,9 @@ class CriticalPathContractTests(unittest.TestCase):
             self.assertIn(key.lower(), storage.lower())
         self.assertIn("after verified Attempts", progress)
         self.assertIn("before display", progress)
-        self.assertIn("across turns", progress)
+        self.assertIn("previous chat", progress)
         self.assertIn("before retry", storage)
-        self.assertIn("nine exact tab headers", storage)
+        self.assertIn("nine exact tab headers", storage.lower())
 
     def test_wrong_answer_not_spoiled(self):
         visual = get("skills/asit-exercises/references/visual-feedback.md")
