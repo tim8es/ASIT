@@ -1,0 +1,36 @@
+name: Feature proposal
+description: Propose a measurable improvement to ASIT
+title: "[Feature] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Describe a learner or contributor problem, not just a new technology. Never include private learner information."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / user need
+      placeholder: "Learners who repeat an error currently..."
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired observable outcome
+      description: Explain how a learner or maintainer benefits.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed approach
+      description: Respect skills-only architecture unless explicitly proposing and justifying a different approach.
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: How should this be tested?
+      description: Include synthetic regression checks and any required live UX, media or storage verification.
+    validations:
+      required: false
