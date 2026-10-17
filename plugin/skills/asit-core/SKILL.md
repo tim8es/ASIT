@@ -22,6 +22,10 @@ The boundary is logical: preserve existing `ASIT_ATTEMPT_V2`, stable `session_id
 5. **Persist optionally:** `asit-progress` owns consented, verified Google Sheets writes and required Activity pre-registration; teaching continues without storage. Never invent a save hook or successful write.
 6. **Adapt:** change operation after repeated errors; cap focused remediation at two cycles by default, then continue the broader plan, ordinarily rendering the next lesson in the same turn unless paused.
 
+## One decision per lesson
+
+Select a compact transient decision (competency, observable goal, evidence source, support level, planned operations/modalities and reason) **once** from verified relevant history. Hand it to the English adapter and lesson planner; do not re-rank or re-diagnose during registration and UI rendering unless the learner's direction or verified evidence changes. This is no new persisted state. Preserve diagnosis, independent transfer and varied cognitive tasks.
+
 ## Isolation
 
 English grammar, CEFR evidence policy, ELLLO, pronunciation and language-specific answer validity belong to `asit-english`; a future subject uses another adapter. The Core does not award subject proficiency. UI is delivered by ChatGPT via `asit-lessons`/`asit-exercises`. No Dashboard sheets, new service, mandatory connector or background process.

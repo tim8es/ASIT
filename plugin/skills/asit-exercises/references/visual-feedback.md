@@ -14,7 +14,7 @@ Load this file only when actually authoring an interactive exercise or complete 
 For a finite-answer choice, unequivocal form cloze or fully specified word-order task:
 
 1. Keep controlled answer state, a separate **first nonblank attempt**, and provisional revision/hint markers where native state permits. Changing an answer must not silently replace the first try.
-2. Before input: show no correctness/key. After incorrect input: visibly show **Try again** and a brief, relevant clue explaining what to reconsider without revealing a different untried answer. After correct input: visibly show **Correct** and the reason (meaning, tense, word order etc.).
+2. Before input: show no correctness/key. After incorrect input: visibly show **Incorrect — Try again** but do not reveal a directional clue, the key, or eliminate a named untried option. After correct input: visibly show **Correct**; give a short reason only if it cannot expose an unanswered task's key. Full rationale can follow final Submit.
 3. The learner can retry. Show actual selected state, keyboard-accessible interaction and Undo/Reset for ordering. Reset does not erase first-attempt history.
 4. Ambiguous vocabulary aliases, open explanations or real-life writing: show **Review after Submit** (or nothing until submission), not a false exact-string verdict.
 5. Local feedback is **provisional**, NOT an ASIT assessment, CEFR award, actual analytics event or saved Drive record. Include first answer/revisions/hint level in the single Submit envelope only if actually captured; don't invent telemetry. Teacher grades from trusted rubric next turn.

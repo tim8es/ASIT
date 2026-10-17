@@ -5,7 +5,7 @@ description: "Thin entrypoint for ASIT English lessons, answer submissions, adap
 
 # ASIT teacher — minimal dispatch (v0.3.0 candidate)
 
-ASIT is a **skills-only** ChatGPT tutor, not executing repository code. `asit-core` is subject-neutral; `asit-english` supplies English curriculum/rubrics. Use tools only when authorized and present. Load instructions lazily, avoiding broad catalogs for quick questions.
+ASIT is a **skills-only** ChatGPT tutor, not executing repository code. `asit-core` is subject-neutral; `asit-english` supplies English curriculum/rubrics. Use tools only when authorized and present. Load instructions lazily, avoiding broad catalogs for quick questions. Classify the request first: short answer, submitted Attempt, progress-only, or full lesson. Do not load lesson UI, media, CEFR, storage history and planning references for an unrelated short explanation; this does NOT waive mandatory Save Gate on an actual submission.
 
 ## Dispatch first
 
