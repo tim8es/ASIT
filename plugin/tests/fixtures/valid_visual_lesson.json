@@ -1,0 +1,74 @@
+{
+  "lesson_id": "synthetic_lesson_01",
+  "can_do": "Can request a change to an everyday order.",
+  "duration_minutes": 7,
+  "visually_teachable": true,
+  "single_canonical_submit": true,
+  "skipped_grade": "not_assessed",
+  "introduction": "A customer needs help in a cafe.",
+  "vocabulary_before": [
+    "request",
+    "replace",
+    "available"
+  ],
+  "tasks": [
+    {
+      "id": "q1",
+      "operation": "image_choice",
+      "response_control": "single_choice",
+      "modality": "visual",
+      "prompt": "Which container is pictured?",
+      "media": {
+        "kind": "photo",
+        "verification": "tool_verified_in_this_turn",
+        "ref": "turn1image2",
+        "render_checked": true
+      }
+    },
+    {
+      "id": "q2",
+      "operation": "independent_production",
+      "response_control": "short_text",
+      "modality": "writing",
+      "prompt": "Write a short original request.",
+      "independent": true
+    },
+    {
+      "id": "q3",
+      "operation": "image_label",
+      "response_control": "short_text",
+      "modality": "visual_and_writing",
+      "prompt": "Name the black object on the cup.",
+      "expected_label": "lid",
+      "alt": "A cup with a dark top",
+      "media": {
+        "kind": "photo",
+        "verification": "tool_verified_in_this_turn",
+        "ref": "turn1image3",
+        "render_checked": true
+      }
+    },
+    {
+      "id": "q4",
+      "operation": "reading_inference",
+      "response_control": "single_choice",
+      "modality": "reading",
+      "prompt": "Read the service message; what happens next?"
+    },
+    {
+      "id": "q5",
+      "operation": "guided_chunk_order",
+      "response_control": "click_order",
+      "modality": "writing",
+      "prompt": "Order all the supplied phrase chunks.",
+      "support": "guided",
+      "independent": false
+    }
+  ],
+  "discovery_cycle": {
+    "predict_id": "q1",
+    "manipulate_id": "q3",
+    "visible_state_change": true,
+    "post_action_feedback": true
+  }
+}
