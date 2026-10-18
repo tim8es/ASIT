@@ -28,6 +28,19 @@ class RichDefaultContractTest(unittest.TestCase):
             self.assertIn("rich-default-lesson.md", content)
             self.assertIn("complete-native-lesson.md", content)
 
+    def test_scenario_bank_rotates_real_mechanics(self):
+        policy = get("skills/asit-lessons/SKILL.md")
+        self.assertIn("scenario-bank.md", policy)
+        bank = get("skills/asit-lessons/references/scenario-bank.md")
+        for marker in (
+            "Lost-and-found desk", "Café replacement", "Bus stop detour",
+            "Workshop fix", "Apartment delivery", "Day-plan decisions",
+            "previous", "can-do", "SVG", "no copyable",
+        ):
+            self.assertIn(marker.lower(), bank.lower())
+        self.assertIn("rotate", get("skills/asit-lessons/references/rich-default-lesson.md").lower())
+        self.assertIn("voluntary", get("skills/asit-lessons/references/rich-default-lesson.md").lower())
+
     def test_source_first_and_nontext_fallback_are_explicit(self):
         p = get("skills/asit-lessons/references/rich-default-lesson.md")
         for term in ["Продолжим", "SVG", "diagram", "state", "not_assessed",
