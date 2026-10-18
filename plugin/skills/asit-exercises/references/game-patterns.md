@@ -2,6 +2,10 @@
 
 This reference is for **rendering real native UI**, not declaring imaginary games. Load for a game-style lesson, visual matching, picture-word input, stateful discovery, or movement request. Each game has an observable can-do, a meaningful decision, a visibly updated scene/selection, after-action feedback, and a distinct transfer item. A changed photograph alone is not a different cognitive operation.
 
+## Mandatory micro-game for ordinary full lesson
+
+For ANY full ASIT lesson, read the [complete interactive template](complete-native-lesson.md) and [rich-default contract](../../asit-lessons/references/rich-default-lesson.md) even if the learner did not ask for a game. A no-photo result is not a reason to omit this feature: a *working stateful SVG diagram* is a truthful and accessible visual-symbol fallback. The partial Parcel Mission scaffold below is **not a sufficient standalone five-task lesson**; the complete template provides Cards/All and the one canonical ASIT Submit. No static HTML prototype is implicitly run in ChatGPT.
+
 ## Three actual game patterns
 
 ### 1. Parcel Mission — predict → change → observe → explain → transfer
