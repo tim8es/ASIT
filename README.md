@@ -77,7 +77,7 @@ The archive is a **candidate artifact for a separately gated installation/releas
 - [Changelog](CHANGELOG.md) — source candidate history and unshipped changes.
 - [Plugin acceptance checklist](plugin/ACCEPTANCE.md) — manual and static checks.
 - [Performance acceptance](plugin/PERFORMANCE-ACCEPTANCE.md) — how to evaluate the learning flow.
-- [Public release checklist](docs/PUBLISHING.md) — security and launch gates before changing visibility.
+- [Public release checklist](docs/PUBLISHING.md) — security and quality gates before an official plugin release; repository source is already public.
 - [Contributing](CONTRIBUTING.md) — development, tests and pull requests.
 
 ## Contribute
