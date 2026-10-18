@@ -2,6 +2,10 @@
 
 **When to load:** Every planned full lesson, including continuation, visual vocabulary and remediation. Do not load for a short grammar answer, normal dialogue or explicitly text-only practice. This is a runtime teaching contract, not a JavaScript process.
 
+## Default visual-first decision
+
+Apply [rich default lesson](rich-default-lesson.md) **to all full lessons by default**. When verified photographs are missing, **preserve a visual learning experience** with a labeled SVG diagram, native input and a learner-controlled scene update. The resulting tasks are `visual_symbols` and must not be recorded as real photo/image recognition. An all-prose quiz because image search did not return an asset is a **release failure**, not a valid "visual-first fallback" unless the learner explicitly chose text-only or the UI host cannot render it. Use [complete native UI](../../asit-exercises/references/complete-native-lesson.md) to avoid inventing interaction.
+
 ## Learning-experience references (pedagogical patterns, not copied assets)
 
 - **Duolingo:** short approachable challenges, visible selected state, low-friction retry and immediate *provisional* explanation for unambiguous answers.
@@ -32,7 +36,7 @@ Before registering Activities or rendering UI, determine from current goals and 
 
 For a **full planned lesson with suitable visual content and working image rendering**:
 - Put a distinct, useful **16:9 hero/cover** immediately under the title/outcome. Use the actual lesson theme. If the first image is also the task scene, distinguish the cover from the task prompt and do not reveal answers.
-- Provide at least **two graded visual interactions** in a 4–5 task lesson whenever the subject naturally supports pictures (objects, places, actions, situations, spatial relationships, visual description). At least one should be `image_label` or `image_choice` with a *real* image and a working input immediately next to it; the second must test a distinct operation, not another radio choice over the identical evidence.
+- Provide at least **two graded visual interactions** in a 4–5 task lesson whenever the subject naturally supports pictures. When two **verified real images** are available, ground one `image_label`/`image_choice` in the actual source with its working input adjacent; the other must test a distinct operation. When such images are unavailable, instead use a **state-changing SVG diagram** with two distinct visually grounded `visual_symbols` operations, e.g. predict-distance then observe-in/on. The symbolic version is not photographic evidence and is not excused from needing functional controls.
 - Prefer clear compact image flashcards and picture-grounded sentence construction; pair with genuinely independent written application. A set of unrelated stock photographs is not a lesson. Use visual cards as evidence, not decorative filler.
 - Give each pictured card one instruction, image immediately next to its answer input, real selected/typed state, and provisional feedback only for unambiguous finite answers. Correctness of natural open responses is reviewed after Submit. Accept common synonyms and do not leak the assessed word in captions, alt labels displayed to the learner or vocabulary at the end before the answer.
 - A meaningful nonvisual lesson (e.g. long reading, question word order, professional email) may have fewer or zero image-scored tasks. **A user-requested text-only or accessibility/low-bandwidth mode overrides the visual defaults.** When images cannot actually render, replace image-scored tasks with accessible text-based operations and honestly change the assessed modality and mark unavailable visual evidence `not_assessed`. Don't wait indefinitely for an image or fabricate one.

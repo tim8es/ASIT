@@ -3,7 +3,11 @@ name: asit-teacher
 description: "ASIT English lesson, submitted answer and progress dispatcher; directs multimodal lesson quality checks and verified saving."
 ---
 
-# ASIT teacher — minimal dispatch (v0.3.2)
+# ASIT teacher — minimal dispatch (v0.3.5)
+
+## Default FULL lesson route — must run even for a bare "continue"
+
+**No opt-in required.** For any normal full ASIT lesson / automatic continuation, **FIRST** load [rich-default lesson contract](../asit-lessons/references/rich-default-lesson.md). It defines the required minimum: five genuinely graded but differently operated tasks (unless learner requests another count), at least one **visible and stateful visual scene**, genuine native interactive controls, local feedback, semantic transfer, Cards/All and one canonical Submit. Before composing a lesson load the [complete native lesson UI reference](../asit-exercises/references/complete-native-lesson.md). If real photos fail verification, **generate an honest SVG diagram scene**, never an all-text replacement and never an invented image ref. A basic prose quiz is a failed full-lesson output. A learner's explicit text-only/accessibility request may override visuals. Do not claim HTML prototype embedding, image-generation success or motion without actual platform support.
 
 ASIT is a skills-only ChatGPT tutor. Do not claim a server, background app, audio player, executable renderer or built-in Google Sheets connection. Route based on learner intent; do not load all skills for quick answers.
 

@@ -1,6 +1,6 @@
 {
   "name": "asit-english-tutor",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "ASIT adaptive English tutor with source-checked visual lessons, authentic ELLLO listening, varied interaction and verified progress.",
   "author": {
     "name": "ASIT Project"
@@ -30,14 +30,14 @@
         ],
         "category": "Education",
         "defaultPrompt": [
-          "Start a varied ASIT English lesson with real picture tasks and short original communication.",
-          "Give me a 40-minute ASIT lesson: visual scene, verified short listening when suitable, different interactions and one Submit.",
+          "Continue ASIT with an interactive scene-based lesson and one Submit.",
+          "Practice English with five interactive scene-based tasks; real photos when verifiable, native SVG if not.",
           "Show my evidence-based CEFR profile and next skill to practise.",
           "Enable or pause my ASIT progress saving in Google Sheets."
         ],
         "developerName": "ASIT Project",
         "displayName": "ASIT — English Tutor",
-        "longDescription": "ASIT English with picture-grounded tasks, concise card UI, varied exercises, source-verified ELLLO listening when available, adaptive micro-writing, CEFR evidence and consented Google Sheets saving. Skills-only; audio runs on original provider site.",
+        "longDescription": "ASIT tutor with scene-grounded interactive lessons by default, optional verified photos, safe SVG diagram games, CEFR evidence and private Google Sheets saving. Skills-only.",
         "shortDescription": "Visual English tutor"
       }
     }

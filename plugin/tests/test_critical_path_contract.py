@@ -11,7 +11,7 @@ class CriticalPathContractTests(unittest.TestCase):
     def test_candidate_and_lazy_routing(self):
         a = json.loads(get("plugin.json"))
         b = json.loads(get(".codex-plugin/plugin.json"))
-        self.assertEqual(a["version"], "0.3.3")
+        self.assertEqual(a["version"], "0.3.5")
         self.assertEqual(a["version"], b["version"])
         self.assertIn("full lesson / continuation", get("skills/asit-teacher/SKILL.md").lower())
         self.assertIn("one decision per lesson", get("skills/asit-core/SKILL.md").lower())

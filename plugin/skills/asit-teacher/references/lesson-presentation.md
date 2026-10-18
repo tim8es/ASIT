@@ -2,6 +2,10 @@
 
 Read this reference **for every full planned lesson**, including automatic post-submit lessons. Do not load it for small grammar explanations, answer feedback, and progress-only questions. This supplements—not replaces—`asit-lessons`, `asit-exercises`, `asit-media`, answer-integrity and Save Gate.
 
+## Unprompted rich layout is mandatory
+
+Normal full lessons follow [rich-default experience contract](../../asit-lessons/references/rich-default-lesson.md) and [complete native five-task reference](../../asit-exercises/references/complete-native-lesson.md) even when no visual/game request exists. Cards/All must switch **real stateful UI**, not Markdown subsections. A missing photograph triggers a **diagram fallback**, not a text-only lesson (unless expressly requested or host limitation confirmed).
+
 ## Visible introduction: goal, grammar, vocabulary
 
 Before the first graded task, show a **substantive but concise** lesson introduction: short situation/mission, one observable communicative `can-do` outcome, realistic time budget, number of independently graded tasks, and 2–3 genuinely relevant grammar/usage points or comprehension strategies. Include a small vocabulary section (usually 4–6 expressions) **available to the learner at the start** and, where useful, a richer review afterward. Prefer natural chunks with a short translation or explanation. This is an instructional resource, not a separate graded task or padded prose. Audit it with the entire lesson for answer leakage: do **not** supply the exact word, sentence, answer position, or a near-paraphrase that solves any unsolved graded task, particularly image-label, cloze, ordering and independent production. If needed, choose non-answer-bearing vocabulary before tasks and introduce assessed answers only after submission. Do not expose a transcript for a genuine listening task before the learner's first attempt.

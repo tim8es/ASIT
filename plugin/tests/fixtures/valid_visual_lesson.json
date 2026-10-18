@@ -115,5 +115,26 @@
     "manipulate_id": "q3",
     "visible_state_change": true,
     "post_action_feedback": true
+  },
+  "delivery_profile": "rich_native_v1",
+  "source_strategy": "verified_photo",
+  "story_goal": "A customer must obtain a suitable drink after an order mix-up.",
+  "native_ui": {
+    "engine": "DIL",
+    "controlled_inputs": true,
+    "cards_all": true,
+    "single_submit": true,
+    "early_submit_confirmation": true,
+    "local_feedback_after_input": true,
+    "answer_state_retained": true
+  },
+  "scene": {
+    "id": "scene-cafe",
+    "kind": "verified_photo_with_ui",
+    "first_screen": true,
+    "used_by_graded_task": true,
+    "state_changes": true,
+    "replay_works": true,
+    "after_action_feedback": true
   }
 }

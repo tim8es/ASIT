@@ -16,6 +16,10 @@ Choose the interface by the learner's **operation and actual observable modality
 5. A real form has **one final Submit** that posts a new ChatGPT turn. Required blanks block ordinary completion; the user may deliberately finish incomplete. Local states are not saved records. The teacher re-checks answers from trusted rubric after Submit using `asit-assessment`.
 6. Preserve narrative text as full sentences; don't split a sentence into multiple blocks just to insert a popover. Only show clickable underlined explanation when it is actually a working control.
 
+## Default full-lesson native interaction
+
+A full lesson always needs functioning native UI, even when the learner simply says "continue"; it is NOT an optional request for a game. Read [complete five-task DIL example](references/complete-native-lesson.md) before rendering and follow [mandatory rich default](../asit-lessons/references/rich-default-lesson.md). At least one diagram/scene must respond to a native button and display changed state. If real image tool refs cannot be verified, a native SVG scene remains useful but is scored as `visual_symbols`, **not** a photographic assessment. The independent source-based image slot is optional and must never be invented. Do not claim the separate HTML/CSS prototype can execute in ChatGPT.
+
 ## Stateful micro-games (when requested or instructionally useful)
 
 Use [game patterns](references/game-patterns.md), not a new simulated executor. Build meaningful predict → manipulate → feedback → transfer cycles with real `DIL.useState`-controlled native buttons/selectors and observable changed positions, assignments or consequences. A native SVG state change is a diagram, not a retrieved photo and not proof of smooth CSS animation. A sourced `AsyncImage` requires [media provenance](../asit-lessons/references/media-provenance.md) before a graded image operation. Include 2+ different cognitive actions, an accessible non-pointer alternative and the **same** canonical final Submit; no local game "win" is a saved Attempt. Repeated skipped text inputs call for alternate mechanics, not lower assumed ability.

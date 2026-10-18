@@ -34,6 +34,20 @@ def valid_blueprint():
         "lesson_id": "synthetic_lesson_01",
         "can_do": "Can request a change to an everyday order.",
         "duration_minutes": 7,
+        "delivery_profile": "rich_native_v1",
+        "source_strategy": "verified_photo",
+        "story_goal": "The cafe must resolve an order mix-up before the customer leaves.",
+        "native_ui": {
+            "engine": "DIL", "controlled_inputs": True, "cards_all": True,
+            "single_submit": True, "early_submit_confirmation": True,
+            "local_feedback_after_input": True, "answer_state_retained": True,
+        },
+        "scene": {
+            "id": "scene_cafe", "kind": "verified_photo_with_ui",
+            "first_screen": True, "used_by_graded_task": True,
+            "state_changes": True, "replay_works": True,
+            "after_action_feedback": True,
+        },
         "visually_teachable": True,
         "single_canonical_submit": True,
         "skipped_grade": "not_assessed",
@@ -56,6 +70,59 @@ def valid_blueprint():
 
 
 class BlueprintContractTest(unittest.TestCase):
+    def test_rich_default_missing_is_rejected_even_if_all_answers_valid(self):
+        plan = valid_blueprint()
+        plan.pop("delivery_profile")
+        self.assertIn("default full lesson", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        plan.pop("native_ui")
+        self.assertIn("missing native DIL", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        plan["source_strategy"] = "all_text"
+        self.assertIn("missing real-photo or SVG-diagram", " ".join(contract.validate_blueprint(plan)))
+
+    def test_stateful_visual_requirements_cannot_be_decorative(self):
+        for field in ("first_screen", "used_by_graded_task", "state_changes",
+                      "replay_works", "after_action_feedback"):
+            plan = valid_blueprint()
+            plan["scene"][field] = False
+            self.assertIn("scene: no working " + field, " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        plan["scene"]["kind"] = "decorative_cover"
+        self.assertIn("decorative-only", " ".join(contract.validate_blueprint(plan)))
+
+    def test_missing_native_interactions_are_rejected(self):
+        for field in ("controlled_inputs", "cards_all", "single_submit",
+                      "early_submit_confirmation", "local_feedback_after_input",
+                      "answer_state_retained"):
+            plan = valid_blueprint()
+            plan["native_ui"][field] = False
+            self.assertIn("ui: missing mandatory working " + field,
+                          " ".join(contract.validate_blueprint(plan)))
+
+    def test_svg_fallback_is_positive_and_never_photo_evidence(self):
+        import json
+        source = Path(__file__).resolve().parent / "fixtures/valid_svg_fallback_lesson.json"
+        plan = json.loads(source.read_text(encoding="utf-8"))
+        self.assertEqual(contract.validate_blueprint(plan), [])
+        plan["tasks"][0]["modality"] = "visual"
+        self.assertIn("diagram cannot claim photographic modality",
+                      " ".join(contract.validate_blueprint(plan)))
+        plan["tasks"][0]["modality"] = "visual_symbols"
+        plan["tasks"][0]["operation"] = "image_choice"
+        self.assertIn("diagram fallback falsely claims photograph",
+                      " ".join(contract.validate_blueprint(plan)))
+
+    def test_no_game_or_no_transfer_is_not_a_complete_default_lesson(self):
+        plan = valid_blueprint()
+        plan["story_goal"] = ""
+        self.assertIn("missing coherent communicative story", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        plan["tasks"][1]["operation"] = "grammar_contrast"
+        plan["tasks"][4]["operation"] = "sentence_builder"
+        self.assertIn("missing distinct original transfer",
+                      " ".join(contract.validate_blueprint(plan)))
+
     def test_genuine_diverse_visual_lesson_passes(self):
         self.assertEqual(contract.validate_blueprint(valid_blueprint()), [])
 
@@ -195,6 +262,29 @@ class BlueprintContractTest(unittest.TestCase):
                            evidence=reading)["eligible"])
         self.assertFalse(f("writing", "production", "visual", "image_choice", "correct",
                            evidence=visual)["eligible"])
+
+    def test_svg_games_can_supply_conservative_recognition_evidence(self):
+        f = contract.evidence_compatibility
+        trusted = {
+            "trusted_rubric_verified": True,
+            "diagram_visible_confirmed": True,
+            "unaided_first_attempt_verified": True,
+        }
+        for operation in (
+            "visual_symbolic_spatial_prediction",
+            "diagram_scene_prediction",
+            "diagram_object_tracking",
+            "diagram_scene_comparison",
+            "diagram_object_label",
+        ):
+            result = f("text_or_visual", "recognition", "visual_symbols",
+                       operation, "correct", evidence=trusted)
+            self.assertTrue(result["eligible"], operation)
+            self.assertEqual(result["status_ceiling"], "supported", operation)
+            unknown = f("text_or_visual", "recognition", "visual_symbols",
+                        operation, "correct",
+                        evidence={"trusted_rubric_verified": True})
+            self.assertFalse(unknown["eligible"], operation)
 
     def test_listening_and_speaking_cannot_be_awarded_from_plain_correct(self):
         f = contract.evidence_compatibility
