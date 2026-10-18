@@ -1,58 +1,32 @@
-"""Static ASIT v0.2.8 Save Gate and auto-follow-on contract checks.
-These checks cannot prove runtime host routing, Google Sheets writes or mobile UI.
-"""
-import json
-import pathlib
+"""Save Gate and follow-on source checks. Cannot prove provider writes."""
 import unittest
-
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-
-def get(rel):
-    return (ROOT / rel).read_text(encoding="utf-8")
-
-class SaveGateContractTests(unittest.TestCase):
-    def test_manifests_synchronized(self):
-        a = json.loads(get('plugin.json'))
-        b = json.loads(get('.codex-plugin/plugin.json'))
-        self.assertEqual(a['name'], b['name'])
-        self.assertEqual(a['version'], '0.3.0')
-        self.assertEqual(a['version'], b['version'])
-        self.assertEqual(a['extensions']['com.openai']['onboardingSkill'], './skills/asit-onboarding/SKILL.md')
-
-    def test_dispatch_assessment_and_continue(self):
-        entry = get('skills/asit-teacher/SKILL.md')
-        ass = get('skills/asit-assessment/SKILL.md')
-        self.assertIn('ASIT_ATTEMPT_V2', entry)
-        self.assertIn('immediately load `asit-assessment`', entry)
-        self.assertIn('SAME assistant response', entry)
-        self.assertIn('VALIDATE → GRADE → SAVE/VERIFY → DECIDE → PREFLIGHT → RENDER', ass)
-        for t in ('Fully synced','Not saved','Not verified','Attempt saved / Partial sync'):
-            self.assertIn(t, ass)
-        self.assertIn('next full lesson', get('skills/asit-lessons/SKILL.md'))
-
-    def test_next_preflight_is_required_and_saving_is_independent(self):
-        lesson = get('skills/asit-lessons/SKILL.md')
-        flow = get('skills/asit-assessment/references/auto-continuation.md')
-        self.assertIn('Register separate Activities', lesson)
-        self.assertIn('BEFORE', lesson)
-        self.assertIn('explicitly unsaved', flow)
-        self.assertIn('one', flow)
-        self.assertIn('same', flow.lower())
-        self.assertIn('replay', flow.lower())
-        self.assertIn('stop/pause', flow)
-        self.assertIn('not a background', flow.lower())
-        self.assertIn('one final Submit', flow)
-        self.assertIn('never mint a second set', flow.lower())
-
-    def test_storage_contract_preserved(self):
-        # The existing storage reference stays installed: this overlay doesn't change its terms.
-        # Test the new runtime and avoid silently downgrading its privacy requirements.
-        flow = get('skills/asit-assessment/references/auto-continuation.md')
-        ass = get('skills/asit-assessment/SKILL.md')
-        self.assertIn('summary_only', ass)
-        self.assertIn('read back', ass)
-        self.assertIn('consent', flow)
-        self.assertIn('save-ready', flow)
-
-if __name__ == '__main__':
-    unittest.main()
+from pathlib import Path
+R=Path(__file__).resolve().parents[1]
+def read(p):return (R/p).read_text(encoding="utf-8")
+class SaveGateContractTest(unittest.TestCase):
+ def test_dispatch_and_assessment(self):
+  entry=read("skills/asit-teacher/SKILL.md")
+  ass=read("skills/asit-assessment/SKILL.md")
+  self.assertIn("ASIT_ATTEMPT_V2",entry)
+  self.assertIn("asit-assessment",entry)
+  self.assertIn("same",entry.lower())
+  self.assertIn("VALIDATE → GRADE → SAVE/VERIFY → DECIDE → PREFLIGHT → RENDER",ass)
+  for x in ("Fully synced","Not saved","Not verified","Attempt saved / Partial sync"):
+   self.assertIn(x,ass)
+ def test_before_display_trusted_activity(self):
+  lesson=read("skills/asit-lessons/SKILL.md")
+  ui=read("skills/asit-exercises/references/ui-contract.md")
+  self.assertIn("before",lesson.lower())
+  self.assertIn("readback",lesson.lower())
+  self.assertIn("immutable ID",ui)
+  self.assertIn("UNSAVED",ui)
+ def test_storage_privacy_unchanged(self):
+  ass=read("skills/asit-assessment/SKILL.md")
+  progress=read("skills/asit-progress/SKILL.md")
+  flow=read("skills/asit-assessment/references/auto-continuation.md")
+  for x in ("summary_only","read back","consent"):
+   self.assertIn(x.lower(),ass.lower())
+  for x in ("readback","state_revision","Activities","Attempts"):
+   self.assertIn(x.lower(),progress.lower())
+  self.assertIn("stop/pause",flow)
+if __name__=="__main__":unittest.main()

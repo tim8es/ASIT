@@ -1,42 +1,17 @@
 ---
 name: asit-exercises
-description: "Use when ASIT needs an interactive English practice card, native UI lesson, specific grammar/vocabulary trainer, picture-to-word input, cloze, word matching, sentence builder, reading check, image hotspot, timeline, card ordering, or a learner-selected exercise type."
+description: "Builds verified native interactive ASIT practice and full-lesson UI from a canonical UI contract and fixed pattern families, with truthful modality-specific assessment."
 ---
 
-# ASIT exercise and native UI orchestrator
+# ASIT exercises — native UI orchestrator v0.3.6
 
-Choose the interface by the learner's **operation and actual observable modality**, then by available client capabilities, then by useful variety. Do not use a widget merely for decoration; plain conversation is valid. Choose one or several of the 18 catalog entries in [pattern registry](references/pattern-registry.md): **17 practice types plus 1 read-only progress explorer**.
+**Mandatory for any structured UI:** read [single UI authority](references/ui-contract.md), then [vetted UI families](references/ui-families.md); read only the matching detailed reference (recognition, construction, media-interaction or game-patterns). The [complete five-task template](references/complete-native-lesson.md) defines the default multi-card form mechanics, not a compulsory parcel story or SVG game for every lesson. The full task catalog remains [17 graded types + read-only progress explorer](references/pattern-registry.md).
 
-## Rendering and evidence rules
+1. From `asit-core`/English objective choose observable cognitive operation, response type and real modality before selecting UI. Prefer high-quality real interactivity; plain conversation for live dialogue and small corrections is legitimate.
+2. For complete lessons, honor learner count/duration and use default 5 graded tasks/~7 minutes only if no preference exists. For 5 tasks aim for ≥3 distinct operations, ≤2 simple finite recognitions, a meaningful fresh-context transfer and one canonical Submit.
+3. Use native controlled state: real change on each button, retained answers/first-try markers under Cards/All, appropriate Undo/Replay, a genuine incomplete-confirmation path. Finite answers show local feedback after interaction with exact correct value mapping; natural answers wait for semantic assessment.
+4. Maintain answer integrity: no hint or key before attempt or after wrong finite choice; no copyable independent prompt. Client feedback/first tries are provisional and unverified, not saved evidence.
+5. Source images must be tool-verified, image-labelled tasks must use image evidence. SVG diagrams are `visual_symbols` only. Listening needs verified actual audio and hearing report; Voice genuine client session; no fake media player/hotspot/animation.
+6. Each subtask has a trusted rubric/Activity ID fixed before display; consented Save Gate is owned by `asit-lessons` and `asit-assessment`. One final Submit issues `ASIT_ATTEMPT_V2` with bounded answer map. Use truthful fallback and `not_assessed` if any modality cannot execute.
 
-1. Know target competency, task prompt, correct rubric with accepted alternatives, required fields, operation, modality and hint policy **before** presenting an exercise.
-2. Prefer ChatGPT-native controls for selection, text, ordering, feedback and a single Submit when supported; make all visible controls actually respond. If platform controls are unavailable, use an accessible numbered/text fallback **and describe changed modality**. Do not fabricate drag, clicks on images, Play, Record, unseen text or saved history.
-3. For a full four-task lesson, prefer 3 distinct cognitive operations, not just cosmetic control variety. After repeated errors, rotate to error_detective, image_choice/image_label, scenario or construction; see [experience planner](../asit-lessons/references/experience-planner.md). The learner may explicitly choose a fixed drill format.
-4. Deterministic choices, clozes with unambiguous accepted forms, and completed word orders **must** show provisional local `Correct` / `Try again` after interaction when native state supports it. After a wrong response give a neutral Incorrect / Try again verdict **without a directional clue** or answer elimination. After a correct response explain briefly only when it cannot reveal a later task's answer, as required by answer-integrity. Never show the key before an attempt. Retain first try separately from current answer, revision count and hint exposure as untrusted provisional metadata. Free writing, ambiguous answers and plausible unlisted synonyms receive `Review after Submit`, not invented immediate grading.
-5. A real form has **one final Submit** that posts a new ChatGPT turn. Required blanks block ordinary completion; the user may deliberately finish incomplete. Local states are not saved records. The teacher re-checks answers from trusted rubric after Submit using `asit-assessment`.
-6. Preserve narrative text as full sentences; don't split a sentence into multiple blocks just to insert a popover. Only show clickable underlined explanation when it is actually a working control.
-
-## Specialized gates
-
-**Pictures.** A pictured task must actually depend on visual evidence: a cover photograph alone is decoration. `image_label` requires an actual suitable image placed immediately above the typed response input, without text revealing the answer in an image caption. Confirm normal synonyms and short phrase aliases. Image-only fallback becomes honestly **text-prompted recall** if media fails. `image_hotspot` requires truly actionable semantic regions with keyboard and pointer access, stable region IDs and a visible selected state; a static photograph is not a hotspot.
-
-**Ordering.** `sentence_builder` arranges **meaningful multiword chunks**; `card_ordering` orders **individual tokens**; `timeline_ordering` orders grounded before/after story events. Use click-to-order, Undo/Reset and keyboard alternative when available. Do not rigidly grade ambiguous chronological ties.
-
-**Reading.** `reading_comprehension` shows an actually available continuous text and separate gist/detail prompts. Reading is never evidence of listening.
-
-**Audio/video and speaking.** An ordinary native select/input widget cannot play arbitrary sound or start Voice. Use `asit-media` for verified source recordings, `asit-voice` for live speech; otherwise mark the requested modality `not_assessed`.
-
-**Interaction.** `dialogue` requires real multi-turn responsive chat, not one static textarea.
-
-**Progress explorer.** This is a read-only view of actually verified learner state; no fake percentages, no grading and no Submit required. Use `asit-progress`.
-
-## Visual, feedback and responsiveness
-
-For structured exercises load [visual + live feedback contract](references/visual-feedback.md) **only when rendering the UI**, not on routing, progress lookup, small vocabulary questions or pure chat. Prefer a relevant cover/scene/timeline for a full lesson when reliable and useful; never search media solely as decoration or claim motion/audio without an actual supported component. Form controls must visibly react and remain keyboard-friendly; one real Submit, no inert buttons.
-
-## Detailed patterns
-
-Open only matching pattern instructions rather than the entire catalog:
-- [Recall, recognition, reading and pictures](references/recognition.md)
-- [Construction, ordering and independent use](references/construction.md)
-- [Dialogue, Voice and media interactions](references/media-interaction.md)
+Do not load all references for a quick exercise. The component source examples are **not runtime modules**: they instruct the model how to author native widgets and require host QA.

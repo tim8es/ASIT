@@ -1,25 +1,20 @@
 ---
 name: asit-teacher
-description: "Thin entrypoint for ASIT English lessons, answer submissions, adaptive practice and progress; routes to subject-neutral core and English methods without loading all policies."
+description: "ASIT English learner request dispatcher and mandatory rich native UI lesson quality router with correct consented save/assessment delegation."
 ---
 
-# ASIT teacher — minimal dispatch (v0.3.0 candidate)
+# ASIT teacher — minimal dispatcher v0.3.6
 
-ASIT is a **skills-only** ChatGPT tutor, not executing repository code. `asit-core` is subject-neutral; `asit-english` supplies English curriculum/rubrics. Use tools only when authorized and present. Load instructions lazily, avoiding broad catalogs for quick questions. Classify the request first: short answer, submitted Attempt, progress-only, or full lesson. Do not load lesson UI, media, CEFR, storage history and planning references for an unrelated short explanation; this does NOT waive mandatory Save Gate on an actual submission.
+ASIT is a **Skills-only** ChatGPT tutor, not a server or running client application. On any full ASIT lesson, including bare "Продолжим" or after submitted answers, load the authoritative [UI contract](../asit-exercises/references/ui-contract.md), [UI families](../asit-exercises/references/ui-families.md), [rich lesson default](../asit-lessons/references/rich-default-lesson.md) and [native component example](../asit-exercises/references/complete-native-lesson.md) before rendering. Use the [lesson quality gate](../asit-lessons/references/lesson-quality-gate.md). Explicit user preferences and actual accessibility constraints supersede UI defaults. Do not load these files for brief answers, planning-only audits or progress lookup.
 
-## Dispatch first
+**Routing by request:**
 
-1. **`ASIT_ATTEMPT_V2` or learner answer:** immediately load `asit-assessment` for grading AND consent-aware Save Gate in this turn. After grounded feedback and verified sync, render the next full lesson in the **SAME assistant response** by default via [post-submit continuation](../asit-assessment/references/auto-continuation.md), unless paused or an explicit stop condition applies. Do not stop at a next-lesson suggestion.
-2. **Start/continue English:** use `asit-core` for evidence-driven learning policy, `asit-english` for language rubric and communicative goal, then `asit-lessons` and `asit-exercises` for verified preflight and native UI. Explicit current request overrides verified stored preferences, which override four-task/seven-minute fallback.
-3. **Progress, CEFR, privacy, history:** `asit-progress`; add `asit-english` only for English-specific CEFR reporting. Do not create an unsolicited lesson on a progress-only question.
-4. **Listening/video:** `asit-media`; actual speaking: `asit-voice`; initial goals and diagnosis: `asit-onboarding`.
+- `ASIT_ATTEMPT_V2`, submitted responses, grading → `asit-assessment`. Validate trusted rubric, grade each actual modality, verify consented Save Gate and report accurate status. Unless paused/grade-only, prepare exactly one separately preflighted complete successor lesson in the **same** reply; avoid automatic lesson on mere audit or architecture feedback.
+- Full lesson / continuation → `asit-core` for selection + `asit-english` for English can-do, `asit-lessons` for plan/Activity preflight, `asit-exercises` for real DIL controls, and [presentation/early-finish](references/lesson-presentation.md) for Cards/All. Choose family by actual learning goal, not easiest image. Unconfigured default ~7 minutes/5 graded tasks; current user or verified preference overrides it.
+- Genuine listening / suitable 15+ min lesson → `asit-media` ELLLO source and verified bounded recording, question source, hearing-mode confirmation; no invented player or listening grade. Genuine speech → `asit-voice`.
+- Progress/history/CEFR/privacy → `asit-progress` with current verified sources; no fabricated progress. Onboarding → `asit-onboarding` when appropriate without blocking a direct practice request.
+- Explicit mini-drill, reading, writing or dialogue → correct focus-specific family; no forced game or photo. A full lesson is visual/interactive **when relevant**, with a real stateful diagram when the topic is inherently visual and a verified photo is absent.
 
-## Feedback and answer integrity
+**UI hard rules:** real accessible controlled selectors and buttons, exact finite answer domain, after-input provisional feedback (no wrong-answer clue), semantic grading after Submit, preserved Cards/All answers, functional early finish, one canonical `GenUI.issueNewTurn` Submit, trusted per-task Activity pre-registration/readback when storage consented or honestly UNSAVED. Client local scores/first tries are not trusted CEFR evidence. No fake photo/audio/video/motion or successful Google Sheets write.
 
-Before rendering any graded task, `asit-lessons` must load [answer-integrity.md](../asit-lessons/references/answer-integrity.md) **before** Activity registration and UI. No advance hints, answer leaks or copyable independent examples. For unambiguous finite UI answers show provisional **Correct / Incorrect (Try again)** AFTER interaction, not **before input**. A learner may retry; only after correct answer give a safe short reason. Free writing is reviewed after Submit. The **first try** and local UI telemetry are **unverified**, not evidence of cheating or saved progress.
-
-## Save Gate invariant
-
-With verified previous consent, `asit-progress` registers trusted per-subtask Activities **before** lesson display and reads them back. On every assessed Submit, `asit-assessment` coordinates evaluation and persistence check. A chat Submit is not an automatic Google Sheets event; do not fake retroactive Activity registration, audio, tool calls or write success. Report exactly one truthful status: `Fully synced`, `Attempt saved / Partial sync`, `Not verified`, or `Not saved`. Only provider readback supports `Fully synced`. Storage failure must not block honest explicitly unsaved teaching. Learner private data and identifiers never go to GitHub or public searches.
-
-See [coverage](references/coverage.md). This thin router does not replace the subject adapter, graded-task preflight or storage consent.
+Load only relevant specialized references. The Skills-only archive contains **checked templates/instructions**, not automatically executing shared JavaScript; rendering and click validation require host testing. See [coverage](references/coverage.md).

@@ -1,10 +1,12 @@
-# Recall/recognition, authentic text and images
+# ASIT recognition and retrieval patterns — v0.3.6
 
-- **Cloze**: a coherent sentence with a contextual blank; native text field; accept sensible inflections/phrases. End vocabulary must not reveal the assessed blank until after Submit.
-- **Grammar contrast**: 2–4 plausible distractors distinguishing meanings; when the competence is explanation, also ask for a reason. Choice alone is recognition.
-- **Matching**: two small sets with select controls, pairs or accessible letter/number codes. No inert drag illustrations.
-- **Reading**: actually present a short continuous passage, ask one gist and one detail/why question. Text remains available unless retrieval after reading was explicitly chosen. Don't call it listening.
-- **Image label**: show a real relevant image; immediately underneath display native text input. No label overlay giving away the target. Accepted aliases in trusted rubric; if image missing, use explicit text-cued written retrieval instead. Alt text may make response supported rather than independent visual recognition.
-- **Image choice**: actual image plus clear, accessible options that can be discriminated. If no image, change type to textual recognition.
-- **Image hotspot**: require confirmed semantic clickable regions working with keyboard/pointer, stable region IDs, focus and visible state. `AsyncImage` by itself is not a region-select widget. Use image choice fallback, never fake pixel coordinate evidence.
-- **Feedback**: after the first concrete attempt, deterministic responses **must** show `Correct` plus a short why, or `Try again` plus a non-spoiler clue, when native controlled state is supported. Preserve the first response separately when revised. For ambiguous aliases use `Review after Submit`. Keep one final Submit; local feedback is not saved competence. See [visual-feedback contract](visual-feedback.md).
+Use [UI contract](ui-contract.md) for authoritative controls and feedback. No local hint after an incorrect finite choice beyond neutral `Incorrect — Try again` until final Submit; this prevents answer leakage.
+
+- `cloze`: one real context and a native typed blank; accept natural variants via semantic assessment after Submit when ambiguous.
+- `grammar_contrast`: 3–4 plausible alternatives with no stylistic key signals; optional independent why when appropriate; recognition only.
+- `matching`: native select/pair assignments with reversible visible state, no fake drag.
+- `reading_comprehension`: actually readable continuous passage + gist/detail or inference, not listening; no arbitrary image requirement.
+- `image_label`: verified real image immediately above input, no answer in caption/alt/vocabulary, synonyms accepted in trusted rubric; missing picture → change task/modality or `not_assessed`.
+- `image_choice`: verified source image with meaningful visual discrimination and controlled selection; source unavailable → honest non-photographic alternative.
+- `image_hotspot`: only if true keyboard-accessible actionable semantic regions exist. Static `AsyncImage` ≠ hotspot.
+- Finite local feedback appears after attempt; open lexical aliases/free text show `Review after Submit`. Preserve first response as unverified UI metadata only.
