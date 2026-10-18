@@ -1,4 +1,4 @@
-# ASIT v0.2.3 private plugin — manual acceptance scenarios
+# ASIT v0.3.11 source candidate — manual acceptance scenarios
 
 This is a **checklist, not a claim that these flows have already run in ChatGPT**. Evaluate in a new normal chat after installation, without ASIT Project Instructions or a downloaded GitHub Engine.
 
@@ -6,7 +6,7 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 |---|---|---|
 | 1 | Start my English program | Teacher + onboarding; one meaningful goal question and early English use; no assumptions |
 | 2 | Продолжим | Teacher + state only if actually available, otherwise explicitly unsaved continuation |
-| 3 | Past Simple grammar lesson | Lessons + exercises; 7-minute default, 4 related tasks, end vocabulary, 1 Submit |
+| 3 | Past Simple grammar lesson | Lessons + exercises; 7-minute default, 5 related tasks unless user specified otherwise, end vocabulary, 1 Submit |
 | 4 | Make a picture with a word input under it | Exercises image_label; real image directly above text input, alias grading/fallback |
 | 5 | Arrange these words into a sentence | Exercises card_ordering; real order/Undo or honest text alternative |
 | 6 | Practice sentence chunks | Exercises sentence_builder; meaningful chunks, not single-word ordering |
@@ -29,7 +29,7 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 | 23 | Pause ASIT progress saving | Stop ASIT writes; no Google Drive app uninstall; no claim of cross-chat pause without verified Config |
 | 24 | Install or disable Google Drive plugin | User guided through ChatGPT plugin installation/settings or real suggestion; no fake automation or claimed success |
 
-## v0.2 responsiveness and speed checks
+## Legacy v0.2 responsiveness and speed regressions
 
 - [ ] A normal full structured lesson displays a relevant visual when supported (or explicitly sensible text-only fallback); cover does not replace a graded task.
 - [ ] Each unambiguous native choice displays provisional Correct + why or Try again + non-spoiler clue immediately after selection, **not** before interaction.
@@ -56,7 +56,7 @@ This is a **checklist, not a claim that these flows have already run in ChatGPT*
 - **Host QA**: implicit skill routing, native single Submit, source playback on learner's actual device, Drive connection/permission, real readback and cross-chat continuation. These are not established by ZIP/package tests.
 - **Upgrade QA**: compare outputs and behavior against ASIT Project + GitHub baseline before replacing that working setup. Source repo remains untouched by the plugin build; this plugin is a separate version.
 
-## v0.2.4 persistent-state regression checks
+## Legacy v0.2.4 persistent-state regression checks
 - [ ] Existing five-key Config remains readable with legacy `audio_transcript_consent=false`; new audio consent defaults off and CEFR confidence unassessed until permitted repair.
 - [ ] Read-only integrity scanner identifies orphan activity/attempt references and unknown attempt privacy without guessing IDs or exposing answer text.
 - [ ] Repair plan appends only missing keys; no automatic writes or destructive migration for a previously populated workbook.
