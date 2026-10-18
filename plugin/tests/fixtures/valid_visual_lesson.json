@@ -22,7 +22,7 @@
         "kind": "photo",
         "verification": "tool_verified_in_this_turn",
         "ref": "turn1image2",
-        "render_checked": true
+        "fallback_operation": "text_prompted_retrieval"
       }
     },
     {
@@ -45,7 +45,7 @@
         "kind": "photo",
         "verification": "tool_verified_in_this_turn",
         "ref": "turn1image3",
-        "render_checked": true
+        "fallback_operation": "text_prompted_retrieval"
       }
     },
     {
