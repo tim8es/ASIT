@@ -10,7 +10,7 @@ python3 -m unittest discover -s plugin/tests -p 'test_*.py'
 python3 plugin/scripts/package.py --check
 ```
 
-The fixture is **synthetic** and contains an intentionally fictional but correctly shaped image result ref; it is not a source of actual lesson imagery or a production learner rubric. The validator returns nonzero for: photo operations with missing/unverified media declaration, malformed ref formats, missing render/fallback assertion, answer leakage, incorrect task mix, duplicated IDs, fake input controls, missing canonical Submit, unsupported "independent" labels and invented skip reasons. Tests add negative cases for a 30-radio lesson and guided outcomes mislabeled independent.
+The fixture is **synthetic** and contains an intentionally fictional but correctly shaped image result ref; it is not a source of actual lesson imagery or a production learner rubric. The validator returns nonzero for: photo operations with missing/unverified media declaration, malformed ref formats, missing explicit fallback declaration, answer leakage, incorrect task mix, duplicated IDs, fake input controls, missing canonical Submit, unsupported "independent" labels and invented skip reasons. Tests add negative cases for a 30-radio lesson and guided outcomes mislabeled independent.
 
 A declared `verification=tool_verified_in_this_turn` is an assertion supplied by the calling workflow, **not** authenticated proof. To release an actual lesson, the tutor must inspect **real successful image-tool output in the current conversation** and use the exact returned asset. Even a genuine ref does not prove client rendering.
 
@@ -25,7 +25,7 @@ A declared `verification=tool_verified_in_this_turn` is an assertion supplied by
 
 ## Runnable mini-game prototype
 
-Open [Parcel Mission](prototypes/parcel-mission.html) in a local browser. It uses native HTML radio controls, a real Move/Replay state, CSS transform **animation** plus `prefers-reduced-motion`, after-action verdict and a distinct ungraded English transfer question. Keyboard controls and aria-live feedback are included. This file is a **standalone developer prototype**, not bundled in the installed Skills-only plugin; it neither invokes a real ASIT Submit nor writes to Google Sheets. Its static source contract has unit tests, but mobile/browser E2E remains manual.
+Open [Parcel Mission](prototypes/parcel-mission.html) in a local browser. The scene uses a responsive SVG viewBox, not clipped fixed-position divs. It uses native HTML radio controls, a real Move/Replay state, CSS transform **animation** plus `prefers-reduced-motion`, after-action verdict and a distinct ungraded English transfer question. Keyboard controls and aria-live feedback are included. This file is a **standalone developer prototype**, not bundled in the installed Skills-only plugin; it neither invokes a real ASIT Submit nor writes to Google Sheets. Its static source contract has unit tests, but mobile/browser E2E remains manual.
 
 ## Manual desktop/mobile regression matrix
 
@@ -36,9 +36,9 @@ Open [Parcel Mission](prototypes/parcel-mission.html) in a local browser. It use
 | Interactive Parcel Mission | Prediction, Move control, **visible SVG state change**, feedback, Replay and independent transfer all function | Static emoji, inert button, state change called smooth animation |
 | True CSS motion optional | Host/mobile tested transition and reduced-motion fallback | SVG coordinate snap advertised as animation |
 | Skipped writing by choice | Mark not_assessed; format rotates; no imposed "low level" | Incorrect/needs_support, cloned long textarea every lesson |
-| Competency projections | Reading inference mapped to comprehension; guided chunks remain supported; valid independently written interaction separate | Exact-string alias mismatch or guided proof treated as independent |
+| Competency projections | Reading inference mapped conservatively; guided chunks remain supported; written interaction requires actual recipient, semantic review and **verified first attempt** | Exact-string mismatch, final correct selection falsely called unaided, or guided proof treated as independent |
 | Replayed Submit | No duplicate Attempt or new successor | Blind append or second unrelated lesson |
-| Real ELLLO playback | Exact source, bounded clip, heard/transcript self-report, appropriate grading | Footer URL only, transcript scored as listening |
+| Real ELLLO playback | Exact source, bounded clip, hearing self-report, actual audio comprehension operation, appropriate first-answer status | Footer URL, transcript or fabricated correct flag scored as independent listening |
 | CEFR dashboard | Exact task-mapped official descriptor + sufficient distinct independent evidence, separate dimensions | Level inferred from 1 radio or from unassessed speaking/listening |
 | 7-min and 40-min UX | Cards/All, early finish, readable controls, enough meaningful operations and correct duration planning | Repetition of same five mechanics or fake timer |
 
@@ -54,6 +54,6 @@ For *each* client (desktop web, mobile) test with a real learner and explicit co
 
 ## Release topology (October 2026)
 
-Main repository v0.3.0 is behind installed private plugin v0.3.2. PR #26 aligns the deployed skills to v0.3.2; subsequent linked regression work is stacked on its branch. Merge/deploy/reinstall are separate operations. **This PR does not update the installed plugin**. No claims of better learner outcomes without measured trials.
+Main repository v0.3.0 is behind installed private plugin v0.3.2. PR #32 **supersedes closed PR #26 and now targets main directly** with source alignment plus the review fixes. Merge/deploy/reinstall are separate operations. **This PR does not update the installed plugin**. No claims of better learner outcomes without measured trials.
 
 Related: #27 media, #28 evidence mapping, #29 skip/format, #30 games, #31 executable QA.
