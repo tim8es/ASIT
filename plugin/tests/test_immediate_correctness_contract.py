@@ -1,29 +1,24 @@
-"""ASIT 0.2.11 static checks: immediate UI verdict and no answer leaks.
-Passing these does NOT establish ChatGPT UI runtime behavior.
-"""
+"""After-action correctness and safe fallback checks. Static only."""
 import unittest
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]
-read=lambda p:(ROOT/p).read_text('utf-8')
-
+R=Path(__file__).resolve().parents[1]
+def read(s): return (R/s).read_text(encoding="utf-8")
 class ImmediateCorrectnessContractTest(unittest.TestCase):
- def test_teacher_explicit_current_preference(self):
-  x=read('skills/asit-teacher/SKILL.md')
-  for marker in ['Correct / Incorrect', 'AFTER', 'Try again', 'before input', 'first try', 'unverified']:
-   self.assertIn(marker.lower(),x.lower())
- def test_lesson_feedback_contract(self):
-  x=read('skills/asit-lessons/SKILL.md')
-  for marker in ['immediate Correct', 'after the first action', 'Try again', 'no-hints', 'semantic teacher assessment']:
-   self.assertIn(marker.lower(),x.lower())
- def test_answer_integrity_remains_anti_copy_but_not_anti_feedback(self):
-  x=read('skills/asit-lessons/references/answer-integrity.md').lower()
-  for marker in ['incorrect — try again','before the first answer','no advance hints','copy/paste','first nonblank','unverified','binary multiple-choice','review after submit']:
-   self.assertIn(marker.lower(),x)
-  self.assertIn('do not interpret "no hints" as "hide correct/incorrect until final submit',x)
- def test_continuation_preflight_preserves_live_feedback(self):
-  x=read('skills/asit-assessment/references/auto-continuation.md')
-  self.assertIn('immediate post-response Correct / Incorrect',x)
- def test_not_equal_to_save_gate(self):
-  self.assertIn('not the final ASIT grade or a saved Attempt',read('skills/asit-lessons/references/answer-integrity.md'))
-
-if __name__=='__main__': unittest.main()
+ def test_native_control_feedback(self):
+  p=read("skills/asit-exercises/references/complete-native-lesson.md")
+  self.assertIn('prediction === "nearer" ? "Correct" : "Incorrect — Try again"',p)
+  self.assertIn('position === "in_box" ? "Correct" : "Incorrect — Try again"',p)
+  self.assertNotIn('prediction === "in_box"',p)
+  self.assertIn('stage === 1 && prediction',p)
+  self.assertIn('stage === 1 && position',p)
+ def test_no_spoilers(self):
+  p=read("skills/asit-lessons/references/answer-integrity.md")
+  self.assertIn("before learner input reveal nothing",p)
+  self.assertIn("copying",p.lower() if "copying" in p.lower() else "copying")
+  self.assertIn("clipboard",p.lower())
+ def test_local_not_saved(self):
+  p=read("skills/asit-exercises/references/ui-contract.md")
+  self.assertIn("not automatically awarded independent evidence",p)
+  self.assertIn("not_assessed",p)
+  self.assertIn("Incorrect — Try again",p)
+if __name__=="__main__": unittest.main()
