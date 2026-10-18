@@ -13,6 +13,8 @@ Read [media provenance and renderability](references/media-provenance.md) **befo
 
 Use [stateful game patterns](../asit-exercises/references/game-patterns.md) when an interactive mini-game or motion is requested. Genuine host-supported state transitions, after-input feedback and accessible fallback are required; game templates do not themselves execute plugin code. On repeated intentional skips, apply [two-axis format adaptation](../asit-core/references/format-adaptation.md), not a presumed ability deficit.
 
+**Evidence-driven planning:** before selecting tasks consult [selection invariants](../asit-core/references/selection-invariants.md) and [English can-do starter criteria](../asit-english/references/can-do-starters.md), then choose just one original communication outcome.
+
 ## Non-negotiable pre-render order
 
 1. **Choose can-do + lesson style:** read [lesson quality gate](references/lesson-quality-gate.md), [answer integrity](references/answer-integrity.md) and [visual lesson standard](references/visual-lesson-standard.md). Current learner duration/count/format take precedence over Config. Decide complete storyline and 4–6 distinct sections for a requested 40-minute lesson; never fill time with repeated question templates.
