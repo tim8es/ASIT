@@ -15,7 +15,7 @@ class SaveGateContractTests(unittest.TestCase):
         a = json.loads(get('plugin.json'))
         b = json.loads(get('.codex-plugin/plugin.json'))
         self.assertEqual(a['name'], b['name'])
-        self.assertEqual(a['version'], '0.3.0')
+        self.assertEqual(a['version'], '0.3.2')
         self.assertEqual(a['version'], b['version'])
         self.assertEqual(a['extensions']['com.openai']['onboardingSkill'], './skills/asit-onboarding/SKILL.md')
 
