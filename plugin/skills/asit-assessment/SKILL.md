@@ -24,6 +24,10 @@ description: "MANDATORY coordinator for every ASIT learner answer, ASIT_ATTEMPT_
 
 **A Submit emits a chat message, not a provider write.** A local Correct badge does not show database persistence.
 
+## Visual evidence and canonical-operation projection
+
+A learner cannot be graded on photographic perception from a fabricated, broken or invisible image source. Verify the original lesson's [media provenance](../asit-lessons/references/media-provenance.md) when a question is visually dependent. If the client image failed or the original ref was not verifiably returned, the affected visual task is `not_assessed`, even if the selected word was plausible. Never register an Activity retroactively to fix missing media. Route Competency updates through [evidence compatibility](../asit-progress/references/evidence-compatibility.md) (operation family + modality + support level), not direct equality of task-specific operation names. A correctly assembled guided request tops out at **supported**; a repeated deliberate writing skip says nothing about independent writing proficiency.
+
 ## Integrity of evidence after a no-hints lesson
 
 Even if `first_answer` metadata is supplied, treat it as **unverified client report** and never claim cheating prevention or secure initial-attempt accuracy. Separately grade guided recognition, chunk assembly and independent transfer. An identical/pasted response that merely reproduces visible model text is not independent production evidence; examine whether the original lesson was answer-leaky before upgrading Competencies or CEFR. Genuine comprehension questions may legitimately cite facts in the passage, but copying a factual time is not independent writing. Give explicit corrective answers only **after** Submit. Follow [answer integrity](../asit-lessons/references/answer-integrity.md) when creating the successor lesson.
