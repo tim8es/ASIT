@@ -18,6 +18,10 @@ This is a **Skills-only** plugin. It has no running JS service, built-in databas
 5. Only verified Attempts can affect necessary Session, Competency, Review and Config state_revision projections. Guard revision conflicts; read back every changed projection. No fabricated Reviews or unsupported CEFR status. If projections partially fail, retain Attempt receipt and report `Attempt saved / Partial sync`, not `Fully synced`.
 6. Return exactly one evidenced state to `asit-assessment`: `Fully synced` (all required readbacks), `Attempt saved / Partial sync` (Attempt verified only), `Not verified` (ambiguous provider outcome), or `Not saved` (no successful write). Feedback is independent of storage. On next authorized session, reconcile pending projections from verified original IDs only; never blind replay.
 
+## Correctness of projections, separate from saving attempts
+
+On the final Attempt-readback projection step, load [operation-family compatibility](references/evidence-compatibility.md) when observed operation names differ from broad competency operations. Keep activity type, response control, cognitive operation, modality and assistance separate. A saved correctly guided sentence can count as supported practice, but cannot prove independent written interaction. **No CEFR confidence from a guided choice or from skipped independent writing.** If source refs were not verified or the learner could not view the image, visual evidence is `not_assessed`; no retroactive Activity rewrite.
+
 ## Bounded Save Gate fast path — no relaxed safety
 
 Reuse **verified provider evidence only within the current turn**. On first or uncertain workbook discovery verify identity/owner, all nine data headers and required Config. Re-check live recording consent and state_revision before a subsequent write whenever either may have changed; a previous chat, speculative cache or previous Fully synced receipt cannot authorize another mutation.

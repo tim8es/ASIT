@@ -11,13 +11,15 @@ class VisualLessonContractTest(unittest.TestCase):
         self.assertIn('references/visual-lesson-standard.md', lesson)
         self.assertIn('before', lesson.lower())
         self.assertIn('Save Gate', lesson)
-        self.assertIn('post-submit continuation', lesson)
+        self.assertIn('media-provenance.md', lesson)
+        self.assertIn('game-patterns.md', lesson)
+        self.assertIn('By default render only one complete next full lesson', lesson)
     def test_auto_continuation_has_visual_gate(self):
         flow = (ROOT/'skills/asit-assessment/references/auto-continuation.md').read_text(encoding='utf-8').lower()
         for item in ('visual standard','consent','preflight','new lesson','render'):
             self.assertIn(item, flow)
     def test_manifest_version(self):
         manifest = json.loads((ROOT / 'plugin.json').read_text(encoding='utf-8'))
-        self.assertEqual(manifest['version'], '0.3.0')
+        self.assertEqual(manifest['version'], '0.3.3')
 if __name__ == '__main__':
     unittest.main()

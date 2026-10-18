@@ -11,16 +11,16 @@ class CriticalPathContractTests(unittest.TestCase):
     def test_candidate_and_lazy_routing(self):
         a = json.loads(get("plugin.json"))
         b = json.loads(get(".codex-plugin/plugin.json"))
-        self.assertEqual(a["version"], "0.3.0")
+        self.assertEqual(a["version"], "0.3.3")
         self.assertEqual(a["version"], b["version"])
-        self.assertIn("classify the request first", get("skills/asit-teacher/SKILL.md").lower())
+        self.assertIn("full lesson / continuation", get("skills/asit-teacher/SKILL.md").lower())
         self.assertIn("one decision per lesson", get("skills/asit-core/SKILL.md").lower())
 
     def test_blueprint_identity_without_regenerating_rubric(self):
         lessons = get("skills/asit-lessons/SKILL.md")
         assessment = get("skills/asit-assessment/SKILL.md")
-        self.assertIn("one trusted lesson blueprint", lessons)
-        self.assertIn("BEFORE display", lessons)
+        self.assertIn("Freeze ONE trusted lesson blueprint", lessons)
+        self.assertIn("BEFORE UI display", lessons)
         self.assertIn("grade once", assessment)
         self.assertIn("trusted", assessment)
         self.assertIn("SAME response", assessment)

@@ -16,6 +16,10 @@ Choose the interface by the learner's **operation and actual observable modality
 5. A real form has **one final Submit** that posts a new ChatGPT turn. Required blanks block ordinary completion; the user may deliberately finish incomplete. Local states are not saved records. The teacher re-checks answers from trusted rubric after Submit using `asit-assessment`.
 6. Preserve narrative text as full sentences; don't split a sentence into multiple blocks just to insert a popover. Only show clickable underlined explanation when it is actually a working control.
 
+## Stateful micro-games (when requested or instructionally useful)
+
+Use [game patterns](references/game-patterns.md), not a new simulated executor. Build meaningful predict → manipulate → feedback → transfer cycles with real `DIL.useState`-controlled native buttons/selectors and observable changed positions, assignments or consequences. A native SVG state change is a diagram, not a retrieved photo and not proof of smooth CSS animation. A sourced `AsyncImage` requires [media provenance](../asit-lessons/references/media-provenance.md) before a graded image operation. Include 2+ different cognitive actions, an accessible non-pointer alternative and the **same** canonical final Submit; no local game "win" is a saved Attempt. Repeated skipped text inputs call for alternate mechanics, not lower assumed ability.
+
 ## Specialized gates
 
 **Pictures.** A pictured task must actually depend on visual evidence: a cover photograph alone is decoration. `image_label` requires an actual suitable image placed immediately above the typed response input, without text revealing the answer in an image caption. Confirm normal synonyms and short phrase aliases. Image-only fallback becomes honestly **text-prompted recall** if media fails. `image_hotspot` requires truly actionable semantic regions with keyboard and pointer access, stable region IDs and a visible selected state; a static photograph is not a hotspot.

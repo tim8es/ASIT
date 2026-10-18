@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASIT prototype — Parcel Mission</title>
+<style>
+  :root {color-scheme: light; font-family: system-ui, -apple-system, sans-serif; line-height: 1.5;}
+  * {box-sizing: border-box;}
+  body {max-width: 650px; padding: 1.1rem; margin: auto; color: #21262e; background: #fbfaf8;}
+  header {margin-bottom: 1rem;}
+  .eyebrow {font-size: .75rem; text-transform: uppercase; font-weight: 700; color:#5b6371;}
+  h1 {margin:.2rem 0 .5rem; font-size:1.65rem;}
+  .card {border:1px solid #d9dfe7; border-radius:16px; background:white; padding:1rem; margin-block: .9rem;}
+  .scene {position:relative; height:230px; overflow:hidden; border-radius:12px; background:#f0f4f6; border:1px solid #d7e0e7;}
+  .scene svg {width:100%;height:100%;display:block}
+  .parcel {transform-box:view-box;transform-origin:0 0;transition:transform .55s cubic-bezier(.22,.6,.26,1)}
+  .scene.moved .parcel {transform:translate(48.0556%,44.3478%)}
+  fieldset {border:0;padding:0;margin:0;}
+  legend {font-weight:650;margin-bottom:.4rem;}
+  label.choice {display:block;padding:.55rem .65rem;margin:.3rem 0;border:1px solid #d9dfe7;border-radius:9px;cursor:pointer;}
+  label.choice:has(input:checked) {background:#eef4fc;border-color:#4165ad;}
+  button {font:inherit;padding:.65rem 1rem;border-radius:9px;border:1px solid #aeb8c3;background:#fff;cursor:pointer;min-height:44px;}
+  button.primary{background:#204a82;color:white;border-color:#204a82;}
+  button:disabled{cursor:not-allowed;opacity:.48}
+  button:focus-visible,input:focus-visible,textarea:focus-visible {outline:3px solid #d49e2c;outline-offset:3px;}
+  .actions {display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;}
+  .message {min-height:1.6rem;font-weight:650;margin-top:.65rem;}
+  .correct {color:#136530}.incorrect{color:#922c2c}
+  textarea {display:block;width:100%;font:inherit;min-height:74px;padding:.65rem;border:1px solid #aeb8c3;border-radius:9px;resize:vertical;}
+  .small {font-size:.85rem;color:#596575}
+  @media (prefers-reduced-motion:reduce) {.parcel {transition:none!important;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">ASIT · Interactive prototype / Issue #30</div>
+  <h1>Parcel Mission</h1>
+  <p><strong>Mission:</strong> Predict where the parcel will be, move it, check your idea, then ask a new English question. This is a <em>diagram</em>, not a photograph.</p>
+</header>
+<main>
+  <section class="card" aria-label="Prediction game">
+    <h2>1. Predict, then move</h2>
+    <p class="small">The parcel begins on the shelf. The courier will move it to the container on the right. Look at the scene, predict its final position, and press Move parcel.</p>
+    <div id="scene" class="scene" role="img" aria-label="Diagram: a parcel rests on a shelf on the left and an empty open box stands on the right.">
+      <svg viewBox="0 0 360 230" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true">
+        <path d="M0 211 H360" stroke="#9ea8a8" stroke-width="3"/>
+        <rect x="29" y="95" width="160" height="13" rx="3" fill="#94754f"/>
+        <rect x="35" y="108" width="9" height="104" fill="#94754f"/>
+        <rect x="174" y="108" width="9" height="104" fill="#94754f"/>
+        <path d="M241 151 V214 H342 V151" stroke="#ac825a" stroke-width="5" fill="#ead1ab"/>
+        <path d="M240 151 L246 134 L290 148 L286 154 Z" fill="#cba47b"/>
+        <path d="M290 148 L335 134 L346 151 L294 154 Z" fill="#cba47b"/>
+        <g class="parcel">
+          <rect x="91" y="59" width="33" height="32" rx="2" fill="#c77a40" stroke="#8e4d2d" stroke-width="2"/>
+          <rect x="103" y="59" width="6" height="32" fill="#f3d6a9"/>
+        </g>
+        <text x="30" y="126" fill="#4a5767" font-size="13">Shelf</text>
+        <text x="267" y="226" fill="#4a5767" font-size="13">Box</text>
+      </svg>
+    </div>
+    <fieldset id="prediction">
+      <legend>Where do you think it will land?</legend>
+      <label class="choice"><input type="radio" name="destination" value="under"> Under the shelf</label>
+      <label class="choice"><input type="radio" name="destination" value="on"> On the shelf</label>
+      <label class="choice"><input type="radio" name="destination" value="in"> In the box</label>
+    </fieldset>
+    <div class="actions">
+      <button id="move" class="primary" type="button" disabled>Move parcel</button>
+      <button id="replay" type="button">Replay</button>
+    </div>
+    <p id="feedback" class="message" aria-live="polite"></p>
+  </section>
+
+  <section class="card">
+    <h2>2. Use it elsewhere</h2>
+    <p>Your colleague is looking for their phone. Write <strong>one original question</strong> asking where the phone is. This is a different situation; no model question is supplied.</p>
+    <label for="new-question" class="small">Your English question</label>
+    <textarea id="new-question" autocomplete="off" placeholder="Write your own question…"></textarea>
+    <div class="actions">
+      <button id="finish" class="primary" type="button">Finish demo</button>
+    </div>
+    <p id="finish-message" role="status" aria-live="polite" class="small"></p>
+  </section>
+</main>
+<footer><p class="small">Standalone browser demo. No analytics, network requests, audio, timer, CEFR rating, Google Sheets connection or ASIT_ATTEMPT_V2 Submit. An original text answer is not graded by this page.</p></footer>
+<script>
+(() => {
+  "use strict";
+  const scene = document.getElementById("scene");
+  const move = document.getElementById("move");
+  const replay = document.getElementById("replay");
+  const feedback = document.getElementById("feedback");
+  const choices = Array.from(document.querySelectorAll('input[name="destination"]'));
+  const finish = document.getElementById("finish");
+  const text = document.getElementById("new-question");
+  const finishMessage = document.getElementById("finish-message");
+  let moved = false;
+  const selected = () => choices.find(input => input.checked)?.value ?? "";
+  const update = () => { move.disabled = moved || !selected(); };
+  choices.forEach(input => input.addEventListener("change", () => {
+    if (moved) { feedback.textContent = selected() === "in" ? "Correct" : "Incorrect — Try again"; feedback.className = "message " + (selected() === "in" ? "correct" : "incorrect"); }
+    update();
+  }));
+  move.addEventListener("click", () => {
+    if (moved || !selected()) return;
+    moved = true;
+    scene.classList.add("moved");
+    scene.setAttribute("aria-label", "Diagram: the parcel has moved from the shelf into the open box.");
+    feedback.textContent = selected() === "in" ? "Correct" : "Incorrect — Try again";
+    feedback.className = "message " + (selected() === "in" ? "correct" : "incorrect");
+    update();
+  });
+  replay.addEventListener("click", () => {
+    moved = false;
+    scene.classList.remove("moved");
+    scene.setAttribute("aria-label", "Diagram: a parcel rests on a shelf on the left and an empty open box stands on the right.");
+    choices.forEach(input => { input.checked = false; });
+    feedback.textContent = "";
+    feedback.className = "message";
+    update();
+    choices[0].focus();
+  });
+  finish.addEventListener("click", () => {
+    if (!moved) { finishMessage.textContent = "Move the parcel first, or use Replay to try again."; return; }
+    finishMessage.textContent = text.value.trim()
+      ? "Demo complete. Your original question remains on this page and has not been assessed or saved."
+      : "Demo complete. Original writing was skipped and remains not assessed. Nothing was saved.";
+  });
+  update();
+})();
+</script>
+</body>
+</html>

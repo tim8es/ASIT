@@ -19,5 +19,11 @@ Scope by *same competency and required modality + operation*; exclude not_assess
 4. Otherwise maintain difficulty; if there is no verified scoped attempt, diagnose instead of claiming progress.
 Do not infer transfer from first-response UI metadata. Preserve source Attempt IDs and the state revision in any consented adaptive-profile rationale; don't override user-chosen preferences. Retain at most four recent decisions, referring to at most three source Attempts per decision. This is a bounded summary, not a new personal database.
 
+## Separate format adaptation from ability adaptation
+
+Read [two-axis format adaptation](format-adaptation.md) when the learner intentionally omits writing, repeats omissions, requests a game or visual mode, or changes an input preference. Skips are `not_assessed`, their reasons are `unknown` unless explicitly reported. Neither a deliberate omission nor a blank field may trigger a `needs_support`-driven difficulty reduction. After repeated omissions **rotate the response control and narrative mechanics**, rather than shifting an identical textarea into an earlier card. Give a voluntary micro-original response when appropriate and leave independent writing **unassessed** if not attempted. Do not silently infer a preferred mode from a single skip.
+
+Use the canonical [evidence compatibility mapping](../../asit-progress/references/evidence-compatibility.md) for scoped task-vs-competency evidence: compare broad task families as well as modalities and support level, not brittle exact string equality; unknown mappings are excluded from mastery.
+
 ## Pacing and remediation
 After a repeated independent mistake, change the cognitive action (recognition → reconstruction → independent situational transfer). Stop focused remediation after two cycles by default; continue the broader plan with a different can-do. A new lesson still requires answer-integrity audit and Save Gate preflight before any graded Activity is displayed. Never report ranking or progress as computed by a backend.

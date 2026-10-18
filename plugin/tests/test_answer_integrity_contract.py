@@ -1,4 +1,4 @@
-"""Static tests for mandatory no-hint, no-copy gate in ASIT v0.3.0.
+"""Static tests for mandatory no-hint, no-copy gate in ASIT v0.3.3.
 These cannot prove clipboard prevention or native-client runtime behavior.
 """
 import json
@@ -10,7 +10,7 @@ read=lambda name:(ROOT/name).read_text(encoding="utf-8")
 class AnswerIntegrityContractTest(unittest.TestCase):
     def test_manifest_versions(self):
         for path in ["plugin.json",".codex-plugin/plugin.json"]:
-            self.assertEqual(json.loads(read(path))["version"],"0.3.0")
+            self.assertEqual(json.loads(read(path))["version"],"0.3.3")
     def test_mandatory_route_before_registration(self):
         for path in ["skills/asit-teacher/SKILL.md","skills/asit-lessons/SKILL.md"]:
             s=read(path)
