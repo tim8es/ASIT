@@ -64,6 +64,10 @@ Present three separate grounded location cards and three independent service mes
 7. **Real images must be source-checked independently** per [media provenance](../../asit-lessons/references/media-provenance.md). Never invent `turn...image...` ids to fill a template. The SVG example needs no external photo.
 8. Include exactly **one canonical final ASIT Submit** for a complete lesson; local game feedback is provisional and never a Sheets write.
 
+## Optional runnable developer prototype
+
+The repository contains a **standalone browser HTML prototype** at `plugin/prototypes/parcel-mission.html`. Unlike the native DIL scaffold above, it has a real CSS position transition with `prefers-reduced-motion` support, Move/Replay actions and aria-live feedback. It is deliberately **not** bundled or executed by this Skills-only plugin, and it cannot perform trusted ASIT grading or persistent saving. Treat it as QA/reference implementation until a supported host renderer is actually tested.
+
 ## Release acceptance
 
 In the client, complete: predict destination → move parcel → observe scene change → get local feedback → Replay → change prediction → finish the lesson; then switch Cards/All and verify answer retention. For Image Detective, remove the image tool result and ensure **the image-scored Activity is not registered**. For Delivery Routes, confirm reassignment and correct consequence. An unchecked snippet or CI string search is not a passing visual/game QA result.
