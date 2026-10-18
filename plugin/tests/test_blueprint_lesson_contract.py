@@ -14,6 +14,11 @@ def scene_task(task_id, operation, control, modality, image_ref=None, **extras):
     obj = {
         "id": task_id, "operation": operation,
         "response_control": control, "modality": modality, "prompt": "Find and respond.",
+        "rubric": {
+            "assessment_mode": "semantic" if control == "short_text" else "deterministic",
+            "criteria": ["Assess the grounded communicative goal"],
+            "accepted": ["valid_response"],
+        }
     }
     if image_ref is not None:
         obj["media"] = {
@@ -113,6 +118,20 @@ class BlueprintContractTest(unittest.TestCase):
         plan = valid_blueprint()
         plan["discovery_cycle"]["visible_state_change"] = False
         self.assertIn("must change visible state", " ".join(contract.validate_blueprint(plan)))
+
+    def test_unknown_operation_and_ungradable_rubric_rejected(self):
+        plan = valid_blueprint()
+        plan["tasks"][4]["operation"] = "totally_fake_game"
+        self.assertIn("unknown cognitive operation", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        del plan["tasks"][4]["rubric"]
+        self.assertIn("trusted rubric missing", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        del plan["tasks"][0]["rubric"]["accepted"]
+        self.assertIn("no accepted answers", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        plan["tasks"][2]["expected_label"] = ""
+        self.assertIn("semantic target", " ".join(contract.validate_blueprint(plan)))
 
     def test_invalid_blueprint_does_not_raise_exceptions(self):
         for malformed in (None, [], {"tasks": [None, {"id": "q2"}], "can_do": "Valid",
