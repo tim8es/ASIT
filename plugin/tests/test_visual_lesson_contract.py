@@ -13,7 +13,7 @@ class VisualLessonContractTest(unittest.TestCase):
         self.assertIn('Save Gate', lesson)
         self.assertIn('media-provenance.md', lesson)
         self.assertIn('game-patterns.md', lesson)
-        self.assertIn('By default render only one complete next lesson', lesson)
+        self.assertIn('By default render only one complete next full lesson', lesson)
     def test_auto_continuation_has_visual_gate(self):
         flow = (ROOT/'skills/asit-assessment/references/auto-continuation.md').read_text(encoding='utf-8').lower()
         for item in ('visual standard','consent','preflight','new lesson','render'):
