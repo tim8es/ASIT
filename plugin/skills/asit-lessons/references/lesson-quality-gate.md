@@ -1,4 +1,4 @@
-# ASIT lesson style and quality gate (v0.3.2)
+# ASIT lesson style and quality gate (v0.3.4)
 
 Apply **before writing Activities to Google Sheets and before rendering every complete lesson**. This is a model-executed checklist, not an executable runtime or guarantee of media playback.
 
