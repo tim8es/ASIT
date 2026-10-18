@@ -17,6 +17,8 @@ class ParcelMissionPrototypeTest(unittest.TestCase):
         self.assertIn("transition:transform", self.page)
         self.assertIn(".scene.moved .parcel", self.page)
         self.assertIn("prefers-reduced-motion:reduce", self.page)
+        self.assertIn('viewBox="0 0 360 230"', self.page)
+        self.assertIn("transform-box:view-box", self.page)
 
     def test_real_actions_and_accessible_feedback(self):
         for expected in (
