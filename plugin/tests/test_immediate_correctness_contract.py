@@ -9,11 +9,11 @@ read=lambda p:(ROOT/p).read_text('utf-8')
 class ImmediateCorrectnessContractTest(unittest.TestCase):
  def test_teacher_explicit_current_preference(self):
   x=read('skills/asit-teacher/SKILL.md')
-  for marker in ['Correct / Incorrect', 'AFTER', 'Try again', 'before input', 'first try', 'unverified']:
+  for marker in ['Correct / Incorrect', 'Try again', 'after input', 'first', 'unverified']:
    self.assertIn(marker.lower(),x.lower())
  def test_lesson_feedback_contract(self):
   x=read('skills/asit-lessons/SKILL.md')
-  for marker in ['immediate Correct', 'after the first action', 'Try again', 'no-hints', 'semantic teacher assessment']:
+  for marker in ['immediate provisional correctness', 'semantic review', 'answer-leak', 'one canonical final Submit']:
    self.assertIn(marker.lower(),x.lower())
  def test_answer_integrity_remains_anti_copy_but_not_anti_feedback(self):
   x=read('skills/asit-lessons/references/answer-integrity.md').lower()
