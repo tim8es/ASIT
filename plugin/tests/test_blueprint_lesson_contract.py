@@ -18,7 +18,7 @@ def scene_task(task_id, operation, control, modality, image_ref=None, **extras):
     if image_ref is not None:
         obj["media"] = {
             "kind": "photo", "verification": "tool_verified_in_this_turn",
-            "ref": image_ref, "render_checked": True
+            "ref": image_ref, "fallback_operation": "text_prompted_retrieval"
         }
     obj.update(extras)
     return obj
@@ -114,17 +114,79 @@ class BlueprintContractTest(unittest.TestCase):
         plan["discovery_cycle"]["visible_state_change"] = False
         self.assertIn("must change visible state", " ".join(contract.validate_blueprint(plan)))
 
-    def test_evidence_compatibility_normalizes_old_sheet_values(self):
+    def test_invalid_blueprint_does_not_raise_exceptions(self):
+        for malformed in (None, [], {"tasks": [None, {"id": "q2"}], "can_do": "Valid",
+                                   "duration_minutes": 7, "skipped_grade": "not_assessed"}):
+            errors = contract.validate_blueprint(malformed)
+            self.assertTrue(errors)
+
+    def test_fake_render_proof_and_missing_fallback_are_rejected(self):
+        plan = valid_blueprint()
+        plan["tasks"][0]["media"]["host_display_claimed"] = True
+        self.assertIn("host display cannot be certified", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        del plan["tasks"][0]["media"]["fallback_operation"]
+        self.assertIn("post-render media fallback", " ".join(contract.validate_blueprint(plan)))
+
+    def test_cross_task_and_option_answer_leak_rejected(self):
+        plan = valid_blueprint()
+        plan["tasks"][0]["options"] = ["a glass", "lid", "a fork"]
+        self.assertIn("leaked", " ".join(contract.validate_blueprint(plan)))
+        plan = valid_blueprint()
+        plan["tasks"][1]["prompt"] = "On the right is the lid of a cup"
+        self.assertIn("leaked", " ".join(contract.validate_blueprint(plan)))
+
+    def test_evidence_compatibility_normalizes_old_sheet_values_without_false_independence(self):
         f = contract.evidence_compatibility
-        self.assertEqual(f("reading", "comprehension", "reading", "reading_inference", "correct")["status_ceiling"], "independent")
-        self.assertEqual(f("text_or_visual", "recognition", "visual", "image_scene_recognition", "correct")["status_ceiling"], "supported")
-        self.assertEqual(f("writing", "interaction", "writing", "guided_chunk_order", "correct")["status_ceiling"], "supported")
-        self.assertEqual(f("writing", "interaction", "writing", "independent_production", "correct")["status_ceiling"], "independent")
-        self.assertFalse(f("writing", "production", "visual", "image_choice", "correct")["eligible"])
-        self.assertFalse(f("reading", "comprehension", "reading", "reading_inference", "not_assessed")["eligible"])
-        self.assertFalse(f("writing", "production", "writing", "guided_chunk_order", "correct")["eligible"])
-        self.assertEqual(f("writing", "interaction", "writing", "independent_production", "correct", "model")["status_ceiling"], "supported")
-        self.assertFalse(f("listening", "comprehension", "reading", "reading_inference", "correct")["eligible"])
+        trusted = {"trusted_rubric_verified": True}
+        reading = {**trusted, "unaided_first_attempt_verified": True}
+        self.assertEqual(f("reading", "comprehension", "reading", "reading_inference", "correct",
+                           evidence=reading)["status_ceiling"], "independent")
+        self.assertEqual(f("reading", "comprehension", "reading", "reading_inference", "correct",
+                           evidence=trusted)["status_ceiling"], "supported")
+        self.assertFalse(f("reading", "comprehension", "reading", "reading_inference", "correct")["eligible"])
+        visual = {**trusted, "media_source_verified": True, "media_visible_confirmed": True}
+        self.assertEqual(f("text_or_visual", "recognition", "visual", "image_scene_recognition", "correct",
+                           evidence=visual)["status_ceiling"], "supported")
+        self.assertFalse(f("text_or_visual", "recognition", "visual", "image_scene_recognition", "correct",
+                           evidence=trusted)["eligible"])
+        self.assertTrue(f("text_or_visual", "recognition", "reading", "recognition", "correct",
+                          evidence=trusted)["eligible"])
+        self.assertEqual(f("writing", "interaction", "writing", "guided_chunk_order", "correct",
+                           evidence=trusted)["status_ceiling"], "supported")
+        self.assertFalse(f("writing", "production", "writing", "guided_chunk_order", "correct",
+                           evidence=trusted)["eligible"])
+        self.assertFalse(f("writing", "interaction", "writing", "independent_production", "correct",
+                           evidence=trusted)["eligible"])
+        question = {**trusted, "communicative_intent_verified": True, "recipient_verified": True,
+                    "semantic_review_verified": True, "unaided_first_attempt_verified": True}
+        self.assertEqual(f("writing", "interaction", "writing", "independent_production", "correct",
+                           evidence=question)["status_ceiling"], "independent")
+        self.assertEqual(f("writing", "interaction", "writing", "independent_production", "correct",
+                           "model", evidence=question)["status_ceiling"], "supported")
+        self.assertFalse(f("reading", "comprehension", "reading", "reading_inference", "not_assessed",
+                           evidence=reading)["eligible"])
+        self.assertFalse(f("writing", "production", "visual", "image_choice", "correct",
+                           evidence=visual)["eligible"])
+
+    def test_listening_and_speaking_cannot_be_awarded_from_plain_correct(self):
+        f = contract.evidence_compatibility
+        trusted = {"trusted_rubric_verified": True, "unaided_first_attempt_verified": True}
+        self.assertFalse(f("listening", "comprehension", "listening", "audio_comprehension",
+                           "correct", evidence=trusted)["eligible"])
+        self.assertFalse(f("speaking", "interaction", "speaking", "independent_production",
+                           "correct", evidence=trusted)["eligible"])
+        with_audio = {**trusted, "audio_source_verified": True, "learner_heard_audio": True}
+        self.assertEqual(f("listening", "comprehension", "listening", "audio_comprehension",
+                           "correct", evidence=with_audio)["status_ceiling"], "independent")
+        self.assertEqual(f("listening", "comprehension", "listening", "audio_comprehension",
+                           "correct", evidence={**with_audio, "transcript_used": True})["status_ceiling"], "supported")
+        with_voice = {**trusted, "real_voice_session": True, "actual_spoken_answer_reviewed": True}
+        self.assertFalse(f("speaking", "interaction", "speaking", "independent_production",
+                           "correct", evidence={**with_voice, "oral_turn_count": 1})["eligible"])
+        self.assertEqual(f("speaking", "interaction", "speaking", "independent_production",
+                           "correct", evidence={**with_voice, "oral_turn_count": 2})["status_ceiling"], "independent")
+
 
 if __name__ == "__main__":
     unittest.main()
