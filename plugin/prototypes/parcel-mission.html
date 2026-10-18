@@ -13,18 +13,9 @@
   h1 {margin:.2rem 0 .5rem; font-size:1.65rem;}
   .card {border:1px solid #d9dfe7; border-radius:16px; background:white; padding:1rem; margin-block: .9rem;}
   .scene {position:relative; height:230px; overflow:hidden; border-radius:12px; background:#f0f4f6; border:1px solid #d7e0e7;}
-  .floor {position:absolute;left:0;right:0;bottom:18px;border-top:3px solid #9ea8a8}
-  .shelf {position:absolute;top:95px;left:29px;width:160px;height:13px;background:#94754f;border-radius:4px;}
-  .shelf::before,.shelf::after {content:'';position:absolute;top:10px;width:9px;height:115px;background:#94754f;}
-  .shelf::before{left:6px}.shelf::after{right:6px}
-  .box {position:absolute;left:240px;top:151px;width:102px;height:64px;border:5px solid #ac825a;border-top:0;background:#ead1ab;opacity:.9}
-  .box::before,.box::after {content:'';position:absolute;top:-15px;width:49px;height:17px;background:#cba47b;}
-  .box::before{left:-9px;transform:skewY(-13deg)}.box::after{right:-9px;transform:skewY(13deg)}
-  .parcel {position:absolute;left:91px;top:59px;width:33px;height:32px;background:#c77a40;border:2px solid #8e4d2d;border-radius:3px; z-index:2;transition:transform .55s cubic-bezier(.22,.6,.26,1);}
-  .parcel::before {content:'';position:absolute;left:13px;top:0;bottom:0;width:6px;background:#f3d6a9;}
-  .scene.moved .parcel {transform:translate(173px,102px);}
-  .scene-label {position:absolute; font-size:.75rem;color:#4a5767;font-weight:650;}
-  .scene-label.shelf-label{left:28px;top:120px}.scene-label.box-label{left:268px;top:212px}
+  .scene svg {width:100%;height:100%;display:block}
+  .parcel {transform-box:view-box;transform-origin:0 0;transition:transform .55s cubic-bezier(.22,.6,.26,1)}
+  .scene.moved .parcel {transform:translate(48.0556%,44.3478%)}
   fieldset {border:0;padding:0;margin:0;}
   legend {font-weight:650;margin-bottom:.4rem;}
   label.choice {display:block;padding:.55rem .65rem;margin:.3rem 0;border:1px solid #d9dfe7;border-radius:9px;cursor:pointer;}
@@ -50,14 +41,23 @@
 <main>
   <section class="card" aria-label="Prediction game">
     <h2>1. Predict, then move</h2>
-    <p class="small">The parcel begins on the shelf. Look at the scene, make a prediction, and press Move parcel.</p>
+    <p class="small">The parcel begins on the shelf. The courier will move it to the container on the right. Look at the scene, predict its final position, and press Move parcel.</p>
     <div id="scene" class="scene" role="img" aria-label="Diagram: a parcel rests on a shelf on the left and an empty open box stands on the right.">
-      <div class="floor" aria-hidden="true"></div>
-      <div class="shelf" aria-hidden="true"></div>
-      <div class="box" aria-hidden="true"></div>
-      <div class="parcel" aria-hidden="true"></div>
-      <span class="scene-label shelf-label">Shelf</span>
-      <span class="scene-label box-label">Box</span>
+      <svg viewBox="0 0 360 230" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true">
+        <path d="M0 211 H360" stroke="#9ea8a8" stroke-width="3"/>
+        <rect x="29" y="95" width="160" height="13" rx="3" fill="#94754f"/>
+        <rect x="35" y="108" width="9" height="104" fill="#94754f"/>
+        <rect x="174" y="108" width="9" height="104" fill="#94754f"/>
+        <path d="M241 151 V214 H342 V151" stroke="#ac825a" stroke-width="5" fill="#ead1ab"/>
+        <path d="M240 151 L246 134 L290 148 L286 154 Z" fill="#cba47b"/>
+        <path d="M290 148 L335 134 L346 151 L294 154 Z" fill="#cba47b"/>
+        <g class="parcel">
+          <rect x="91" y="59" width="33" height="32" rx="2" fill="#c77a40" stroke="#8e4d2d" stroke-width="2"/>
+          <rect x="103" y="59" width="6" height="32" fill="#f3d6a9"/>
+        </g>
+        <text x="30" y="126" fill="#4a5767" font-size="13">Shelf</text>
+        <text x="267" y="226" fill="#4a5767" font-size="13">Box</text>
+      </svg>
     </div>
     <fieldset id="prediction">
       <legend>Where do you think it will land?</legend>
