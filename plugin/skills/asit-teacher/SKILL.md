@@ -3,7 +3,7 @@ name: asit-teacher
 description: "ASIT English lesson, submitted answer and progress dispatcher; directs multimodal lesson quality checks and verified saving."
 ---
 
-# ASIT teacher — minimal dispatch (v0.3.4)
+# ASIT teacher — minimal dispatch (v0.3.5)
 
 ## Default FULL lesson route — must run even for a bare "continue"
 
