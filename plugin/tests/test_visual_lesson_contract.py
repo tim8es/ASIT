@@ -20,6 +20,6 @@ class VisualLessonContractTest(unittest.TestCase):
             self.assertIn(item, flow)
     def test_manifest_version(self):
         manifest = json.loads((ROOT / 'plugin.json').read_text(encoding='utf-8'))
-        self.assertEqual(manifest['version'], '0.3.3')
+        self.assertEqual(manifest['version'], '0.3.4')
 if __name__ == '__main__':
     unittest.main()
