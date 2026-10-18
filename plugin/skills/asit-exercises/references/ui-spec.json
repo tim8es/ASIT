@@ -1,0 +1,101 @@
+{
+  "contract_version": "0.3.11",
+  "default_full_lesson": {
+    "minutes": 7,
+    "graded_tasks": 5,
+    "minimum_distinct_operations": 3,
+    "maximum_simple_choices": 2
+  },
+  "all_task_formats": {
+    "single_logical_submit": true,
+    "preserve_state_on_mode_switch": true,
+    "allow_incomplete_with_confirmation": true,
+    "grade_independent_per_activity": true
+  },
+  "families": {
+    "visual_discovery": {
+      "controls": [
+        "svg",
+        "radio-group",
+        "button",
+        "select",
+        "input",
+        "textarea"
+      ],
+      "diagram_modality": "visual_symbols",
+      "requires_semantic_scene": true
+    },
+    "communication_mission": {
+      "controls": [
+        "radio-group",
+        "select",
+        "input",
+        "textarea"
+      ],
+      "diagram_required": false
+    },
+    "reading_reasoning": {
+      "controls": [
+        "radio-group",
+        "input",
+        "textarea"
+      ],
+      "diagram_required": false
+    },
+    "listening_lab": {
+      "controls": [
+        "radio-group",
+        "input",
+        "textarea"
+      ],
+      "verified_original_audio_required": true,
+      "hearing_report_required": true
+    },
+    "focused_drill": {
+      "controls": [
+        "radio-group",
+        "input",
+        "button"
+      ],
+      "fixed_full_lesson_quota": false
+    },
+    "dialogue_voice": {
+      "static_quiz_is_dialogue": false,
+      "actual_multiturn_required": true
+    }
+  },
+  "visual_exemplar": {
+    "task_ids": [
+      "example_q1",
+      "example_q2",
+      "example_q3",
+      "example_q4",
+      "example_q5"
+    ],
+    "finite_answer_fields": {
+      "prediction": {
+        "values": [
+          "nearer",
+          "farther",
+          "same"
+        ],
+        "key": "nearer",
+        "verdict_after_stage": true
+      },
+      "position": {
+        "values": [
+          "on_shelf",
+          "in_box",
+          "under_shelf"
+        ],
+        "key": "in_box",
+        "verdict_after_stage": true
+      }
+    },
+    "open_answer_fields": [
+      "objectName",
+      "message"
+    ],
+    "order_expected": "Could you put the parcel on the desk please?"
+  }
+}
