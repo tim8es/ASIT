@@ -57,13 +57,13 @@ class Compatibility(unittest.TestCase):
   for n in ('visual_discovery','communication_mission','reading_reasoning','listening_lab','focused_drill','dialogue_voice'):
    self.assertIn(n,fam)
   reg=read('skills/asit-exercises/references/pattern-registry.md')
-  self.assertEqual(len(re.findall(r'^\\| \\x60([a-z_]+)\\x60 \\|',reg,flags=re.M)),18)
+  self.assertEqual(len(re.findall(r'^\| `([a-z_]+)` \|',reg,flags=re.M)),18)
   media=read('skills/asit-media/SKILL.md')
   self.assertIn('ELLLO',media);self.assertIn('Sound Grammar',media)
 
  def test_local_skill_links_are_resolvable(self):
   for p in (ROOT/'skills').rglob('*.md'):
-   for link in re.findall(r'\\[[^\\]]*\\]\\(([^)]+)\\)',p.read_text(encoding='utf-8')):
+   for link in re.findall(r'\[[^\]]*\]\(([^)]+)\)',p.read_text(encoding='utf-8')):
     dest=link.split('#',1)[0]
     if not dest or '://' in dest or dest.startswith(('mailto:','#')):continue
     self.assertTrue((p.parent/dest).is_file(),f'{p} -> {dest}')
