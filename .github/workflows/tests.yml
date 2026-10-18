@@ -13,5 +13,7 @@ jobs:
           persist-credentials: false
       - name: Validate Python static skill contracts
         run: python3 -m unittest discover -s plugin/tests -p 'test_*.py'
+      - name: Validate synthetic full-lesson blueprint fixture
+        run: python3 plugin/scripts/lesson_contract.py plugin/tests/fixtures/valid_visual_lesson.json
       - name: Validate packaged plugin
         run: python3 plugin/scripts/package.py --check
