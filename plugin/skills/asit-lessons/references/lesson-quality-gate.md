@@ -2,6 +2,10 @@
 
 Apply **before writing Activities to Google Sheets and before rendering every complete lesson**. This is a model-executed checklist, not an executable runtime or guarantee of media playback.
 
+## Stronger default policy (v0.3.4) — applies before EVERY full lesson
+
+Read [mandatory rich default](rich-default-lesson.md) and the [complete native template](../../asit-exercises/references/complete-native-lesson.md), including on an ordinary "continue". A **user does not have to request games or images**. A successful normal lesson must have functioning interactive UI and a visual scene with a state transition. **If authentic photos are unavailable**, use a **real self-contained SVG diagram**, explicitly labelled symbolic and assessed as `visual_symbols` rather than `image_choice`; do not downgrade all five tasks to prose. *Genuine photographs* are conditional on actual retrieved assets, not on an invented ref. At least one native control must produce a visible learner-caused diagram/assignment state change, and all deterministic inputs must receive after-action feedback. The picture must serve the learner's reasoning, not merely decorate the heading.
+
 ## Lesson style — fixed, concise
 
 **Light card layout; one situation and one action per screen; 16:9 scene cover; real object/action pictures directly beside their questions; short instructions; large working controls; instant Correct / Incorrect after deterministic input; one real Submit.** Use 1–2 sentence explanations, never decorative charts, fake animations, or icon-only substitutes called photographs. Russian for short explanations, English for prompts, messages and learner responses. Match accessibility/low-bandwidth or user-directed text-only requests.
