@@ -10,6 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 NAME='asit-english-tutor'
 EXPECTED={'asit-teacher','asit-statekeeper','asit-core','asit-english','asit-onboarding','asit-lessons','asit-exercises','asit-creative-director','asit-media','asit-voice','asit-assessment','asit-progress'}
 FILES=['plugin.json','.codex-plugin/plugin.json','README.md','ACCEPTANCE.md']
+LICENSE=ROOT.parent/'LICENSE'
 
 def check():
     a=json.loads((ROOT/'plugin.json').read_text(encoding='utf-8'))
@@ -21,6 +22,7 @@ def check():
     assert a['extensions']['com.openai']['interface']==b['interface']
     assert len(b['interface']['shortDescription'])<=30
     assert all((ROOT/x).is_file() for x in FILES)
+    assert LICENSE.is_file(), 'Missing repository MIT LICENSE'
     skills={p.parent.name:p for p in (ROOT/'skills').glob('*/SKILL.md')}
     assert set(skills)==EXPECTED, 'Wrong ASIT skill set'
     assert not list(ROOT.rglob('mcp.json')), 'ASIT is skills-only'
@@ -42,16 +44,26 @@ def check():
     print('ASIT package OK',a['version'],len(skills),'skills',links,'links')
 
 def build(output):
-    sources=[ROOT/name for name in FILES]
-    sources+=sorted(p for p in (ROOT/'skills').rglob('*') if p.is_file() and p.suffix in ('.md','.json'))
+    # Only allowlisted files are packaged. The repository license applies to
+    # redistributed archives too, so include it under the plugin ZIP root.
+    sources=[(ROOT/name, f'{NAME}/{name}') for name in FILES]
+    sources.append((LICENSE, f'{NAME}/LICENSE'))
+    sources += [(p, f'{NAME}/{p.relative_to(ROOT).as_posix()}')
+                for p in (ROOT/'skills').rglob('*')
+                if p.is_file() and p.suffix in ('.md','.json')]
+    sources.sort(key=lambda item: item[1])
     output.parent.mkdir(parents=True,exist_ok=True)
     with ZipFile(output,'w',compression=ZIP_DEFLATED,compresslevel=9) as z:
-        for p in sources:
-            info=ZipInfo(f'{NAME}/{p.relative_to(ROOT).as_posix()}',date_time=(2024,1,1,0,0,0))
+        for p, archive_name in sources:
+            info=ZipInfo(archive_name,date_time=(2024,1,1,0,0,0))
             info.compress_type=ZIP_DEFLATED
             info.external_attr=0o644<<16
             z.writestr(info,p.read_bytes())
-    with ZipFile(output) as z: assert len(z.namelist())==len(sources) and z.testzip() is None
+    with ZipFile(output) as z:
+        assert set(z.namelist())=={name for _,name in sources}
+        assert len(z.namelist())==len(sources)
+        assert z.read(f'{NAME}/LICENSE')==LICENSE.read_bytes()
+        assert z.testzip() is None
     print('Built',output,len(sources),'files')
 
 if __name__=='__main__':
