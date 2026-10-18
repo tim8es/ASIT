@@ -3,7 +3,7 @@ name: asit-lessons
 description: "Plan and deliver full adaptive ASIT English lessons, including visual source checks, authentic media, varied interaction, answer integrity, and prior Google Sheets Activity registration."
 ---
 
-# ASIT lessons — source-first planner (v0.3.2)
+# ASIT lessons — source-first planner (v0.3.4)
 
 `asit-core` chooses sequencing and learner goals; `asit-english` supplies language criteria; `asit-exercises` owns functional controls; `asit-media` verifies real ELLLO assets; `asit-assessment` evaluates submissions; `asit-progress` saves with consent. No executor or auto-running application exists.
 
