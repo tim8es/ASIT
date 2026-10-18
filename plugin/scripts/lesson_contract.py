@@ -55,25 +55,34 @@ def normalized_modality(value: str) -> str:
 
 def evidence_compatibility(required_modality: str, required_operation: str,
                            observed_modality: str, observed_operation: str,
-                           verdict: str, hint_level: str = "none") -> dict:
-    """Return a safe, bounded evidence receipt for existing Sheets v2 fields.
+                           verdict: str, hint_level: str = "none",
+                           *, evidence: dict | None = None) -> dict:
+    """Conservative, single-task evidence eligibility; never award CEFR here.
 
-    A family match makes a task *eligible*, not an independent/mastery event.
-    Unanswered or mismatched rows are excluded. This does NOT award CEFR.
+    `evidence` must come from verified original Activity / rubric and trusted
+    observations, not from an arbitrary client-authored JSON. A correct final
+    choice after instant feedback is only supported until a reliable *first*
+    unaided attempt is observed. Missing media/audio/voice proof is excluded.
     """
-    family = evidence_family(observed_operation)
+    def excluded(reason: str) -> dict:
+        return {"eligible": False, "status_ceiling": "unassessed", "reason": reason}
+
     if verdict not in {"correct", "partial", "needs_support"}:
-        return {"eligible": False, "status_ceiling": "unassessed", "reason": "not_assessed_or_invalid"}
+        return excluded("not_assessed_or_invalid")
+    meta = evidence if isinstance(evidence, dict) else {}
+    if meta.get("trusted_rubric_verified") is not True:
+        return excluded("trusted_rubric_required")
+    family = evidence_family(observed_operation)
     req = normalized_modality(required_modality)
     obs = normalized_modality(observed_modality)
-    if req == "visual":
+    if required_modality == "text_or_visual":
+        modality_ok = obs in {"visual", "visual_symbolic", "visual_and_writing", "reading"}
+    elif req == "visual":
         modality_ok = obs in {"visual", "visual_symbolic", "visual_and_writing"}
-    elif req == "writing":
-        modality_ok = obs == "writing"
     else:
         modality_ok = req != "unknown" and req == obs
     if not modality_ok:
-        return {"eligible": False, "status_ceiling": "unassessed", "reason": "modality_mismatch"}
+        return excluded("modality_mismatch")
     requirements = {
         "recognition": {"recognition", "lexical_retrieval"},
         "comprehension": {"comprehension"},
@@ -82,15 +91,50 @@ def evidence_compatibility(required_modality: str, required_operation: str,
         "guided_construction": {"guided_construction"},
         "independent_production": {"independent_production"},
     }
-    allowed = requirements.get(required_operation, set())
-    if family not in allowed:
-        return {"eligible": False, "status_ceiling": "unassessed", "reason": "operation_mismatch"}
-    if verdict != "correct":
-        ceiling = "emerging" if verdict == "needs_support" else "supported"
-    elif family in {"guided_construction", "recognition", "lexical_retrieval"} or hint_level != "none":
-        ceiling = "supported"
+    if family not in requirements.get(required_operation, set()):
+        return excluded("operation_mismatch")
+
+    if obs in {"visual", "visual_and_writing"}:
+        if not (meta.get("media_source_verified") is True
+                and meta.get("media_visible_confirmed") is True):
+            return excluded("visual_source_or_visibility_not_verified")
+    elif obs == "visual_symbolic":
+        if meta.get("diagram_visible_confirmed") is not True:
+            return excluded("diagram_visibility_not_verified")
+
+    if req == "listening":
+        if not (meta.get("audio_source_verified") is True
+                and meta.get("learner_heard_audio") is True):
+            return excluded("audio_hearing_not_verified")
+        if meta.get("transcript_used") is True:
+            ceiling = "supported"
+        else:
+            ceiling = "independent"
+    elif req == "speaking":
+        if not (meta.get("real_voice_session") is True
+                and meta.get("actual_spoken_answer_reviewed") is True):
+            return excluded("spoken_audio_not_verified")
+        if required_operation == "interaction" and meta.get("oral_turn_count", 0) < 2:
+            return excluded("spoken_interaction_requires_two_turns")
+        ceiling = "independent"
+    elif req == "writing" and required_operation == "interaction" and family == "independent_production":
+        if not (meta.get("communicative_intent_verified") is True
+                and meta.get("recipient_verified") is True
+                and meta.get("semantic_review_verified") is True):
+            return excluded("written_interaction_context_not_verified")
+        ceiling = "independent"
+    elif req == "writing" and family == "independent_production":
+        if meta.get("semantic_review_verified") is not True:
+            return excluded("independent_writing_semantic_review_required")
+        ceiling = "independent"
     else:
         ceiling = "independent"
+
+    # A final "correct" UI answer does not prove a correct unaided FIRST try.
+    if (verdict != "correct" or hint_level != "none"
+            or meta.get("unaided_first_attempt_verified") is not True
+            or family in {"guided_construction", "recognition", "lexical_retrieval"}):
+        ceiling = "supported" if verdict in {"correct", "partial"} else "emerging"
     return {"eligible": True, "status_ceiling": ceiling, "reason": family}
 
 
@@ -101,22 +145,24 @@ def validate_blueprint(plan: dict) -> list[str]:
     or that the client displayed the image. The tutor must verify that separately.
     """
     errors: list[str] = []
+    if not isinstance(plan, dict):
+        return ["blueprint: expected object"]
     tasks = plan.get("tasks")
     if not isinstance(tasks, list) or not tasks:
         return ["tasks: missing non-empty list"]
     ids = [t.get("id") for t in tasks if isinstance(t, dict)]
     if len(ids) != len(tasks) or any(not isinstance(x, str) or not x for x in ids):
         errors.append("tasks: every task needs a stable id")
-    if len(ids) != len(set(ids)):
+    if len(ids) == len(tasks) and len(ids) != len(set(ids)):
         errors.append("tasks: duplicate ids")
     if not isinstance(plan.get("can_do"), str) or not plan["can_do"].strip():
         errors.append("can_do: missing observable communication objective")
     duration = plan.get("duration_minutes", 0)
-    if not isinstance(duration, (int, float)) or duration <= 0:
+    if isinstance(duration, bool) or not isinstance(duration, (int, float)) or duration <= 0:
         errors.append("duration_minutes: must be positive")
         duration = 0
-    operations = [t.get("operation", "") for t in tasks]
-    controls = [t.get("response_control", "") for t in tasks]
+    operations = [t.get("operation", "") if isinstance(t, dict) else "" for t in tasks]
+    controls = [t.get("response_control", "") if isinstance(t, dict) else "" for t in tasks]
     if len(tasks) >= 4 and duration <= 7:
         if len(set(operations)) < 3:
             errors.append("inventory: 4-7 minute lesson needs >=3 operations")
@@ -156,14 +202,24 @@ def validate_blueprint(plan: dict) -> list[str]:
                     errors.append(f"{key}: unverified image provenance")
                 if not PHOTO_REF.fullmatch(str(asset.get("ref", ""))):
                     errors.append(f"{key}: missing trusted image result ref")
-                if not asset.get("render_checked"):
-                    errors.append(f"{key}: image host rendering not confirmed or no valid fallback")
+                if asset.get("host_display_claimed") is True:
+                    errors.append(f"{key}: host display cannot be certified before render")
+                if asset.get("fallback_operation") not in {
+                    "text_prompted_retrieval", "reading_detail", "visual_symbolic_prediction"
+                }:
+                    errors.append(f"{key}: no explicit post-render media fallback")
             if modality not in {"visual", "visual_and_writing"}:
                 errors.append(f"{key}: image operation modality mismatch")
             expected = str(task.get("expected_label", "")).lower().strip()
             if expected:
-                seen = " ".join(str(task.get(p, "")) for p in ("prompt", "alt", "caption"))
-                seen += " " + str(plan.get("introduction", "")) + " " + " ".join(plan.get("vocabulary_before", []))
+                seen = " ".join(str(task.get(p, "")) for p in ("prompt", "alt", "caption", "title", "example", "options"))
+                seen += " " + str(plan.get("introduction", ""))
+                seen += " " + " ".join(map(str, plan.get("vocabulary_before", [])))
+                for other in tasks:
+                    if isinstance(other, dict) and other is not task:
+                        seen += " " + " ".join(str(other.get(p, "")) for p in (
+                            "prompt", "alt", "caption", "title", "example", "options", "chunks"
+                        ))
                 if re.search(r"(?<!\w)" + re.escape(expected) + r"(?!\w)", seen.lower()):
                     errors.append(f"{key}: expected image label leaked before answer")
         elif modality in {"visual", "visual_and_writing"} and not task.get("visual_symbol_only"):
