@@ -69,7 +69,7 @@ class RichDefaultContractTest(unittest.TestCase):
             item.pop("scene_ref", None)
             item["response_control"] = "short_text"
         err = " ".join(contract.validate_blueprint(plan))
-        for marker in ("visual strategy", "missing native DIL", "grounded", "diagram-grounded"):
+        for marker in ("visual strategy", "missing native DIL", "grounded", "missing distinct original transfer"):
             self.assertIn(marker, err)
 
 if __name__ == "__main__":
