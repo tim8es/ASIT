@@ -1,8 +1,8 @@
-# ASIT lesson style and quality gate (v0.3.4)
+# ASIT lesson style and quality gate (v0.3.5)
 
 Apply **before writing Activities to Google Sheets and before rendering every complete lesson**. This is a model-executed checklist, not an executable runtime or guarantee of media playback.
 
-## Stronger default policy (v0.3.4) — applies before EVERY full lesson
+## Stronger default policy (v0.3.5) — applies before EVERY full lesson
 
 Read [mandatory rich default](rich-default-lesson.md) and the [complete native template](../../asit-exercises/references/complete-native-lesson.md), including on an ordinary "continue". A **user does not have to request games or images**. A successful normal lesson must have functioning interactive UI and a visual scene with a state transition. **If authentic photos are unavailable**, use a **real self-contained SVG diagram**, explicitly labelled symbolic and assessed as `visual_symbols` rather than `image_choice`; do not downgrade all five tasks to prose. *Genuine photographs* are conditional on actual retrieved assets, not on an invented ref. At least one native control must produce a visible learner-caused diagram/assignment state change, and all deterministic inputs must receive after-action feedback. The picture must serve the learner's reasoning, not merely decorate the heading.
 
