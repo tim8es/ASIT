@@ -7,6 +7,12 @@ description: "Plan and deliver full adaptive ASIT English lessons, including vis
 
 `asit-core` chooses sequencing and learner goals; `asit-english` supplies language criteria; `asit-exercises` owns functional controls; `asit-media` verifies real ELLLO assets; `asit-assessment` evaluates submissions; `asit-progress` saves with consent. No executor or auto-running application exists.
 
+## Mandatory proof-of-media preflight (blocks Save Gate)
+
+Read [media provenance and renderability](references/media-provenance.md) **before** registering a photo/image-scored Activity. A string that resembles `turn...image...` is NOT proof of a returned tool result; never invent `AsyncImage.ref` or refer to unseen prior-turn image IDs. If no actually returned and inspected asset exists, substitute text/diagram and revise **the task type, modality, rubric and Activity before preregistration**, or make that item not assessed when the failure is discovered after rendering. A static image cannot be counted as CSS animation. Do not assert that a client displayed media merely because a source lookup succeeded.
+
+Use [stateful game patterns](../asit-exercises/references/game-patterns.md) when an interactive mini-game or motion is requested. Genuine host-supported state transitions, after-input feedback and accessible fallback are required; game templates do not themselves execute plugin code. On repeated intentional skips, apply [two-axis format adaptation](../asit-core/references/format-adaptation.md), not a presumed ability deficit.
+
 ## Non-negotiable pre-render order
 
 1. **Choose can-do + lesson style:** read [lesson quality gate](references/lesson-quality-gate.md), [answer integrity](references/answer-integrity.md) and [visual lesson standard](references/visual-lesson-standard.md). Current learner duration/count/format take precedence over Config. Decide complete storyline and 4–6 distinct sections for a requested 40-minute lesson; never fill time with repeated question templates.
