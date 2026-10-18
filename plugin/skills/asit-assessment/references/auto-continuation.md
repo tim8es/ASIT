@@ -2,6 +2,10 @@
 
 **Trigger:** Each graded ASIT learner submission (`ASIT_ATTEMPT_V2` or an unambiguous answer to a current lesson), after trusted assessment and the prior attempt's Save Gate decision. Default is **automatic continuation, without asking for another message or clicking a next-lesson starter**. This is a single-turn ChatGPT workflow, not a background task or an executable JS listener.
 
+## Full interactive follow-on by default
+
+Before preparing the successor of any valid submission, load [mandatory rich default](../../asit-lessons/references/rich-default-lesson.md) and the [complete native lesson reference](../../asit-exercises/references/complete-native-lesson.md). **The successor MUST use the same interactive and visual quality criteria as a user-requested full lesson**, even when the learner merely clicked Submit. A no-photo source case yields a diagram-based stateful native exercise, **not** a prose-only next lesson. A mock "start next" button does not satisfy auto-continuation. Reverify all next Activities before rendering under consent.
+
 ## Decision and delivery algorithm
 
 1. **Finish the current lesson**: validate user answer, grade all subtasks, run Save Gate, read back outcomes, and prepare the previous attempt's one truthful sync status. State the most useful 1–2 corrections; distinguish recognition vs independent use.
