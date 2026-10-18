@@ -1,6 +1,6 @@
 # ASIT default rich-lesson contract — mandatory for EVERY full lesson (candidate v0.3.4)
 
-**Status:** normative **model-followed** release gate, NOT a running lesson compiler or guaranteed host renderer. Read from `asit-teacher` before any lesson generation and from `asit-assessment` before any automatic successor. Applies to plain "Продолжим", "Start ASIT", "Teach me", post-submit continuation and long lessons **without any user request for games/images**. A learner's explicit text-only, accessibility or bandwidth instruction overrides visuals.
+**Status:** normative **model-followed** release gate, NOT a running lesson compiler or guaranteed host renderer. Read from `asit-teacher` before any lesson generation and from `asit-assessment` before any automatic successor. Also use the [scenario bank](scenario-bank.md) to rotate meaningful situations across verified recent lessons; never copy the same courier/mug exercise as the default every time. Applies to plain "Продолжим", "Start ASIT", "Teach me", post-submit continuation and long lessons **without any user request for games/images**. A learner's explicit text-only, accessibility or bandwidth instruction overrides visuals.
 
 ## Rule 0: do not deliver an all-text lesson as the automatic fallback
 
