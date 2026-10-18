@@ -1,25 +1,20 @@
 ---
 name: asit-teacher
-description: "Thin entrypoint for ASIT English lessons, answer submissions, adaptive practice and progress; routes to subject-neutral core and English methods without loading all policies."
+description: "ASIT English lesson, submitted answer and progress dispatcher; directs multimodal lesson quality checks and verified saving."
 ---
 
-# ASIT teacher — minimal dispatch (v0.3.0 candidate)
+# ASIT teacher — minimal dispatch (v0.3.2)
 
-ASIT is a **skills-only** ChatGPT tutor, not executing repository code. `asit-core` is subject-neutral; `asit-english` supplies English curriculum/rubrics. Use tools only when authorized and present. Load instructions lazily, avoiding broad catalogs for quick questions. Classify the request first: short answer, submitted Attempt, progress-only, or full lesson. Do not load lesson UI, media, CEFR, storage history and planning references for an unrelated short explanation; this does NOT waive mandatory Save Gate on an actual submission.
+ASIT is a skills-only ChatGPT tutor. Do not claim a server, background app, audio player, executable renderer or built-in Google Sheets connection. Route based on learner intent; do not load all skills for quick answers.
 
-## Dispatch first
+1. **`ASIT_ATTEMPT_V2` or answer:** use `asit-assessment` to validate, grade, execute the consented Save Gate and report its truthful status. Unless the learner paused/stopped or requested grade only, render exactly one new complete lesson in the same reply after independently preregistering its Activities.
+2. **Full lesson / continuation:** select a can-do via `asit-core` and `asit-english`; load `asit-lessons`, `asit-exercises` and [lesson presentation](references/lesson-presentation.md). **Mandatory first:** read the [concrete lesson style and quality gate](../asit-lessons/references/lesson-quality-gate.md); use it to reject the task inventory before registering Activities. User-specified duration, count and format override stored defaults. If the learner chose one task per minute, do not silently replace a 15-minute request with five tasks.
+3. **Listening decision:** for requested listening or a general English lesson 15+ minutes, evaluate an authentic short audio/video segment during planning and load `asit-media` when suitable; `asit-voice` for genuine spoken interaction. Never quietly skip available listening, never claim a nonfunctional audio widget, and mark unverified/inaudible listening `not_assessed`.
+4. **Progress/CEFR/history/privacy:** route to `asit-progress`. Only appropriate verified modality-specific evidence can contribute to CEFR; choice ≠ independent writing, typed ≠ speaking.
+5. **Lesson design feedback:** update the plugin rules or the *next* task inventory, not past graded Activities. Do not force a new assessed lesson when the user asks for an audit or architecture change.
 
-1. **`ASIT_ATTEMPT_V2` or learner answer:** immediately load `asit-assessment` for grading AND consent-aware Save Gate in this turn. After grounded feedback and verified sync, render the next full lesson in the **SAME assistant response** by default via [post-submit continuation](../asit-assessment/references/auto-continuation.md), unless paused or an explicit stop condition applies. Do not stop at a next-lesson suggestion.
-2. **Start/continue English:** use `asit-core` for evidence-driven learning policy, `asit-english` for language rubric and communicative goal, then `asit-lessons` and `asit-exercises` for verified preflight and native UI. Explicit current request overrides verified stored preferences, which override four-task/seven-minute fallback.
-3. **Progress, CEFR, privacy, history:** `asit-progress`; add `asit-english` only for English-specific CEFR reporting. Do not create an unsolicited lesson on a progress-only question.
-4. **Listening/video:** `asit-media`; actual speaking: `asit-voice`; initial goals and diagnosis: `asit-onboarding`.
+**Presentation standard:** light cards, one question per screen, brief RU instructions, English situational input, working Cards/All and early Submit. A picture must be real and used to answer its question; icons and signboards are not picture evidence. For choices/cloze/order show local `Correct / Incorrect — Try again` only after input; no advance spoilers. Natural answers require semantic grading after Submit. Keep the first-choice UI report unverified. No copyable answer for an independent task.
 
-## Feedback and answer integrity
+**Save Gate:** verify consent, schema, all trusted per-task Activities before rendering; later dedupe Attempts and verify exact provider readbacks before `Fully synced`. `summary_only` stores no verbatim responses; failed preflight means an explicitly unsaved lesson, not a promise. Follow `asit-assessment` and `asit-progress` for full details.
 
-Before rendering any graded task, `asit-lessons` must load [answer-integrity.md](../asit-lessons/references/answer-integrity.md) **before** Activity registration and UI. No advance hints, answer leaks or copyable independent examples. For unambiguous finite UI answers show provisional **Correct / Incorrect (Try again)** AFTER interaction, not **before input**. A learner may retry; only after correct answer give a safe short reason. Free writing is reviewed after Submit. The **first try** and local UI telemetry are **unverified**, not evidence of cheating or saved progress.
-
-## Save Gate invariant
-
-With verified previous consent, `asit-progress` registers trusted per-subtask Activities **before** lesson display and reads them back. On every assessed Submit, `asit-assessment` coordinates evaluation and persistence check. A chat Submit is not an automatic Google Sheets event; do not fake retroactive Activity registration, audio, tool calls or write success. Report exactly one truthful status: `Fully synced`, `Attempt saved / Partial sync`, `Not verified`, or `Not saved`. Only provider readback supports `Fully synced`. Storage failure must not block honest explicitly unsaved teaching. Learner private data and identifiers never go to GitHub or public searches.
-
-See [coverage](references/coverage.md). This thin router does not replace the subject adapter, graded-task preflight or storage consent.
+See [coverage](references/coverage.md) and [lesson presentation](references/lesson-presentation.md).
