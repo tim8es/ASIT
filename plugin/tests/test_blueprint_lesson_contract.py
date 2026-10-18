@@ -263,6 +263,29 @@ class BlueprintContractTest(unittest.TestCase):
         self.assertFalse(f("writing", "production", "visual", "image_choice", "correct",
                            evidence=visual)["eligible"])
 
+    def test_svg_games_can_supply_conservative_recognition_evidence(self):
+        f = contract.evidence_compatibility
+        trusted = {
+            "trusted_rubric_verified": True,
+            "diagram_visible_confirmed": True,
+            "unaided_first_attempt_verified": True,
+        }
+        for operation in (
+            "visual_symbolic_spatial_prediction",
+            "diagram_scene_prediction",
+            "diagram_object_tracking",
+            "diagram_scene_comparison",
+            "diagram_object_label",
+        ):
+            result = f("text_or_visual", "recognition", "visual_symbols",
+                       operation, "correct", evidence=trusted)
+            self.assertTrue(result["eligible"], operation)
+            self.assertEqual(result["status_ceiling"], "supported", operation)
+            unknown = f("text_or_visual", "recognition", "visual_symbols",
+                        operation, "correct",
+                        evidence={"trusted_rubric_verified": True})
+            self.assertFalse(unknown["eligible"], operation)
+
     def test_listening_and_speaking_cannot_be_awarded_from_plain_correct(self):
         f = contract.evidence_compatibility
         trusted = {"trusted_rubric_verified": True, "unaided_first_attempt_verified": True}
