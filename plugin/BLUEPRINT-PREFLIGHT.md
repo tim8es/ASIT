@@ -23,6 +23,10 @@ A declared `verification=tool_verified_in_this_turn` is an assertion supplied by
 5. Only then do Google Sheets Save Gate Activity preregistration and readback, with verified current consent and revision. Later answer submissions use exact-ID dedupe and Attempt + projection readbacks. A local badge does not mean saving.
 6. After a learner reports an invisible/broken image, treat the affected visual task as **not_assessed** without retroactively editing the original Activity; do not award fake image or listening evidence.
 
+## Runnable mini-game prototype
+
+Open [Parcel Mission](prototypes/parcel-mission.html) in a local browser. It uses native HTML radio controls, a real Move/Replay state, CSS transform **animation** plus `prefers-reduced-motion`, after-action verdict and a distinct ungraded English transfer question. Keyboard controls and aria-live feedback are included. This file is a **standalone developer prototype**, not bundled in the installed Skills-only plugin; it neither invokes a real ASIT Submit nor writes to Google Sheets. Its static source contract has unit tests, but mobile/browser E2E remains manual.
+
 ## Manual desktop/mobile regression matrix
 
 | Scenario | Pass | Reject |
