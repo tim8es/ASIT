@@ -48,13 +48,13 @@ def evidence_family(operation: str) -> str:
     """Normalize *observed task* operations, not their claimed learning outcomes."""
     if operation in GUIDED_OPERATIONS:
         return "guided_construction"
-    if operation in RECOGNITION_OPERATIONS:
+    if operation in RECOGNITION_OPERATIONS or operation in {\n        "visual_symbolic_spatial_prediction", "diagram_scene_prediction",\n        "diagram_object_tracking", "diagram_scene_comparison"\n    }:
         return "recognition"
     if operation in READING_OPERATIONS:
         return "comprehension"
     if operation in INDEPENDENT_OPERATIONS:
         return "independent_production"
-    if operation in {"image_label", "image_object_label", "vocabulary_retrieval"}:
+    if operation in {"image_label", "image_object_label", "diagram_object_label", "vocabulary_retrieval"}:
         return "lexical_retrieval"
     if operation in {"listening_comprehension", "audio_comprehension"}:
         return "comprehension"
@@ -65,7 +65,7 @@ def normalized_modality(value: str) -> str:
     aliases = {
         "typed_text": "writing", "writing": "writing",
         "reading_text": "reading", "reading": "reading",
-        "visual": "visual", "text_or_visual": "visual", "visual_symbols": "visual_symbolic",
+        "visual": "visual", "text_or_visual": "visual",\n        "visual_symbols": "visual_symbolic", "visual_symbolic": "visual_symbolic",\n        "visual_symbols_and_writing": "visual_symbolic",
         "visual_and_writing": "visual_and_writing",
         "spoken_audio": "speaking", "speaking": "speaking",
         "audio_comprehension": "listening", "listening": "listening",
