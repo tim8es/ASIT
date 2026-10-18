@@ -1,4 +1,4 @@
-# ASIT English Tutor — v0.3.10 (skills-only)
+# ASIT English Tutor — v0.3.11 (skills-only)
 
 An adaptive English tutor using ChatGPT-native UI, trusted rubrics and optional consented Google Sheets v2 progress. No MCP, bundled executor, automatic save hook or guaranteed native audio player.
 

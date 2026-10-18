@@ -1,14 +1,32 @@
 {
   "name": "asit-english-tutor",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "ASIT adaptive English tutor with creative direction, vetted native UI, accurate feedback, ELLLO learning and consented progress.",
-  "author": {"name": "ASIT Project"},
-  "keywords": ["English", "tutor", "ASIT", "native UI", "creative direction", "design system", "interactive storytelling", "vetted lesson templates", "adaptive lessons", "ELLLO", "CEFR", "progress", "answer integrity"],
+  "author": {
+    "name": "ASIT Project"
+  },
+  "keywords": [
+    "English",
+    "tutor",
+    "ASIT",
+    "native UI",
+    "creative direction",
+    "design system",
+    "interactive storytelling",
+    "vetted lesson templates",
+    "adaptive lessons",
+    "ELLLO",
+    "CEFR",
+    "progress",
+    "answer integrity"
+  ],
   "extensions": {
     "com.openai": {
       "onboardingSkill": "./skills/asit-onboarding/SKILL.md",
       "interface": {
-        "capabilities": ["Interactive"],
+        "capabilities": [
+          "Interactive"
+        ],
         "category": "Education",
         "defaultPrompt": [
           "Continue my English program with ASIT and a creative interactive lesson.",
@@ -19,7 +37,7 @@
         "developerName": "ASIT Project",
         "displayName": "ASIT — English Tutor",
         "longDescription": "English learning with a coherent creative design system, vetted goal-specific interactive lesson families, truthful visual/media experiences, accurate feedback and optional consented progress. Skills-only.",
-        "shortDescription": "Adaptive creative English tutor"
+        "shortDescription": "Adaptive English tutor"
       }
     }
   },

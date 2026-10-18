@@ -13,7 +13,7 @@
     "developerName": "ASIT Project",
     "displayName": "ASIT \u2014 English Tutor",
     "longDescription": "English learning with a coherent creative design system, vetted goal-specific interactive lesson families, truthful visual/media experiences, accurate feedback and optional consented progress. Skills-only.",
-    "shortDescription": "Adaptive creative English tutor"
+    "shortDescription": "Adaptive English tutor"
   },
   "extensions": {
     "com.openai": {
@@ -21,7 +21,7 @@
     }
   },
   "name": "asit-english-tutor",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "ASIT adaptive English tutor with creative direction, vetted native UI, accurate feedback, ELLLO learning and consented progress.",
   "author": {
     "name": "ASIT Project"

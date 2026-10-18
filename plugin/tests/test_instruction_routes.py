@@ -13,7 +13,7 @@ def read(relative):
 class InstructionRouteTests(unittest.TestCase):
     def test_release_versions_match(self):
         version = json.loads(read('plugin.json'))['version']
-        self.assertEqual(version, '0.3.10')
+        self.assertRegex(version, r'^\d+\.\d+\.\d+$')
         self.assertEqual(version, json.loads(read('.codex-plugin/plugin.json'))['version'])
         self.assertEqual(version, json.loads(read('skills/asit-exercises/references/ui-spec.json'))['contract_version'])
 

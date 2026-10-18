@@ -1,5 +1,5 @@
 {
-  "contract_version": "0.3.10",
+  "contract_version": "0.3.11",
   "default_full_lesson": {
     "minutes": 7,
     "graded_tasks": 5,
@@ -14,25 +14,49 @@
   },
   "families": {
     "visual_discovery": {
-      "controls": ["svg", "radio-group", "button", "select", "input", "textarea"],
+      "controls": [
+        "svg",
+        "radio-group",
+        "button",
+        "select",
+        "input",
+        "textarea"
+      ],
       "diagram_modality": "visual_symbols",
       "requires_semantic_scene": true
     },
     "communication_mission": {
-      "controls": ["radio-group", "select", "input", "textarea"],
+      "controls": [
+        "radio-group",
+        "select",
+        "input",
+        "textarea"
+      ],
       "diagram_required": false
     },
     "reading_reasoning": {
-      "controls": ["radio-group", "input", "textarea"],
+      "controls": [
+        "radio-group",
+        "input",
+        "textarea"
+      ],
       "diagram_required": false
     },
     "listening_lab": {
-      "controls": ["radio-group", "input", "textarea"],
+      "controls": [
+        "radio-group",
+        "input",
+        "textarea"
+      ],
       "verified_original_audio_required": true,
       "hearing_report_required": true
     },
     "focused_drill": {
-      "controls": ["radio-group", "input", "button"],
+      "controls": [
+        "radio-group",
+        "input",
+        "button"
+      ],
       "fixed_full_lesson_quota": false
     },
     "dialogue_voice": {
@@ -41,12 +65,37 @@
     }
   },
   "visual_exemplar": {
-    "task_ids": ["example_q1", "example_q2", "example_q3", "example_q4", "example_q5"],
+    "task_ids": [
+      "example_q1",
+      "example_q2",
+      "example_q3",
+      "example_q4",
+      "example_q5"
+    ],
     "finite_answer_fields": {
-      "prediction": {"values": ["nearer", "farther", "same"], "key": "nearer", "verdict_after_stage": true},
-      "position": {"values": ["on_shelf", "in_box", "under_shelf"], "key": "in_box", "verdict_after_stage": true}
+      "prediction": {
+        "values": [
+          "nearer",
+          "farther",
+          "same"
+        ],
+        "key": "nearer",
+        "verdict_after_stage": true
+      },
+      "position": {
+        "values": [
+          "on_shelf",
+          "in_box",
+          "under_shelf"
+        ],
+        "key": "in_box",
+        "verdict_after_stage": true
+      }
     },
-    "open_answer_fields": ["objectName", "message"],
+    "open_answer_fields": [
+      "objectName",
+      "message"
+    ],
     "order_expected": "Could you put the parcel on the desk please?"
   }
 }
