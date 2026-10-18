@@ -31,7 +31,7 @@ Use [stateful game patterns](../asit-exercises/references/game-patterns.md) when
 
 ## Specific anti-repetition rule
 
-Read the last two lesson task mixes when verified. Rotate **cognitive operations**, not themes alone. If original-writing tasks were skipped twice, put one 3–8-word self-generated reply in the first half of the new lesson with an explicit recipient and goal; then move into an alternative manipulation/recognition activity. Skips are `not_assessed`, not mistakes. Do not copy an earlier completed scaffold into an alleged independent transfer item.
+Read the last two lesson task mixes when verified. Rotate **cognitive operations**, not themes alone. If original-writing tasks were deliberately skipped twice, prioritize a **different input mechanic and visual game**, and keep one voluntary 3–8-word self-generated reply for a new recipient/context within the lesson (usually the transfer task); no forced long textarea, no inferred poor proficiency. Skips are `not_assessed`, not mistakes. Do not copy an earlier completed scaffold into an alleged independent transfer item.
 
 **Native interactive verdict:** show provisional Correct / Incorrect — Try again **only after learner input**; never show a spoiler before an attempt. Keep exactly **one final Submit**, including early-completion confirmation, and do not treat provisional UI feedback as a stored graded Attempt.
 
