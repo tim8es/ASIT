@@ -17,6 +17,11 @@ IMAGE_OPERATIONS = {
     "visual_object_position", "image_hotspot",
 }
 PHOTO_KINDS = {"photo", "generated_image"}
+DIAGRAM_OPERATIONS = {
+    "visual_symbolic_spatial_prediction", "diagram_scene_prediction",
+    "diagram_object_tracking", "diagram_scene_comparison", "diagram_object_label",
+}
+
 GUIDED_OPERATIONS = {"guided_chunk_order", "guided_construction", "sentence_builder", "card_ordering"}
 RECOGNITION_OPERATIONS = {
     "image_scene_recognition", "image_object_recognition", "visual_object_position",
@@ -26,7 +31,7 @@ RECOGNITION_OPERATIONS = {
 READING_OPERATIONS = {"reading_inference", "textual_inference", "reading_comprehension", "comprehension", "reading_detail"}
 INDEPENDENT_OPERATIONS = {"independent_production", "production", "independent_interaction", "spoken_interaction", "independent_spoken_interaction"}
 PHOTO_REF = re.compile(r"^turn[0-9]+image[0-9]+$")
-KNOWN_OPERATIONS = IMAGE_OPERATIONS | RECOGNITION_OPERATIONS | READING_OPERATIONS | \
+KNOWN_OPERATIONS = IMAGE_OPERATIONS | DIAGRAM_OPERATIONS | RECOGNITION_OPERATIONS | READING_OPERATIONS | \
     GUIDED_OPERATIONS | INDEPENDENT_OPERATIONS | {
         "image_object_label", "vocabulary_retrieval", "cloze",
         "grammar_contrast", "matching", "error_detective", "timeline_ordering",
@@ -204,7 +209,49 @@ def validate_blueprint(plan: dict) -> list[str]:
         errors.append("submission: missing single canonical Submit")
     if plan.get("skipped_grade") != "not_assessed":
         errors.append("skipped_grade: unanswered items must be not_assessed")
+
+    # Explicitly declared, source-agnostic native experience is part of the
+    # developer blueprint contract. It does NOT prove a ChatGPT host rendered it.
+    strategy = plan.get("source_strategy")
+    rich = len(tasks) >= 4 and not plan.get("explicit_text_only")
+    scene = plan.get("scene")
+    native_ui = plan.get("native_ui")
+    if rich:
+        if plan.get("delivery_profile") != "rich_native_v1":
+            errors.append("delivery: default full lesson must be rich_native_v1")
+        if strategy not in {"svg_diagram", "verified_photo"}:
+            errors.append("delivery: missing real-photo or SVG-diagram visual strategy")
+        if not isinstance(native_ui, dict) or native_ui.get("engine") != "DIL":
+            errors.append("ui: missing native DIL lesson")
+        else:
+            for check in ("controlled_inputs", "cards_all", "single_submit",
+                          "early_submit_confirmation", "local_feedback_after_input",
+                          "answer_state_retained"):
+                if native_ui.get(check) is not True:
+                    errors.append(f"ui: missing mandatory working {check}")
+        if not isinstance(scene, dict):
+            errors.append("scene: missing grounded visual scene")
+        else:
+            if scene.get("kind") not in {"svg_diagram", "verified_photo_with_ui"}:
+                errors.append("scene: unsupported or decorative-only scene")
+            if strategy == "svg_diagram" and scene.get("kind") != "svg_diagram":
+                errors.append("scene: SVG fallback required without verified photographs")
+            if strategy == "verified_photo" and scene.get("kind") != "verified_photo_with_ui":
+                errors.append("scene: verified photographs require coherent visual UI")
+            for check in ("first_screen", "used_by_graded_task", "state_changes",
+                          "replay_works", "after_action_feedback"):
+                if scene.get(check) is not True:
+                    errors.append(f"scene: no working {check}")
+            if not isinstance(scene.get("id"), str) or not scene["id"]:
+                errors.append("scene: missing stable scene ID")
+        if not isinstance(plan.get("story_goal"), str) or not plan["story_goal"].strip():
+            errors.append("pedagogy: missing coherent communicative story goal")
+        if len(tasks) == 5 and not any(isinstance(t, dict) and
+           t.get("operation") in {"independent_production", "independent_interaction"}
+           for t in tasks):
+            errors.append("pedagogy: missing distinct original transfer")
     visual_ops = set()
+    diagram_ops = set()
     for i, task in enumerate(tasks):
         if not isinstance(task, dict):
             errors.append(f"task_{i}: not an object")
@@ -235,6 +282,14 @@ def validate_blueprint(plan: dict) -> list[str]:
                     errors.append(f"{key}: deterministic rubric has no accepted answers")
         if operation in {"image_label", "image_object_label"} and not str(task.get("expected_label", "")).strip():
             errors.append(f"{key}: image label missing semantic target for leak audit")
+        if operation in DIAGRAM_OPERATIONS:
+            diagram_ops.add(operation)
+            if modality not in {"visual_symbols", "visual_symbolic", "visual_symbols_and_writing"}:
+                errors.append(f"{key}: diagram cannot claim photographic modality")
+            if not isinstance(scene, dict) or task.get("scene_ref") != scene.get("id"):
+                errors.append(f"{key}: missing linked diagram scene")
+            if task.get("media"):
+                errors.append(f"{key}: symbolic diagram cannot use photo provenance")
         if operation in IMAGE_OPERATIONS:
             visual_ops.add(operation)
             asset = task.get("media")
@@ -277,9 +332,15 @@ def validate_blueprint(plan: dict) -> list[str]:
             errors.append(f"{key}: invented skip reason")
         if task.get("independent") and (task.get("support") == "guided" or evidence_family(operation) != "independent_production"):
             errors.append(f"{key}: scaffolded/recognition activity claimed independent")
-    if plan.get("visually_teachable") and 4 <= len(tasks) <= 7:
-        if len(visual_ops) < 2:
-            errors.append("visual lesson: needs two distinct image-grounded operations")
+    if (rich or plan.get("visually_teachable")) and 4 <= len(tasks) <= 7:
+        if strategy == "svg_diagram":
+            if len(diagram_ops) < 2:
+                errors.append("visual lesson: SVG fallback needs two diagram-grounded operations")
+            if visual_ops:
+                errors.append("visual lesson: diagram fallback falsely claims photograph evidence")
+        elif strategy == "verified_photo":
+            if len(visual_ops) < 2:
+                errors.append("visual lesson: needs two distinct image-grounded operations")
     if plan.get("visually_teachable") and not plan.get("discovery_cycle"):
         errors.append("visual lesson: missing predict/manipulate/feedback discovery cycle")
     if plan.get("discovery_cycle"):
