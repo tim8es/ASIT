@@ -20,7 +20,7 @@ RECOGNITION_OPERATIONS = {
     "plural_agreement_recognition", "polite_question_recognition",
 }
 READING_OPERATIONS = {"reading_inference", "textual_inference", "reading_comprehension", "comprehension", "reading_detail"}
-INDEPENDENT_OPERATIONS = {"independent_production", "production", "independent_interaction"}
+INDEPENDENT_OPERATIONS = {"independent_production", "production", "independent_interaction", "spoken_interaction", "independent_spoken_interaction"}
 PHOTO_REF = re.compile(r"^turn[0-9]+image[0-9]+$")
 
 
@@ -103,6 +103,8 @@ def evidence_compatibility(required_modality: str, required_operation: str,
             return excluded("diagram_visibility_not_verified")
 
     if req == "listening":
+        if observed_operation not in {"audio_comprehension", "listening_comprehension"}:
+            return excluded("listening_operation_not_audio")
         if not (meta.get("audio_source_verified") is True
                 and meta.get("learner_heard_audio") is True):
             return excluded("audio_hearing_not_verified")
@@ -111,6 +113,11 @@ def evidence_compatibility(required_modality: str, required_operation: str,
         else:
             ceiling = "independent"
     elif req == "speaking":
+        if observed_operation not in {
+            "independent_production", "independent_interaction",
+            "spoken_interaction", "independent_spoken_interaction"
+        }:
+            return excluded("speaking_operation_not_spoken")
         if not (meta.get("real_voice_session") is True
                 and meta.get("actual_spoken_answer_reviewed") is True):
             return excluded("spoken_audio_not_verified")
