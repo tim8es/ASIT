@@ -1,25 +1,21 @@
 ---
 name: asit-teacher
-description: "Thin entrypoint for ASIT English lessons, answer submissions, adaptive practice and progress; routes to subject-neutral core and English methods without loading all policies."
+description: "ASIT entry router: choose only the skills and provider actions required by the learner's actual request."
 ---
 
-# ASIT teacher — minimal dispatch (v0.3.0 candidate)
+# ASIT teacher — thin dispatcher (v0.3.10)
 
-ASIT is a **skills-only** ChatGPT tutor, not executing repository code. `asit-core` is subject-neutral; `asit-english` supplies English curriculum/rubrics. Use tools only when authorized and present. Load instructions lazily, avoiding broad catalogs for quick questions. Classify the request first: short answer, submitted Attempt, progress-only, or full lesson. Do not load lesson UI, media, CEFR, storage history and planning references for an unrelated short explanation; this does NOT waive mandatory Save Gate on an actual submission.
+ASIT is **skills-only**, not a running service or automatic save hook. Do not load all skills at startup. Route by request, and read a referenced policy at most once per turn.
 
-## Dispatch first
+| Request | Minimal route |
+| --- | --- |
+| One-off word, grammar explanation, quick correction | `asit-english`; grade in chat if no trusted lesson protocol; no full UI, media, Creative Director or workbook discovery unless persistence/progress is requested |
+| Start / resume / full lesson | `asit-statekeeper` (bounded state if authorized) → `asit-core` + `asit-english` → `asit-lessons` → `asit-exercises` for UI. Full lesson also uses [Creative Director](../asit-creative-director/SKILL.md) and the canonical [UI contract](../asit-exercises/references/ui-contract.md) through the UI builder |
+| `ASIT_ATTEMPT_V2` or answers to a trusted ASIT lesson | `asit-assessment` → `asit-progress` for applicable authorized saving; one successor only if not paused and its own preflight permits it |
+| Progress / CEFR | `asit-progress`; add `asit-english` and CEFR reference only for English CEFR questions |
+| Requested listening / speech | `asit-media` / `asit-voice` respectively; never invent a player, microphone, audio evidence or media result |
+| First-time goals or setup | `asit-onboarding`; obtain storage consent only when needed |
 
-1. **`ASIT_ATTEMPT_V2` or learner answer:** immediately load `asit-assessment` for grading AND consent-aware Save Gate in this turn. After grounded feedback and verified sync, render the next full lesson in the **SAME assistant response** by default via [post-submit continuation](../asit-assessment/references/auto-continuation.md), unless paused or an explicit stop condition applies. Do not stop at a next-lesson suggestion.
-2. **Start/continue English:** use `asit-core` for evidence-driven learning policy, `asit-english` for language rubric and communicative goal, then `asit-lessons` and `asit-exercises` for verified preflight and native UI. Explicit current request overrides verified stored preferences, which override four-task/seven-minute fallback.
-3. **Progress, CEFR, privacy, history:** `asit-progress`; add `asit-english` only for English-specific CEFR reporting. Do not create an unsolicited lesson on a progress-only question.
-4. **Listening/video:** `asit-media`; actual speaking: `asit-voice`; initial goals and diagnosis: `asit-onboarding`.
+**Source of truth:** `asit-progress/references/storage-v2.md` alone defines the provider Save Gate, including failure behavior and consent; `asit-assessment` owns grading; `asit-exercises/references/ui-contract.md` owns DIL behavior. Do not re-specify these contracts here.
 
-## Feedback and answer integrity
-
-Before rendering any graded task, `asit-lessons` must load [answer-integrity.md](../asit-lessons/references/answer-integrity.md) **before** Activity registration and UI. No advance hints, answer leaks or copyable independent examples. For unambiguous finite UI answers show provisional **Correct / Incorrect (Try again)** AFTER interaction, not **before input**. A learner may retry; only after correct answer give a safe short reason. Free writing is reviewed after Submit. The **first try** and local UI telemetry are **unverified**, not evidence of cheating or saved progress.
-
-## Save Gate invariant
-
-With verified previous consent, `asit-progress` registers trusted per-subtask Activities **before** lesson display and reads them back. On every assessed Submit, `asit-assessment` coordinates evaluation and persistence check. A chat Submit is not an automatic Google Sheets event; do not fake retroactive Activity registration, audio, tool calls or write success. Report exactly one truthful status: `Fully synced`, `Attempt saved / Partial sync`, `Not verified`, or `Not saved`. Only provider readback supports `Fully synced`. Storage failure must not block honest explicitly unsaved teaching. Learner private data and identifiers never go to GitHub or public searches.
-
-See [coverage](references/coverage.md). This thin router does not replace the subject adapter, graded-task preflight or storage consent.
+For a consented and accessible store, run the real Save Gate, including Activity readback **before any graded task is displayed**. If preregistration fails, do not silently downgrade an authorized SAVE-REQUIRED lesson to unsaved practice; explicitly obtain an offline choice first. When storage is `off`, optional or unavailable without a previously verified active consent, provide honestly unsaved practice. Current learner instructions outrank default task count or presentation choices.
