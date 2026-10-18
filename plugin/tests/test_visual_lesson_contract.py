@@ -18,5 +18,5 @@ class VisualLessonContractTest(unittest.TestCase):
   self.assertTrue(j["families"]["listening_lab"]["hearing_report_required"])
  def test_versions(self):
   x=json.loads(read("plugin.json"))
-  self.assertEqual(x["version"],"0.3.6")
+  self.assertEqual(x["version"],"0.3.7")
 if __name__=="__main__": unittest.main()
