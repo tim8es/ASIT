@@ -1,43 +1,21 @@
 ---
 name: asit-progress
-description: "Use for ASIT consented Save Gate execution on every submitted graded answer, verified Google Sheets persistence, CEFR evidence reporting, progress, due reviews, learner history, and storage controls."
+description: "Sole implementation policy for consented ASIT Google Sheets storage, truthful save receipts, progress and evidence-based CEFR reporting."
 ---
 
-# ASIT private learner state and persistence (v0.2.6)
+# ASIT progress — single persistence owner (v0.3.10)
 
-This is a **Skills-only** plugin. It has no running JS service, built-in database, Google Drive OAuth or guaranteed native event hook. Execute Google Sheets operations only through actually available authorized connector tools and on a user-owned verified store. Never claim success from a UI Submit or unverified write.
+This is a **skills-only** provider workflow. No bundled backend, OAuth grant, background hook, transaction or client-local persistence. Only authorized Google Sheets/Drive connector calls with an identified learner-owned workbook can save results.
 
-## Fast save path (invoked by `asit-assessment` in SAME turn)
+## Conditional routes
 
-**Do not wait for an explicit save request** when the workbook's current `recording_consent` is already `summary_only` or `raw`. The assessor is the only Submit coordinator; this skill implements its storage path. Load [storage v2 exact contract](references/storage-v2.md) on actual save/resume/setup operations, not on quick English explanations.
+- **Trusted scored ASIT lesson before display or after Submit:** read and perform the canonical [storage-v2 Save Gate](references/storage-v2.md). Its state transition table is the single authority for active-consent failure behavior. Never silently switch an enabled `summary_only|raw` workbook to unsaved practice.
+- **Resume:** bounded Config, current Goals/Plans, latest Session, due Reviews, related Competencies and 3–6 scoped Attempts. Verify current consent and revision. No guesswork from chat history or workbook title alone.
+- **Explicit setup/enable/pause/export:** read [storage setup](references/storage-setup.md), obtain required approval and validate the unique workbook. Google Drive app connection and ASIT privacy mode are separate.
+- **Historical progress or CEFR:** consult [CEFR analytics](references/cefr-analytics.md) only when needed; [evidence compatibility](references/evidence-compatibility.md) for grading-to-competency projections; [evidence review](references/evidence-review.md) when scheduling a review. Never claim overall CEFR from incomplete dimensions.
 
-1. Check the unique learner-owned ASIT workbook, authorized connector, schema version, exact nine headers and seven Config keys. Prefer bounded metadata/Config reads, avoid full-sheet hydration. A known approved store permits reuse of its verified identity, but the current consent and revision must be checked for the save. With `off`, absent permission or invalid workbook, stop safely with `Not saved` and a reason.
-2. **Prerequisite:** confirm the original trusted, per-subtask Activities were saved and read back **before** the exercise was displayed. If absent, no silent retroactive Activity creation or synthetic CEFR evidence; grade in chat, report `Not saved` and explain recovery requires separate user-approved reconciliation.
-3. Derive the same stable per-subtask Attempt IDs from the trusted parent Attempt ID and fixed task IDs on retries. Exact-ID lookup before append; duplicate equivalent event ⇒ skip, conflicting ID/ambiguous summary-only replay ⇒ stop. In `summary_only`, persist a *non-verbatim* summary, rubric rationale and verified modality/operation, not user sentences, transcripts or first-answer text. Treat UI first-try metadata as unverified.
-4. Batch write only safe, absent Attempts; then **read back exact IDs and all identity, assessment, privacy, modality and operation fields**. Unknown provider response: look up those IDs before any retry. Google Sheets read-then-write isn't atomic across concurrent clients; avoid claiming exactly-once delivery.
-5. Only verified Attempts can affect necessary Session, Competency, Review and Config state_revision projections. Guard revision conflicts; read back every changed projection. No fabricated Reviews or unsupported CEFR status. If projections partially fail, retain Attempt receipt and report `Attempt saved / Partial sync`, not `Fully synced`.
-6. Return exactly one evidenced state to `asit-assessment`: `Fully synced` (all required readbacks), `Attempt saved / Partial sync` (Attempt verified only), `Not verified` (ambiguous provider outcome), or `Not saved` (no successful write). Feedback is independent of storage. On next authorized session, reconcile pending projections from verified original IDs only; never blind replay.
+## Never relax these invariants
 
-## Bounded Save Gate fast path — no relaxed safety
+Consent modes `off|summary_only|raw`, separate `audio_consent`, immutable Activities/Attempts, stable per-task IDs, true privacy-safe summaries, full exact readback and dependency-ordered projections. A duplicate or uncertain provider result must be checked by ID before retry; Google Sheets is nontransactional. Only verified Attempt/projection reads support `Fully synced`; retain truthful partial/unknown states. Unassessed skills remain unassessed, not failures.
 
-Reuse **verified provider evidence only within the current turn**. On first or uncertain workbook discovery verify identity/owner, all nine data headers and required Config. Re-check live recording consent and state_revision before a subsequent write whenever either may have changed; a previous chat, speculative cache or previous Fully synced receipt cannot authorize another mutation.
-
-When available, group bounded reads of needed Config, original Activity records and exact Attempt IDs; validate **every** required row and field. Search complete applicable ID bounds (page where necessary); a truncated ID search cannot establish absence. Perform distinct ordered phases: (1) register successor Activities before display and fully read them back, (2) after Submit batch only absent Attempts and fully read them back, (3) **only after verified Attempts** batch compatible Session/Competency/Review/Config projections and read back every required change. Never combine phases 2 and 3 merely to reduce calls.
-
-Within one submission/continuation, reuse trustworthy learner preferences and verified evidence rather than repeating discovery. Refresh Config consent/revision and independently verify every successor Activity before showing it. If the connector cannot batch, a revision changes, or an ID read is incomplete, perform necessary extra checks or report the truthful partial/unsaved state. Lower latency is a goal, never a substitute for Save Gate, privacy or quality.
-
-## Setup, privacy and discovery
-
-App connection, ASIT save preference and workbook readiness are separate states. Google Drive app isn't automatically installed or enabled by ASIT. For explicit connect/enable/pause/resume/delete/export requests consult [storage setup](references/storage-setup.md). New persistent state requires informed privacy choice `off`, `summary_only`, `raw`; audio/transcripts require separately affirmative consent. Once mode consent is verified, don't nag every lesson. Discovery uses identifiable user-owned workbook such as `ASIT — Private Learner State`; disambiguate multiple matches. A partially migrated older workbook needs user-approved append-only repair, not a destructive overwrite. Validate owner, schema, headers and Config; do not infer missing privacy modes or orphan relationships.
-
-## Domain policy boundary
-
-The nine-tab v2 workbook is storage, not a learning interface. Do not create a Dashboard or extra documentation tabs. Consult [English adapter](../asit-english/SKILL.md) only for requested CEFR-aligned reporting, not for routine save operations.
-
-## Bounded continuation and CEFR
-
-Daily continuation reads only Config, active Goals/Plans, latest Session, due Reviews, pertinent Competencies and 3–6 recent relevant Attempts. Verify learner-specific preferences before defaulting to 4 questions. CEFR reporting requires [CEFR analytics](references/cefr-analytics.md), appropriate evidence coverage and verified source descriptors. Report reading, listening, writing, spoken production and interaction separately; typing cannot establish speaking and reading cannot establish listening. Status `unassessed|emerging|supported|independent|transferable` is observed evidence, not an official CEFR award. Read enough relevant history for explicit longitudinal reports, label gaps. Respect corrections and preserve contradictory evidence.
-
-No private learner data goes to public searches or GitHub; user-authorized edits only; do not invent saved histories or workbook IDs.
-
-For historical evidence status or review scheduling load [evidence and review invariants](references/evidence-review.md) only when applicable. This is guidance, not executable code.
+Nine exact v2 **data** tabs and seven required Config keys remain unchanged. No mandatory extra tabs, MCP or new columns. Optional user-facing dashboards/docs, if separately approved, must not become part of the nine-tab storage contract. When save is off, normal learning continues honestly unsaved; when an already-active SAVE-REQUIRED write fails, offer retry/repair or explicit offline practice rather than auto-downgrading.
