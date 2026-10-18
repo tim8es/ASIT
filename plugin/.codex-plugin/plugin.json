@@ -13,7 +13,7 @@
     "developerName": "ASIT Project",
     "displayName": "ASIT \u2014 English Tutor",
     "longDescription": "ASIT English with picture-grounded tasks, concise card UI, varied exercises, source-verified ELLLO listening when available, adaptive micro-writing, CEFR evidence and consented Google Sheets saving. Skills-only; audio runs on original provider site.",
-    "shortDescription": "Visual English tutor & CEFR progress"
+    "shortDescription": "Visual English tutor"
   },
   "extensions": {
     "com.openai": {
