@@ -2,6 +2,10 @@
 
 **When to load:** Every planned full lesson, including continuation, visual vocabulary and remediation. Do not load for a short grammar answer, normal dialogue or explicitly text-only practice. This is a runtime teaching contract, not a JavaScript process.
 
+## Default visual-first decision
+
+Apply [rich default lesson](rich-default-lesson.md) **to all full lessons by default**. When verified photographs are missing, **preserve a visual learning experience** with a labeled SVG diagram, native input and a learner-controlled scene update. The resulting tasks are `visual_symbols` and must not be recorded as real photo/image recognition. An all-prose quiz because image search did not return an asset is a **release failure**, not a valid "visual-first fallback" unless the learner explicitly chose text-only or the UI host cannot render it. Use [complete native UI](../../asit-exercises/references/complete-native-lesson.md) to avoid inventing interaction.
+
 ## Learning-experience references (pedagogical patterns, not copied assets)
 
 - **Duolingo:** short approachable challenges, visible selected state, low-friction retry and immediate *provisional* explanation for unambiguous answers.
