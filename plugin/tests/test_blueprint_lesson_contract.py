@@ -181,6 +181,8 @@ class BlueprintContractTest(unittest.TestCase):
                            "correct", evidence=with_audio)["status_ceiling"], "independent")
         self.assertEqual(f("listening", "comprehension", "listening", "audio_comprehension",
                            "correct", evidence={**with_audio, "transcript_used": True})["status_ceiling"], "supported")
+        self.assertFalse(f("listening", "comprehension", "listening", "reading_inference",
+                           "correct", evidence=with_audio)["eligible"])
         with_voice = {**trusted, "real_voice_session": True, "actual_spoken_answer_reviewed": True}
         self.assertFalse(f("speaking", "interaction", "speaking", "independent_production",
                            "correct", evidence={**with_voice, "oral_turn_count": 1})["eligible"])
