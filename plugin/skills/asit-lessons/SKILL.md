@@ -29,6 +29,8 @@ Use [stateful game patterns](../asit-exercises/references/game-patterns.md) when
 
 Read the last two lesson task mixes when verified. Rotate **cognitive operations**, not themes alone. If original-writing tasks were skipped twice, put one 3–8-word self-generated reply in the first half of the new lesson with an explicit recipient and goal; then move into an alternative manipulation/recognition activity. Skips are `not_assessed`, not mistakes. Do not copy an earlier completed scaffold into an alleged independent transfer item.
 
+**Native interactive verdict:** show provisional Correct / Incorrect — Try again **only after learner input**; never show a spoiler before an attempt. Keep exactly **one final Submit**, including early-completion confirmation, and do not treat provisional UI feedback as a stored graded Attempt.
+
 ## Required final check
 
 Run the [lesson quality gate](references/lesson-quality-gate.md) **before** storing any new rubric and again before display. If pictures/audio cannot be verified, correct type and rubric before pre-registration. Never claim a full listening lesson based only on reading a transcript or a footer link. Keep a single Submit with separate per-task evidence and privacy rules. Further references: [experience planner](references/experience-planner.md), [lesson rules](references/lesson-rules.md), [automatic continuation](../asit-assessment/references/auto-continuation.md).
