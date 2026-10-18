@@ -16,6 +16,6 @@ For ordinary bugs with no private data, use the GitHub issue templates.
 
 A concise impact description, affected file/version, minimal **sanitized** reproduction steps and a recommended fix, if known. Never send real learner history, credentials, OAuth tokens, Google Sheets IDs or customer information.
 
-## Publication warning
+## Existing public repository and history warning
 
-The current working tree cannot establish the safety of previous commits, workflow logs, artifacts or PR attachments. A full history/privacy review is required before switching this repository from private to public; see [docs/PUBLISHING.md](docs/PUBLISHING.md).
+This repository is already public. The current tree and passing CI cannot establish the safety of previous commits, detached Git objects, branches, workflow logs, artifacts or PR attachments. A full history/privacy review remains an **open release blocker** (see [issue #1](https://github.com/tim8es/ASIT/issues/1) and [publishing checklist](docs/PUBLISHING.md)). If a credential or learner record was exposed, follow incident response and rotate affected credentials; deleting a file or changing visibility does not undo prior exposure.

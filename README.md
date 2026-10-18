@@ -7,11 +7,11 @@
 [![ASIT contract tests](https://github.com/tim8es/ASIT/actions/workflows/tests.yml/badge.svg)](https://github.com/tim8es/ASIT/actions/workflows/tests.yml)
 [![Plugin package](https://github.com/tim8es/ASIT/actions/workflows/plugin-package.yml/badge.svg)](https://github.com/tim8es/ASIT/actions/workflows/plugin-package.yml)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Release status](https://img.shields.io/badge/release-v0.3.0%20candidate-informational)
+![Release status](https://img.shields.io/badge/release-v0.3.11%20source--candidate-informational)
 
-**English** · [Русская версия](README.ru.md) · [Architecture](docs/ARCHITECTURE.md) · [Getting started](docs/GETTING-STARTED.md) · [Roadmap](docs/ROADMAP.md) · [Contributing](CONTRIBUTING.md)
+**English** · [Русская версия](README.ru.md) · [Architecture](docs/ARCHITECTURE.md) · [Getting started](docs/GETTING-STARTED.md) · [Roadmap](docs/ROADMAP.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
-> **Status — source candidate, not a verified public release.** The repository contains a proposed **v0.3.0** skills-only plugin. The installed ChatGPT plugin is a separate deployment. GitHub CI validates static contracts and packaging; it does **not** establish that the live plugin, audio playback or Google Sheets saving work on every device.
+> **Status — source candidate, not a verified public release.** The repository contains a proposed **v0.3.11** skills-only plugin. The installed ChatGPT plugin is a separate deployment. GitHub CI validates static contracts and packaging; it does **not** establish that the live plugin, audio playback or Google Sheets saving work on every device.
 
 ## What is ASIT?
 
@@ -36,7 +36,7 @@ ASIT separates a **subject-neutral adaptive learning loop** from a **subject-spe
 
 *Conceptual architecture illustration, not a screenshot of the installed plugin.*
 
-The ten lazy-routed skills live in [`plugin/skills/`](plugin/skills). For ownership, boundaries and data flow, see [the architecture](docs/ARCHITECTURE.md).
+The **12** lazy-routed skills live in [`plugin/skills/`](plugin/skills). For ownership, boundaries and data flow, see [the architecture](docs/ARCHITECTURE.md).
 
 ## Getting started
 
@@ -74,9 +74,10 @@ The archive is a **candidate artifact for a separately gated installation/releas
 - [Getting started](docs/GETTING-STARTED.md) — learner setup, package build and expectations.
 - [Architecture](docs/ARCHITECTURE.md) — responsibilities and design constraints.
 - [Roadmap](docs/ROADMAP.md) — verified goals and current priorities.
+- [Changelog](CHANGELOG.md) — source candidate history and unshipped changes.
 - [Plugin acceptance checklist](plugin/ACCEPTANCE.md) — manual and static checks.
 - [Performance acceptance](plugin/PERFORMANCE-ACCEPTANCE.md) — how to evaluate the learning flow.
-- [Public release checklist](docs/PUBLISHING.md) — security and launch gates before changing visibility.
+- [Public release checklist](docs/PUBLISHING.md) — security and quality gates before an official plugin release; repository source is already public.
 - [Contributing](CONTRIBUTING.md) — development, tests and pull requests.
 
 ## Contribute

@@ -1,54 +1,40 @@
-# Public release and discoverability checklist
+# Public source and plugin release gate
 
-**This is a gated checklist, not evidence that ASIT is safe to publish.** The repository was private at the time this document was created. The source history and GitHub Actions history have not been certified free of secrets or personal learner data.
+**Repository status:** `tim8es/ASIT` was already public on 2026-10-18. This checklist is for safeguarding the existing public source and deciding whether a **separate public plugin release** is ready. Do not assume that making a PR, passing CI or uploading a candidate ZIP deploys the plugin.
 
-## 1. Security and privacy — required before changing visibility
+## P0 — protect existing public information
 
-- [ ] Review **all Git history** (including removed legacy files), branches, tags, PR patches, issues, comments and attachments for secrets, keys, tokens, private workbook identifiers, learner data and proprietary assets.
-- [ ] Review existing GitHub Actions history, logs and downloadable artifacts: making a private repository public may expose past runs.
-- [ ] Use suitable secret-scanning tooling and manual review. Consider history rewriting and credential rotation for any exposure; deleting a current file is insufficient.
-- [ ] Verify ownership/redistribution rights for images, media, transcripts, code and third-party content.
-- [ ] Validate that MIT licensing is intended for everything being published, not only the new docs.
-- [ ] Confirm that the installed plugin and private Google Sheets data are independent of public repo files.
+- [ ] Close or explicitly disposition [historical detached Git-object exposure #1](https://github.com/tim8es/ASIT/issues/1). Prior history rewrites are not proof that historical commits and cached objects are inaccessible.
+- [ ] Audit **all** Git objects still reachable by commit SHA, remaining branches and tags, pull-request refs/patches, Issues and comments, GitHub Actions logs/artifacts, and attached files for learner records, workbook IDs, credentials, private media and proprietary assets. Retain only sanitized findings in public.
+- [ ] Rotate any exposed credentials and remove access to historical sensitive objects with GitHub Support or a carefully approved clean-tree repository migration when required. Reverting a current file or switching visibility to private cannot undo an existing disclosure.
+- [ ] Confirm copyright and redistribution rights for every bundled file, and permission to link to rather than mirror third-party audio. Review SVGs and any new assets.
+- [ ] Enable GitHub private vulnerability reporting and a private maintainer contact route. Follow [SECURITY.md](../SECURITY.md).
+- [ ] Enforce main-branch protections/rulesets: PR-based changes, passing `test` and `package` jobs, and appropriate review. Configure via repository Settings; a green but optional check is not a merge gate.
 
-## 2. GitHub presentation
+A scan of the current tree is **not** a substitute for a historical data audit. This checklist does not certify privacy or declare security incident resolution.
 
-**Suggested repository About description** (paste in the repository's About editor):
+## P0 — verify the candidate artifact
 
-> Open-source adaptive learning framework for ChatGPT. Skills-first AI tutor for English, interactive lessons, CEFR evidence and optional Google Sheets progress.
+- [ ] Run `python3 -m unittest discover -s plugin/tests -p 'test_*.py'`.
+- [ ] Run `python3 plugin/scripts/package.py --check` and build with `--output dist/ASIT_Skills_Plugin.zip`.
+- [ ] Verify ZIP contains both manifests, 12 skill directories, required references and the exact root MIT `LICENSE`; no private files or outdated executable engine.
+- [ ] Verify README, Russian README, Changelog, Roadmap, installation guidance and manifest versions agree. Use a fixed source commit SHA and verify the ZIP checksum.
+- [ ] Ensure an official GitHub Release/tag is created only once all gates pass. GitHub Actions' ephemeral candidate artifact is **not** an official release.
 
-**Suggested topics** (use only accurate ones; GitHub allows up to 20):
+## P0 — live installed plugin acceptance
 
-`asit`, `adaptive-learning`, `ai-tutor`, `chatgpt`, `education`, `english-learning`, `language-learning`, `cefr`, `personalized-learning`, `chatgpt-plugin`, `edtech`, `google-sheets`
+- [ ] Confirm a supported installation/distribution route from a clean account, using [Getting started](GETTING-STARTED.md). Test permissions honestly; do not publish an unverified one-click link.
+- [ ] Use a *fictional learner* in fresh desktop and mobile chats. Test the exact rendered controls, immediate provisional feedback, Cards/All state, accessibility, deliberate skips and one final Submit.
+- [ ] Reproduce visual-media failures, missing assets, unavailable playback, repeated errors, task variety and independent transfer. No bogus player, image ref or modality evidence.
+- [ ] Verify a genuine ELLLO source/track, appropriate duration, learner playback and a real comprehension task; distinguish transcript-supported work from self-reported listening.
+- [ ] With explicit permission and a **synthetic** workbook, verify the nine-tab v2 schema; Activity registration/readback before scored UI; graded Attempt dedupe/readback; projections; replay, partial failure and cross-chat recovery. Exercise `off`, `summary_only`, `raw` and audio consent boundaries.
+- [ ] Verify CEFR reports reflect observed skills only. Compare host outcomes against [manual acceptance](../plugin/ACCEPTANCE.md), [creative](../plugin/CREATIVE-ACCEPTANCE.md), [multimodal](../plugin/MULTIMODAL-ACCEPTANCE.md) and [performance](../plugin/PERFORMANCE-ACCEPTANCE.md) checks.
+- [ ] Publish *sanitized* acceptance notes: installed plugin version, device/client, scenario, expected and observed behavior, timestamp and unresolved failures.
 
-- [ ] Set About description and topics through the GitHub repository settings (not by editing README alone).
-- [ ] Check README, README.ru, architecture links, status/CI badges and mobile readability.
-- [ ] Add an appropriate **social preview image** using Repository Settings → Social preview; do not imply a preview file alone configures GitHub metadata.
-- [ ] Confirm issue templates, contribution policy, security reporting and license are coherent.
-- [ ] Optionally enable Discussions only if there is a plan to moderate/respond.
+## P1 — discoverability after launch
 
-## 3. Release readiness
+- [ ] Add an accurate GitHub About description, topics and social preview in repository Settings; no fake app screenshots.
+- [ ] Announce only functions demonstrated by the installed version. Link to real installation instructions, limitations, source commit, release notes and security process.
+- [ ] Re-check public repo links while signed out. Accept that search engine indexing is asynchronous; do not promise traffic or ranking.
 
-- [ ] Merge the documentation PR only after review.
-- [ ] Confirm static tests and packaging on the target branch.
-- [ ] Manually test a candidate installed in ChatGPT: visual UI, feedback integrity, audio, consent and verified Sheets readbacks.
-- [ ] Publish and tag an accurately scoped plugin release only **after** the manual release gate; a candidate source version is not a shipped release.
-- [ ] Ensure installation steps and publicly accessible example media are verified.
-
-## 4. Make publicly visible — owner action
-
-After the security audit, in GitHub go to **Settings → General → Danger Zone → Change repository visibility → Public** and confirm the consequences. GitHub warns that code, Actions history and logs become visible and anyone may fork. Do not change visibility solely to gain search traffic.
-
-## 5. Indexing and launch
-
-- [ ] Verify the anonymous (signed-out) repository URL works.
-- [ ] Test GitHub repository search by distinctive project title and topics; allow for index delays.
-- [ ] Share useful documentation and a working demo with developer/educator communities; avoid spam or manufactured stars.
-- [ ] If you create a real public documentation site, submit its sitemap to search engines and use appropriate canonical URLs. GitHub README does **not** expose a configurable SEO metadata or sitemap control.
-- [ ] Track organic repository views, forks, issues and useful contributions; do not claim search ranking is guaranteed.
-
-## References
-
-- [GitHub repository visibility](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility)
-- [GitHub topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics)
-- [GitHub repository search](https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories)
+**Release decision:** until P0 history/security and live acceptance are signed off, keep the plugin labeled **source candidate / unverified public install**, even though GitHub source is already public.

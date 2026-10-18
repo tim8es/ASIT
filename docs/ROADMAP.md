@@ -2,9 +2,9 @@
 
 This document separates **available source instructions** from **verified public product behavior**. Items are priorities rather than delivery promises.
 
-## Current baseline — v0.3.0 source candidate
+## Current baseline — v0.3.11 source candidate
 
-- Subject-neutral ASIT Core and an English adapter, lazily routed through the teacher skill.
+- Twelve lazily selected skills: subject-neutral Core, English adapter, statekeeper, creative director and the teaching/assessment/storage workflow.
 - Lesson, exercise, assessment, media, voice, onboarding and progress policies.
 - Evidence-oriented grading and English CEFR policy; optional Google Sheets v2 protocol.
 - Python static contract tests and plugin packaging workflows.

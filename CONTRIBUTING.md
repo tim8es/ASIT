@@ -14,7 +14,7 @@ Before starting a large feature, [open a proposal](https://github.com/tim8es/ASI
 
 ## Development workflow
 
-1. Fork the repository (once public) or work on a dedicated feature branch.
+1. Fork the public repository or work on a dedicated feature branch.
 2. Read [architecture](docs/ARCHITECTURE.md), [plugin development](plugin/DEVELOPMENT.md) and the relevant lazy skill reference.
 3. Change the smallest relevant skill and reference. `plugin/skills` is the maintained source of truth; keep the teacher router small and do not eagerly load every reference into model context.
 4. Add or adjust synthetic contract tests plus a manual acceptance scenario.

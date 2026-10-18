@@ -9,13 +9,13 @@
 ## Functionality retained inside actual plugin sources
 | Previous offline module | Maintained skill contract |
 | --- | --- |
-| `src/planner.mjs`, `adaptation-policy.mjs` | `asit-lessons/references/selection-invariants.md` |
+| `src/planner.mjs`, `adaptation-policy.mjs` | `asit-core/references/selection-invariants.md` |
 | `src/learning-state.mjs`, `analytics.mjs` | `asit-progress/references/evidence-review.md` and CEFR analytics |
 | `src/store-gateway.mjs`, `storage-contract.mjs`, `sheets-bootstrap.mjs`, `hydrate-state.mjs` | `asit-progress/references/storage-v2.md`, storage setup and assessment attempt protocol |
 | `src/elllo-source.mjs`, `elllo-activity-pipeline.mjs`, `listen-answer-card.mjs` | `asit-media/references/elllo-source-validation.md`, media-quality |
 | `src/ui-orchestrator.mjs`, `lesson-journey.mjs`, `lesson-blueprint.mjs` | `asit-exercises/references/pattern-registry.md`, lesson experience planner, auto-continuation |
 | `src/voice-session.mjs` | `asit-voice/SKILL.md` |
-| `curriculum/competencies.json` | `asit-lessons/references/can-do-starters.md` |
+| `curriculum/competencies.json` | `asit-english/references/can-do-starters.md` |
 
 This is **behavioral porting of policies**, NOT a conversion into runnable code or a byte-for-byte equivalent. No JS execution, automatic scheduling or transactional guarantees are implied. Repository Python tests are static acceptance checks; the host and Google Sheets still need dogfooding.
 
