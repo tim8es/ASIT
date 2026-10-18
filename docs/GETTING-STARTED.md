@@ -38,13 +38,13 @@ The script produces a candidate archive. Run the manual [plugin acceptance check
 
 | Location | Purpose |
 | --- | --- |
-| `plugin/skills/` | Ten lazily selected instructional skills and references |
+| `plugin/skills/` | Twelve lazily selected instructional skills and references |
 | `plugin/plugin.json` | Plugin manifest |
 | `plugin/scripts/package.py` | Python package checks and build |
 | `plugin/tests/` | Synthetic/static regression contracts |
 | `plugin/ACCEPTANCE.md` | Live usage and behavior checks |
 | `docs/ARCHITECTURE.md` | Core/adapter boundaries and storage guarantees |
-| `docs/PUBLISHING.md` | Steps before making the repository public |
+| `docs/PUBLISHING.md` | Existing-public-repo security and plugin release gates |
 
 ## Help and feedback
 
