@@ -48,7 +48,10 @@ def evidence_family(operation: str) -> str:
     """Normalize *observed task* operations, not their claimed learning outcomes."""
     if operation in GUIDED_OPERATIONS:
         return "guided_construction"
-    if operation in RECOGNITION_OPERATIONS or operation in {\n        "visual_symbolic_spatial_prediction", "diagram_scene_prediction",\n        "diagram_object_tracking", "diagram_scene_comparison"\n    }:
+    if operation in RECOGNITION_OPERATIONS or operation in {
+        "visual_symbolic_spatial_prediction", "diagram_scene_prediction",
+        "diagram_object_tracking", "diagram_scene_comparison"
+    }:
         return "recognition"
     if operation in READING_OPERATIONS:
         return "comprehension"
