@@ -68,7 +68,9 @@ def normalized_modality(value: str) -> str:
     aliases = {
         "typed_text": "writing", "writing": "writing",
         "reading_text": "reading", "reading": "reading",
-        "visual": "visual", "text_or_visual": "visual",\n        "visual_symbols": "visual_symbolic", "visual_symbolic": "visual_symbolic",\n        "visual_symbols_and_writing": "visual_symbolic",
+        "visual": "visual", "text_or_visual": "visual",
+        "visual_symbols": "visual_symbolic", "visual_symbolic": "visual_symbolic",
+        "visual_symbols_and_writing": "visual_symbolic",
         "visual_and_writing": "visual_and_writing",
         "spoken_audio": "speaking", "speaking": "speaking",
         "audio_comprehension": "listening", "listening": "listening",
