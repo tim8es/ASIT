@@ -1,0 +1,120 @@
+{
+  "lesson_id": "synthetic_svg_fallback",
+  "can_do": "Can request a change to an everyday order.",
+  "duration_minutes": 7,
+  "visually_teachable": true,
+  "single_canonical_submit": true,
+  "skipped_grade": "not_assessed",
+  "introduction": "A customer needs help in a cafe.",
+  "vocabulary_before": [
+    "request",
+    "replace",
+    "available"
+  ],
+  "tasks": [
+    {
+      "id": "q1",
+      "operation": "visual_symbolic_spatial_prediction",
+      "response_control": "single_choice",
+      "modality": "visual_symbols",
+      "scene_ref": "scene-parcel",
+      "prompt": "Predict whether the parcel moves nearer or farther from the red round object.",
+      "rubric": {
+        "assessment_mode": "deterministic",
+        "criteria": [
+          "Correct relationship after motion"
+        ],
+        "accepted": [
+          "nearer"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "operation": "diagram_object_label",
+      "response_control": "short_text",
+      "modality": "visual_symbols",
+      "scene_ref": "scene-parcel",
+      "prompt": "Name the round object near the box.",
+      "rubric": {
+        "assessment_mode": "semantic",
+        "criteria": [
+          "Natural label for diagram object"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "operation": "diagram_object_tracking",
+      "response_control": "stateful_choice",
+      "modality": "visual_symbols",
+      "scene_ref": "scene-parcel",
+      "prompt": "After moving the parcel, select its new location.",
+      "rubric": {
+        "assessment_mode": "deterministic",
+        "criteria": [
+          "Observe after the move"
+        ],
+        "accepted": [
+          "in_box"
+        ]
+      }
+    },
+    {
+      "id": "q4",
+      "operation": "guided_chunk_order",
+      "response_control": "click_order",
+      "modality": "writing",
+      "prompt": "Make a polite request with every chunk.",
+      "rubric": {
+        "assessment_mode": "deterministic",
+        "criteria": [
+          "Polite coherent request"
+        ],
+        "accepted": [
+          "Could you put it on the desk please?"
+        ]
+      }
+    },
+    {
+      "id": "q5",
+      "operation": "independent_production",
+      "response_control": "short_text",
+      "modality": "writing",
+      "prompt": "Ask a colleague where the keys are, in one short original question.",
+      "rubric": {
+        "assessment_mode": "semantic",
+        "criteria": [
+          "A comprehensible genuine question addressed to a colleague"
+        ]
+      }
+    }
+  ],
+  "discovery_cycle": {
+    "predict_id": "q1",
+    "manipulate_id": "q3",
+    "visible_state_change": true,
+    "post_action_feedback": true
+  },
+  "delivery_profile": "rich_native_v1",
+  "source_strategy": "svg_diagram",
+  "story_goal": "Deliver the parcel to the correct location and ask a colleague for help.",
+  "native_ui": {
+    "engine": "DIL",
+    "controlled_inputs": true,
+    "cards_all": true,
+    "single_submit": true,
+    "early_submit_confirmation": true,
+    "local_feedback_after_input": true,
+    "answer_state_retained": true
+  },
+  "scene": {
+    "id": "scene-parcel",
+    "kind": "svg_diagram",
+    "first_screen": true,
+    "used_by_graded_task": true,
+    "state_changes": true,
+    "replay_works": true,
+    "after_action_feedback": true
+  }
+}
