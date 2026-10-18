@@ -1,5 +1,5 @@
 {
-  "contract_version": "0.3.6",
+  "contract_version": "0.3.7",
   "default_full_lesson": {"minutes": 7, "graded_tasks": 5, "minimum_distinct_operations": 3, "maximum_simple_choices": 2},
   "all_task_formats": {"single_logical_submit": true, "preserve_state_on_mode_switch": true, "allow_incomplete_with_confirmation": true, "grade_independent_per_activity": true},
   "families": {
