@@ -102,15 +102,15 @@ Below is an executable-style DIL template with **fictional IDs**. It is a *forma
   </box>
   {#if show(0)}
     <box border radius="lg" padding={3} gap={2}>
-      **Task 1 · Predict**
-      Where will the parcel be after the courier moves it?
+      **Task 1 · Predict the distance**
+      The courier will move the parcel toward the container on the right. Will the parcel be nearer or farther from the red round object?
       <radio-group direction="col" value={prediction} onChange={v=>{setPrediction(v);resetConfirm();}}>
-        <radio value="in_box">In the open box</radio>
-        <radio value="on_shelf">On the shelf</radio>
-        <radio value="under_shelf">Under the shelf</radio>
+        <radio value="nearer">Closer to the red round object</radio>
+        <radio value="farther">Farther from the red round object</radio>
+        <radio value="same">At the same distance</radio>
       </radio-group>
       {#if moved && prediction}
-        <text color={prediction==="in_box"?"success":"danger"}>
+        <text color={prediction==="nearer"?"success":"danger"}>
           {prediction==="in_box"?"Correct":"Incorrect — Try again"}
         </text>
       {/if}
@@ -147,7 +147,7 @@ Below is an executable-style DIL template with **fictional IDs**. It is a *forma
       <text weight="medium">{composed || "Your request appears here."}</text>
       <row wrap="wrap" gap={2}>
         {#each chunks as chunk, i}
-          <button key={i} size="sm" variant="outline" disabled={order.includes(i)}
+          <button size="sm" variant="outline" disabled={order.includes(i)}
             onClick={()=>{setOrder([...order,i]);resetConfirm();}}>{chunk}</button>
         {/each}
       </row>
