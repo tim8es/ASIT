@@ -23,6 +23,15 @@
         "verification": "tool_verified_in_this_turn",
         "ref": "turn1image2",
         "fallback_operation": "text_prompted_retrieval"
+      },
+      "rubric": {
+        "assessment_mode": "deterministic",
+        "criteria": [
+          "Grounded lesson assessment"
+        ],
+        "accepted": [
+          "valid_response"
+        ]
       }
     },
     {
@@ -31,7 +40,16 @@
       "response_control": "short_text",
       "modality": "writing",
       "prompt": "Write a short original request.",
-      "independent": true
+      "independent": true,
+      "rubric": {
+        "assessment_mode": "semantic",
+        "criteria": [
+          "Grounded lesson assessment"
+        ],
+        "accepted": [
+          "valid_response"
+        ]
+      }
     },
     {
       "id": "q3",
@@ -46,6 +64,15 @@
         "verification": "tool_verified_in_this_turn",
         "ref": "turn1image3",
         "fallback_operation": "text_prompted_retrieval"
+      },
+      "rubric": {
+        "assessment_mode": "semantic",
+        "criteria": [
+          "Grounded lesson assessment"
+        ],
+        "accepted": [
+          "valid_response"
+        ]
       }
     },
     {
@@ -53,7 +80,16 @@
       "operation": "reading_inference",
       "response_control": "single_choice",
       "modality": "reading",
-      "prompt": "Read the service message; what happens next?"
+      "prompt": "Read the service message; what happens next?",
+      "rubric": {
+        "assessment_mode": "deterministic",
+        "criteria": [
+          "Grounded lesson assessment"
+        ],
+        "accepted": [
+          "valid_response"
+        ]
+      }
     },
     {
       "id": "q5",
@@ -62,7 +98,16 @@
       "modality": "writing",
       "prompt": "Order all the supplied phrase chunks.",
       "support": "guided",
-      "independent": false
+      "independent": false,
+      "rubric": {
+        "assessment_mode": "deterministic",
+        "criteria": [
+          "Grounded lesson assessment"
+        ],
+        "accepted": [
+          "valid_response"
+        ]
+      }
     }
   ],
   "discovery_cycle": {
