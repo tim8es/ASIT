@@ -22,6 +22,17 @@ RECOGNITION_OPERATIONS = {
 READING_OPERATIONS = {"reading_inference", "textual_inference", "reading_comprehension", "comprehension", "reading_detail"}
 INDEPENDENT_OPERATIONS = {"independent_production", "production", "independent_interaction", "spoken_interaction", "independent_spoken_interaction"}
 PHOTO_REF = re.compile(r"^turn[0-9]+image[0-9]+$")
+KNOWN_OPERATIONS = IMAGE_OPERATIONS | RECOGNITION_OPERATIONS | READING_OPERATIONS | \
+    GUIDED_OPERATIONS | INDEPENDENT_OPERATIONS | {
+        "image_object_label", "vocabulary_retrieval", "cloze",
+        "grammar_contrast", "matching", "error_detective", "timeline_ordering",
+        "spoken_response", "listening_comprehension", "audio_comprehension",
+        "scenario", "dialogue", "visual_symbolic_spatial_prediction",
+        "text_prompted_retrieval", "image_hotspot", "visual_symbols",
+        "card_ordering", "sentence_builder", "guided_chunk_order",
+        "independent_one_question", "independent_status_update",
+    }
+
 
 
 def evidence_family(operation: str) -> str:
@@ -197,6 +208,29 @@ def validate_blueprint(plan: dict) -> list[str]:
         key = task.get("id") or f"task_{i}"
         operation = task.get("operation", "")
         modality = task.get("modality", "")
+        if not isinstance(operation, str) or operation not in KNOWN_OPERATIONS:
+            errors.append(f"{key}: missing or unknown cognitive operation")
+        if not isinstance(task.get("prompt"), str) or not task["prompt"].strip():
+            errors.append(f"{key}: missing communicative prompt")
+        rubric = task.get("rubric")
+        if not isinstance(rubric, dict):
+            errors.append(f"{key}: trusted rubric missing")
+        else:
+            if rubric.get("assessment_mode") not in {"semantic", "deterministic"}:
+                errors.append(f"{key}: unknown rubric assessment mode")
+            criteria = rubric.get("criteria")
+            if not isinstance(criteria, list) or not criteria or any(
+                not isinstance(x, str) or not x.strip() for x in criteria
+            ):
+                errors.append(f"{key}: rubric criteria missing")
+            if rubric.get("assessment_mode") == "deterministic":
+                accepted = rubric.get("accepted")
+                if not isinstance(accepted, list) or not accepted or any(
+                    not isinstance(x, str) or not x.strip() for x in accepted
+                ):
+                    errors.append(f"{key}: deterministic rubric has no accepted answers")
+        if operation == "image_label" and not str(task.get("expected_label", "")).strip():
+            errors.append(f"{key}: image label missing semantic target for leak audit")
         if operation in IMAGE_OPERATIONS:
             visual_ops.add(operation)
             asset = task.get("media")
