@@ -70,6 +70,14 @@ class BlueprintContractTest(unittest.TestCase):
         plan["tasks"][0]["media"]["verification"] = "unverified"
         self.assertIn("unverified image provenance", " ".join(contract.validate_blueprint(plan)))
 
+    def test_trusted_visual_operations_match_actual_activity_operation_ids(self):
+        plan = valid_blueprint()
+        plan["tasks"][0]["operation"] = "image_scene_recognition"
+        plan["tasks"][2]["operation"] = "image_object_label"
+        self.assertEqual(contract.validate_blueprint(plan), [])
+        del plan["tasks"][2]["media"]
+        self.assertIn("image operation has no real media", " ".join(contract.validate_blueprint(plan)))
+
     def test_diagram_is_not_photo(self):
         plan = valid_blueprint()
         plan["tasks"][0]["media"]["kind"] = "diagram"
