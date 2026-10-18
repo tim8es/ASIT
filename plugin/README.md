@@ -1,14 +1,9 @@
-# ASIT English Tutor — v0.3.11 (skills-only)
+# ASIT English Tutor — v0.3.0 candidate (skills-only)
 
-An adaptive English tutor using ChatGPT-native UI, trusted rubrics and optional consented Google Sheets v2 progress. No MCP, bundled executor, automatic save hook or guaranteed native audio player.
+Two new lazy instruction skills: `asit-core` (subject-neutral learning/selection) and `asit-english` (English objectives, rubric, CEFR). The existing eight skills continue to own routing, lesson UI, grading, Save Gate, media, voice and onboarding.
 
-## Minimal runtime route
+The optimized critical path prepares one trusted lesson blueprint and reuses current-turn provider-verified facts. Safe ID checks, writes and readbacks are grouped when available; dependent projection writes remain separate. Incorrect-choice feedback is now consistently non-spoiling. No features, permissions or verification gates are removed.
 
-- Quick correction: English feedback without loading full-lesson UI, media or workbook.
-- Full lesson: verify bounded learner state when available, select one can-do, plan, run educational/creative gates, register/read back consented Activities, then render task-appropriate UI.
-- Trusted Submit: validate/grade once, execute the canonical provider Save Gate, read back, and render **one** successor if appropriate and its own preregistration permits it.
-- Enabled storage failure: report the blocker and request retry or explicit offline choice. Never silently downgrade enabled storage to UNSAVED.
+No MCP/backend, executing plugin JavaScript, bundled audio player or guaranteed native UI hook. Optional Google Sheets schema v2 remains unchanged, with consent, Activity pre-registration and readback. Source commits/static tests do not publish the plugin or prove live learner behavior.
 
-The sole persistence contract is `skills/asit-progress/references/storage-v2.md`; the UI contract is `skills/asit-exercises/references/ui-contract.md`. Large complete-lesson exemplars are optional and must not be loaded for a casual correction or an unrelated lesson family.
-
-Provider and host performance require live measurements: offline structural tests alone do not verify audio, UI rendering, Google Sheets writes or latency. The learner privacy model, `ASIT_ATTEMPT_V2` and original nine-tab v2 schema are unchanged.
+See `docs/ARCHITECTURE.md` in the repository and the existing acceptance test documents.

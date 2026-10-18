@@ -5,15 +5,15 @@
     ],
     "category": "Education",
     "defaultPrompt": [
-      "Continue my English program with ASIT and a creative interactive lesson.",
-      "Practise English with a visually polished task-relevant ASIT lesson using my configured preferences.",
+      "Start or continue my English learning program with ASIT.",
+      "Give me a picture-rich ASIT lesson with varied interactive exercises using my configured preferences.",
       "Show my evidence-based CEFR profile and next skill to practise.",
       "Enable or pause my ASIT progress saving in Google Sheets."
     ],
     "developerName": "ASIT Project",
-    "displayName": "ASIT \u2014 English Tutor",
-    "longDescription": "English learning with a coherent creative design system, vetted goal-specific interactive lesson families, truthful visual/media experiences, accurate feedback and optional consented progress. Skills-only.",
-    "shortDescription": "Adaptive English tutor"
+    "displayName": "ASIT — English Tutor",
+    "longDescription": "Adaptive English lessons with immediate after-answer Correct / Incorrect (Try again) feedback, no advance answer hints, no copyable independent production exemplars, visual-first exercises, automatic next lessons, ELLLO listening, CEFR evidence, and verified Google Sheets saving. Skills-only.",
+    "shortDescription": "English tutor & CEFR progress"
   },
   "extensions": {
     "com.openai": {
@@ -21,8 +21,8 @@
     }
   },
   "name": "asit-english-tutor",
-  "version": "0.3.11",
-  "description": "ASIT adaptive English tutor with creative direction, vetted native UI, accurate feedback, ELLLO learning and consented progress.",
+  "version": "0.3.0",
+  "description": "ASIT adaptive English tutor with immediate interactive correctness feedback, answer-integrity checks, automatic next lessons and verified learner state.",
   "author": {
     "name": "ASIT Project"
   },
@@ -30,13 +30,10 @@
     "English",
     "tutor",
     "ASIT",
-    "native UI",
-    "creative direction",
-    "design system",
-    "interactive storytelling",
-    "vetted lesson templates",
-    "adaptive lessons",
-    "ELLLO",
+    "visual lessons",
+    "automatic continuation",
+    "adaptive learning",
+    "listening",
     "CEFR",
     "progress",
     "answer integrity"
