@@ -12,6 +12,12 @@ For a visually teachable 4–5-item lesson, give at least **one short discovery 
 
 Illustration: in a room scene show a phone first **on** a table; ask which caption matches; then show it **in** a box and ask the learner to predict which preposition changes; then build a sentence from word cards and send a natural message about a different object. Reveal the explanatory contrast only *after* the first interaction. Content must be original, not copied from reference applications.
 
+## Hard media/source condition
+
+First read [media provenance](media-provenance.md). An image tag with a syntactically plausible ref but no corresponding successful image-tool result **is not an image**. Avoid speculative tool result IDs even when the same ID was mentioned in a prior assistant answer. No corresponding verified source => do not register an `image_choice` or `image_label` Activity. Change to real accessible text or `visual_symbolic` diagram activity *before* Save Gate, with an entirely matching trusted rubric. Real source retrieval does not establish successful client display; treat user reports of missing images as `not_assessed` for affected items.
+
+For interactive visual games consult [game patterns](../../asit-exercises/references/game-patterns.md) for a concrete DIL-controlled SVG scene, image-to-word and matching. Render a genuine state change and show after-action feedback; do not present a static cover as motion graphics. Test actual motion support separately or use a static-state fallback.
+
 ## Pre-render experience plan (required)
 
 Before registering Activities or rendering UI, determine from current goals and *verified* recent Attempts:
