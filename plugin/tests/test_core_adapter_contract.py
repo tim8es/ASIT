@@ -7,7 +7,7 @@ def read(p):return (R/p).read_text(encoding="utf-8")
 class CoreAdapterContractTest(unittest.TestCase):
  def test_version_alignment(self):
   a=json.loads(read("plugin.json")); b=json.loads(read(".codex-plugin/plugin.json"))
-  self.assertEqual(a["version"],"0.3.6")
+  self.assertEqual(a["version"],"0.3.7")
   self.assertEqual(a["version"],b["version"])
  def test_core_english_independent(self):
   core=read("skills/asit-core/SKILL.md"); english=read("skills/asit-english/SKILL.md")
