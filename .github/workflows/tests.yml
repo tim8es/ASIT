@@ -1,7 +1,13 @@
 name: ASIT Skills-only contract tests
 on:
   push:
+    branches: [main]
   pull_request:
+
+concurrency:
+  # Cancel obsolete PR checks, but retain every main-branch run.
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
