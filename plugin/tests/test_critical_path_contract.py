@@ -8,7 +8,7 @@ def read(p):return (R/p).read_text(encoding="utf-8")
 class CriticalPathContractTests(unittest.TestCase):
  def test_version_and_lazy_routing(self):
   p=json.loads(read("plugin.json"))
-  self.assertEqual(p["version"],"0.3.6")
+  self.assertEqual(p["version"],"0.3.7")
   entry=read("skills/asit-teacher/SKILL.md")
   self.assertIn("brief answers",entry)
   self.assertIn("ui-contract.md",entry)
