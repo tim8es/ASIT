@@ -7,6 +7,7 @@ Existing v2 Google Sheets `Competencies.required_modality` / `required_operation
 | Required Sheets v2 competency | Eligible attempted observation | Competency evidence ceiling |
 |---|---|---|
 | `text_or_visual / recognition` | `visual / image_scene_recognition`, `visual / image_object_recognition`, actual image-noun retrieval | **supported**; no claim of independent communication |
+| `text_or_visual / recognition` | *Actually displayed* `visual_symbols / visual_symbolic_spatial_prediction`, `diagram_object_tracking`, `diagram_scene_comparison`, `diagram_object_label` | **supported only**, and only with confirmed diagram visibility; never a real-photo or independent language claim |
 | `reading / comprehension` | `reading / reading_inference`, `reading / textual_inference`, `reading / reading_comprehension` | **independent possible** only if the *first unaided response* was reliably observed and the rubric was verified; otherwise supported |
 | `writing / interaction` | `writing / independent_production` with a verified recipient/communicative goal **and verified semantic review** | **independent possible** only with verified unaided first attempt; otherwise supported |
 | `writing / interaction` | `writing / guided_chunk_order`, `writing / sentence_builder` | **supported only**; guided selection is not unaided interaction |
