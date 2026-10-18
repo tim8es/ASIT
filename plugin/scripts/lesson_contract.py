@@ -11,7 +11,11 @@ import json
 import re
 from pathlib import Path
 
-IMAGE_OPERATIONS = {"image_choice", "image_label", "image_comparison", "image_matching"}
+IMAGE_OPERATIONS = {
+    "image_choice", "image_label", "image_comparison", "image_matching",
+    "image_scene_recognition", "image_object_recognition", "image_object_label",
+    "visual_object_position", "image_hotspot",
+}
 PHOTO_KINDS = {"photo", "generated_image"}
 GUIDED_OPERATIONS = {"guided_chunk_order", "guided_construction", "sentence_builder", "card_ordering"}
 RECOGNITION_OPERATIONS = {
@@ -229,7 +233,7 @@ def validate_blueprint(plan: dict) -> list[str]:
                     not isinstance(x, str) or not x.strip() for x in accepted
                 ):
                     errors.append(f"{key}: deterministic rubric has no accepted answers")
-        if operation == "image_label" and not str(task.get("expected_label", "")).strip():
+        if operation in {"image_label", "image_object_label"} and not str(task.get("expected_label", "")).strip():
             errors.append(f"{key}: image label missing semantic target for leak audit")
         if operation in IMAGE_OPERATIONS:
             visual_ops.add(operation)
