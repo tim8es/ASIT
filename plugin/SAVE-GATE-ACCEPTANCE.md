@@ -1,31 +1,25 @@
-# ASIT v0.2.6 Save Gate acceptance
+# ASIT v0.3.15 — Save Gate acceptance
 
-## Before publication — static package tests
+Authority: `skills/asit-progress/references/storage-v2.md`. Implementation recovery: `skills/asit-progress/references/save-recovery.md` (subordinate to canonical policy). This file is a test matrix, not a competing storage policy.
 
-- [ ] Valid synchronized v0.2.6 manifests and existing plugin identity/onboarding.
-- [ ] No executable MCP/server/hooks claimed, no artificial data store or fabricated Drive actions.
-- [ ] Submit always routes into asit-assessment, with same-turn storage decision and verified status.
-- [ ] Lesson preflight registers *each graded subtask* before presentation, or announces unsaved mode.
-- [ ] No composite parent Activity offered as replacement for separate graded Activities.
-- [ ] Stable replay ID defined; DIL useId prohibited as durable Attempt ID.
-- [ ] `summary_only` bars verbatim, first answers and transcripts; consent off bars all writes.
-- [ ] Readback confirms Attempt AND applicable Session, Competency, Review and Config before Fully synced.
-- [ ] Current user lesson preferences override verified learner profile, which overrides fallback default.
-
-## After publication — real-chat/provider dogfooding (not claimed by static tests)
-
-| Scenario | Required observed proof |
+| Case | Expected result |
 |---|---|
-| Normal 4/5-task lesson | Distinct Activity IDs registered and read back *before* UI; per-task Attempt IDs and readback after Submit |
-| No Drive/consent off | Accurate feedback, `Not saved`, zero writes |
-| Legacy/malformed workbook | No destructive repair, `Not saved` + specific blocker |
-| Repeated exact Submit | No duplicate Attempt rows, previously verified ID reused |
-| Conflicting replay | Stop, `Not verified`, preserve original row |
-| Summary-only | Only non-verbatim result and operation persisted, no raw first answer |
-| Timed-out write | Search exact ID before retry, never blind append |
-| Attempts written, projection failed | `Attempt saved / Partial sync`, recover by original verified IDs |
-| Concurrent submissions | Report unresolved race accurately, no claimed exactly-once guarantee |
-| New chat resume | Bounded reads recover verified focus, attempts, due review and learner exercise-count preference |
-| Multimodality task | Reading/listening/typed writing kept distinct; unheard audio unassessed |
+| `recording_consent=off` | Zero writes, `Not saved`, learner can study normally. |
+| Unknown/unauthorized workbook | No invented receipt, optional unsaved practice only without verified active consent. |
+| Active saving before scored UI | Exact separate Activities registered and read back; failures block new scored UI until recovery or explicit offline choice. |
+| Five-task Submit | Distinct trusted per-task Attempts and stable full IDs; no duplicate on replay. |
+| Original per-task ID found | Read full row, compare immutable fields; equivalent row reused, conflicting row => `Not verified`. |
+| Unknown write outcome / timeout | Search all relevant exact IDs before retry; partial result writes only verified-absent IDs; uncertain state => `Not verified`. |
+| Retryable Google Sheets error | At most **one same-turn retry** of the same originally authorized operation after proof that target ID(s) remain absent; followed by readback. |
+| Permanent auth, permission, schema or revision error | Zero automatic write retries; explain remediation, no forced offline transition. |
+| Platform safety refusal | **Zero automatic write retries. Never rephrase, split or shorten a denied payload to bypass safety enforcement.** Safe read-only reconciliation if allowed. |
+| Consent `summary_only` | No raw answer, transcript or reconstructable fragment in Attempts/Events; no leaked private workbook data. |
+| Attempts verified; projections failed | `Attempt saved / Partial sync`, retry only missing projections after revision/consent verification. |
+| All required Attempt/projection reads verified | `Fully synced` and no exactly-once guarantee. |
+| Already fully synced replay | No duplicate rows, no double increment in Competencies or Config. |
+| Successor after save | Own new Activity registration/readback, even when predecessor fully synced. |
+| Existing old Config | Safe defaults; no silent schema mutation. |
+| Concurrent revision conflict | Do not overwrite; truthful `Not verified` until resolved. |
+| CEFR | No listening/Voice inferred from text, no independent CEFR evidence from guided selection or UI-only first answer. |
 
-For confidence, run 30 sequential real Submit tests with user-authorized test workbook, and separately inject error cases; count success only from provider readback. Do not use production learner records for stress tests. Do not claim this test was run unless it was.
+Static scripts verify only written invariants. Real provider, client, latency, actual retry and host safety behavior require independent tests on an authorized **test** workbook. Nine tabs, `ASIT_ATTEMPT_V2`, consent model and skills-only architecture remain unchanged.

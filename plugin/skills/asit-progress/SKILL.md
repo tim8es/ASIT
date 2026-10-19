@@ -3,13 +3,14 @@ name: asit-progress
 description: "Sole implementation policy for consented ASIT Google Sheets storage, truthful save receipts, progress and evidence-based CEFR reporting."
 ---
 
-# ASIT progress — single persistence owner (v0.3.10)
+# ASIT progress — single persistence owner (v0.3.15)
 
 This is a **skills-only** provider workflow. No bundled backend, OAuth grant, background hook, transaction or client-local persistence. Only authorized Google Sheets/Drive connector calls with an identified learner-owned workbook can save results.
 
 ## Conditional routes
 
 - **Trusted scored ASIT lesson before display or after Submit:** read and perform the canonical [storage-v2 Save Gate](references/storage-v2.md). Its state transition table is the single authority for active-consent failure behavior. Never silently switch an enabled `summary_only|raw` workbook to unsaved practice.
+- **Any Save Gate failure or replay:** read the bounded [save recovery playbook](references/save-recovery.md) alongside `storage-v2.md`. Classify platform safety blocks separately from transient Google Sheets errors; retry a verified-absent authorized write **at most once** only for a retryable provider failure. Never retry or rephrase a safety-blocked call to circumvent enforcement. Require exact-ID dedupe/readback and dependent projection repair before declaring `Fully synced`.
 - **Resume:** bounded Config, current Goals/Plans, latest Session, due Reviews, related Competencies and 3–6 scoped Attempts. Verify current consent and revision. No guesswork from chat history or workbook title alone.
 - **Explicit setup/enable/pause/export:** read [storage setup](references/storage-setup.md), obtain required approval and validate the unique workbook. Google Drive app connection and ASIT privacy mode are separate.
 - **Historical progress or CEFR:** consult [CEFR analytics](references/cefr-analytics.md) only when needed; [evidence compatibility](references/evidence-compatibility.md) for grading-to-competency projections; [evidence review](references/evidence-review.md) when scheduling a review. Never claim overall CEFR from incomplete dimensions.
