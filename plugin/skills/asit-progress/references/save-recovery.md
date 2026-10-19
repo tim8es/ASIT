@@ -1,0 +1,38 @@
+# ASIT Save Gate — bounded failure recovery (v0.3.15)
+
+**Implementation playbook subordinate to [the canonical storage-v2 policy](storage-v2.md).** No second writer, no additional statuses, fields, service, connector or consent mode. This skill is a model-followed procedure, not an executable background retry daemon. It applies to a real authorized Google Sheets Save Gate, including replay of an already assessed lesson with its **original** registered Activities. The user must not need to manually request routine recoverable retries.
+
+## Failure classification — decide before any retry
+
+| Class | Evidence | Same-turn action | Receipt boundary |
+| --- | --- | --- | --- |
+| `transient_provider` | Explicit Google Sheets 429/5xx, rate limit, connection interruption or retryable transport failure | Exact-ID bounded lookup; at most **one** retry of the **same authorized operation** if state is verified absent/compatible; verify readback | `Not verified` if lookup/second write cannot establish a complete result |
+| `ambiguous_write` | Timeout, cancelled write, lost acknowledgement, partial provider result, unclear acceptance | **Read original complete Attempt IDs first**; reconcile known-present rows; retry **only exact verified-absent IDs** once if safe | `Not verified` for ambiguous/conflicting IDs; never blind replay |
+| `hard_provider` | 400 invalid schema/range, 401/403 permission or auth failure, invalid workbook/identity, conflict, consent/revision changed | **No automatic write retry**; report specific blocker, request permitted repair/reconnect or explicit offline choice | `Not saved` only if no write occurred; otherwise `Not verified` |
+| `platform_safety_block` | Host/platform refusal or safety-policy tool block, e.g. "blocked by OpenAI safety systems" | **Stop write attempts**; do not change wording, split payloads, use alternate tools or reduce the request just to pass the filter; report refusal and safe user review path | `Not saved` only if known no write; otherwise `Not verified` after allowed read-only reconciliation |
+| `verified_partial_projection` | Every original Attempt verified but dependent Session/Competency/Review/Config changes incomplete | Retry only missing, authorized **projection** after fresh revision/consent check; read back | `Attempt saved / Partial sync` until all required projections verified |
+| `completed_replay` | All full Attempt IDs and projections already verified identical | No new writes; return already verified receipt, never create duplicates or successor on duplicate | `Fully synced` if all dependencies verified |
+
+**Important correction to the lesson-38 incident:** A later *user-requested* shorter write succeeded, but this does not reveal the first filter's cause or authorize an automated safety-block bypass. A platform-safety refusal is categorically different from a transient Sheets error. Do not describe reducing or rephrasing a denied payload as an automatic repair strategy.
+
+## Exact-ID recovery algorithm (same turn where permitted)
+
+1. **Freeze** the original `session_id`, `lesson_id`, immutable per-task `activity_id`, parent Attempt ID, trusted rubric, grades and consent. Derive deterministic `parentAttemptId:taskId` for each task. Never regenerate IDs, answers, grades or Activities on failure; no retrospective Activity creation. `ASIT_ATTEMPT_V2` is a chat submission, not proof of a save.
+2. **Verify context** using the unique authorized learner-owned workbook, all nine original headers, Config schema/learner identity/current consent/state revision, original preregistered Activities and their exact readback. `summary_only` storage contains only privacy-safe graded summaries; never raw answers, answer fragments, transcripts, unverified first-choice telemetry or personally identifying details. Do not publish private workbook contents to external sites or repositories.
+3. **Preflight duplicate search** for the **entire** original ID set in the `Attempts` ID column, with a verified complete bound and no truncated results. For each found ID read the full row and check session, lesson, activity, competency, grade, attempt number, modality/operation, privacy mode and equivalent content. Exactly one equivalent existing row may be reused. Multiple or conflicting rows: stop that ID, `Not verified`, never overwrite immutable Attempt.
+4. **First write**: submit only the truly absent, eligible rows through the normal provider action and read back **every** full ID. Never mix unverified Attempts and dependent projections into one batch. In an uncertain outcome, perform fresh exact-ID lookup **before** considering a retry.
+5. **Retry once only** for a classified retryable provider failure, after confirmed absence and unchanged authorization/revision. Preserve the same original payload and IDs; don't try different wording/format to circumvent safety enforcement. Handle partial presence by writing verified-absent IDs only. A second error ends automated retries. Never fall back silently to unsaved study while verified consent requires saving.
+6. **Projections**: only after all original Attempts are independently verified, update required Session, eligible Competencies/Reviews and `Config.state_revision`; use evidence-compatibility rules (skipped = `not_assessed`, guided recognition not independent production), guard revision races and read back each required updated projection. If projections fail, retain verified Attempts and return `Attempt saved / Partial sync`. Do not double-increment evidence on replay.
+7. **Receipt**: exactly one of `Fully synced`, `Attempt saved / Partial sync`, `Not verified`, `Not saved` using the canonical definitions. Explicitly distinguish `record_saved`, `sync_verified`, the blocker and next action; don't imply a green client badge means provider success.
+
+## User experience
+
+- Show the learner educational corrections immediately, but keep save status explicitly pending until provider readback or failure. Avoid asking for an extra user turn on a routine transient failure that can safely be recovered within the current turn.
+- On platform safety block: say the attempt was blocked and no successful write was verified; **do not** auto-reformulate a blocked call. Offer review or manual support, plus explicit permission for unsaved practice if the user wants to continue. Reconcile with read-only exact-ID checks where allowed.
+- On permission/schema error: explain actionable remediation; never ask to reveal passwords or copy private workbook data into public issues.
+- On incomplete or uncertain state: surface the applicable receipt with clear per-phase status (original Attempts vs projections). Don't label `Fully synced` until exact readback of every required field.
+- A later user-requested recovery of **original preregistered** Activities is permitted after consent/readback; it is not authorization to reconstruct missing historical Activities.
+
+## Tests to exercise on a permitted test workbook
+
+`off` mode (zero writes); duplicate replay (zero new rows); five-task partial provider success (write only missing rows); post-timeout exact lookup; wrong privacy mode; stale Config revision; projection-only repair; transient provider error (maximum one retry); permanent provider error (zero retries); platform safety block (**zero retries**, never rephrase); same-turn confirmed full sync; ambiguous results (`Not verified`); cross-chat original blueprint unavailable (no retrospective registration). Mock/static tests cannot prove Google Sheets correctness or host safety behavior; label real host acceptance as unverified until performed.
