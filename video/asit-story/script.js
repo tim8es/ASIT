@@ -6,14 +6,11 @@
   const chapter = document.querySelector("#chapter-now");
   const timecode = document.querySelector("#timecode");
   const progress = document.querySelector("#progress");
-  const notesPanel = document.querySelector("#notes-panel");
-  const notesText = document.querySelector("#notes-text");
-  const notesToggle = document.querySelector("#notes-toggle");
   const fullscreenToggle = document.querySelector("#fullscreen-toggle");
   let current = 0;
 
-  if (slides.length < 30 || slides.length > 40 || slides.some(slide => !slide.dataset.time || !slide.dataset.cue)) {
-    throw new Error("ASIT Story Deck needs 30–40 timed scenes with presenter cues.");
+  if (slides.length < 30 || slides.length > 40 || slides.some(slide => !slide.dataset.time)) {
+    throw new Error("ASIT Story Deck needs 30–40 scenes with timecodes.");
   }
 
   function render(index, updateHash = true) {
@@ -31,7 +28,6 @@
     timecode.textContent = slide.dataset.time || "";
     progress.value = String(current + 1);
     progress.setAttribute("aria-valuetext", `Слайд ${current + 1} из ${slides.length}`);
-    notesText.textContent = slide.dataset.cue || "";
     previous.disabled = current === 0;
     next.disabled = current === slides.length - 1;
     if (updateHash && location.hash !== `#scene-${current + 1}`) {
@@ -44,11 +40,6 @@
   previous.addEventListener("click", () => move(-1));
   next.addEventListener("click", () => move(1));
   progress.addEventListener("input", () => render(Number(progress.value) - 1));
-  notesToggle.addEventListener("click", () => {
-    const isOpen = notesToggle.getAttribute("aria-pressed") !== "true";
-    notesToggle.setAttribute("aria-pressed", String(isOpen));
-    notesPanel.hidden = !isOpen;
-  });
   fullscreenToggle.addEventListener("click", async () => {
     try {
       if (document.fullscreenElement) await document.exitFullscreen();
@@ -71,7 +62,6 @@
     else if (event.key === "Home") { event.preventDefault(); render(0); }
     else if (event.key === "End") { event.preventDefault(); render(slides.length - 1); }
     else if (event.key.toLowerCase() === "f") fullscreenToggle.click();
-    else if (event.key.toLowerCase() === "n") notesToggle.click();
   });
 
   progress.max = String(slides.length);
