@@ -7,6 +7,7 @@
   <meta name="description" content="Кинематографичная презентация о создании ASIT — преподавателя английского внутри ChatGPT.">
   <title>ASIT — я превратил ChatGPT в приложение для изучения английского</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="narration.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -17,6 +18,9 @@
       <div class="top-actions">
         <span class="duration-label">15:35&nbsp; · &nbsp;ИСТОРИЯ ПРОЕКТА</span>
         <a class="quiet-button" href="narration.md" title="Открыть текст озвучки">ТЕКСТ ОЗВУЧКИ</a>
+        <button class="quiet-button" id="narration-play" type="button" title="Слушать рассказ и листать слайды">▶ СЛУШАТЬ</button>
+        <button class="quiet-button" id="narration-stop" type="button" title="Остановить озвучку" disabled>■ СТОП</button>
+        <span class="voice-status" id="narration-status" aria-live="polite">ПРОВЕРКА ГОЛОСА</span>
         <button class="quiet-button" id="fullscreen-toggle" type="button" title="Полный экран (F)">ПОЛНЫЙ ЭКРАН <kbd>F</kbd></button>
       </div>
     </header>
@@ -141,7 +145,7 @@
       </section>
 
       <section class="slide tone-red" data-chapter="06 / НЕУДАЧИ" data-time="08:50–09:20" aria-hidden="true">
-        <div class="edge-index">21 <span>36</span></div><div class="test-fail"><div class="test-side"><span class="eyebrow">ОЖИДАЛИ</span><div class="test-stamp">УРОК</div><p>Задания,<br>картинки, действие.</p></div><div class="test-connector">/</div><div class="fail-side"><span class="eyebrow">УВИДЕЛИ</span><div class="fail-stamp">ТЕКСТ</div><p>Вместо занятия пришло обычное сообщение.<br><small>Ожидание и настоящий экран разошлись.</small></p></div></div><div class="two-truths"><span>ПЛАН ВЫГЛЯДИТ ХОРОШО</span><b>≠</b><span>УРОК РАБОТАЕТ ДЛЯ ЧЕЛОВЕКА</span></div>
+        <div class="edge-index">21 <span>36</span></div><div class="center-copy wide"><div class="eyebrow">ПОВТОРИЛИ ТЕСТ В CHATGPT</div><h2>Ответ<br><em>не загрузился.</em></h2><p>Мы попросили показать короткий урок для вымышленного ученика. Ждали 3 минуты 8 секунд — и увидели системную ошибку.</p><div class="observed-error">This response couldn’t load</div><div class="observed-caption">СИНТЕТИЧЕСКИЙ ЗАПРОС · ПРОГРЕСС НЕ СОХРАНЯЛСЯ</div></div>
         
       </section>
 
