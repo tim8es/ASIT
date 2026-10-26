@@ -4,13 +4,22 @@
   const next = document.querySelector("#next");
   const counter = document.querySelector("#counter");
   const chapter = document.querySelector("#chapter-now");
-  const timecode = document.querySelector("#timecode");
   const progress = document.querySelector("#progress");
   const fullscreenToggle = document.querySelector("#fullscreen-toggle");
   let current = 0;
 
-  if (slides.length < 30 || slides.length > 40 || slides.some(slide => !slide.dataset.time)) {
-    throw new Error("ASIT Story Deck needs 30–40 scenes with timecodes.");
+  document.querySelectorAll(".provided-capture").forEach(image => {
+    const show = () => {
+      image.classList.add("ready");
+      image.parentElement.querySelector(".capture-placeholder")?.remove();
+    };
+    image.addEventListener("load", show, { once: true });
+    image.addEventListener("error", () => image.remove(), { once: true });
+    if (image.complete && image.naturalWidth) show();
+  });
+
+  if (slides.length !== 14 || slides.some(slide => !slide.dataset.chapter)) {
+    throw new Error("ASIT story deck needs 14 scenes with chapter labels.");
   }
 
   function render(index, updateHash = true) {
@@ -21,14 +30,10 @@
       slide.setAttribute("aria-hidden", String(!active));
       slide.inert = !active;
     });
-    const slide = slides[current];
-    const number = String(current + 1).padStart(2, "0");
-    const total = String(slides.length).padStart(2, "0");
-    counter.innerHTML = number + " <i>/</i> " + total;
-    chapter.textContent = slide.dataset.chapter || "ASIT STORY";
-    timecode.textContent = slide.dataset.time;
+    counter.innerHTML = String(current + 1).padStart(2, "0") + " <i>/</i> " + String(slides.length).padStart(2, "0");
+    chapter.textContent = slides[current].dataset.chapter;
     progress.value = String(current + 1);
-    progress.setAttribute("aria-valuetext", "Слайд " + (current + 1) + " из " + slides.length);
+    progress.setAttribute("aria-valuetext", "Сцена " + (current + 1) + " из " + slides.length);
     previous.disabled = current === 0;
     next.disabled = current === slides.length - 1;
     if (updateHash && location.hash !== "#scene-" + (current + 1)) {
