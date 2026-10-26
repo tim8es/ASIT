@@ -367,7 +367,7 @@ code { color: var(--lime); font-family: Consolas,monospace; font-size: .86em; }
 .final-slide::before { opacity: .05; }.final-copy { position: absolute; left: 11%; top: 20%; }.final-copy .eyebrow { color: var(--lime); }.final-copy h2 { margin-top: 5%; font-size: clamp(50px,8cqw,140px); line-height: .86; letter-spacing: -.075em; }.final-copy p { margin-top: 5%; color: #c2c5c6; font-size: clamp(12px,1.55cqw,24px); }.final-rule { width: 68px; height: 3px; margin-top: 7%; background: var(--lime); }.final-copy > span { display: block; margin-top: 5%; color: #888e90; font-size: clamp(8px,.82cqw,13px); line-height: 1.6; letter-spacing: .17em; }
 .final-orbit { position: absolute; top: 13%; right: 7%; width: 39%; aspect-ratio: 1; border: 1px solid rgba(200,243,74,.52); border-radius: 50%; }.final-orbit::after { position: absolute; inset: 18%; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; content: ""; }
 .final-signoff { position: absolute; right: 8%; bottom: 11%; color: #9ba1a3; font-size: clamp(8px,.86cqw,13px); letter-spacing: .15em; }.final-signoff i { padding: 0 6px; color: var(--lime); font-style: normal; }
-.provided-capture { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; background: #101416; }
+.provided-capture { display: none; width: 100%; height: 100%; min-height: 0; object-fit: contain; background: #101416; }
 .menu-capture > .provided-capture { flex: 1; }.demo-capture > .provided-capture { position: absolute; inset: 0; }.result-capture > .provided-capture { max-height: 100%; }
 .controls { height: 34px; gap: 16px; color: #9ba1a3; }
 .controls-left, .controls-right { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -411,3 +411,8 @@ code { color: var(--lime); font-family: Consolas,monospace; font-size: .86em; }
   .app-shell { padding: 4px 12px; grid-template-rows: 24px minmax(0,1fr) 24px; gap: 4px; }.topbar, .controls { height: 24px; }.presentation { width: min(96vw, calc((100dvh - 68px)*1.77778)); max-height: calc(100dvh - 68px); }.quiet-button { padding: 3px 5px; }
 }
 
+
+.provided-capture.ready { display: block; }
+.capture-frame > .provided-capture { flex: 1; }
+.capture-box { position: relative; min-width: 0; min-height: 0; border: 1px solid rgba(16,19,22,.35); background: #101416; }
+.capture-box > .provided-capture, .capture-box > .capture-placeholder { position: absolute; inset: 0; width: 100%; height: 100%; }
