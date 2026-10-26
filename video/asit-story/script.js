@@ -7,15 +7,10 @@
   const timecode = document.querySelector("#timecode");
   const progress = document.querySelector("#progress");
   const fullscreenToggle = document.querySelector("#fullscreen-toggle");
-  const narrationPlay = document.querySelector("#narration-play");
-  const narrationStop = document.querySelector("#narration-stop");
-  const narrationStatus = document.querySelector("#narration-status");
-  const speech = window.speechSynthesis;
-  const narration = window.ASIT_NARRATION || [];
+  const audio = document.querySelector("#narration-audio");
+  const durationLabel = document.querySelector("#duration-label");
+  const timings = window.ASIT_AUDIO_TIMINGS || [];
   let current = 0;
-  let narrator = null;
-  let narrationActive = false;
-  let narrationRun = 0;
 
   if (slides.length < 30 || slides.length > 40 || slides.some(slide => !slide.dataset.time)) {
     throw new Error("ASIT Story Deck needs 30–40 scenes with timecodes.");
@@ -43,65 +38,55 @@
     }
   }
 
-  function updateNarrationStatus() {
-    narrator = speech?.getVoices().find(voice => /^ru(-|_)/i.test(voice.lang)) || null;
-    const ready = Boolean(narrator && narration.length === slides.length && typeof window.SpeechSynthesisUtterance === "function");
-    narrationPlay.disabled = !ready || narrationActive;
-    narrationStop.disabled = !narrationActive;
-    if (!narrationActive) narrationStatus.textContent = narrator ? "РУССКИЙ ГОЛОС: " + narrator.name : "РУССКИЙ ГОЛОС НЕ НАЙДЕН";
-    narrationStatus.dataset.ready = String(ready);
+  function formatTime(seconds) {
+    if (!Number.isFinite(seconds)) return "--:--";
+    const value = Math.max(0, Math.floor(seconds || 0));
+    return String(Math.floor(value / 60)).padStart(2, "0") + ":" + String(value % 60).padStart(2, "0");
   }
 
-  function stopNarration(message = "ОЗВУЧКА ОСТАНОВЛЕНА") {
-    narrationRun += 1;
-    narrationActive = false;
-    speech?.cancel();
-    narrationStatus.textContent = message;
-    updateNarrationStatus();
-    if (message !== "ОЗВУЧКА ОСТАНОВЛЕНА") narrationStatus.textContent = message;
-  }
-
-  function speakScene(index, run) {
-    if (!narrationActive || run !== narrationRun) return;
-    if (index >= slides.length) {
-      stopNarration("ПРОСЛУШИВАНИЕ ЗАВЕРШЕНО");
-      return;
+  function sceneAtTime(seconds) {
+    let index = 0;
+    for (let position = 1; position < timings.length; position += 1) {
+      if (seconds < timings[position].start) break;
+      index = position;
     }
-    render(index);
-    narrationStatus.textContent = "СЛАЙД " + (index + 1) + " ИЗ " + slides.length;
-    const utterance = new SpeechSynthesisUtterance(narration[index]);
-    utterance.lang = "ru-RU";
-    utterance.voice = narrator;
-    utterance.rate = 0.98;
-    utterance.onend = () => {
-      if (narrationActive && run === narrationRun) window.setTimeout(() => speakScene(index + 1, run), 350);
-    };
-    utterance.onerror = () => {
-      if (run === narrationRun) stopNarration("БРАУЗЕР НЕ СМОГ ПРОИЗНЕСТИ ТЕКСТ");
-    };
-    speech.speak(utterance);
+    return index;
+  }
+
+  function updateAudioPosition() {
+    if (timings.length !== slides.length || !Number.isFinite(audio.currentTime)) return;
+    const index = sceneAtTime(audio.currentTime);
+    if (index !== current) render(index);
+    timecode.textContent = formatTime(audio.currentTime) + " / " + formatTime(audio.duration);
+  }
+
+  function moveTo(index) {
+    const target = Math.max(0, Math.min(slides.length - 1, index));
+    render(target);
+    if (timings.length === slides.length) {
+      audio.currentTime = timings[target].start;
+      timecode.textContent = formatTime(timings[target].start) + " / " + formatTime(audio.duration);
+    }
   }
 
   function move(amount) {
-    if (narrationActive) stopNarration();
-    render(current + amount);
+    moveTo(current + amount);
   }
 
   previous.addEventListener("click", () => move(-1));
   next.addEventListener("click", () => move(1));
-  progress.addEventListener("input", () => {
-    if (narrationActive) stopNarration();
-    render(Number(progress.value) - 1);
+  progress.addEventListener("input", () => moveTo(Number(progress.value) - 1));
+  audio.addEventListener("timeupdate", updateAudioPosition);
+  audio.addEventListener("seeked", updateAudioPosition);
+  audio.addEventListener("loadedmetadata", () => {
+    durationLabel.textContent = "ОЗВУЧКА · " + formatTime(audio.duration);
+    audio.currentTime = timings[current]?.start || 0;
+    updateAudioPosition();
   });
-  narrationPlay.addEventListener("click", () => {
-    if (!narrator || narration.length !== slides.length) return;
-    narrationActive = true;
-    const run = ++narrationRun;
-    updateNarrationStatus();
-    speakScene(current, run);
+  audio.addEventListener("ended", () => {
+    render(slides.length - 1);
+    timecode.textContent = formatTime(audio.duration) + " / " + formatTime(audio.duration);
   });
-  narrationStop.addEventListener("click", () => stopNarration());
-  speech?.addEventListener("voiceschanged", updateNarrationStatus);
   fullscreenToggle.addEventListener("click", async () => {
     try {
       if (document.fullscreenElement) await document.exitFullscreen();
@@ -113,21 +98,22 @@
   });
   window.addEventListener("hashchange", () => {
     const match = location.hash.match(/^#scene-(\d+)$/);
-    if (match) render(Number(match[1]) - 1, false);
+    if (match) moveTo(Number(match[1]) - 1);
   });
   document.addEventListener("keydown", event => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
     const target = event.target;
-    if (target instanceof HTMLElement && (target.matches("input, textarea, select") || target.isContentEditable)) return;
+    if (target instanceof HTMLElement && (target.matches("input, textarea, select, audio, video, button") || target.isContentEditable)) return;
     if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); move(1); }
     else if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); move(-1); }
-    else if (event.key === "Home") { event.preventDefault(); if (narrationActive) stopNarration(); render(0); }
-    else if (event.key === "End") { event.preventDefault(); if (narrationActive) stopNarration(); render(slides.length - 1); }
+    else if (event.key === "Home") { event.preventDefault(); moveTo(0); }
+    else if (event.key === "End") { event.preventDefault(); moveTo(slides.length - 1); }
     else if (event.key.toLowerCase() === "f") fullscreenToggle.click();
   });
 
   progress.max = String(slides.length);
-  updateNarrationStatus();
   const initial = location.hash.match(/^#scene-(\d+)$/);
-  render(initial ? Number(initial[1]) - 1 : 0, !initial);
+  const initialIndex = initial ? Number(initial[1]) - 1 : 0;
+  render(initialIndex, !initial);
+  if (timings.length === slides.length) moveTo(initialIndex);
 })();

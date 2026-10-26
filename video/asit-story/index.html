@@ -7,7 +7,7 @@
   <meta name="description" content="Кинематографичная презентация о создании ASIT — преподавателя английского внутри ChatGPT.">
   <title>ASIT — я превратил ChatGPT в приложение для изучения английского</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="narration.js" defer></script>
+  <script src="audio-timings.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -16,17 +16,18 @@
       <div class="brand"><span class="brand-mark">A</span><span>ASIT <i>/</i> КАК ЭТО СОЗДАВАЛОСЬ</span></div>
       <div class="chapter-now" id="chapter-now">01&nbsp; / &nbsp;HOOK</div>
       <div class="top-actions">
-        <span class="duration-label">15:35&nbsp; · &nbsp;ИСТОРИЯ ПРОЕКТА</span>
+        <span class="duration-label" id="duration-label">ЗАГРУЗКА ОЗВУЧКИ</span>
         <a class="quiet-button" href="narration.md" title="Открыть текст озвучки">ТЕКСТ ОЗВУЧКИ</a>
-        <button class="quiet-button" id="narration-play" type="button" title="Слушать рассказ и листать слайды">▶ СЛУШАТЬ</button>
-        <button class="quiet-button" id="narration-stop" type="button" title="Остановить озвучку" disabled>■ СТОП</button>
-        <span class="voice-status" id="narration-status" aria-live="polite">ПРОВЕРКА ГОЛОСА</span>
+        <audio id="narration-audio" class="narration-audio" controls preload="metadata" aria-label="Озвучка с синхронным перелистыванием слайдов">
+          <source src="assets/audio/voiceover.mp3" type="audio/mpeg">
+          Браузер не поддерживает воспроизведение MP3.
+        </audio>
         <button class="quiet-button" id="fullscreen-toggle" type="button" title="Полный экран (F)">ПОЛНЫЙ ЭКРАН <kbd>F</kbd></button>
       </div>
     </header>
 
     <main class="presentation" id="presentation" aria-label="Слайды ASIT">
-      <section class="slide tone-night active" data-chapter="01 / НАЧАЛО" data-time="00:00–00:17" aria-hidden="false">
+      <section class="slide tone-night active" data-chapter="01 / НАЧАЛО" data-time="00:00–00:20" aria-hidden="false">
         <div class="edge-index">01 <span>36</span></div>
         <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-spark">↗</div>
         <div class="cover-copy">
@@ -38,7 +39,7 @@
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="01 / НАЧАЛО" data-time="00:17–00:33" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="01 / НАЧАЛО" data-time="00:20–00:39" aria-hidden="true">
         <div class="edge-index">02 <span>36</span></div>
         <div class="split-screen">
           <div class="split-copy"><div class="eyebrow">СНАЧАЛА — ЭКРАН, НЕ ОБЕЩАНИЕ</div><h2>Урок<br><em>живёт</em><br>внутри чата.</h2><p class="small-copy">Урок и ответы остаются частью обычного разговора в ChatGPT.</p><div class="source-chip">НУЖЕН СНИМОК · 01</div></div>
@@ -47,180 +48,180 @@
         
       </section>
 
-      <section class="slide tone-lime" data-chapter="01 / НАЧАЛО" data-time="00:33–00:50" aria-hidden="true">
+      <section class="slide tone-lime" data-chapter="01 / НАЧАЛО" data-time="00:39–00:55" aria-hidden="true">
         <div class="edge-index">03 <span>36</span></div><div class="giant-number">≠</div>
         <div class="statement"><div class="eyebrow">ГЛАВНЫЙ КОНТРАСТ</div><h2>Это не ещё<br>одно приложение.</h2><p>Это попытка сделать сам чат — рабочей средой для обучения.</p></div>
         <div class="bottom-note">ЧАТ <span>→</span> УЧЕБНЫЙ ШАГ</div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="02 / БОЛЬ" data-time="00:50–01:18" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="02 / БОЛЬ" data-time="00:55–01:23" aria-hidden="true">
         <div class="edge-index">04 <span>36</span></div><div class="chapter-number">02</div>
         <div class="center-copy"><div class="eyebrow">ПРОБЛЕМА БЫЛА НЕ В ОТВЕТАХ</div><h2>ChatGPT умеет<br><em>объяснить.</em></h2><p>Но объяснение ещё не означает, что человек сможет применить правило завтра.</p></div>
         <div class="line-annotation">ОТВЕТ ≠ ОБУЧЕНИЕ</div>
       </section>
 
-      <section class="slide tone-paper" data-chapter="02 / БОЛЬ" data-time="01:18–01:47" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="02 / БОЛЬ" data-time="01:23–01:51" aria-hidden="true">
         <div class="edge-index">05 <span>36</span></div>
         <div class="left-head"><div class="eyebrow">ЧЕГО НЕ ХВАТАЛО</div><h2>Не ещё одного<br>ответа.<br><em>Продолжения.</em></h2></div>
         <div class="needs-list"><div><b>01</b><span>помнить, чего хочет ученик</span></div><div><b>02</b><span>замечать, где трудно</span></div><div><b>03</b><span>предлагать следующий шаг</span></div></div>
         
       </section>
 
-      <section class="slide tone-red" data-chapter="02 / БОЛЬ" data-time="01:47–02:15" aria-hidden="true">
+      <section class="slide tone-red" data-chapter="02 / БОЛЬ" data-time="01:51–02:19" aria-hidden="true">
         <div class="edge-index">06 <span>36</span></div><div class="red-slice"></div>
         <div class="prompt-card"><div class="eyebrow">ПОВОРОТНЫЙ ВОПРОС</div><h2>А если чат<br>сможет не только<br><em>отвечать?</em></h2><p>Не подсказывать всё время, а помочь человеку самому попробовать, ошибиться и продолжить.</p></div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="03 / ОТКРЫТИЕ" data-time="02:15–02:43" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="03 / ОТКРЫТИЕ" data-time="02:19–02:46" aria-hidden="true">
         <div class="edge-index">07 <span>36</span></div><div class="eyebrow">ИДЕЯ-ПЕРЕЛОМ</div><h2 class="compare-title">А что, если<br>чат — уже <em>приложение?</em></h2>
         <div class="compare-grid"><div class="compare-card muted"><span class="compare-label">СТРОИТЬ ВСЁ С НУЛЯ</span><strong>СВОЙ САЙТ</strong><div class="flow-row"><i>НОВЫЙ ЭКРАН</i><b>+</b><i>НОВЫЙ ВХОД</i></div><small>больше времени на саму программу</small></div><div class="compare-arrow">↗</div><div class="compare-card active-card"><span class="compare-label">ПУТЬ ASIT</span><strong>ПРИВЫЧНЫЙ ЧАТ</strong><div class="flow-row"><i>РАЗГОВОР</i><b>→</b><i>УРОК</i></div><small>сосредоточиться на том, как учится человек</small></div></div>
         
       </section>
 
-      <section class="slide tone-blue" data-chapter="03 / ОТКРЫТИЕ" data-time="02:43–03:12" aria-hidden="true">
+      <section class="slide tone-blue" data-chapter="03 / ОТКРЫТИЕ" data-time="02:46–03:12" aria-hidden="true">
         <div class="edge-index">08 <span>36</span></div><div class="eyebrow">МЕНЯЕТСЯ РОЛЬ ЧАТА</div><div class="big-word">УРОК</div><div class="blue-caption"><h2>Чат остаётся знакомым.<br>Занятие становится яснее.</h2><p>Открыть тему, попробовать задание, получить ответ и понять, что делать дальше.</p></div><div class="blue-rings"><span></span><span></span><span></span></div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="03 / ОТКРЫТИЕ" data-time="03:12–03:40" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="03 / ОТКРЫТИЕ" data-time="03:12–03:35" aria-hidden="true">
         <div class="edge-index">09 <span>36</span></div><div class="center-copy wide"><div class="eyebrow">НОВАЯ ИДЕЯ УРОКА</div><h2>Не только<br><em>послушать.</em></h2><p>Увидеть. Попробовать. Сказать самому.</p></div><div class="action-mark"><span>УВИДЕТЬ</span><span>→</span><span>ПОПРОБОВАТЬ</span><span>→</span><span>СДЕЛАТЬ САМОМУ</span></div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="04 / ДЕМО" data-time="03:40–04:07" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="04 / ДЕМО" data-time="03:35–04:03" aria-hidden="true">
         <div class="edge-index">10 <span>36</span></div><div class="demo-intro"><div class="eyebrow">СЕЙЧАС: ЧТО ВИДИТ УЧЕНИК</div><h2>С чего начнётся<br>занятие?</h2><p>Меню нужно показать таким, каким его видит человек.</p><span class="source-chip">НУЖЕН СНИМОК · 02</span></div><div class="menu-capture" data-capture="02-menu-modes.png"><div class="capture-top"><span>МЕНЮ ASIT</span><span>РЕАЛЬНЫЙ СНИМОК</span></div><div class="capture-placeholder"><span>02</span><strong>ВЫБОР РЕЖИМА</strong><small>НУЖЕН РЕАЛЬНЫЙ ЭКРАН</small></div><div class="capture-foot"><span>НУЖЕН НАСТОЯЩИЙ ЭКРАН</span><span>16:9</span></div></div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="04 / ДЕМО" data-time="04:07–04:34" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="04 / ДЕМО" data-time="04:03–04:30" aria-hidden="true">
         <div class="edge-index">11 <span>36</span></div><div class="demo-capture" data-capture="03-thematic-lesson-cover.png"><div class="capture-label">НУЖЕН СНИМОК · 03</div><div class="capture-placeholder"><span>03</span><strong>ОБЛОЖКА УРОКА</strong><small>ЗДЕСЬ БУДЕТ НАСТОЯЩИЙ ЭКРАН</small></div><div class="capture-path">assets/captures/03-thematic-lesson-cover.png</div></div><div class="demo-side"><div class="eyebrow">ТЕМА ПОМОГАЕТ ВОЙТИ В УРОК</div><h2>Сначала<br>ситуация.</h2><p>Настоящую обложку нужно показать из установленного ASIT.</p><span class="source-chip">НУЖЕН СНИМОК</span></div>
         
       </section>
 
-      <section class="slide tone-lime" data-chapter="04 / ДЕМО" data-time="04:34–05:01" data-capture="04-cards-and-all" aria-hidden="true">
+      <section class="slide tone-lime" data-chapter="04 / ДЕМО" data-time="04:30–04:56" data-capture="04-cards-and-all" aria-hidden="true">
         <div class="edge-index">12 <span>36</span></div><div class="eyebrow">ОДИН УРОК · ДВА ВЗГЛЯДА</div><h2 class="cards-heading">Одна задача <span>↔</span> весь урок</h2><div class="cards-demo"><div class="capture-placeholder" data-capture="04a-cards.png"><span>04A</span><strong>ОДНА КАРТОЧКА</strong><small>НУЖЕН РЕАЛЬНЫЙ ЭКРАН</small></div><div class="capture-placeholder" data-capture="04b-all.png"><span>04B</span><strong>ВЕСЬ УРОК</strong><small>НУЖЕН РЕАЛЬНЫЙ ЭКРАН</small></div></div><div class="capture-ribbon">ПОКАЖИТЕ НАСТОЯЩИЕ ЭКРАНЫ В ОДНОМ УРОКЕ</div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="04 / ДЕМО" data-time="05:01–05:28" data-capture="05-exercise-types" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="04 / ДЕМО" data-time="04:56–05:22" data-capture="05-exercise-types" aria-hidden="true">
         <div class="edge-index">13 <span>36</span></div><div class="eyebrow">УЧЕНИК ДЕЛАЕТ ВСЁ БОЛЬШЕ САМ</div><h2 class="types-heading">Выбрать. Собрать.<br><em>Ответить самому.</em></h2><div class="exercise-types"><div class="exercise-type"><span>01</span><b>ВЫБРАТЬ</b><small>найти подходящий вариант</small></div><div class="exercise-type active-exercise"><span>02</span><b>СОБРАТЬ</b><small>построить фразу самому</small></div><div class="exercise-type"><span>03</span><b>ОТВЕТИТЬ</b><small>сказать по-своему</small></div></div><div class="proof-line"><span>НУЖНЫ НАСТОЯЩИЕ ЭКРАНЫ</span><span>2–3 ТИПА ЗАДАНИЙ</span><span>БЕЗ ЛИЧНЫХ ОТВЕТОВ</span></div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="04 / ДЕМО" data-time="05:28–05:55" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="04 / ДЕМО" data-time="05:22–05:48" aria-hidden="true">
         <div class="edge-index">14 <span>36</span></div><div class="result-grid"><div class="result-title"><div class="eyebrow">ПОСЛЕ ОТВЕТА</div><h2>Что получилось?<br><em>И сохранилось ли?</em></h2><p>Покажите настоящий результат и отдельно подтвердите, что прогресс действительно записан.</p></div><div class="result-capture" data-capture="06-submit-result.png"><div class="capture-placeholder"><span>06</span><strong>РЕЗУЛЬТАТ УРОКА</strong><small>НУЖЕН РЕАЛЬНЫЙ ЭКРАН</small></div><div class="result-capture-foot">НУЖЕН НАСТОЯЩИЙ ЭКРАН</div></div></div>
         
       </section>
 
-      <section class="slide tone-blue" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="05:55–06:23" aria-hidden="true">
+      <section class="slide tone-blue" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="05:48–06:16" aria-hidden="true">
         <div class="edge-index">15 <span>36</span></div><div class="eyebrow">ЗА КАРТОЧКОЙ — ПОНЯТНЫЙ ПУТЬ</div><h2 class="loop-heading">Каждый ответ должен <em>что-то менять.</em></h2><div class="loop-track"><div><span>01</span><b>ЦЕЛЬ</b><small>чего хочу добиться</small></div><i>→</i><div><span>02</span><b>УРОК</b><small>что попробовать</small></div><i>→</i><div><span>03</span><b>ОТВЕТ</b><small>что получилось</small></div><i>→</i><div><span>04</span><b>РАЗБОР</b><small>что было трудно</small></div><i>→</i><div><span>05</span><b>ДАЛЬШЕ</b><small>какой шаг выбрать</small></div></div><div class="loop-caption">УЧИТЬСЯ — ЗНАЧИТ ДВИГАТЬСЯ ДАЛЬШЕ</div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="06:23–06:52" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="06:16–06:43" aria-hidden="true">
         <div class="edge-index">16 <span>36</span></div><div class="evidence-split"><div class="evidence-half recognize"><span class="evidence-tag">ВЫБРАТЬ</span><b class="choice">A</b><h3>Узнал ответ</h3><p>Нашёл подходящий вариант.</p><small>ЭТО ПОЛЕЗНО</small></div><div class="evidence-divider">≠</div><div class="evidence-half independent"><span class="evidence-tag">СФОРМУЛИРОВАТЬ</span><b class="constructed">“I take the train<br>when it rains.”</b><h3>Сказал сам</h3><p>Применил правило в новой фразе.</p><small>ЭТО УЖЕ СЛЕДУЮЩИЙ ШАГ</small></div></div><div class="eyebrow evidence-footer">ВЫБРАТЬ ОТВЕТ И ПРИДУМАТЬ СВОЙ — РАЗНЫЕ ВЕЩИ</div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="06:52–07:20" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="06:43–07:10" aria-hidden="true">
         <div class="edge-index">17 <span>36</span></div><div class="truth-wall"><div class="eyebrow">НЕ ВСЁ МОЖНО УЗНАТЬ ПО ПЕРЕПИСКЕ</div><div class="truth-row"><span>НАПИСАЛ</span><b>≠</b><strong>ПРОИЗНЁС</strong></div><div class="truth-row"><span>ОТКРЫЛ ССЫЛКУ</span><b>≠</b><strong>УСЛЫШАЛ ЗВУК</strong></div><div class="truth-row"><span>УГАДАЛ ВАРИАНТ</span><b>≠</b><strong>УМЕЕТ САМ</strong></div><p>Хороший преподаватель не делает вид, что проверил то, чего не видел и не слышал.</p></div>
         
       </section>
 
-      <section class="slide tone-red" data-chapter="06 / НЕУДАЧИ" data-time="07:20–07:50" aria-hidden="true">
+      <section class="slide tone-red" data-chapter="06 / НЕУДАЧИ" data-time="07:10–07:37" aria-hidden="true">
         <div class="edge-index">18 <span>36</span></div><div class="failure-number">10:40</div><div class="failure-copy"><div class="eyebrow">ОДИН СЛИШКОМ ДЛИННЫЙ УРОК</div><h2>Целая глава<br>не стала хорошим<br>упражнением.</h2><p>Человеку предложили прослушать только начало длинной записи. Он справедливо отказался: для одного задания нужен короткий фрагмент, который можно послушать целиком.</p><div class="failure-resolution"><span>БЫЛО</span><b>ЦЕЛАЯ ГЛАВА</b><i>→</i><span>НУЖНО</span><b>КОРОТКИЙ ОТРЫВОК</b></div></div><div class="failure-diagram">ОДИН ФАЙЛ<br><div class="wave long-wave"></div><small>СЛИШКОМ ДОЛГО</small></div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="06 / НЕУДАЧИ" data-time="07:50–08:20" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="06 / НЕУДАЧИ" data-time="07:37–08:07" aria-hidden="true">
         <div class="edge-index">19 <span>36</span></div><div class="issue-quote"><div class="quote-mark">!</div><blockquote>Файл проигрывался.<br><em>Но слушать было неприятно.</em></blockquote><div class="quote-context"><b>ОБРАТНАЯ СВЯЗЬ ПО РАННЕМУ ДЕМО</b><span>Синтетический голос и отдельная страница не помогали почувствовать урок частью чата.</span></div></div><div class="quote-side"><div class="eyebrow">ВЫВОД</div><h3>Если звучит,<br>это ещё не<br>значит, что хорошо.</h3><div class="signal">СНАЧАЛА — ОПЫТ ЧЕЛОВЕКА</div></div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="06 / НЕУДАЧИ" data-time="08:20–08:50" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="06 / НЕУДАЧИ" data-time="08:07–08:33" aria-hidden="true">
         <div class="edge-index">20 <span>36</span></div><div class="phone-story"><div class="phone"><div class="phone-speaker"></div><div class="phone-screen"><div class="phone-label">АУДИОУРОК</div><div class="phone-audio"><span class="play-triangle">▶</span><div class="phone-track"><i></i></div><b>00:00</b></div><div class="phone-answer"></div><div class="phone-answer short"></div><div class="phone-status">ТИШИНА</div></div></div><div class="phone-copy"><div class="eyebrow">МОБИЛЬНАЯ ПРОВЕРКА</div><h2>Плеер появился.<br><em>Звука не было.</em></h2><p>Ученик не стал отвечать. Если человек не слышал запись, нельзя говорить, что он её понял. Причину тишины тогда не удалось установить.</p><div class="truth-pill">НЕ УГАДЫВАТЬ ЗА ЧЕЛОВЕКА</div></div></div>
         
       </section>
 
-      <section class="slide tone-red" data-chapter="06 / НЕУДАЧИ" data-time="08:50–09:20" aria-hidden="true">
+      <section class="slide tone-red" data-chapter="06 / НЕУДАЧИ" data-time="08:33–08:55" aria-hidden="true">
         <div class="edge-index">21 <span>36</span></div><div class="center-copy wide"><div class="eyebrow">ПОВТОРИЛИ ТЕСТ В CHATGPT</div><h2>Ответ<br><em>не загрузился.</em></h2><p>Мы попросили показать короткий урок для вымышленного ученика. Ждали 3 минуты 8 секунд — и увидели системную ошибку.</p><div class="observed-error">This response couldn’t load</div><div class="observed-caption">СИНТЕТИЧЕСКИЙ ЗАПРОС · ПРОГРЕСС НЕ СОХРАНЯЛСЯ</div></div>
         
       </section>
 
-      <section class="slide tone-blue" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="09:20–09:44" aria-hidden="true">
+      <section class="slide tone-blue" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="08:55–09:19" aria-hidden="true">
         <div class="edge-index">22 <span>36</span></div><div class="center-copy wide"><div class="eyebrow">ЗА КАДРОМ — МНОГО РАБОТЫ</div><h2>Снаружи —<br><em>один ясный урок.</em></h2><p>Ученик видит тему, задание и следующий шаг. Ему не нужно разбираться, как устроен проект внутри.</p></div><div class="action-mark"><span>ТЕМА</span><span>→</span><span>ПОПЫТКА</span><span>→</span><span>СЛЕДУЮЩИЙ ШАГ</span></div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="09:44–10:07" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="09:19–09:43" aria-hidden="true">
         <div class="edge-index">23 <span>36</span></div><div class="skills-statement"><div class="eyebrow">ВАЖНО ПОМНИТЬ</div><h2>ASIT задаёт<br>правила.<br><em>Чат показывает экран.</em></h2><div class="not-list"><div><span>МОЖЕТ</span> предложить урок</div><div><span>НЕ МОЖЕТ</span> добавить любую кнопку</div><div><span>НЕ ДОЛЖЕН</span> обещать невидимую функцию</div></div></div><div class="skills-visual"><div class="file-stack"><div>ЦЕЛЬ УРОКА</div><div>ПОНЯТНОЕ ЗАДАНИЕ</div><div>ЧЕСТНАЯ ОБРАТНАЯ СВЯЗЬ</div></div><div class="line-arrow">→</div><div class="model-node">CHATGPT<br><small>знакомый чат</small></div></div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="10:07–10:31" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="09:43–10:08" aria-hidden="true">
         <div class="edge-index">24 <span>36</span></div><div class="adapter-map"><div class="core-block"><span>ЕСЛИ ПОНЯЛ</span><b>Идём дальше</b><small>новая ситуация, больше самостоятельности</small></div><div class="adapter-arrow">↔</div><div class="subject-block"><span>ЕСЛИ ТРУДНО</span><b>Меняем пример</b><small>короче, яснее, ближе к жизни</small></div><div class="adapter-out"><span>→</span><strong>УРОК</strong><small>подходит человеку сейчас</small></div></div><div class="boundary-label">Не повторять то же самое громче — попробовать объяснить иначе.</div>
         
       </section>
 
-      <section class="slide tone-lime" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="10:31–10:55" aria-hidden="true">
+      <section class="slide tone-lime" data-chapter="07 / ИДЕЯ ВНУТРИ" data-time="10:08–10:33" aria-hidden="true">
         <div class="edge-index">25 <span>36</span></div><div class="publish-split"><div class="publish-col"><span class="eyebrow">ОТКРЫТЫЙ ПРОЕКТ</span><b>Можно увидеть<br>исходники.</b><small>это ещё не экран в чате</small></div><div class="split-slash">≠</div><div class="publish-col install"><span class="eyebrow">УСТАНОВЛЕННЫЙ ASIT</span><b>Нужно показать<br>отдельно.</b><small>версия может отличаться</small></div></div><div class="publish-footer">Код и установленный продукт — не одно и то же.</div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="08 / ПАМЯТЬ" data-time="10:55–11:20" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="08 / ПАМЯТЬ" data-time="10:33–10:59" aria-hidden="true">
         <div class="edge-index">26 <span>36</span></div><div class="eyebrow">ПАМЯТЬ РАБОТАЕТ С РАЗРЕШЕНИЯ</div><h2 class="memory-heading">Урок заканчивается.<br><em>История продолжается.</em></h2><div class="memory-route"><div><span>01</span>УРОК</div><i>→</i><div><span>02</span>ПРОГРЕСС</div><i>→</i><div class="verified"><span>03</span>ПРОВЕРКА</div><i>→</i><div><span>04</span>СЛЕДУЮЩИЙ УРОК</div></div><p class="memory-caption">Сохранять можно только то, на что человек согласился.</p>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="08 / ПАМЯТЬ" data-time="11:20–11:45" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="08 / ПАМЯТЬ" data-time="10:59–11:21" aria-hidden="true">
         <div class="edge-index">27 <span>36</span></div><div class="sheet-scene"><div class="sheet-top"><div><span class="sheet-dot"></span> УРОК / ПРОГРЕСС</div><span class="synthetic-badge">ВСЁ ВЫМЫШЛЕНО</span></div><div class="sheet-grid"><div class="sheet-row"><span>ЦЕЛЬ</span><b>ПОВТОРИТЬ</b><span>пример</span></div><div class="sheet-row"><span>ПОПЫТКА</span><b class="pending">ПРОВЕРИТЬ</b><span>пример</span></div><div class="sheet-row"><span>ЛИЧНЫЙ ОТВЕТ</span><b class="private">НЕ ПОКАЗАН</b><span>приватность</span></div></div><div class="sheet-bottom">ЭТО СХЕМА, НЕ ЛИЧНЫЕ ДАННЫЕ</div></div><div class="sheet-copy"><div class="eyebrow">ТОЛЬКО ПРИМЕР</div><h2>Никаких<br>чужих историй.</h2><p>Показывать личные ответы ради красивого кадра не нужно.</p></div>
         
       </section>
 
-      <section class="slide tone-blue" data-chapter="08 / ПАМЯТЬ" data-time="11:45–12:10" aria-hidden="true">
+      <section class="slide tone-blue" data-chapter="08 / ПАМЯТЬ" data-time="11:21–11:44" aria-hidden="true">
         <div class="edge-index">28 <span>36</span></div><div class="eyebrow">СОХРАНЕНО — ТОЛЬКО ЕСЛИ ПРОВЕРИЛИ</div><div class="sync-states"><div class="sync-card gray"><span class="state-dot"></span><small>СОСТОЯНИЕ 1</small><b>Не сохранено</b><p>занятие осталось в чате</p></div><div class="sync-card amber"><span class="state-dot"></span><small>СОСТОЯНИЕ 2</small><b>Не ясно</b><p>результат не подтвердился</p></div><div class="sync-card green"><span class="state-dot"></span><small>СОСТОЯНИЕ 3</small><b>Подтверждено</b><p>запись проверили</p></div></div><div class="state-rule">Если проверки нет — не говорить, что данные сохранены.</div>
         
       </section>
 
-      <section class="slide tone-red" data-chapter="08 / ПАМЯТЬ" data-time="12:10–12:35" aria-hidden="true">
+      <section class="slide tone-red" data-chapter="08 / ПАМЯТЬ" data-time="11:44–12:06" aria-hidden="true">
         <div class="edge-index">29 <span>36</span></div><div class="center-copy wide"><div class="eyebrow">ЕСЛИ НЕ УВЕРЕН — СКАЖИ ЧЕСТНО</div><h2>«Не сохранено»<br>лучше, чем<br><em>«я всё помню».</em></h2><p>Уверенный ответ не заменяет подтверждение.</p></div><div class="line-annotation">ДОВЕРИЕ ВАЖНЕЕ ЭФФЕКТА</div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="09 / СЕГОДНЯ" data-time="12:35–13:05" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="09 / СЕГОДНЯ" data-time="12:06–12:37" aria-hidden="true">
         <div class="edge-index">30 <span>36</span></div><div class="version-ledger"><div class="ledger-head"><div class="eyebrow">ВАЖНО РАЗЛИЧАТЬ</div><h2>То, что стоит<br>у автора, может<br><em>отличаться.</em></h2></div><div class="version-line"><span>ЛИЧНЫЙ ЭКЗЕМПЛЯР</span><b>В ЧАТЕ</b><i>его нужно показать отдельно</i><small>СООБЩЕНИЕ АВТОРА</small></div><div class="version-line repo"><span>ОТКРЫТЫЙ ПРОЕКТ</span><b>НА GITHUB</b><i>исходники живут отдельно</i><small>НЕ ТО ЖЕ САМОЕ, ЧТО УСТАНОВКА</small></div></div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="09 / СЕГОДНЯ" data-time="13:05–13:35" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="09 / СЕГОДНЯ" data-time="12:37–13:00" aria-hidden="true">
         <div class="edge-index">31 <span>36</span></div><div class="today-copy"><div class="eyebrow">ЧТО МОЖНО СКАЗАТЬ СЕГОДНЯ</div><h2>Есть прототип.<br>Работу нужно<br><em>показывать.</em></h2><div class="today-facts"><div><b>01</b><span>Автор сообщает, что проверял основные экраны<br><small>мы эту проверку не повторяли</small></span></div><div><b>02</b><span>Некоторые занятия уже выглядят как урок<br><small>настоящие экраны ещё нужно показать</small></span></div><div><b>03</b><span>Не всё работает одинаково у всех<br><small>поэтому обещаний пока нет</small></span></div></div></div><div class="today-stamp">ИДЕЯ<br>≠<br>ГОТОВЫЙ ПРОДУКТ</div>
         
       </section>
 
-      <section class="slide tone-lime" data-chapter="09 / СЕГОДНЯ" data-time="13:35–14:05" aria-hidden="true">
+      <section class="slide tone-lime" data-chapter="09 / СЕГОДНЯ" data-time="13:00–13:28" aria-hidden="true">
         <div class="edge-index">32 <span>36</span></div><div class="limits-board"><div class="eyebrow">ЧЕГО МЫ ПОКА НЕ ОБЕЩАЕМ</div><div class="limit-cards"><div><span>ЗВУК</span><b>Запись может<br>не прозвучать.</b><small>Это нужно проверить на устройстве.</small></div><div><span>УРОК</span><b>Вместо задания<br>может быть текст.</b><small>Важно пройти занятие самому.</small></div><div><span>ПРОГРЕСС</span><b>Ответ может<br>не сохраниться.</b><small>Не говорить обратного без подтверждения.</small></div></div></div>
         
       </section>
 
-      <section class="slide tone-night" data-chapter="10 / ВЫВОД" data-time="14:05–14:28" aria-hidden="true">
+      <section class="slide tone-night" data-chapter="10 / ВЫВОД" data-time="13:28–13:52" aria-hidden="true">
         <div class="edge-index">33 <span>36</span></div><div class="maturity"><div class="eyebrow">ТРИ РАЗНЫЕ СТАДИИ</div><div class="maturity-row"><span>01</span><b>КРАСИВЫЙ ЭКРАН</b><i>приятно увидеть</i></div><div class="maturity-row"><span>02</span><b>РАБОЧИЙ УРОК</b><i>можно пройти самому</i></div><div class="maturity-row current"><span>03</span><b>ПРОДУКТУ МОЖНО ДОВЕРЯТЬ</b><i>это нужно доказать</i></div></div><div class="maturity-mark">≠</div><div class="maturity-note">Один шаг не доказывает следующий.</div>
         
       </section>
 
-      <section class="slide tone-paper" data-chapter="10 / ВЫВОД" data-time="14:28–14:50" aria-hidden="true">
+      <section class="slide tone-paper" data-chapter="10 / ВЫВОД" data-time="13:52–14:15" aria-hidden="true">
         <div class="edge-index">34 <span>36</span></div><div class="repo-end"><div class="repo-logo">ASIT<span>↗</span></div><div class="repo-content"><div class="eyebrow">ЕСЛИ ХОТИТЕ ПОСМОТРЕТЬ</div><h2>Весь проект<br>открыт здесь.</h2><a href="https://github.com/tim8es/ASIT" target="_blank" rel="noreferrer">github.com/tim8es/ASIT</a></div><div class="repo-qr-note">Это материалы<br>проекта,<br>не ссылка на установку.</div></div>
         
       </section>
 
-      <section class="slide tone-blue" data-chapter="10 / ВЫВОД" data-time="14:50–15:12" aria-hidden="true">
+      <section class="slide tone-blue" data-chapter="10 / ВЫВОД" data-time="14:15–14:39" aria-hidden="true">
         <div class="edge-index">35 <span>36</span></div><div class="question-end"><div class="eyebrow">ТЕПЕРЬ ВОПРОС К ВАМ</div><h2>Что больше всего<br>мешало вам учить<br><em>язык?</em></h2><div class="answer-options"><span>ВРЕМЯ</span><span>СТРАХ ОШИБОК</span><span>СКУЧНЫЕ УРОКИ</span><span>НЕТ ПРОГРЕССА</span></div></div><div class="question-orbit"></div>
         
       </section>
 
-      <section class="slide tone-night final-slide" data-chapter="10 / ВЫВОД" data-time="15:12–15:35" aria-hidden="true">
-        <div class="edge-index">36 <span>36</span></div><div class="final-orbit"></div><div class="final-copy"><div class="eyebrow">ASIT · УЧИТЬСЯ ВМЕСТЕ</div><h2>Красивый экран<br>— это начало.</h2><p>Пусть следующий шаг будет полезным.</p><div class="final-rule"></div><span>МЕНЬШЕ ОБЕЩАНИЙ.<br>БОЛЬШЕ ПОНЯТНЫХ УРОКОВ.<br>БОЛЬШЕ ПРОВЕРКИ.</span></div><div class="final-signoff">ASIT <i>·</i> 15:35</div>
+      <section class="slide tone-night final-slide" data-chapter="10 / ВЫВОД" data-time="14:39–15:04" aria-hidden="true">
+        <div class="edge-index">36 <span>36</span></div><div class="final-orbit"></div><div class="final-copy"><div class="eyebrow">ASIT · УЧИТЬСЯ ВМЕСТЕ</div><h2>Красивый экран<br>— это начало.</h2><p>Пусть следующий шаг будет полезным.</p><div class="final-rule"></div><span>МЕНЬШЕ ОБЕЩАНИЙ.<br>БОЛЬШЕ ПОНЯТНЫХ УРОКОВ.<br>БОЛЬШЕ ПРОВЕРКИ.</span></div><div class="final-signoff">ASIT <i>·</i> 15:04</div>
       </section>
     </main>
 

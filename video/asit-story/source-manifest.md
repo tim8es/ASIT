@@ -18,6 +18,7 @@
 | S10 | [PR #42](https://github.com/tim8es/ASIT/pull/42) | Предлагаемые границы восстановления после сбоев Sheets | Open patch, не merged; подробность оставлена в этой карте источников |
 | S11 | [plugin/plugin.json](https://github.com/tim8es/ASIT/blob/main/plugin/plugin.json) | Версия manifest в main — `0.3.11` | Текущая версия исходника, не обязательно установленного плагина |
 | S12 | [GitHub Releases](https://github.com/tim8es/ASIT/releases) | Публичных Releases не найдено на дату проверки | API вернул пустой список; не исключает личную установку |
+| S13 | [Piper ru_RU-dmitri-medium](https://huggingface.co/rhasspy/piper-voices/blob/main/ru/ru_RU/dmitri/medium/MODEL_CARD) и [движок Piper](https://github.com/OHF-Voice/piper1-gpl) | Локально созданная MP3-озвучка; модельный dataset CC0, репозиторий голосов MIT | Черновик для оценки; документация Piper указывает personal use/TTS research, перед коммерческой публикацией отдельно проверьте условия |
 
 ## По сценам
 
@@ -59,6 +60,10 @@
 | 34 | Ссылка и статус source candidate — S2 |
 | 35 | Призыв к обсуждению — S1 |
 | 36 | Финальная формулировка — авторский синтез; фактическое обещание не даётся |
+
+## Озвучка и синхронизация
+
+Реплики синтезированы локально голосом `ru_RU-dmitri-medium`. `audio-timings.js` записывает границы по длине исходных WAV-сегментов; MP3 собран с 0.45-секундной паузой между слайдами. В браузере текущий слайд следует за `audio.currentTime`, а ручной переход перемещает плеер к началу нужной реплики. Длина готовой дорожки — 15:04.
 
 ## Изображения и цитаты
 
