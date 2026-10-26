@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b0e">
+  <meta name="description" content="Кинематографичная презентация о создании ASIT — преподавателя английского внутри ChatGPT.">
+  <title>ASIT — я превратил ChatGPT в приложение для изучения английского</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar" aria-label="Презентация ASIT">
+      <div class="brand"><span class="brand-mark">A</span><span>ASIT <i>/</i> FIELD NOTES</span></div>
+      <div class="chapter-now" id="chapter-now">01&nbsp; / &nbsp;HOOK</div>
+      <div class="top-actions">
+        <span class="duration-label">15:35&nbsp; · &nbsp;ЖИВОЙ ГОЛОС</span>
+        <button class="quiet-button" id="notes-toggle" type="button" aria-pressed="false" title="Показать заметку ведущего (N)">ЗАМЕТКА <kbd>N</kbd></button>
+        <button class="quiet-button" id="fullscreen-toggle" type="button" title="Полный экран (F)">ПОЛНЫЙ ЭКРАН <kbd>F</kbd></button>
+      </div>
+    </header>
+
+    <main class="presentation" id="presentation" aria-label="Слайды ASIT">
+      <section class="slide tone-night active" data-chapter="01 / HOOK" data-time="00:00–00:17" data-cue="Начать без вступления: сначала показать, что это уже похоже на приложение." aria-hidden="false">
+        <div class="edge-index">01 <span>36</span></div>
+        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-spark">↗</div>
+        <div class="cover-copy">
+          <div class="eyebrow"><span class="live-dot"></span> ИСТОРИЯ СОЗДАНИЯ · 15 МИНУТ</div>
+          <h1>Я превратил<br><em>ChatGPT</em> в приложение<br>для изучения английского.</h1>
+          <div class="cover-bottom"><p>Вот что получилось —<br>и что пока не работает.</p><span class="cover-date">ASIT / 2026</span></div>
+        </div>
+        <div class="cover-stamp">НЕ ОТДЕЛЬНОЕ<br>ПРИЛОЖЕНИЕ</div>
+        <div class="slide-source">ИСТОЧНИК: issue #43 · формулировка автора</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="01 / HOOK" data-time="00:17–00:33" data-cue="Попросить зрителя заметить оболочку ChatGPT вокруг урока; для финальной записи заменить слот настоящим снимком." aria-hidden="true">
+        <div class="edge-index">02 <span>36</span></div>
+        <div class="split-screen">
+          <div class="split-copy"><div class="eyebrow">СНАЧАЛА — ЭКРАН, НЕ ОБЕЩАНИЕ</div><h2>Урок<br><em>живёт</em><br>внутри чата.</h2><p class="small-copy">Нативные карточки и ответ остаются частью разговора с ChatGPT.</p><div class="source-chip">CAPTURE REQUIRED · 01</div></div>
+          <div class="capture-frame" data-capture="01-asit-chatgpt-home.png"><div class="capture-top"><span>CHATGPT / ASIT</span><span>ЗАМЕНИТЬ СНИМКОМ</span></div><div class="fake-window"><div class="fake-sidebar"></div><div class="fake-chat"><div class="fake-line short"></div><div class="fake-card"><span>СЛОТ ДЛЯ РЕАЛЬНОГО ЭКРАНА</span><b>ChatGPT → ASIT → урок</b><i>Этот макет не выдаётся за интерфейс продукта.</i></div><div class="fake-line"></div><div class="fake-line short"></div></div></div><div class="capture-foot"><span>assets/captures/01-asit-chatgpt-home.png</span><span>16:9 CROP</span></div></div>
+        </div>
+        <div class="slide-source">СЦЕНАРИЙ: issue #43 · скриншота в источниках нет</div>
+      </section>
+
+      <section class="slide tone-lime" data-chapter="01 / HOOK" data-time="00:33–00:50" data-cue="Короткая пауза на тезисе, затем открыть следующую главу через вопрос: почему вообще понадобился ASIT?" aria-hidden="true">
+        <div class="edge-index">03 <span>36</span></div><div class="giant-number">≠</div>
+        <div class="statement"><div class="eyebrow">ГЛАВНЫЙ КОНТРАСТ</div><h2>Это не ещё<br>одно приложение.</h2><p>Это попытка сделать сам чат — рабочей средой для обучения.</p></div>
+        <div class="bottom-note">CHATGPT NATIVE UI <span>→</span> ASIT LESSON</div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · issue #43</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="02 / БОЛЬ" data-time="00:50–01:18" data-cue="Признать ценность обычного ChatGPT, затем назвать границу: объяснение само по себе не строит учебную последовательность." aria-hidden="true">
+        <div class="edge-index">04 <span>36</span></div><div class="chapter-number">02</div>
+        <div class="center-copy"><div class="eyebrow">ПРОБЛЕМА БЫЛА НЕ В ОТВЕТАХ</div><h2>ChatGPT умеет<br><em>объяснить.</em></h2><p>Но объяснение ещё не означает, что человек сможет применить правило завтра.</p></div>
+        <div class="line-annotation">ОТВЕТ ≠ ОБУЧЕНИЕ</div><div class="slide-source">ДРАМАТУРГИЧЕСКИЙ ТЕЗИС · см. learning loop в docs/ARCHITECTURE.md</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="02 / БОЛЬ" data-time="01:18–01:47" data-cue="Показать учебную проблему через последовательность, а не длинный рассказ о промптах." aria-hidden="true">
+        <div class="edge-index">05 <span>36</span></div>
+        <div class="left-head"><div class="eyebrow">ЧЕГО НЕ ХВАТАЛО</div><h2>Не ещё одного<br>объяснения.<br><em>Непрерывности.</em></h2></div>
+        <div class="needs-list"><div><b>01</b><span>цель, которая принадлежит ученику</span></div><div><b>02</b><span>слабое место, подтверждённое ответами</span></div><div><b>03</b><span>следующее задание с учётом прошлого</span></div><div><b>04</b><span>проверка самостоятельного применения</span></div></div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · plugin/skills/asit-core</div>
+      </section>
+
+      <section class="slide tone-red" data-chapter="02 / БОЛЬ" data-time="01:47–02:15" data-cue="Если первичный MASTER PROMPT не восстановлен и не проверен, сказать это прямо; показать только слот с инструкцией." aria-hidden="true">
+        <div class="edge-index">06 <span>36</span></div><div class="red-slice"></div>
+        <div class="prompt-card"><div class="eyebrow">ПЕРВЫЙ MASTER PROMPT</div><h2>Снимок<br>источника<br>нужен.</h2><p>В публичном `main` исходный первичный документ не найден. Здесь нельзя реконструировать его по памяти.</p><span class="capture-warning">CAPTURE REQUIRED · ТОЛЬКО ПРОВЕРЕННЫЙ ИСТОРИЧЕСКИЙ ТЕКСТ</span></div>
+        <div class="slide-source">ИСТОЧНИК: issue #43 разрешает показывать prompt только при наличии достоверного документа</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="03 / ОТКРЫТИЕ" data-time="02:15–02:43" data-cue="Сравнить путь отдельного продукта с тем, что уже умеет среда ChatGPT." aria-hidden="true">
+        <div class="edge-index">07 <span>36</span></div><div class="eyebrow">ИДЕЯ-ПЕРЕЛОМ</div><h2 class="compare-title">А что, если<br>чат — уже <em>приложение?</em></h2>
+        <div class="compare-grid"><div class="compare-card muted"><span class="compare-label">ОТДЕЛЬНЫЙ ПРОДУКТ</span><strong>WEB APP</strong><div class="flow-row"><i>UI</i><b>+</b><i>API</i><b>+</b><i>LLM</i></div><small>свой фронтенд · сервер · аккаунты</small></div><div class="compare-arrow">↗</div><div class="compare-card active-card"><span class="compare-label">ПУТЬ ASIT</span><strong>CHATGPT</strong><div class="flow-row"><i>ASIT SKILLS</i><b>→</b><i>LESSON UI</i></div><small>инструкции · поддерживаемые элементы · чат</small></div></div>
+        <div class="slide-source">КОНЦЕПТУАЛЬНАЯ СХЕМА · docs/ARCHITECTURE.md</div>
+      </section>
+
+      <section class="slide tone-blue" data-chapter="03 / ОТКРЫТИЕ" data-time="02:43–03:12" data-cue="Подчеркнуть: это не новый runtime. Skills направляют модель, а интерфейс зависит от того, что реально поддерживает клиент." aria-hidden="true">
+        <div class="edge-index">08 <span>36</span></div><div class="eyebrow">МЕНЯЕТСЯ РОЛЬ ЧАТА</div><div class="big-word">NATIVE</div><div class="blue-caption"><h2>Чат даёт поверхность.<br>ASIT задаёт метод.</h2><p>Меню, карточки, Submit и обратная связь — только там, где клиент действительно поддерживает эти действия.</p></div><div class="blue-rings"><span></span><span></span><span></span></div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · PR #23</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="03 / ОТКРЫТИЕ" data-time="03:12–03:40" data-cue="Зафиксировать поворот: проектирование урока включает не только текст, но и действие ученика." aria-hidden="true">
+        <div class="edge-index">09 <span>36</span></div><div class="center-copy wide"><div class="eyebrow">НОВАЯ ЕДИНИЦА ДИЗАЙНА</div><h2>Не ответ.<br><em>Действие.</em></h2><p>Что ученик заметит, выберет, составит — и чем подтвердит, что понял?</p></div><div class="action-mark"><span>SEE</span><span>→</span><span>TRY</span><span>→</span><span>TRANSFER</span></div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · PR #36 (открытый candidate; не считать подтверждением live UX)</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="04 / ДЕМО" data-time="03:40–04:07" data-cue="Перед демонстрацией подписать версию и происхождение скриншота. Не использовать данные реального ученика." aria-hidden="true">
+        <div class="edge-index">10 <span>36</span></div><div class="demo-intro"><div class="eyebrow">СЕЙЧАС: ЧТО ВИДИТ УЧЕНИК</div><h2>Четыре режима.<br>Один вход.</h2><p>Название и порядок режимов нужно снять из реально установленного ASIT.</p><span class="source-chip">CAPTURE REQUIRED · 02</span></div><div class="menu-capture" data-capture="02-menu-modes.png"><div class="capture-top"><span>ASIT / MENU</span><span>ЗАМЕНИТЬ СНИМКОМ</span></div><div class="mode-list"><div>01 <i>РЕЖИМ 1</i><b>____________</b></div><div>02 <i>РЕЖИМ 2</i><b>____________</b></div><div>03 <i>РЕЖИМ 3</i><b>____________</b></div><div>04 <i>РЕЖИМ 4</i><b>____________</b></div></div><div class="capture-foot"><span>assets/captures/02-menu-modes.png</span><span>UI EVIDENCE</span></div></div>
+        <div class="slide-source">ИСТОЧНИК: структура сцены — issue #43 · реальные подписи не приложены</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="04 / ДЕМО" data-time="04:07–04:34" data-cue="Показать смену обложки только на настоящем примере; эта сцена остаётся слотом до съёмки." aria-hidden="true">
+        <div class="edge-index">11 <span>36</span></div><div class="demo-capture" data-capture="03-thematic-lesson-cover.png"><div class="capture-label">CAPTURE REQUIRED · 03</div><div class="demo-frame"><div class="demo-chip">ASIT / LESSON</div><div class="demo-graphic"><span class="demo-sun"></span><span class="demo-horizon"></span><span class="demo-orbit"></span></div><div class="demo-line"></div><div class="demo-line short"></div><div class="demo-btn">ЗАМЕНИТЬ НА РЕАЛЬНУЮ ОБЛОЖКУ</div></div><div class="capture-path">assets/captures/03-thematic-lesson-cover.png</div></div><div class="demo-side"><div class="eyebrow">НЕ ПРОСТО «КРАСИВО»</div><h2>Тема задаёт<br>контекст.</h2><p>Обложка урока помогает войти в ситуацию. Сама по себе она ещё ничего не доказывает об обучении.</p><span class="source-chip">СИНТЕТИЧЕСКИЙ МАКЕТ УБРАТЬ</span></div>
+        <div class="slide-source">СЦЕНА ДЛЯ ЗАМЕНЫ · issue #43</div>
+      </section>
+
+      <section class="slide tone-lime" data-chapter="04 / ДЕМО" data-time="04:34–05:01" data-cue="Переключить Cards / All на реальном устройстве, убедиться, что ответы сохраняются; не имитировать состояние в макете." data-capture="04-cards-and-all" aria-hidden="true">
+        <div class="edge-index">12 <span>36</span></div><div class="eyebrow">ОДНА ЗАДАЧА · ДВА ВЗГЛЯДА</div><h2 class="cards-heading">Cards <span>↔</span> All</h2><div class="cards-demo"><div class="task-card"><div class="task-meta">TASK 02 · WORD ORDER</div><h3>Выстрой фразу</h3><div class="word-chips"><span>usually</span><span>coffee</span><span>I</span><span>drink</span></div><div class="task-action">ПОЛЕ ОТВЕТА — ИЗ РЕАЛЬНОГО ЭКРАНА</div></div><div class="all-card"><div class="all-header">ALL <span>1 / 5</span></div><div class="all-line dark"></div><div class="all-line"></div><div class="all-line"></div><div class="all-line short"></div><span class="fake-stamp">СХЕМА, НЕ СКРИНШОТ</span></div></div><div class="capture-ribbon">CAPTURE REQUIRED · 04 · ПРОВЕРИТЬ СОХРАНЕНИЕ ОТВЕТОВ ПРИ ПЕРЕКЛЮЧЕНИИ</div>
+        <div class="slide-source">СЦЕНА-ДИАГРАММА · реальный interaction state не проверен</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="04 / ДЕМО" data-time="05:01–05:28" data-cue="Показать 2–3 разные операции и один финальный Submit. Назвать только то, что действительно проверили в установленной версии." data-capture="05-exercise-types" aria-hidden="true">
+        <div class="edge-index">13 <span>36</span></div><div class="eyebrow">РАЗНЫЕ ЗАДАНИЯ — РАЗНЫЕ НАВЫКИ</div><h2 class="types-heading">Выбор. Сборка. <em>Своя фраза.</em></h2><div class="exercise-types"><div class="exercise-type"><span>01</span><b>RECOGNIZE</b><small>узнать подходящий вариант</small></div><div class="exercise-type active-exercise"><span>02</span><b>CONSTRUCT</b><small>собрать фразу самому</small></div><div class="exercise-type"><span>03</span><b>PRODUCE</b><small>ответить в новом контексте</small></div></div><div class="proof-line"><span>CAPTURE REQUIRED · 05</span><span>assets/captures/05-exercises-*.png</span><span>НЕ ИСПОЛЬЗОВАТЬ ОТВЕТЫ УЧЕНИКА</span></div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · PR #36 (открытый, кандидатные контракты; не гарантия установленного UI)</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="04 / ДЕМО" data-time="05:28–05:55" data-cue="Завершить демонстрацию именно экраном результата и пометкой, подтверждены ли сохранение и readback." aria-hidden="true">
+        <div class="edge-index">14 <span>36</span></div><div class="result-grid"><div class="result-title"><div class="eyebrow">ПОСЛЕ SUBMIT</div><h2>Оценка<br>≠ сохранение.</h2><p>Результат в чате можно увидеть без записи прогресса.</p></div><div class="result-capture" data-capture="06-submit-result.png"><span class="capture-warning">CAPTURE REQUIRED · 06</span><div class="result-meter"><div><span>ASSESSMENT</span><b>___</b><small>как отвечает ученик</small></div><div><span>STORAGE</span><b>___</b><small>что readback подтвердил</small></div></div><div class="result-capture-foot">assets/captures/06-submit-result.png · закрыть приватные данные</div></div></div>
+        <div class="slide-source">ИСТОЧНИК: plugin/skills/asit-progress/references/storage-v2.md</div>
+      </section>
+
+      <section class="slide tone-blue" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="05:55–06:23" data-cue="Провести взглядом от цели к следующему уроку. Это модель, а не обещание автоматической памяти без коннектора." aria-hidden="true">
+        <div class="edge-index">15 <span>36</span></div><div class="eyebrow">ЗА КАРТОЧКОЙ — УЧЕБНЫЙ ЦИКЛ</div><h2 class="loop-heading">Каждый ответ должен <em>что-то менять.</em></h2><div class="loop-track"><div><span>01</span><b>GOAL</b><small>что хочу уметь</small></div><i>→</i><div><span>02</span><b>LESSON</b><small>что практикую</small></div><i>→</i><div><span>03</span><b>ANSWER</b><small>что получилось</small></div><i>→</i><div><span>04</span><b>ASSESS</b><small>на чём основан вывод</small></div><i>→</i><div><span>05</span><b>NEXT</b><small>что попробовать дальше</small></div></div><div class="loop-caption">WEAKNESS → НОВАЯ ЦЕЛЬ / ПОВТОР</div>
+        <div class="slide-source">КОНЦЕПТ ПО docs/ARCHITECTURE.md · плагин не автономный обучающий движок</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="06:23–06:52" data-cue="Сделать различие на конкретном примере: выбрать правильный вариант — не то же самое, что построить свою фразу." aria-hidden="true">
+        <div class="edge-index">16 <span>36</span></div><div class="evidence-split"><div class="evidence-half recognize"><span class="evidence-tag">СЛАБОЕ ДОКАЗАТЕЛЬСТВО</span><b class="choice">A</b><h3>Узнал ответ</h3><p>Выбрал форму из списка.</p><small>RECOGNITION</small></div><div class="evidence-divider">≠</div><div class="evidence-half independent"><span class="evidence-tag">БОЛЕЕ СИЛЬНОЕ</span><b class="constructed">“I take the train<br>when it rains.”</b><h3>Применил сам</h3><p>Новый контекст, без подсказки.</p><small>INDEPENDENT TRANSFER</small></div></div><div class="eyebrow evidence-footer">СТАТУС ВЫВОДА ЗАВИСИТ ОТ ТОГО, ЧТО ИМЕННО НАБЛЮДАЛИ</div>
+        <div class="slide-source">ИСТОЧНИК: plugin/skills/asit-core · plugin/skills/asit-english</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="05 / УЧЕБНЫЙ ЦИКЛ" data-time="06:52–07:20" data-cue="Уточнить: напечатанный ответ не является прослушиванием; UI-клик не подтверждает произношение." aria-hidden="true">
+        <div class="edge-index">17 <span>36</span></div><div class="truth-wall"><div class="eyebrow">МОДАЛЬНОСТЬ — ЭТО ТОЖЕ ДОКАЗАТЕЛЬСТВО</div><div class="truth-row"><span>ТЕКСТ</span><b>≠</b><strong>ПРОИЗНОШЕНИЕ</strong></div><div class="truth-row"><span>ССЫЛКА НА АУДИО</span><b>≠</b><strong>ЗВУК УСЛЫШАЛИ</strong></div><div class="truth-row"><span>КЛИК ПО КАРТОЧКЕ</span><b>≠</b><strong>НАВЫК ОСВОЕН</strong></div><p>Если среда не подтверждает действие — ASIT должен сказать «не оценено».</p></div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · PR #14–16</div>
+      </section>
+
+      <section class="slide tone-red" data-chapter="06 / НЕУДАЧИ" data-time="07:20–07:50" data-cue="Перейти к конкретному случаю PR #16 и озвучить точную длину аудиокниги, которую отклонил ученик." aria-hidden="true">
+        <div class="edge-index">18 <span>36</span></div><div class="failure-number">10:40</div><div class="failure-copy"><div class="eyebrow">PR #16 · MERGED · SOURCE QUOTE</div><h2>“The learner correctly<br>rejected the full file<br>as unsuitable for a single card.”</h2><p>Перевод: ученик отверг полную запись как неподходящую для одной карточки. В обычном режиме теперь нужен короткий реальный фрагмент с проверенной длительностью.</p><div class="failure-resolution"><span>БЫЛО</span><b>10 мин 40 сек</b><i>→</i><span>СТАЛО</span><b>15–35 сек по умолчанию</b></div></div><div class="failure-diagram">FULL FILE<br><div class="wave long-wave"></div><small>НЕ ОБРЕЗАН ПО ФАКТУ</small></div>
+        <div class="slide-source">ИСТОЧНИК: PR #16 · merged · 2026-10-16</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="06 / НЕУДАЧИ" data-time="07:50–08:20" data-cue="Показать, что красивый standalone-плеер не был успешной поставкой: ученик его отверг, а предпочтение было в пользу нативной среды." aria-hidden="true">
+        <div class="edge-index">19 <span>36</span></div><div class="issue-quote"><div class="quote-mark">!</div><blockquote>“The audio file played,<br><em>but sound quality and UX were unacceptable.”</em></blockquote><div class="quote-context"><b>PR #14 · SOURCE QUOTE</b><span>Перевод: файл проигрывался, но качество звука и пользовательский опыт не устроили.</span></div></div><div class="quote-side"><div class="eyebrow">УРОК</div><h3>Воспроизводится<br>— ещё не значит<br>подходит.</h3><div class="signal">UX ≠ УСПЕШНЫЙ PLAY</div></div>
+        <div class="slide-source">ПЕРЕСКАЗ QA В PR #14 · исходный standalone demo не воспроизводится здесь</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="06 / НЕУДАЧИ" data-time="08:20–08:50" data-cue="Чётко сказать: в мобильном интерфейсе плеер был виден, звук не пошёл; причина не установлена." aria-hidden="true">
+        <div class="edge-index">20 <span>36</span></div><div class="phone-story"><div class="phone"><div class="phone-speaker"></div><div class="phone-screen"><div class="phone-label">LISTEN → ANSWER</div><div class="phone-audio"><span class="play-triangle">▶</span><div class="phone-track"><i></i></div><b>00:00</b></div><div class="phone-answer"></div><div class="phone-answer short"></div><div class="phone-status">NO SOUND</div></div></div><div class="phone-copy"><div class="eyebrow">PR #15 · MERGED · SOURCE QUOTE</div><h2>“the inline audio player<br><em>rendered but sound did not play.”</em></h2><p>Перевод: мобильный плеер отобразился, но звук не пошёл. Ученик не ответил; listening осталось <code>not_assessed</code>. Причина не подтверждена.</p><div class="truth-pill">НЕ ОЦЕНИВАТЬ УГАДАННЫЕ ОТВЕТЫ</div></div></div>
+        <div class="slide-source">ИСТОЧНИК: PR #15 · оговорка автора: точная причина не подтверждена</div>
+      </section>
+
+      <section class="slide tone-red" data-chapter="06 / НЕУДАЧИ" data-time="08:50–09:20" data-cue="Связать статические тесты и настоящий сценарий. PR #36 остаётся открытым кандидатом, его private dogfood не является доказательством для всех пользователей." aria-hidden="true">
+        <div class="edge-index">21 <span>36</span></div><div class="test-fail"><div class="test-side"><span class="eyebrow">PR #36 · OPEN CANDIDATE</span><div class="test-stamp">PASS</div><p>Проверки формата<br>могут пройти.</p></div><div class="test-connector">/</div><div class="fail-side"><span class="eyebrow">DOGFOOD · SOURCE QUOTE</span><div class="fail-stamp">MISS</div><p>“an all-prose lesson with no image or working controls.”<br><small>Перевод: урок состоял из текста — без изображения и рабочих элементов.</small></p></div></div><div class="two-truths"><span>ТЕСТЫ ПРОШЛИ</span><b>≠</b><span>ПОЛЬЗОВАТЕЛЬСКИЙ СЦЕНАРИЙ РАБОТАЕТ</span></div>
+        <div class="slide-source">ИСТОЧНИК: PR #36 · open, не merged; private dogfood описан автором PR</div>
+      </section>
+
+      <section class="slide tone-blue" data-chapter="07 / АРХИТЕКТУРА" data-time="09:20–09:44" data-cue="Нарисовать роли из ARCHITECTURE.md; вести от чата к тонкому роутеру и дальше к специализациям." aria-hidden="true">
+        <div class="edge-index">22 <span>36</span></div><div class="eyebrow">АРХИТЕКТУРА · НЕ СХЕМА СЕРВЕРОВ</div><h2 class="arch-heading">Кто за что отвечает.</h2><div class="arch-flow"><div class="arch-node entry">CHATGPT<br><small>native UI</small></div><span>→</span><div class="arch-node router">ASIT-TEACHER<br><small>тонкий роутер</small></div><span>→</span><div class="arch-stack"><div>ASIT-CORE <small>учебный цикл</small></div><div>ASIT-ENGLISH <small>предметный адаптер</small></div><div>ASIT-LESSONS / EXERCISES <small>план и форма задания</small></div><div>ASSESSMENT / PROGRESS <small>оценка / хранение</small></div></div></div><div class="arch-rule">одна точка Submit <span>·</span> отдельная запись прогресса <span>·</span> реальные возможности интерфейса</div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · merged PR #23</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="07 / АРХИТЕКТУРА" data-time="09:44–10:07" data-cue="Снять ложное ожидание backend-а: в репозитории Skills — инструкции для модели, не сервер и не автономная память." aria-hidden="true">
+        <div class="edge-index">23 <span>36</span></div><div class="skills-statement"><div class="eyebrow">САМАЯ ВАЖНАЯ ГРАНИЦА</div><h2>Skills — это<br><em>инструкции.</em></h2><div class="not-list"><div><span>НЕ</span> исполняемый JS-движок</div><div><span>НЕ</span> сервер и база памяти</div><div><span>НЕ</span> автоматический Submit hook</div></div></div><div class="skills-visual"><div class="file-stack"><div>asit-teacher / SKILL.md</div><div>asit-core / SKILL.md</div><div>asit-lessons / references</div></div><div class="line-arrow">→</div><div class="model-node">ChatGPT<br><small>среда исполнения</small></div></div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md · PR #23</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="07 / АРХИТЕКТУРА" data-time="10:07–10:31" data-cue="Развести subject-neutral core и English adapter; CEFR — не универсальная шкала для любого предмета." aria-hidden="true">
+        <div class="edge-index">24 <span>36</span></div><div class="adapter-map"><div class="core-block"><span>CORE</span><b>Как учиться</b><small>цель · трудность · повтор · перенос</small></div><div class="adapter-arrow">+</div><div class="subject-block"><span>ADAPTER</span><b>Чему учить</b><small>английские правила · ответы · рубрика</small></div><div class="adapter-out"><span>→</span><strong>LESSON</strong><small>один подходящий шаг</small></div></div><div class="boundary-label">CEFR остаётся частью английской методики — это не универсальный измеритель всего обучения.</div>
+        <div class="slide-source">ИСТОЧНИК: docs/ARCHITECTURE.md</div>
+      </section>
+
+      <section class="slide tone-lime" data-chapter="07 / АРХИТЕКТУРА" data-time="10:31–10:55" data-cue="Закрыть главу: изменение инструкций и статические проверки не обновляют установленную копию плагина." aria-hidden="true">
+        <div class="edge-index">25 <span>36</span></div><div class="publish-split"><div class="publish-col"><span class="eyebrow">SOURCE REPO</span><b>Есть код.<br>Есть контракт.</b><small>GitHub main</small></div><div class="split-slash">//</div><div class="publish-col install"><span class="eyebrow">CHATGPT WORKSPACE</span><b>Отдельная<br>установка.</b><small>нужны публикация и проверка</small></div></div><div class="publish-footer">PR #23: переход архитектуры. Установка и live acceptance — отдельные шаги.</div>
+        <div class="slide-source">ИСТОЧНИК: PR #23 · README.md · docs/ARCHITECTURE.md</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="08 / ПАМЯТЬ" data-time="10:55–11:20" data-cue="Разобрать только понятный путь данных; каждую запись надо подтвердить чтением обратно." aria-hidden="true">
+        <div class="edge-index">26 <span>36</span></div><div class="eyebrow">ПАМЯТЬ — ЭТО ПРОТОКОЛ, НЕ СУПЕРСИЛА</div><h2 class="memory-heading">Урок оставляет<br><em>проверяемый след.</em></h2><div class="memory-route"><div><span>01</span>LESSON</div><i>→</i><div><span>02</span>ATTEMPT</div><i>→</i><div class="verified"><span>03</span>READ BACK</div><i>→</i><div><span>04</span>NEXT STEP</div></div><p class="memory-caption">Новая цель опирается на то, что действительно прочитали из хранилища.</p>
+        <div class="slide-source">ИСТОЧНИК: plugin/skills/asit-progress/references/storage-v2.md</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="08 / ПАМЯТЬ" data-time="11:20–11:45" data-cue="Показать вымышленные демонстрационные строки, назвать их синтетическими и объяснить, что записи ученика здесь нет." aria-hidden="true">
+        <div class="edge-index">27 <span>36</span></div><div class="sheet-scene"><div class="sheet-top"><div><span class="sheet-dot"></span> ASIT / LEARNING LOG</div><span class="synthetic-badge">SYNTHETIC DATA</span></div><div class="sheet-grid"><div class="sheet-row header"><span>ENTITY</span><span>STATUS</span><span>NOTE</span></div><div class="sheet-row"><span>attempt_demo_01</span><b>VERIFIED</b><span>sample only</span></div><div class="sheet-row"><span>goal_demo_02</span><b class="pending">NOT VERIFIED</b><span>no readback</span></div><div class="sheet-row"><span>user answer</span><b class="private">NOT INCLUDED</b><span>no real learner data</span></div></div><div class="sheet-bottom">ЭТО НЕ СНИМОК GOOGLE SHEETS · СТРОКИ ВЫМЫШЛЕНЫ</div></div><div class="sheet-copy"><div class="eyebrow">ТОЛЬКО СИНТЕТИКА</div><h2>Данные —<br>чужие.</h2><p>Никаких имён, ответов, workbook IDs или личных историй.</p></div>
+        <div class="slide-source">ВИЗУАЛИЗАЦИЯ НА СИНТЕТИЧЕСКИХ ДАННЫХ · storage-v2.md</div>
+      </section>
+
+      <section class="slide tone-blue" data-chapter="08 / ПАМЯТЬ" data-time="11:45–12:10" data-cue="Назвать состояния честно: Fully synced требует проверки всех нужных строк и проекций; таймаут не является успехом." aria-hidden="true">
+        <div class="edge-index">28 <span>36</span></div><div class="eyebrow">ЧЕСТНЫЕ СОСТОЯНИЯ СОХРАНЕНИЯ</div><div class="sync-states"><div class="sync-card gray"><span class="state-dot"></span><small>NO WRITE</small><b>Not saved</b><p>практика прошла в чате</p></div><div class="sync-card amber"><span class="state-dot"></span><small>AMBIGUOUS</small><b>Not verified</b><p>результат записи неясен</p></div><div class="sync-card green"><span class="state-dot"></span><small>READBACK</small><b>Fully synced</b><p>проверены нужные данные</p></div></div><div class="state-rule">Не утверждать сохранение, пока источник не прочитан обратно.</div>
+        <div class="slide-source">ИСТОЧНИК: storage-v2.md · статусы на схеме, не live screenshot</div>
+      </section>
+
+      <section class="slide tone-red" data-chapter="08 / ПАМЯТЬ" data-time="12:10–12:35" data-cue="Уточнить предел гарантии: девять вкладок по контракту, но без ACID и exactly-once обещаний." aria-hidden="true">
+        <div class="edge-index">29 <span>36</span></div><div class="storage-boundary"><div class="nine-grid"><span>CONFIG</span><span>GOALS</span><span>COMPETENCIES</span><span>PLANS</span><span>ACTIVITIES</span><span>ATTEMPTS</span><span>REVIEWS</span><span>SESSIONS</span><span>EVENTS</span></div><div class="storage-copy"><div class="eyebrow">STORAGE V2 · 9 REQUIRED TABS</div><h2>Проверяемо.<br>Но <em>не магия.</em></h2><p>Это не транзакционная база и не гарантия exactly-once. Ошибка или гонка остаются ошибкой, пока их не разрешили.</p><span class="source-chip">PR #42 · OPEN RECOVERY PATCH</span></div></div>
+        <div class="slide-source">ИСТОЧНИК: storage-v2.md · PR #42 открыт, не merged</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="09 / СЕГОДНЯ" data-time="12:35–13:05" data-cue="Сопоставить версию, названную в задании, с той, что проверяется в публичном main; не превращать первое в доказательство." aria-hidden="true">
+        <div class="edge-index">30 <span>36</span></div><div class="version-ledger"><div class="ledger-head"><div class="eyebrow">СТАТУС НА МОМЕНТ СБОРКИ</div><h2>Два состояния<br>одного проекта.</h2></div><div class="version-line"><span>В ISSUE #43</span><b>v0.3.18</b><i>указана установленная версия<br>и smoke test автора</i><small>НЕ ПРОВЕРЕНО В ЭТОЙ СБОРКЕ</small></div><div class="version-line repo"><span>GITHUB MAIN</span><b>v0.3.11</b><i>текущий plugin/plugin.json</i><small>ПУБЛИЧНЫХ RELEASES: НЕТ</small></div></div>
+        <div class="slide-source">ИСТОЧНИКИ: issue #43 · main/plugin/plugin.json · GitHub Releases API (пусто), проверено 2026-10-26</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="09 / СЕГОДНЯ" data-time="13:05–13:35" data-cue="Показать текущую честную картину: есть наблюдавшийся smoke test по brief, но не полный end-to-end proof всех устройств и хранилищ." aria-hidden="true">
+        <div class="edge-index">31 <span>36</span></div><div class="today-copy"><div class="eyebrow">РАБОЧИЙ ПРОТОТИП · НЕ ДОКАЗАННЫЙ ПРОДУКТ</div><h2>Что уже можно<br>сказать честно.</h2><div class="today-facts"><div><b>01</b><span>У автора наблюдался UI smoke test<br><small>по issue #43; здесь не повторён</small></span></div><div><b>02</b><span>Контракт разделяет оценку и сохранение<br><small>это подтверждается исходником</small></span></div><div><b>03</b><span>Устройства и коннекторы ведут себя по-разному<br><small>универсальной гарантии нет</small></span></div></div></div><div class="today-stamp">PROTOTYPE<br>≠<br>PROOF</div>
+        <div class="slide-source">ИСТОЧНИК: issue #43 · docs/ARCHITECTURE.md · storage-v2.md</div>
+      </section>
+
+      <section class="slide tone-lime" data-chapter="09 / СЕГОДНЯ" data-time="13:35–14:05" data-cue="Собрать ограничения на одном кадре и предупредить, что репозиторий не синхронизирован автоматически с личным плагином." aria-hidden="true">
+        <div class="edge-index">32 <span>36</span></div><div class="limits-board"><div class="eyebrow">ГРАНИЦЫ, КОТОРЫЕ НЕ СКРЫВАЕМ</div><div class="limit-cards"><div><span>AUDIO</span><b>Источник может быть коротким —<br>плеер всё равно может молчать.</b><small>PR #14–16 · mobile playback не универсален</small></div><div><span>GENERATION</span><b>Контракт просит rich UI —<br>модель может его не выдать.</b><small>PR #36 · open candidate</small></div><div><span>SAVE</span><b>Попытка записи —<br>ещё не подтверждённый readback.</b><small>storage-v2.md · PR #42 open</small></div></div></div>
+        <div class="slide-source">СВЕРКА: merged PR #14–16 · open PR #36/#42 · storage-v2.md</div>
+      </section>
+
+      <section class="slide tone-night" data-chapter="10 / ВЫВОД" data-time="14:05–14:28" data-cue="Перейти к трём разным ступеням зрелости и не перепутать их в итоговом выводе." aria-hidden="true">
+        <div class="edge-index">33 <span>36</span></div><div class="maturity"><div class="eyebrow">ТРИ РАЗНЫЕ СТАДИИ</div><div class="maturity-row"><span>01</span><b>КРАСИВЫЙ ИНТЕРФЕЙС</b><i>можно увидеть</i></div><div class="maturity-row"><span>02</span><b>РАБОТАЮЩИЙ ПРОТОТИП</b><i>можно повторить сценарий</i></div><div class="maturity-row current"><span>03</span><b>НАДЁЖНЫЙ ПРОДУКТ</b><i>доказать на реальных случаях</i></div></div><div class="maturity-mark">≠</div><div class="maturity-note">Одна ступень не доказывает следующую.</div>
+        <div class="slide-source">СИНТЕЗ ИСТОЧНИКОВ: issue #43 · PR #14–16 · PR #36 · storage-v2.md</div>
+      </section>
+
+      <section class="slide tone-paper" data-chapter="10 / ВЫВОД" data-time="14:28–14:50" data-cue="Не обещать публичную установку. Показать ссылку на проект как на исходники и предмет обсуждения." aria-hidden="true">
+        <div class="edge-index">34 <span>36</span></div><div class="repo-end"><div class="repo-logo">ASIT<span>↗</span></div><div class="repo-content"><div class="eyebrow">OPEN SOURCE / SOURCE CANDIDATE</div><h2>История, код<br>и открытые границы.</h2><a href="https://github.com/tim8es/ASIT" target="_blank" rel="noreferrer">github.com/tim8es/ASIT</a></div><div class="repo-qr-note">Ссылка ведёт<br>на репозиторий,<br>не на установку.</div></div>
+        <div class="slide-source">ИСТОЧНИК: README.md · не обещает публичную доступность плагина</div>
+      </section>
+
+      <section class="slide tone-blue" data-chapter="10 / ВЫВОД" data-time="14:50–15:12" data-cue="Закончить открытым вопросом про личный опыт зрителя, не спорить о методе изучения языка." aria-hidden="true">
+        <div class="edge-index">35 <span>36</span></div><div class="question-end"><div class="eyebrow">ТЕПЕРЬ ВОПРОС К ВАМ</div><h2>Что больше всего<br>мешало вам учить<br><em>язык?</em></h2><div class="answer-options"><span>ВРЕМЯ</span><span>СТРАХ ОШИБОК</span><span>СКУЧНЫЕ УРОКИ</span><span>НЕТ ПРОГРЕССА</span></div></div><div class="question-orbit"></div>
+        <div class="slide-source">ФИНАЛЬНЫЙ CTA · формулировка автора из issue #43</div>
+      </section>
+
+      <section class="slide tone-night final-slide" data-chapter="10 / ВЫВОД" data-time="15:12–15:35" data-cue="Оставить финальную фразу на экране, сделать паузу, закончить без нового обещания." aria-hidden="true">
+        <div class="edge-index">36 <span>36</span></div><div class="final-orbit"></div><div class="final-copy"><div class="eyebrow">ASIT / ADAPTIVE LEARNING FRAMEWORK</div><h2>Красиво —<br>это начало.</h2><p>Дальше нужно доказать, что урок работает.</p><div class="final-rule"></div><span>НЕ ЕЩЁ ОДИН ПЛЕЕР.<br>НЕ ОБЕЩАНИЕ.<br>РАБОТАЮЩАЯ ПРАКТИКА.</span></div><div class="final-signoff">ASIT <i>·</i> 15:35</div><div class="slide-source">ИСТОЧНИКИ И ОГОВОРКИ: source-manifest.md</div>
+      </section>
+    </main>
+
+    <footer class="controls" aria-label="Управление слайдами">
+      <div class="controls-left"><button id="prev" class="nav-button" type="button" aria-label="Предыдущий слайд">←</button><button id="next" class="nav-button forward" type="button" aria-label="Следующий слайд">→</button><span class="counter" id="counter">01 <i>/</i> 36</span></div>
+      <input id="progress" class="progress" type="range" min="1" max="36" value="1" aria-label="Перейти к слайду">
+      <div class="controls-right"><span id="timecode">00:00–00:17</span><span class="key-hint">← → ЛИСТАТЬ</span></div>
+    </footer>
+    <aside id="notes-panel" class="notes-panel" aria-live="polite" hidden><span>ПОДСКАЗКА ВЕДУЩЕМУ</span><p id="notes-text"></p><small>Полный сценарный каркас — speaker-notes.md</small></aside>
+  </div>
+</body>
+</html>
